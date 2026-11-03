@@ -1,4 +1,5 @@
 import { MAX_PACKAGE_BYTES, sha256 } from './archive.mjs';
+import { validateCoverInfo, coverRoles } from './covers.mjs';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const hash = /^[0-9a-f]{64}$/;
@@ -15,6 +16,15 @@ export function validateSnapshot(snapshot) {
   for (const entry of snapshot.decks) {
     if (!uuid.test(entry.deckID) || ids.has(entry.deckID) || entry.access !== 'public' || entry.productID || !sources.has(entry.sourceURL) || !string(entry.title, 1, 80) || !string(entry.author, 1, 120) || !string(entry.description, 0, 2000) || !positive(entry.version, 999999999) || !positive(entry.packageBytes, MAX_PACKAGE_BYTES) || !hash.test(entry.packageSHA256) || !positive(entry.photoCount, 500) || !positive(entry.wordCount, 5000)) fail();
     ids.add(entry.deckID);
+    if (entry.learningSHA256 !== undefined && (!hash.test(entry.learningSHA256) || !Array.isArray(entry.progressAliases) || entry.progressAliases.length > 100 || !entry.progressAliases.every(v => hash.test(v)))) fail();
+    if (entry.covers !== undefined) {
+      if (!entry.covers || !coverRoles.every(role => entry.covers[role]) || Object.keys(entry.covers).length !== 2) fail();
+      for (const role of coverRoles) {
+        const info = entry.covers[role]; validateCoverInfo(info, role);
+        let url; try { url = new URL(info.url); } catch { fail(); }
+        if (url.origin !== 'https://piclex.v2fy.com' || url.username || url.password || url.hash || url.search || !['/decks/', '/public/subscriptions/'].some(prefix => url.pathname.startsWith(prefix))) fail();
+      }
+    }
     for (const field of ['packageURL', 'coverURL']) {
       let url; try { url = new URL(entry[field]); } catch { fail(); }
       if (url.origin !== 'https://piclex.v2fy.com' || url.username || url.password || url.hash || url.search || !['/decks/', '/public/subscriptions/'].some(prefix => url.pathname.startsWith(prefix))) fail();
@@ -28,6 +38,8 @@ export function parsePublicCatalog(value) {
   const ids = new Set();
   for (const card of value) {
     if (!card || !uuid.test(card.id) || ids.has(card.id) || !string(card.title, 1, 80) || !string(card.description, 0, 2000) || !positive(card.count, 5000) || !positive(card.photoCount, 500) || !hash.test(card.fingerprint) || !hash.test(card.payloadSHA256) || ![card.cover, card.package, card.payload].every(assetPath) || !card.preview || !string(card.preview.english, 1, 100) || !string(card.preview.chinese, 1, 200)) fail();
+    if (card.covers !== undefined && (!card.covers || !coverRoles.every(role => assetPath(card.covers[role])))) fail();
+    if (card.learningFingerprint !== undefined && (!hash.test(card.learningFingerprint) || !Array.isArray(card.progressAliases) || card.progressAliases.length > 100 || !card.progressAliases.every(v => hash.test(v)))) fail();
     ids.add(card.id);
   }
   return value;
@@ -38,6 +50,7 @@ export async function parsePublicDeck(bytes, card) {
   if (!(bytes instanceof Uint8Array) || bytes.length > 8 * 1024 * 1024 || await sha256(bytes) !== card.payloadSHA256) fail();
   let value; try { value = JSON.parse(new TextDecoder().decode(bytes)); } catch { fail(); }
   if (value.format !== 'com.piclex.web-deck' || value.schemaVersion !== 1 || value.deckID !== card.id || value.fingerprint !== card.fingerprint || !string(value.title, 1, 80) || !Array.isArray(value.photos) || value.photos.length !== card.photoCount || !Array.isArray(value.words) || value.words.length !== card.count) fail();
+  if (value.learningFingerprint !== card.learningFingerprint) fail();
   for (const photo of value.photos) if (!photo || !uuid.test(photo.id) || !assetPath(photo.path)) fail();
   for (const word of value.words) {
     if (!word || !string(word.id, 1, 200) || !string(word.english, 1, 100) || !string(word.chinese, 1, 200) || !Number.isInteger(word.imageIndex) || word.imageIndex < 0 || word.imageIndex >= value.photos.length || !string(word.example, 0, 2000) || !string(word.exampleChinese, 0, 2000) || !string(word.phonetic, 0, 200) || !string(word.partOfSpeech, 0, 50)) fail();

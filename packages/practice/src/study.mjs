@@ -12,6 +12,14 @@ function prepare(deck,s){
  if(!draft.result){const indices=s.quick?s.history[word.id]?.mistakes:null;draft.quickIndices=indices?.length?indices:null;}
 }
 function pause(s){s.pending=null;for(const value of Object.values(s.sentences))value.pending=null;s.presentation++;}
+export function restoreStudyFromStorage(deck, read) {
+ const keys = [deck.fingerprint, ...(deck.legacyFingerprints || [])];
+ for (const fingerprint of keys) {
+  const saved = read(`piclex-web.study.v2.${fingerprint}`), legacy = read(`piclex-web.progress.v1.${fingerprint}`);
+  if (saved?.fingerprint === fingerprint || legacy?.fingerprint === fingerprint) return {...restoreStudy({...deck, fingerprint}, saved, legacy), fingerprint: deck.fingerprint};
+ }
+ return newStudy(deck);
+}
 export function restoreStudy(deck,saved,legacy){
  const fresh=newStudy(deck);
  if(saved?.version!==2||saved.fingerprint!==deck.fingerprint){

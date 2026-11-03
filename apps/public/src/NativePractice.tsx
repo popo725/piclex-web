@@ -3,13 +3,13 @@ import {PhotoFocus,type Focus} from '../../../packages/learning-ui/src/PhotoFocu
 import {AnswerSlots} from '../../../packages/learning-ui/src/AnswerSlots';
 import SpellingGlow from '../../../packages/learning-ui/src/SpellingGlow';
 import {maskExample,mismatch,completionProgress,exampleTokens,exampleWords,tokenForWord} from '../../../packages/learning-ui/src/spelling.mjs';
-import {newStudy,restoreStudy,reduceStudy,studyKey,wordDraft,expectedInput} from '../../../packages/practice/src/study.mjs';
+import {newStudy,restoreStudy,restoreStudyFromStorage,reduceStudy,studyKey,wordDraft,expectedInput} from '../../../packages/practice/src/study.mjs';
 import {promptsFor,newSentence,rates,writtenWords,checkSentence,tokens} from '../../../packages/practice/src/sentence.mjs';
 import {readPreference,writePreference} from './storage';
 import {useSpeech} from './useSpeech';
 import './practice.css';
 export type Word={id:string;english:string;chinese:string;imageIndex:number;focus:Focus;example:string;exampleChinese:string;phonetic:string;partOfSpeech:string;occurrenceID?:string};
-export type PracticeDeck={id:string;title:string;fingerprint:string;words:Word[];images:string[]};
+export type PracticeDeck={id:string;title:string;fingerprint:string;legacyFingerprints?:string[];words:Word[];images:string[]};
 type Action={type:string;[key:string]:unknown};
 const modes=[['listening','随身听'],['chunks','词块拼句'],['free','自由听写']];
 const modules=[['spelling','拼单词'],['listening','练听力'],['speaking','练口语']];
@@ -65,7 +65,7 @@ function Reading({word,active,audio,rate,notify,saved,next}:{word:Word;active:bo
 export default function NativePractice({deck,notify,exit,download,share}:{deck:PracticeDeck;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void}){
  const storageKey=`piclex-web.study.v2.${deck.fingerprint}`;
  // The model validates untrusted saved state and migrates the first public release's progress.
- const [state,setState]=useState<any>(()=>restoreStudy(deck,readJSON(storageKey),readJSON(`piclex-web.progress.v1.${deck.fingerprint}`)));
+ const [state,setState]=useState<any>(()=>restoreStudyFromStorage(deck,readJSON));
  const key=studyKey(state),input=useRef<HTMLInputElement>(null),warned=useRef(false),[panel,setPanel]=useState<'gallery'|'settings'|null>(null);
  const [visible,setVisible]=useState(!document.hidden),[composing,setComposing]=useState(false),[composition,setComposition]=useState('');
  const [repeat,setRepeat]=useState(()=>readPreference('piclex-web.listening.repeat')||'five'),[onePhoto,setOnePhoto]=useState(()=>readPreference('piclex-web.listening.single-photo')==='true');

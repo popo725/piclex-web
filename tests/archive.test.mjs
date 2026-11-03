@@ -23,7 +23,7 @@ test('tampered photo and metadata fail before an import can be committed',async(
 test('malformed packages, unsafe paths, excessive expansion, wrong versions and duplicate IDs are rejected',async()=>{
  await assert.rejects(parseArchive(new Uint8Array([1,2,3])));
  await assert.rejects(parseArchive(zipSync({'../secret':strToU8('x')})));
- await assert.rejects(parseArchive(zipSync({'manifest.json':new Uint8Array(3*1024*1024)})),/解压/);
+ await assert.rejects(parseArchive(zipSync({'manifest.json':new Uint8Array(9*1024*1024)})),/解压/);
  for(const mutate of [m=>m.formatVersion=2,m=>{m.photos.push(m.photos[0]);m.photoCount++},m=>m.trashCount=1,m=>m.photos[0]=null]){
    const files=unzipSync(await cafe());const m=JSON.parse(strFromU8(files['manifest.json']));mutate(m);files['manifest.json']=strToU8(JSON.stringify(m));await assert.rejects(parseArchive(zipSync(files)));
  }

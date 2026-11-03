@@ -1,8 +1,10 @@
 import { unzipSync, strFromU8 } from 'fflate';
+import { parseEmbeddedCovers } from './covers.mjs';
 
 export const MAX_PACKAGE_BYTES = 64 * 1024 * 1024;
 const MAX_EXPANDED_BYTES = 96 * 1024 * 1024;
 const MAX_JSON_BYTES = 2 * 1024 * 1024;
+const jsonLimit = path => path === 'manifest.json' ? 8 * 1024 * 1024 : MAX_JSON_BYTES;
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const hash = /^[0-9a-f]{64}$/;
 const fail = message => { throw new Error(message); };
@@ -27,12 +29,12 @@ export async function parseArchive(bytes) {
   try {
     files = unzipSync(bytes, { filter: file => {
       total += file.originalSize; count++;
-      if (!safePath(file.name) || names.has(file.name) || count > 2001 || total > MAX_EXPANDED_BYTES || file.originalSize > MAX_PACKAGE_BYTES || (file.name.endsWith('.json') && file.originalSize > MAX_JSON_BYTES)) fail('卡组结构或解压大小超出支持范围。');
+      if (!safePath(file.name) || names.has(file.name) || count > 2001 || total > MAX_EXPANDED_BYTES || file.originalSize > MAX_PACKAGE_BYTES || (file.name.endsWith('.json') && file.originalSize > jsonLimit(file.name))) fail('卡组结构或解压大小超出支持范围。');
       names.add(file.name); return true;
     } });
   } catch { fail('卡组损坏或解压大小超出限制，请重新导出。'); }
   const json = path => {
-    if (!safePath(path) || !Object.hasOwn(files, path) || files[path].length > MAX_JSON_BYTES) fail('卡组缺少有效的清单文件。');
+    if (!safePath(path) || !Object.hasOwn(files, path) || files[path].length > jsonLimit(path)) fail('卡组缺少有效的清单文件。');
     try {
       const value = JSON.parse(strFromU8(files[path]));
       if (!value || typeof value !== 'object' || Array.isArray(value)) fail('卡组清单格式无效。');
@@ -40,7 +42,7 @@ export async function parseArchive(bytes) {
     } catch { return fail('卡组清单不是有效的 JSON 对象。'); }
   };
   const manifest = json('manifest.json');
-  if (manifest.formatIdentifier !== 'com.zhaoolee.piclex.photo-archive' || manifest.formatVersion !== 1 || !Array.isArray(manifest.photos) || manifest.photos.length < 1 || manifest.photos.length > 500 || manifest.photoCount !== manifest.photos.length || manifest.trashCount !== 0) fail('请选择 PicLex 照片卡组，不支持完整备份或未知版本。');
+  if (manifest.formatIdentifier !== 'com.zhaoolee.piclex.photo-archive' || manifest.formatVersion !== 1 || !Array.isArray(manifest.photos) || manifest.photos.length < 1 || manifest.photos.length > 500 || manifest.photoCount !== manifest.photos.length || manifest.trashCount !== 0) fail('请选择 摄影学英语 照片卡组，不支持完整备份或未知版本。');
   const photos = [], words = [], ids = new Set();
   for (const item of manifest.photos) {
     if (!item || typeof item !== 'object' || !uuid.test(item.id) || ids.has(item.id.toLowerCase()) || !safePath(item.jsonPath) || !hash.test(item.jsonSHA256) || !Object.hasOwn(files, item.jsonPath) || await sha256(files[item.jsonPath]) !== item.jsonSHA256) fail('照片清单校验失败，原有卡组未改变。');
@@ -65,5 +67,7 @@ export async function parseArchive(bytes) {
     }
   }
   if (!words.length) fail('这份卡组还没有可练习的单词。');
-  return { fingerprint: await sha256(bytes), title: text(manifest.deckName, 80).trim() || '我的照片卡组', photos, words };
+  const covers = await parseEmbeddedCovers(manifest.covers);
+  const learningFingerprint = await sha256(new TextEncoder().encode(JSON.stringify({ photos: await Promise.all(photos.map(async p => ({ id: p.id, sha256: await sha256(p.bytes) }))), words })));
+  return { fingerprint: await sha256(bytes), learningFingerprint, covers, title: text(manifest.deckName, 80).trim() || '我的照片卡组', photos, words };
 }

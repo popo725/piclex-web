@@ -8,81 +8,191 @@
       "deckID": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
       "title": "Basic English 850 场景卡片",
       "description": "850个基础英语词的场景学习卡，已完整制作。本版包含C001–C100共100个场景、850个目标词，每词附中文、英美音标、搭配与原创中英例句；完善504个局部区域框、346个语境词，支持按词查看对应画面，配有原创中英配文。",
-      "version": 6,
+      "version": 7,
       "photoCount": 100,
       "wordCount": 850,
-      "packageBytes": 43828624,
-      "packageSHA256": "a298e11d1b5e632f89aed7b5e73a247b8a345306fc03542d6d189a4afc2e99f7",
-      "coverURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
-      "author": "PicLex",
+      "packageBytes": 44565715,
+      "packageSHA256": "44149174eaed929e5f0c3166cb04514699c830c751a6286362d4d68f14d63aeb",
+      "coverURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover.jpg",
+      "author": "摄影学英语",
       "access": "public",
-      "packageURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/deck.piclexdeck",
+      "packageURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/deck.piclexdeck",
       "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json",
+      "learningSHA256": "3eed421c782de7473d34257b8209c9f44cc8b1ede7bdaf0300b8b1a7c14d93b3",
+      "progressAliases": [
+        "a298e11d1b5e632f89aed7b5e73a247b8a345306fc03542d6d189a4afc2e99f7"
+      ],
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 278403,
+          "sha256": "2b8077a1e82695fdc7ad59c7734f4b9d28ba4687ce24bc91052f42630211e7b0",
+          "url": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-landscape.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 274054,
+          "sha256": "e336346eb7e95aecec0c16f7e5bc1f8ee26260b6649b8a9588e6f647cd6292f9",
+          "url": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-portrait.jpg"
+        }
+      }
     },
     {
       "deckID": "121d190a-5d4c-4a09-8d50-4741acdbbb1b",
       "title": "程序员工作英语",
       "description": "程序员工作英语：8类常见工作沟通，每类10个场景，共80张黑底白线火柴人场景卡、320个词条；原创纯英文A/B对话与独立中文译文，免费学习。",
-      "version": 10,
+      "version": 11,
       "photoCount": 80,
       "wordCount": 320,
-      "packageBytes": 15486193,
-      "packageSHA256": "86ccb63944b4da32b824861943f519e0ca283e272c0ee569ebc8a93ceea10f74",
-      "coverURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
-      "author": "PicLex",
+      "packageBytes": 16002712,
+      "packageSHA256": "76fabb4c7eead2a16d95d703ebb8b3b6561c9ff4f8f27ae83c42aa31ef3db96e",
+      "coverURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover.jpg",
+      "author": "摄影学英语",
       "access": "public",
-      "packageURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/deck.piclexdeck",
+      "packageURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/deck.piclexdeck",
       "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json",
+      "learningSHA256": "f069c9e242f6a13202169bc74fed11540b7454bfdbeb14e83e019092b2d3ecc2",
+      "progressAliases": [
+        "86ccb63944b4da32b824861943f519e0ca283e272c0ee569ebc8a93ceea10f74"
+      ],
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 182257,
+          "sha256": "59edc66821c681dcbf122aa13aa2e510989f4b0692a57144781ed3299a9c7cc7",
+          "url": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-landscape.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 204769,
+          "sha256": "7098994e3e21d3d9c34705f4b96d3f780ec2b0913129e8c5448509e1f0a5d7f0",
+          "url": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-portrait.jpg"
+        }
+      }
     },
     {
       "deckID": "56a51624-d8aa-4167-99c5-e1c727a938db",
       "title": "程序员 Vibe Coding",
       "description": "8个子专题，第一季规划40期，当前23张场景卡、92个词条。黑底白线火柴人与OpenAI Logo对话；每张含双语场景说明、四话轮A/B对白和4个相关词条。",
-      "version": 2,
+      "version": 3,
       "photoCount": 23,
       "wordCount": 92,
-      "packageBytes": 3149374,
-      "packageSHA256": "f51319dcd051bb07c5a6f16fe5911771b4d41dbca9ae0f760936d811e73287f4",
-      "coverURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
-      "author": "PicLex",
+      "packageBytes": 3638933,
+      "packageSHA256": "3c6f1c9b60b13a5b8d59ddb9a78a251c57fa35f927bc5e45b6eedfec3058ba97",
+      "coverURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover.jpg",
+      "author": "摄影学英语",
       "access": "public",
-      "packageURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/deck.piclexdeck",
+      "packageURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/deck.piclexdeck",
       "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json",
+      "learningSHA256": "2473c346206a0cb6e9c9c097d730fea700764a2b397f6d48a892ca9ed284f69b",
+      "progressAliases": [
+        "f51319dcd051bb07c5a6f16fe5911771b4d41dbca9ae0f760936d811e73287f4"
+      ],
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 177721,
+          "sha256": "7d462fc95de1eaf78f0f09122d1bee59ba69baef878c3e595a829e7b4c966500",
+          "url": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-landscape.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 189087,
+          "sha256": "396d587a4ce2f261d9c6c97b3577949263a3ee7280b61665b8ac9572bcf8232e",
+          "url": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-portrait.jpg"
+        }
+      }
     },
     {
       "deckID": "ba777e29-70c7-4706-8ea3-dd65f592ac16",
       "title": "下班后，去摄影吧！",
       "description": "程序员的摄影器材与影像英语：50个原创双语场景、200个摄影与视频学习词条，涵盖选购、镜头、参数、布光、配件、人像、外拍、后期、视频与声音。",
-      "version": 4,
+      "version": 5,
       "photoCount": 50,
       "wordCount": 200,
-      "packageBytes": 22640982,
-      "packageSHA256": "bf3d984a0775ca9dd145cb5ddbdb3f4398d6d54c9a42fb6edb5e1d792488c1d0",
-      "coverURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
-      "author": "PicLex",
+      "packageBytes": 23510909,
+      "packageSHA256": "1ccd9831b62615d8f6b7b8c314e5041b7de23c12b3924930b16d56cd21ff0630",
+      "coverURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover.jpg",
+      "author": "摄影学英语",
       "access": "public",
-      "packageURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/deck.piclexdeck",
+      "packageURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/deck.piclexdeck",
       "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json",
+      "learningSHA256": "da3956dad9d249e446fe64ee2d32bce39d89d305a2bd84151306e8f5600149da",
+      "progressAliases": [
+        "bf3d984a0775ca9dd145cb5ddbdb3f4398d6d54c9a42fb6edb5e1d792488c1d0"
+      ],
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 331869,
+          "sha256": "5add242c231475e31ef9cbc9529cc14a185be7fcc6dd313863e2a6b9ff93e035",
+          "url": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-landscape.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 320215,
+          "sha256": "68f42aca3e76ed085eea0646ec6ec8938d77c428c702333ec14756ea0b1c4b1c",
+          "url": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-portrait.jpg"
+        }
+      }
     },
     {
       "deckID": "099b791c-b48b-4439-b3e1-000ac98ebb0c",
       "title": "新概念英语第二册",
       "author": "zhaoolee",
       "description": "个人学习：第1–40课，427句按原句顺序，每句一个单词，保留重复词与重复句。85张原创场景配图。",
-      "version": 15,
+      "version": 16,
       "photoCount": 85,
       "wordCount": 427,
-      "packageURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/15/deck-cadcdd18092f5921.piclexdeck",
-      "packageBytes": 43415218,
-      "packageSHA256": "cadcdd18092f59217e7728f2e1bd1d53d091c4f18aab344a03a6c383df0c1a18",
-      "coverURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/15/cover-b8f021273acf8d37.jpg",
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/deck-1245570cda02f0dd.piclexdeck",
+      "packageBytes": 44551769,
+      "packageSHA256": "1245570cda02f0dd4191d930231ed3c7aff14cf9c7add10f9760dd5f3bb180a6",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-a8e1997d185be7ce.jpg",
       "access": "public",
       "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json"
+      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json",
+      "learningSHA256": "c5c115bc12937537cd3c764b15efbc652996ad2d07e9aa1c850e1d98ec22163a",
+      "progressAliases": [
+        "cadcdd18092f59217e7728f2e1bd1d53d091c4f18aab344a03a6c383df0c1a18"
+      ],
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 415613,
+          "sha256": "9a00316406310707ab2b08be1d0a3d7b571265bbfd2217dcff05a028e453ca47",
+          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-landscape-9a00316406310707.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 436438,
+          "sha256": "a8e1997d185be7ce81a56ce6d67e16ec3adc141486632b5e23ba51c5afc0f0da",
+          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-portrait-a8e1997d185be7ce.jpg"
+        }
+      }
     }
   ]
 }
