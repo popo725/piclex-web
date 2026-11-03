@@ -24,6 +24,6 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 
 ## 品牌标志
 
-`brand/app-icon.png` 与摄影学英语 App 的 `AppIcon.appiconset/AppIcon.png` 字节一致。App Store 图标来自 [Apple Developer 官方 App Store 页面](https://developer.apple.com/app-store/) 的 [官方图标资源](https://developer.apple.com/assets/elements/icons/app-store-s/app-store-s-96x96_2x.png)，仅用于链接已上架 App，不属于项目 MIT 代码许可。
+`brand/app-icon.png` 与摄影学英语 App 的 `AppIcon.appiconset/AppIcon.png` 字节一致。黑色 Download on the App Store 徽章来自 [Apple 官方营销素材](https://developer.apple.com/app-store/marketing/guidelines/) 的 [英文黑色 SVG](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83)，仅用于链接已上架 App，不属于项目 MIT 代码许可。
 
 `icons/tab-*.png` 来自 App 的 `PracticeEntryIcon.swift` 原绘制与动画；其余界面符号由 App 所用 UIKit/SF Symbols 渲染，不将 Apple 的系统符号重新授权为项目原创 MIT 美术。来源和摘要保存在 `docs/native-icons.json`。

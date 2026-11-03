@@ -10,7 +10,7 @@ import UIKit
    }
    try atlas.pngData()!.write(to:root.appendingPathComponent("tab-\(name)-frames.png"))
   }
-  let symbols=["camera":"camera","arrow":"arrow.right","sound":"speaker.wave.2","upload":"square.and.arrow.down","sun":"sun.max","moon":"moon","share":"square.and.arrow.up","check":"checkmark","back":"chevron.left","forward":"chevron.right","close":"xmark","external":"arrow.up.right","photo":"photo","pause":"pause.fill","stop":"stop.fill","peek":"eye","microphone":"mic","headphones":"headphones"]
+  let symbols=["keycap":"a.square","camera":"camera","arrow":"arrow.right","sound":"speaker.wave.2","upload":"square.and.arrow.down","sun":"sun.max","moon":"moon","share":"square.and.arrow.up","check":"checkmark","back":"chevron.left","forward":"chevron.right","close":"xmark","external":"arrow.up.right","photo":"photo","pause":"pause.fill","stop":"stop.fill","peek":"eye","microphone":"mic","headphones":"headphones"]
   for (name,symbol) in symbols {
    guard let image=UIImage(systemName:symbol,withConfiguration:UIImage.SymbolConfiguration(pointSize:22,weight:.regular)) else {fatalError(symbol)}
    let scale=min(24/image.size.width,24/image.size.height),size=CGSize(width:image.size.width*scale,height:image.size.height*scale)

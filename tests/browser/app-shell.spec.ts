@@ -42,3 +42,14 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
   if(info.project.name==='desktop')await page.screenshot({path:`test-results/responsive-learning-${width}.png`});
  }
 });
+
+test('desktop keyboard mirrors real keys and edits through the same learning input; phones retain the system keyboard',async({page},info)=>{
+ await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'}),keyboard=page.getByRole('region',{name:'虚拟键盘'});
+ if(info.project.name==='mobile'){await expect(keyboard).toHaveCount(0);await expect(input).toBeFocused();return;}
+ await expect(keyboard).toBeVisible();await expect(page.locator('.site-header')).toBeHidden();await expect(page.locator('.practice-player-avatar img')).toBeVisible();
+ await input.press('c');await expect(input).toHaveValue('c');await keyboard.getByRole('button',{name:'按键 R',exact:true}).click();await expect(input).toHaveValue('cr');await keyboard.getByRole('button',{name:'退格',exact:true}).click();await expect(input).toHaveValue('c');await expect(input).toBeFocused();
+ await page.keyboard.down('r');await expect(keyboard.locator('[data-key="r"]')).toHaveAttribute('data-pressed','true');await page.keyboard.up('r');await expect(keyboard.locator('[data-key="r"]')).toHaveAttribute('data-pressed','false');await expect(input).toHaveValue('cr');
+ await keyboard.getByRole('button',{name:'按键 X',exact:true}).click();await expect(input).toHaveValue('crx');await keyboard.getByRole('button',{name:'按键 O',exact:true}).click();await expect(input).toHaveValue('crx');await keyboard.getByRole('button',{name:'退格',exact:true}).click();await keyboard.getByRole('button',{name:'按键 O',exact:true}).click();await expect(input).toHaveValue('cro');
+ await page.getByRole('tab',{name:'练听力',exact:true}).click();await expect(keyboard).toHaveCount(0);await page.getByLabel('句子练习模式').selectOption('free');await page.getByLabel('听写难度').selectOption('easy');await expect(keyboard).toBeVisible();const guided=page.getByRole('textbox',{name:/第 1 个单词/});await guided.focus();await keyboard.getByRole('button',{name:'按键 I',exact:true}).click();await expect(guided).not.toHaveValue('');
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await expect(keyboard).toHaveCount(0);
+});
