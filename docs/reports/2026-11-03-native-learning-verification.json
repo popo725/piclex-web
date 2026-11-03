@@ -1,0 +1,250 @@
+{
+  "sourceRevision": "209bd955f22092466b7969da60bfd3a19c7fb4cd",
+  "releaseID": "209bd955f220-0e2ed5f3fd51",
+  "ci": "https://github.com/zhaoolee/piclex-web/actions/runs/41584999576",
+  "validation": {
+    "unitTests": 37,
+    "deploymentTests": 8,
+    "browserFlows": 16,
+    "viewports": [
+      "1440x1000",
+      "390x844",
+      "390x430"
+    ],
+    "realMicrophoneUsed": false,
+    "simulatorStarted": false
+  },
+  "origin": {
+    "releaseID": "209bd955f220-0e2ed5f3fd51",
+    "sourceRevision": "209bd955f22092466b7969da60bfd3a19c7fb4cd",
+    "previous": "/home/hermes/piclex-web/releases/7b7cdd7618be-eccb96befd94",
+    "configurationSHA256": "8dad950ee41641251cc534e631d0b403e4690a1d52a9d19764ca3a51d7c2669f",
+    "fileCount": 361,
+    "checks": [
+      {
+        "path": "/piclex-web/index.html",
+        "sha256": "e4131d7c2a2936e169da29f7beff3ec773ee30957b354c4706816f6b50807224",
+        "bytes": 687
+      },
+      {
+        "path": "/piclex-web/source.json",
+        "sha256": "ce7d675c34230ba07b5809671f4fd2c69f02e485e9808c289cf57b5d109e93ba",
+        "bytes": 4278
+      },
+      {
+        "path": "/piclex-web/library/catalog.json",
+        "sha256": "717e1ede39ec160738a127188c257905c844d023b5dccf71225826a391528409",
+        "bytes": 4951
+      },
+      {
+        "path": "/piclex-web/assets/index-BXs3aUdH.css",
+        "sha256": "eb8587311b470e41055425aa389934a3804d8371b9fac92d2ea5cf1197588726",
+        "bytes": 27723
+      },
+      {
+        "path": "/piclex-web/assets/index-DqWTk0Pl.js",
+        "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad",
+        "bytes": 268775
+      },
+      {
+        "path": "/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/deck.json",
+        "sha256": "e9ee289b5d95f6da197dbb6eca822c7a6bb01cf9c2e452cd40c94f32a3bb026d",
+        "bytes": 166587
+      },
+      {
+        "path": "/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/deck.json",
+        "sha256": "6bf6ed6b0f9f227072468584120b7b89a1a619ee6820cfeabd1633150f6d75c6",
+        "bytes": 149921
+      },
+      {
+        "path": "/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/deck.json",
+        "sha256": "bd05a5381ce6420a90e1330b546260f2f37ad754e75a7a6050f4763735527901",
+        "bytes": 43989
+      },
+      {
+        "path": "/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/deck.json",
+        "sha256": "a5a652d3fb48842e59f657d6293ee3a9a22a2718e2f981e6dad988c712a329df",
+        "bytes": 276169
+      },
+      {
+        "path": "/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/deck.json",
+        "sha256": "9847eec4cfe7505913b25f0ca3da2ec8f51a03e303ec1f60f4d9bf71cf92778c",
+        "bytes": 91012
+      },
+      {
+        "path": "/decks/source.json",
+        "sha256": "3a70d91da9df8a7b5723fcbde074a25a6aab450414238842a7eaca9b542231ca",
+        "bytes": 3816
+      },
+      {
+        "path": "/public/subscriptions/nce2/feed.json",
+        "sha256": "64f2d83a741d2f0284665114ecced2ecfa8fa8d4317826f563a6a38aa1b9121f",
+        "bytes": 888
+      }
+    ],
+    "health": {
+      "status": "ok",
+      "configured": true,
+      "enabled": true
+    },
+    "status": "active"
+  },
+  "public": {
+    "sourceRevision": "209bd955f22092466b7969da60bfd3a19c7fb4cd",
+    "releaseID": "209bd955f220-0e2ed5f3fd51",
+    "publicChecks": [
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/",
+        "bytes": 687,
+        "sha256": "e4131d7c2a2936e169da29f7beff3ec773ee30957b354c4706816f6b50807224"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/catalog.json",
+        "bytes": 4951,
+        "sha256": "717e1ede39ec160738a127188c257905c844d023b5dccf71225826a391528409"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/source.json",
+        "bytes": 4278,
+        "sha256": "ce7d675c34230ba07b5809671f4fd2c69f02e485e9808c289cf57b5d109e93ba"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/assets/index-BXs3aUdH.css",
+        "bytes": 27723,
+        "sha256": "eb8587311b470e41055425aa389934a3804d8371b9fac92d2ea5cf1197588726"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/assets/index-DqWTk0Pl.js",
+        "bytes": 268775,
+        "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/cover.jpg",
+        "bytes": 128810,
+        "sha256": "b8f021273acf8d3711ce8a0ddf89195d7daa008ca13ed16e6d58d9a1095f4d6b"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/deck.json",
+        "bytes": 166587,
+        "sha256": "e9ee289b5d95f6da197dbb6eca822c7a6bb01cf9c2e452cd40c94f32a3bb026d"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
+        "bytes": 87692,
+        "sha256": "fd2945e3d731e135981747cec4112824df71952155687a26bcf3d0df3e1b71ed"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/deck.json",
+        "bytes": 149921,
+        "sha256": "6bf6ed6b0f9f227072468584120b7b89a1a619ee6820cfeabd1633150f6d75c6"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
+        "bytes": 56481,
+        "sha256": "faf4a6e9ec6db731bcead43e7c1bc550a528aaed0d456c5ab3170d31933f2c1d"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/deck.json",
+        "bytes": 43989,
+        "sha256": "bd05a5381ce6420a90e1330b546260f2f37ad754e75a7a6050f4763735527901"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
+        "bytes": 134492,
+        "sha256": "de83950470938844a1ae7095080d80f4246e7572dcfeee1e0bbc4ef7d39989ac"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/deck.json",
+        "bytes": 276169,
+        "sha256": "a5a652d3fb48842e59f657d6293ee3a9a22a2718e2f981e6dad988c712a329df"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
+        "bytes": 166683,
+        "sha256": "a101af8f5a5c4cef2c53d8b7bacf30daa0a7be998e11a0e5710ab83c7b77a515"
+      },
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/deck.json",
+        "bytes": 91012,
+        "sha256": "9847eec4cfe7505913b25f0ca3da2ec8f51a03e303ec1f60f4d9bf71cf92778c"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/",
+        "bytes": 687,
+        "sha256": "e4131d7c2a2936e169da29f7beff3ec773ee30957b354c4706816f6b50807224"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/catalog.json",
+        "bytes": 4951,
+        "sha256": "717e1ede39ec160738a127188c257905c844d023b5dccf71225826a391528409"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/source.json",
+        "bytes": 4278,
+        "sha256": "ce7d675c34230ba07b5809671f4fd2c69f02e485e9808c289cf57b5d109e93ba"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/assets/index-BXs3aUdH.css",
+        "bytes": 27723,
+        "sha256": "eb8587311b470e41055425aa389934a3804d8371b9fac92d2ea5cf1197588726"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/assets/index-DqWTk0Pl.js",
+        "bytes": 268775,
+        "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/cover.jpg",
+        "bytes": 128810,
+        "sha256": "b8f021273acf8d3711ce8a0ddf89195d7daa008ca13ed16e6d58d9a1095f4d6b"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/deck.json",
+        "bytes": 166587,
+        "sha256": "e9ee289b5d95f6da197dbb6eca822c7a6bb01cf9c2e452cd40c94f32a3bb026d"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
+        "bytes": 87692,
+        "sha256": "fd2945e3d731e135981747cec4112824df71952155687a26bcf3d0df3e1b71ed"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/deck.json",
+        "bytes": 149921,
+        "sha256": "6bf6ed6b0f9f227072468584120b7b89a1a619ee6820cfeabd1633150f6d75c6"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
+        "bytes": 56481,
+        "sha256": "faf4a6e9ec6db731bcead43e7c1bc550a528aaed0d456c5ab3170d31933f2c1d"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/deck.json",
+        "bytes": 43989,
+        "sha256": "bd05a5381ce6420a90e1330b546260f2f37ad754e75a7a6050f4763735527901"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
+        "bytes": 134492,
+        "sha256": "de83950470938844a1ae7095080d80f4246e7572dcfeee1e0bbc4ef7d39989ac"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/deck.json",
+        "bytes": 276169,
+        "sha256": "a5a652d3fb48842e59f657d6293ee3a9a22a2718e2f981e6dad988c712a329df"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
+        "bytes": 166683,
+        "sha256": "a101af8f5a5c4cef2c53d8b7bacf30daa0a7be998e11a0e5710ab83c7b77a515"
+      },
+      {
+        "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/deck.json",
+        "bytes": 91012,
+        "sha256": "9847eec4cfe7505913b25f0ca3da2ec8f51a03e303ec1f60f4d9bf71cf92778c"
+      }
+    ],
+    "status": "passed"
+  },
+  "browserObservation": "Production HTTPS opens word learning and chunks with photo/colored focus frame. Voice recognition lifecycle tested with browser test double, no microphone permission requested."
+}
