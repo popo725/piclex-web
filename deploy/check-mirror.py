@@ -86,7 +86,7 @@ http {{
             request('/piclex-web', expected=308)
             assert request('/piclex-web/', method='HEAD') == b''
             for asset in re.findall(r'(?:src|href)="(/piclex-web/[^" ]+)"', homepage.decode()):
-                mime = {'.js': 'application/javascript', '.css': 'text/css', '.svg': 'image/svg+xml'}[Path(asset).suffix]
+                mime = {'.js': 'application/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png'}[Path(asset).suffix]
                 assert request(asset, mime=mime) == (release / asset.lstrip('/')).read_bytes()
             catalog = json.loads(request('/piclex-web/library/catalog.json', mime='application/json'))
             source = json.loads(request('/piclex-web/source.json', mime='application/json'))
