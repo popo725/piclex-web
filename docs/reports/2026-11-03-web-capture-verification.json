@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-03",
+  "sourceRevision": "5a8de6b727f2c050a6a3731b753f728211fd2245",
+  "mirrorRelease": "5a8de6b727f2-10d8128d9488",
+  "ciRun": 41624363635,
+  "unitPassed": 184,
+  "deploymentPassed": 8,
+  "browserPassed": 38,
+  "serverPassed": 166,
+  "isolatedFiles": 455,
+  "nginxSHA256": "8dad950ee41641251cc534e631d0b403e4690a1d52a9d19764ca3a51d7c2669f",
+  "resources": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "bytes": 860,
+      "sha256": "ef2b29882080bd9f7ad3f8c262a93f669aaa7492848cd207b04ec403e0e38536"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/stop.png",
+      "bytes": 872,
+      "sha256": "044dc8be65e23252e48e34700117c476ea6c01da0e73e9cd2f03904a43f84d0e"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-D8UE9VqL.js",
+      "bytes": 309299,
+      "sha256": "b6ff9b42c5a8749b7163128e1ef8701d81563bc424c20f9378ef5775849391f5"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-Dg_qeS5Y.css",
+      "bytes": 45807,
+      "sha256": "64e7bec8b48bee26b217bc97f6b1dd9e8feea695509ca4593df4d60d761e4ae3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "bytes": 860,
+      "sha256": "ef2b29882080bd9f7ad3f8c262a93f669aaa7492848cd207b04ec403e0e38536"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/stop.png",
+      "bytes": 872,
+      "sha256": "044dc8be65e23252e48e34700117c476ea6c01da0e73e9cd2f03904a43f84d0e"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-D8UE9VqL.js",
+      "bytes": 309299,
+      "sha256": "b6ff9b42c5a8749b7163128e1ef8701d81563bc424c20f9378ef5775849391f5"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-Dg_qeS5Y.css",
+      "bytes": 45807,
+      "sha256": "64e7bec8b48bee26b217bc97f6b1dd9e8feea695509ca4593df4d60d761e4ae3"
+    }
+  ],
+  "scope": "Changed entrypoints and main bundles on both domains; unchanged stop icon retried after a transient TLS failure in the expanded sweep. Full 455-file mirror verification passed separately.",
+  "limits": "Desktop browser at phone widths; not a mainland network speed measurement. Browser and native account progress remain independent."
+}
