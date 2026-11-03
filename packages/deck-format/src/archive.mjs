@@ -60,7 +60,7 @@ export async function parseArchive(bytes) {
       const normalized = box && [box.left, box.top, box.right, box.bottom].every(Number.isFinite) && box.left >= 0 && box.top >= 0 && box.right > box.left && box.bottom > box.top && box.right <= 1000 && box.bottom <= 1000
         ? [box.left / 1000, box.top / 1000, (box.right - box.left) / 1000, (box.bottom - box.top) / 1000] : null;
       words.push({ id: `${item.id}:${index}`, english, chinese, imageIndex, focus: visible && normalized ? { visible: true, box: normalized } : null,
-        example: text(label.learning?.example), exampleChinese: text(label.learning?.exampleChinese), phonetic: text(label.phoneticUS, 200), partOfSpeech: text(label.learning?.partOfSpeech, 50) });
+        occurrenceID: text(label.learning?.occurrenceID, 200), example: text(label.learning?.example), exampleChinese: text(label.learning?.exampleChinese), phonetic: text(label.phoneticUS, 200), partOfSpeech: text(label.learning?.partOfSpeech, 50) });
       if (words.length > 5000) fail('卡组词汇过多，请拆分为 5000 词以内。');
     }
   }

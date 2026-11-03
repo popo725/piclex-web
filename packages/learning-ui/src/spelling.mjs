@@ -95,3 +95,10 @@ export function exampleTokens(example, target) {
 export function tokenForWord(tokens, wordIndex) {
   return tokens.findIndex(token => wordIndex >= token.from && wordIndex <= token.to);
 }
+
+// PracticeSpellingPrompt.completionProgress: only a correctly typed letter prefix contributes.
+export function completionProgress(expected, entered) {
+ const required=[...expected.toLowerCase()].filter(c=>!fixed(c)),typed=[...entered.toLowerCase()].filter(c=>!fixed(c));
+ let correct=0;while(correct<required.length&&correct<typed.length&&required[correct]===typed[correct])correct++;
+ return required.length?correct/required.length:0;
+}
