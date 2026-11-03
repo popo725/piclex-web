@@ -132,7 +132,7 @@ test('guided dictation, listening controls, compact height and reduced-motion re
  await expect(page.getByRole('combobox',{name:'循环方式'})).toBeVisible();
  await expect(page.getByRole('slider',{name:'句子播放位置'})).toBeVisible();
  await page.getByRole('tab',{name:'拼单词'}).click();await page.setViewportSize({width:390,height:430});
- const rect=await page.getByRole('button',{name:'不认识',exact:true}).boundingBox();expect(rect!.y+rect!.height).toBeLessThanOrEqual(430);
+ const rect=await page.getByRole('button',{name:'不认识',exact:true}).boundingBox();expect(rect!.y+rect!.height).toBeLessThanOrEqual(378);
  await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('.focus-box>span')).toHaveCSS('animation-name','none');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
