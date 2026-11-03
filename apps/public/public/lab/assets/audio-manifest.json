@@ -1,0 +1,109 @@
+{
+  "method": "ChatGPT-designed procedural synthesis (not an audio-model output)",
+  "sampleRate": 44100,
+  "referenceUse": "Local Brotato timing/material analysis only; no source waveform copied",
+  "effects": {
+    "click": {
+      "file": "audio/click.wav",
+      "durationSeconds": 0.1,
+      "peak": 0.23,
+      "material": "iron latch"
+    },
+    "step-a": {
+      "file": "audio/step-a.wav",
+      "durationSeconds": 0.17,
+      "peak": 0.17,
+      "material": "leather boot on grit"
+    },
+    "step-b": {
+      "file": "audio/step-b.wav",
+      "durationSeconds": 0.18,
+      "peak": 0.17,
+      "material": "leather boot on stone"
+    },
+    "pickup": {
+      "file": "audio/pickup.wav",
+      "durationSeconds": 0.32,
+      "peak": 0.27,
+      "material": "small gold coin"
+    },
+    "spell": {
+      "file": "audio/spell.wav",
+      "durationSeconds": 0.24,
+      "peak": 0.25,
+      "material": "emerald glint"
+    },
+    "wrong": {
+      "file": "audio/wrong.wav",
+      "durationSeconds": 0.17,
+      "peak": 0.19,
+      "material": "dull low tap"
+    },
+    "purchase": {
+      "file": "audio/purchase.wav",
+      "durationSeconds": 0.55,
+      "peak": 0.29,
+      "material": "coin bag and bronze clasp"
+    },
+    "unknown": {
+      "file": "audio/unknown.wav",
+      "durationSeconds": 0.28,
+      "peak": 0.18,
+      "material": "soft closed-book thud"
+    },
+    "level": {
+      "file": "audio/level.wav",
+      "durationSeconds": 0.65,
+      "peak": 0.28,
+      "material": "warm relic chime"
+    },
+    "shot": {
+      "file": "audio/shot.wav",
+      "durationSeconds": 0.09,
+      "peak": 0.2,
+      "material": "mechanical sidearm crack"
+    },
+    "rapid-shot": {
+      "file": "audio/rapid-shot.wav",
+      "durationSeconds": 0.07,
+      "peak": 0.18,
+      "material": "tight automatic burst"
+    },
+    "cannon": {
+      "file": "audio/cannon.wav",
+      "durationSeconds": 0.38,
+      "peak": 0.24,
+      "material": "low launcher concussion"
+    },
+    "laser-shot": {
+      "file": "audio/laser-shot.wav",
+      "durationSeconds": 0.16,
+      "peak": 0.2,
+      "material": "cool plasma pulse"
+    },
+    "magic-shot": {
+      "file": "audio/magic-shot.wav",
+      "durationSeconds": 0.2,
+      "peak": 0.18,
+      "material": "arcane electric spark"
+    },
+    "melee-swing": {
+      "file": "audio/melee-swing.wav",
+      "durationSeconds": 0.22,
+      "peak": 0.16,
+      "material": "blade through air"
+    },
+    "explosion": {
+      "file": "audio/explosion.wav",
+      "durationSeconds": 0.55,
+      "peak": 0.24,
+      "material": "deep powder blast"
+    },
+    "slot": {
+      "file": "audio/slot.wav",
+      "durationSeconds": 0.13,
+      "peak": 0.22,
+      "material": "stone slot and iron tile click"
+    }
+  }
+}

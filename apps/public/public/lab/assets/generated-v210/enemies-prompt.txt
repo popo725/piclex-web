@@ -1,0 +1,17 @@
+Base generation
+
+Use case: stylized-concept
+Asset type: transparent 2D game monster atlas for a small top-down H5 survival arena
+Input image: existing three-monster atlas, used only as the exact reference for camera angle, painterly rendering, darkness, edge detail, scale readability, and transparent cutout treatment
+Primary request: create exactly five NEW original monsters, arranged in one perfectly aligned horizontal row of five equal-width cells, one creature per cell, with generous transparent gutters and identical feet baseline. From left to right: (1) normal monster — a lean bone-and-bile spitter with a swollen throat sac and narrow hunched silhouette; (2) normal monster — a plague moth scavenger with ragged folded wings, skeletal insect legs and a small readable silhouette; (3) elite monster — a massive horned butcher with an iron execution hood, cleaver-like forearms and a broad threatening silhouette; (4) elite monster — a floating corrupted cultist with torn dark robes, antlered mask and violet ritual glow, no weapon extending outside its cell; (5) boss monster — an ancient abyssal tyrant with a crown of broken horns, layered black iron and bone armour, ember-red chest fissure, tallest and most imposing silhouette.
+Style/medium: original late-1990s dark gothic pre-rendered hand-painted game art atmosphere, consistent with the reference but not copying any copyrighted character design; crisp silhouettes readable around 48–72 px; 3/4 overhead camera; worn bone, rusted iron, dead leather, muted sickly green, ochre, dried blood red and restrained violet accents.
+Composition/framing: full bodies fully visible; every creature centered in its own exact fifth of the image; equal cell widths; no overlap; no cropped limbs, horns, wings, cloth or shadows; common ground contact line; normal monsters visually smaller, elite monsters larger, boss largest while still staying inside its cell; soft contact shadows may remain inside the cutout.
+Constraints: genuinely transparent alpha background; exactly five creatures and no extras; no scenery; no floor; no frames, dividers, labels, text, numbers, UI, logos or watermark; no weapons or effects crossing cell boundaries; strong visual distinction between all five; preserve transparency and clean edges.
+
+Layout refinement
+
+Use case: precise-object-edit
+Asset type: transparent five-cell 2D game monster atlas
+Input image: the base generation is the edit target.
+Primary request: change only the spacing and scale of the five existing monsters. Preserve each monster's exact design, pose, colors, materials, painterly rendering, 3/4 overhead camera, order, and common baseline. Place monster 1 strictly inside horizontal 0–20%, monster 2 strictly inside 20–40%, monster 3 strictly inside 40–60%, monster 4 strictly inside 60–80%, and monster 5 strictly inside 80–100%. Shrink each creature just enough that every limb, wing, horn, robe edge, glow, and shadow has transparent clearance from both cell boundaries. Center every monster horizontally in its cell. Keep normal monsters smaller, elite monsters larger, boss largest.
+Constraints: genuinely transparent alpha background; exactly the same five creatures and no extras; no overlap or cropping; no scenery, floor, frames, dividers, labels, text, numbers, UI, logo or watermark; preserve clean edges. Change only layout/scale, keep the artwork itself unchanged.

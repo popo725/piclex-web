@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import {emitExperience} from './experience-effects';
 import { CharacterRippleLedger, RIPPLE_DURATION, rippleFrame } from './character-ripples.mjs';
 
 type Shock = { x: number; y: number; rotation: number; started: number };
-export default function CharacterRipples({ scope, expected, entered, quickIndices, revealed, active }: {
-  scope: string; expected: string; entered: string; quickIndices?: number[] | null; revealed: boolean; active: boolean;
+export default function CharacterRipples({ scope, expected, entered, quickIndices, revealed, active, effect="socialCode", completed=false, perfect=false }: {
+  scope: string; expected: string; entered: string; quickIndices?: number[] | null; revealed: boolean; active: boolean; effect?:string; completed?:boolean; perfect?:boolean;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const ledger = useRef(new CharacterRippleLedger());
@@ -32,14 +33,18 @@ export default function CharacterRipples({ scope, expected, entered, quickIndice
     const width = Math.round(bounds.width * ratio), height = Math.round(bounds.height * ratio);
     if (node.width !== width || node.height !== height) { node.width = width; node.height = height; shocks.current = []; }
     const started = performance.now();
+    const origins:DOMRect[]=[];
     for (const index of indices) {
       const glyph = node.parentElement?.querySelector(`[data-letter-index="${index}"] .letter-glyph`);
       const rect = glyph?.getBoundingClientRect();
       // Never substitute the underline or slot when character geometry is absent.
       if (!rect?.width || !rect.height || shocks.current.length >= 64) continue;
+      origins.push(rect);
+      glyph?.animate([{opacity:0,transform:"scale(.84)"},{opacity:1,transform:"scale(1)"}],{duration:180,easing:"ease-out"});
       shocks.current.push({ x: rect.x + rect.width / 2 - bounds.x, y: rect.y + rect.height / 2 - bounds.y,
         rotation: index * 2.399, started });
     }
+    emitExperience(origins,completed,perfect,effect);
     if (frame.current || !shocks.current.length) return;
     const draw = (now: number) => {
       context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, bounds.width, bounds.height);
@@ -56,6 +61,6 @@ export default function CharacterRipples({ scope, expected, entered, quickIndice
       frame.current = shocks.current.length ? requestAnimationFrame(draw) : 0;
     };
     frame.current = requestAnimationFrame(draw);
-  }, [scope, expected, entered, quickIndices, revealed, active, reduced]);
+  }, [scope, expected, entered, quickIndices, revealed, active, reduced, completed, perfect, effect]);
   return <canvas ref={canvas} className="character-ripples" aria-hidden="true" />;
 }

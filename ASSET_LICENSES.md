@@ -17,3 +17,7 @@
 来源核对：2026-11-03。照片由来源 CDN 输出适合网页展示的 JPEG 尺寸。示例包内保留相同图片字节；没有将素材许可改写为 MIT。新增或替换素材时应更新此表和公开站 credits.html。
 
 示例词汇释义与例句为本项目编写，不使用教材课程正文。摄影图标为项目内 SVG。第三方软件依赖许可由各包提供，根 package-lock.json 锁定版本。
+
+## 薯薯求生与学习反馈
+
+Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／道具美术、合成音效及经典按键声音。音标子集来自 [ipa-dict](https://github.com/open-dict-data/ipa-dict)，版权与完整 MIT 许可保存在 `apps/public/public/lab/EnglishPronunciations-LICENSE.txt` 和源文件。游戏素材沿用项目资产，不把公开卡组照片的许可改为代码 MIT 许可。

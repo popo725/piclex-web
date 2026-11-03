@@ -1,3 +1,6 @@
+import Capture from './Capture';
+import Laboratory from './Laboratory';
+import {ExperienceMeter,LevelPage,useExperience} from './Experience';
 import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { parsePublicCatalog, parsePublicDeck } from '../../../packages/deck-format/src/public.mjs';
@@ -6,6 +9,7 @@ import { speak, stopSpeaking } from '../../../packages/learning-ui/src/speech';
 import { readPreference, writePreference, saveDeck, storedDecks } from './storage';
 import './style.css';
 import NativePractice from './NativePractice';
+import './app-shell.css';
 
 type Parsed = Awaited<ReturnType<typeof parseArchive>>;
 type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; bytes?: Uint8Array; downloadURL?: string };
@@ -15,7 +19,8 @@ const appStore = 'https://apps.apple.com/app/id6808490052';
 const repository = 'https://github.com/zhaoolee/piclex-web';
 const cache = new Map<string, Deck>();
 function route() { try { return decodeURIComponent(location.hash.match(/^#\/deck\/(.+)$/)?.[1] || ''); } catch { return ''; } }
-function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/'; }
+function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
+function screen(){const path=location.hash.slice(1);return path.startsWith('/settings/lab')?'lab':path.startsWith('/settings/level')?'level':path.startsWith('/settings')?'settings':path.startsWith('/deck/')||path.startsWith('/learn')?'learn':'capture';}
 function materialize(id: string, parsed: Parsed, bytes: Uint8Array, aliases: string[] = []): Deck {
   const covers = Object.fromEntries(Object.entries(parsed.covers).map(([role, image]) => [role, URL.createObjectURL(new Blob([image.bytes as BlobPart], { type: image.mime }))]));
   const deck = { ...parsed, id, bytes, covers, fingerprint: parsed.learningFingerprint, legacyFingerprints: [...new Set([...aliases, parsed.fingerprint])], images: parsed.photos.map(p => URL.createObjectURL(new Blob([p.bytes as BlobPart], { type: p.mime }))) };
@@ -37,12 +42,17 @@ function Icon({ name }: { name: 'camera' | 'arrow' | 'sound' | 'upload' | 'sun' 
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
 function App() {
+  const [page,setPage]=useState(screen),[labDeck,setLabDeck]=useState<Deck|null>(null),[gameBusy,setGameBusy]=useState(false);
+  const [gameDeckID,setGameDeckID]=useState(()=>readPreference('piclex-web.last-deck')||'');
+  const xp=useExperience();
+  useEffect(()=>{document.body.dataset.page=page;window.scrollTo(0,0);return()=>{delete document.body.dataset.page;};},[page]);
+  function navigate(hash:string){if(page==='lab')window.dispatchEvent(new CustomEvent('piclex-game-leave',{detail:hash}));else location.hash=hash;}
   const [cards, setCards] = useState<Card[]>([]), [selected, setSelected] = useState(route), [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true), [ready, setReady] = useState(false), [error, setError] = useState(''), [notice, setNotice] = useState(''), [importing, setImporting] = useState(false);
   const [dark, setDark] = useState(() => readPreference('piclex-web.theme') === 'dark');
   const file = useRef<HTMLInputElement>(null);
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; writePreference('piclex-web.theme', dark ? 'dark' : 'light'); }, [dark]);
-  useEffect(() => { const update = () => { stopSpeaking(); setSelected(route()); setError(''); }; window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
+  useEffect(() => { const update = () => { stopSpeaking(); setSelected(route()); setPage(screen()); setError(''); }; window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
   useEffect(() => { const hide = () => { if (document.hidden) stopSpeaking(); }; document.addEventListener('visibilitychange', hide); window.addEventListener('pagehide', stopSpeaking); return () => { document.removeEventListener('visibilitychange', hide); window.removeEventListener('pagehide', stopSpeaking); }; }, []);
   useEffect(() => { if (!notice) return; const timer = setTimeout(() => setNotice(''), 6500); return () => clearTimeout(timer); }, [notice]);
   useEffect(() => {
@@ -67,6 +77,7 @@ function App() {
   }, []);
   useEffect(() => {
     if (!ready || !selected) { setDeck(null); return; }
+    writePreference('piclex-web.last-deck',selected);setGameDeckID(selected);
     const card = cards.find(c => c.id === selected);
     if (!card) { setDeck(null); setError('没有找到这份卡组。本地导入的卡组只在当前浏览器可用。'); return; }
     if (cache.has(selected)) { setDeck(cache.get(selected)!); setLoading(false); return; }
@@ -100,11 +111,16 @@ function App() {
     } catch (e) { setNotice((e as Error).message); }
     finally { setImporting(false); if (file.current) file.current.value = ''; }
   }
+  async function saveCaptured(bytes:Uint8Array){const parsed=await parseArchive(bytes),id=`local-${parsed.learningFingerprint}`;await saveDeck({id,title:parsed.title,bytes:bytes.slice().buffer,addedAt:Date.now()});const value=materialize(id,parsed,bytes);setCards(current=>[...current,{id,title:value.title,count:value.words.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,local:true}]);setNotice('卡组已保存到当前浏览器。');go(id);}
+  async function openGame(){if(gameBusy||!ready)return;setGameBusy(true);try{const card=cards.find(c=>c.id===gameDeckID)||cards[0];if(!card)throw Error('请先选择或导入一份卡组。');let value=cache.get(card.id);if(!value){const response=await fetch(asset(card.payload!));if(!response.ok)throw Error('卡组加载失败，请重试。');const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};cache.set(card.id,value);}setLabDeck(value);location.hash='/settings/lab';}catch(e){setNotice((e as Error).message);location.hash='/settings';}finally{setGameBusy(false);}}
+  useEffect(()=>{if(page==='lab'&&ready&&!labDeck)void openGame();},[page,ready]);
+  const settings=<main className="settings-page"><div className="page-heading"><h1>设置</h1></div><ExperienceMeter open={()=>{location.hash='/settings/level';}}/><button className="settings-row" onClick={()=>{location.hash='/settings/level';}}><span>我的等级<small>LV{xp.level} · {xp.total} 经验</small></span><b>›</b></button><section className="settings-section"><h2>卡组</h2><button className="settings-row" onClick={()=>go()}><span>官方卡组与个人卡组<small>选择卡组，继续学习</small></span><b>›</b></button><button className="settings-row" onClick={()=>file.current?.click()}>导入卡组文件 <b>›</b></button></section><section className="settings-section"><h2>实验室</h2><label className="game-deck-choice">游戏使用的卡组<select aria-label="游戏卡组" value={gameDeckID||cards[0]?.id||''} onChange={e=>{setGameDeckID(e.target.value);setLabDeck(null);}}>{cards.map(c=><option value={c.id} key={c.id}>{c.title}</option>)}</select></label><button className="settings-row" disabled={!ready||gameBusy} onClick={()=>void openGame()}><span>薯薯求生<small>坚持20波，用单词换装备</small></span><b>{gameBusy?'加载中…':'›'}</b></button></section><section className="settings-section"><h2>外观</h2><label className="settings-row"><span>深色外观</span><input type="checkbox" role="switch" aria-label="深色外观" checked={dark} onChange={e=>setDark(e.target.checked)}/></label></section><section className="settings-section"><h2>关于摄影学英语</h2><a className="settings-row" href={appStore} target="_blank" rel="noreferrer">获取 iPhone App <b>↗</b></a><a className="settings-row" href={repository} target="_blank" rel="noreferrer">开源代码 <b>↗</b></a><a className="settings-row" href={asset('credits.html')}>素材与隐私 <b>›</b></a><p className="muted small">卡组、学习进度、等级及游戏存档保存在当前浏览器。换域名或设备不会自动同步。</p></section></main>;
   const featured = cards.find(card => !card.local);
   const cover = (card: Card, role: "landscape" | "portrait") => { const path = card.covers?.[role] || card.covers?.landscape || card.covers?.portrait || card.cover; return card.local ? path : asset(path); };
-  return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/" aria-label="摄影学英语 首页"><span className="brand-mark"><Icon name="camera"/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(v => !v)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer">获取 iPhone App <span aria-hidden="true">↗</span></a></nav></header>
+  return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/capture" aria-label="摄影学英语 首页"><span className="brand-mark"><Icon name="camera"/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(v => !v)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer">获取 iPhone App <span aria-hidden="true">↗</span></a></nav></header>
     <div id="main-content" tabIndex={-1}>
-    {error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? go() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state" aria-live="polite">正在准备卡组…</main> : <NativePractice key={deck.fingerprint} deck={deck} notify={setNotice} exit={() => go()} download={() => downloadDeck(deck)} share={async () => {
+    <div hidden={page!=='capture'}><Capture save={saveCaptured} learn={()=>go()} notify={setNotice}/></div>
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? go() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state" aria-live="polite">正在准备卡组…</main> : <NativePractice key={deck.fingerprint} deck={deck} notify={setNotice} exit={() => go()} download={() => downloadDeck(deck)} share={async () => {
           if (selected.startsWith('local-')) { downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : <main className="home">
@@ -112,7 +128,8 @@ function App() {
       <section className="decks-section" aria-labelledby="decks-title"><div className="section-title"><div><p className="eyebrow">YOUR NEXT SMALL DISCOVERY</p><h2 id="decks-title">今天，想学哪套卡组？</h2></div><button className="text-button" onClick={() => file.current?.click()} disabled={importing || !ready}><Icon name="upload"/>{importing ? '正在导入…' : '导入自己的卡组'}</button></div><div className="deck-grid">{cards.map((card) => <button className="deck-card" key={card.id} onClick={() => go(card.id)}><div className="deck-cover"><img src={cover(card, "portrait")} alt={card.title} loading="lazy"/></div><div className="deck-caption"><h3>{card.title}</h3><Icon name="arrow"/><p>{card.description}</p><span>{card.local ? '我的卡组 · ' : ''}{card.photoCount ? `${card.photoCount} 张卡片 · ` : ''}{card.count} 个词</span></div></button>)}</div>{loading && <p role="status">正在加载卡组…</p>}<p className="import-note">支持 App 导出的 .piclexdeck 文件，最多 64 MB。照片只保存在当前浏览器。</p></section>
       <section className="home-app"><div className="app-icon"><Icon name="camera"/></div><div><h2>你的照片，就是你的词书。</h2><p>用摄影学英语 iPhone App 拍照制卡，在自己的生活里持续练习。</p></div><a className="secondary" href={appStore} target="_blank" rel="noreferrer">探索 iPhone App <Icon name="arrow"/></a></section>
     </main>}
-    </div><footer><span>摄影学英语 · 让记忆有画面</span><div><a href={repository} target="_blank" rel="noreferrer">开源代码</a><a href={asset('credits.html')} target="_blank" rel="noreferrer">素材与隐私</a><span>Made for little discoveries.</span></div></footer>
+    </div><footer className="app-footer"><span>摄影学英语 · 让记忆有画面</span><div><a href={repository} target="_blank" rel="noreferrer">开源代码</a><a href={asset('credits.html')} target="_blank" rel="noreferrer">素材与隐私</a><span>Made for little discoveries.</span></div></footer>
+    <nav className="app-tabs" aria-label="底部导航">{[['capture','拍摄','camera'],['learn','学习','book'],['settings','设置','settings']].map(([id,title,icon])=><button key={id} aria-label={title} aria-current={(page===id||(id==='settings'&&['level','lab'].includes(page)))?'page':undefined} onClick={()=>{if(id==='learn'){const last=readPreference('piclex-web.last-deck');navigate(last&&cards.some(c=>c.id===last)?`/deck/${encodeURIComponent(last)}`:'/learn');}else navigate(`/${id}`);}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">{icon==='camera'?<><rect x="3" y="6" width="18" height="14" rx="3"/><path d="m8 6 2-3h4l2 3"/><circle cx="12" cy="13" r="4"/></>:icon==='book'?<><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-4-2-7-1-10 1Z"/><path d="M12 5v15"/></>:<><circle cx="12" cy="12" r="4"/><path d="m9 3 1-2h4l1 2 3 2 2 1 2 4-2 2v3l-1 3-3 1-2 3h-4l-2-3-3-1-2-3v-3l-2-2 2-4 2-1Z"/></>}</svg><span>{title}</span></button>)}</nav>
     <input ref={file} className="file-input" type="file" accept=".piclexdeck" aria-label="选择照片卡组文件" onChange={e => void importFile(e.target.files?.[0])}/>
     {notice && <div className="toast" role="status"><span>{notice}</span><button aria-label="关闭提示" onClick={() => setNotice('')}>×</button></div>}
   </>;

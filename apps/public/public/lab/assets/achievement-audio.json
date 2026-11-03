@@ -1,0 +1,12 @@
+{
+  "method": "Original procedural synthesis by scripts/achievement-sound.py (no downloaded or sampled audio)",
+  "asset": "audio/achievement.wav",
+  "sampleRate": 44100,
+  "durationSeconds": 1.15,
+  "channels": 1,
+  "bitsPerSample": 16,
+  "peak": 0.28,
+  "design": "metallic confirmation attack, ascending D-major arpeggio (D4-F#4-A4-D5), warm D-major chord closure, golden bell overtones",
+  "fadeInSeconds": 0.004,
+  "fadeOutSeconds": 0.028
+}
