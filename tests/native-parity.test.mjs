@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {convertPrompt,completionProgress} from '../packages/learning-ui/src/spelling.mjs';
 import {tokens,chunks,checkSentence,newSentence,reduceSentence,sentenceParts,promptsFor,guidedCorrect} from '../packages/practice/src/sentence.mjs';
 import {newStudy,restoreStudy,reduceStudy,studyKey,wordDraft} from '../packages/practice/src/study.mjs';
 const deck={fingerprint:'parity',words:[{id:'a',english:'apple',chinese:'苹果',imageIndex:0,example:'I eat an apple.',exampleChinese:'我吃一个苹果。'},{id:'b',english:'bed',chinese:'床',imageIndex:0,example:'I am in bed.',exampleChinese:'我在床上。'},{id:'c',english:'cup',chinese:'杯子',imageIndex:1,example:'The cup is on the table.',exampleChinese:'杯子在桌上。'}]};
@@ -64,3 +65,11 @@ test('refresh validates drafts, preserves bank order and assistance, and clears 
 test('native teaching chunks match the mobile baseline example',()=>assert.deepEqual(chunks('She swings the racket to hit the ball.').map(c=>c.text),['She','swings','the racket','to hit','the ball.']));
 
 test('programming vocabulary cannot collide with Object prototype properties',()=>{assert.deepEqual(tokens('constructor prototype toString hasOwnProperty'),['constructor','prototype','tostring','hasownproperty']);assert.equal(checkSentence('Use the constructor.','use the constructor').isCorrect,true);});
+
+test('quick/full conversion never invents typed letters, and glow counts only the correct prefix',()=>{
+ assert.equal(convertPrompt('apple','p',[2],null),'');
+ assert.equal(convertPrompt('apple','ap',null,[1,3]),'p');
+ assert.equal(convertPrompt('ice cream','icec',null,null),'ice c');
+ assert.equal(completionProgress('ice cream','ice c'),4/8);
+ assert.equal(completionProgress('apple','axp'),1/5);
+});

@@ -1,4 +1,4 @@
-import {resolve,mismatch,board,fixed} from '../../learning-ui/src/spelling.mjs';
+import {resolve,mismatch,convertPrompt,fixed} from '../../learning-ui/src/spelling.mjs';
 import {promptsFor,promptIndex,newSentence,reduceSentence,checkSentence} from './sentence.mjs';
 export function newStudy(deck){return {version:2,fingerprint:deck.fingerprint,index:0,round:0,presentation:0,module:'spelling',mode:'chunks',rate:1,difficulty:'hard',quick:false,hiddenChinese:false,words:{},history:{},sentences:{},sentenceIndex:0,sentenceFinished:false,pending:null};}
 export const studyKey=s=>`${s.fingerprint}:${s.round}:${s.presentation}:${s.index}:${s.module}:${s.mode}:${s.sentenceIndex}`;
@@ -73,10 +73,13 @@ export function reduceStudy(deck,s,action){
   if(action.name==='hiddenChinese')next.hiddenChinese=!!action.value;
   if(action.name==='quick'){
    next.quick=!!action.value;
-   if(word){const old=wordDraft(deck,s),display=board(word.english,old.input,old.quickIndices);prepare(deck,next);const d=wordDraft(deck,next);d.quickIndices=next.quick&&next.history[word.id]?.mistakes?.length?next.history[word.id].mistakes:null;
-    if(!d.result){const requested=d.quickIndices||[...word.english].map((_,i)=>i);let input='';for(const i of requested){if(display[i]==='_')break;input+=display[i];}d.input=input;}}
+   if(word){const old=wordDraft(deck,s);prepare(deck,next);const d=wordDraft(deck,next);d.quickIndices=next.quick&&next.history[word.id]?.mistakes?.length?next.history[word.id].mistakes:null;
+    if(!d.result){d.input=convertPrompt(word.english,old.input,old.quickIndices,d.quickIndices);}}
   }if(action.name==='quick'&&next.quick&&!wordDraft(deck,next).hadMistake&&!wordDraft(deck,next).result){let i=next.index;while(deck.words[i]&&next.history[deck.words[i].id]?.mastered)i++;if(i!==next.index)navigate(i);}
-  pause(next);return next;
+  pause(next);
+  const current=deck.words[next.index],draft=wordDraft(deck,next);
+  if(action.name==='quick'&&current&&!draft.result&&draft.input.toLowerCase()===expectedInput(current,draft).toLowerCase())return reduceStudy(deck,next,{type:'input',value:draft.input,question:studyKey(next)});
+  return next;
  }
  if(action.type==='restart') {const n=newStudy(deck);if(next.quick)while(deck.words[n.index]&&next.history[deck.words[n.index].id]?.mastered)n.index++;return {...n,history:next.history,quick:next.quick,hiddenChinese:next.hiddenChinese,rate:next.rate,difficulty:next.difficulty,mode:next.mode,round:s.round+1};}
  if(action.type==='selectWord'&&Number.isInteger(action.index)&&deck.words[action.index]){

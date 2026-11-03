@@ -102,3 +102,13 @@ export function completionProgress(expected, entered) {
  let correct=0;while(correct<required.length&&correct<typed.length&&required[correct]===typed[correct])correct++;
  return required.length?correct/required.length:0;
 }
+
+// PracticeSpellingPrompt.converting: prefilled quick-mode letters are never typed answers.
+export function convertPrompt(expected, entered, previousIndices, nextIndices) {
+ const typed=new Map([...entered].map((c,i)=>[previousIndices?.[i]??i,c]));
+ let value='';for(const i of nextIndices??[...expected].map((_,i)=>i)){
+  if(!nextIndices&&fixed(expected[i]))continue;if(!typed.has(i))break;value+=typed.get(i);
+ }
+ const inputExpected=nextIndices?nextIndices.map(i=>expected[i]).join(''):expected;
+ return align(inputExpected,value);
+}
