@@ -1,0 +1,160 @@
+{
+  "date": "2026-11-03",
+  "sourceRevision": "0e3c850c0eef51c38cb607bd2de51fe90a79ae39",
+  "mirrorRelease": "0e3c850c0eef-527d57a896d1",
+  "ciRun": 41662824891,
+  "unitPassed": 190,
+  "deploymentPassed": 8,
+  "browserPassed": 58,
+  "isolatedFiles": 455,
+  "nginxSHA256": "8dad950ee41641251cc534e631d0b403e4690a1d52a9d19764ca3a51d7c2669f",
+  "resources": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "a070b7f44abb245e868146ea735d4770401d18273340d7634064e306ece93cdc"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-3rFFqBKR.js",
+      "bytes": 314354,
+      "sha256": "f280f470800ee98468ac889415ac7789bea2c89a46e205ccca3c7c19048fa83f"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-HmhZate0.css",
+      "bytes": 49830,
+      "sha256": "85a8ea7f163d03ef5384a739973ab41f969ad66488fcca3e440703d08d057ee6"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "a070b7f44abb245e868146ea735d4770401d18273340d7634064e306ece93cdc"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-3rFFqBKR.js",
+      "bytes": 314354,
+      "sha256": "f280f470800ee98468ac889415ac7789bea2c89a46e205ccca3c7c19048fa83f"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-HmhZate0.css",
+      "bytes": 49830,
+      "sha256": "85a8ea7f163d03ef5384a739973ab41f969ad66488fcca3e440703d08d057ee6"
+    }
+  ],
+  "scope": "Entrypoints, six preloaded navigation assets and main bundles on both domains; 455-file mirror verification passed separately.",
+  "limits": "Phone coverage uses browser emulation, including keyboard focus; the physical phone system keyboard was not exercised. No iOS simulator was launched.",
+  "manual": {
+    "desktopViewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "before": {
+      "photoHeight": 88,
+      "keyboardHeight": 162
+    },
+    "after": {
+      "photoHeight": 220,
+      "imageHeight": 220,
+      "keyboardHeight": 117,
+      "progressTextBottom": 21.5,
+      "deckTitleTop": 23
+    },
+    "narrowDesktopViewport": {
+      "width": 390,
+      "height": 844,
+      "photoHeight": 330,
+      "keyboardBottom": 774,
+      "tabsTop": 780
+    },
+    "shortViewport": {
+      "width": 390,
+      "height": 430,
+      "photoHeight": 220,
+      "viewHeight": 378,
+      "scrollHeight": 651
+    },
+    "screenshots": [
+      "docs/web-listening-photo-layout.png",
+      "docs/web-listening-photo-mobile.png"
+    ]
+  }
+}
