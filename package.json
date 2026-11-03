@@ -13,7 +13,9 @@
     "preview": "vite preview --host 127.0.0.1 --port 18120",
     "test": "node --test tests/*.test.mjs",
     "test:browser": "playwright test",
-    "decks:build": "node scripts/build-demo-decks.mjs"
+    "decks:build": "node scripts/build-demo-decks.mjs",
+    "mirror:build": "node scripts/build-mirror.mjs",
+    "test:deploy": "python3 -B -m unittest discover -s deploy -p \"test_*.py\""
   },
   "dependencies": {
     "react": "19.2.8",

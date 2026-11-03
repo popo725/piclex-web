@@ -56,6 +56,8 @@ packages/deck-format/     原生照片卡组 v1 读取与哈希校验
 
 公开示例来源协议地址为 `https://zhaoolee.com/piclex-web/source.json`，采用现有 `com.piclex.deck-source` v1 协议。此地址须在 Pages 发布完成后使用。网页内目前仅提供示例和文件导入，不提供远程来源订阅或自动更新 UI。
 
+独立域名镜像的构建、验证与回滚见 [部署说明](deploy/README.md)。两个域名的浏览器进度分别保存。
+
 ## 支持范围
 
 - 浏览器版单包上限 32 MB，解压后总量上限 96 MB，最多 500 张照片、5000 个词。

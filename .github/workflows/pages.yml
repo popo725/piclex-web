@@ -21,6 +21,7 @@ jobs:
       - run: npm ci
       - run: npm run decks:build && git diff --exit-code -- apps/public/public/decks apps/public/public/catalog.json apps/public/public/source.json
       - run: npm test
+      - run: npm run test:deploy
       - run: npm run build
       - run: npx playwright install --with-deps chrome
       - run: npm run test:browser
