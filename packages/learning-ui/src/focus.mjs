@@ -5,13 +5,16 @@
 //
 // `image` is the decoded photo size, `viewport` the photo area on screen and
 // `focus.box` the label's normalized (0…1) source rectangle.
-export function focusLayout(image, viewport, focus) {
+export function focusLayout(image, viewport, focus, fit = 'focus') {
   if (!(image?.width > 0 && image?.height > 0 && viewport?.width > 0 && viewport?.height > 0)) return null;
-  if (!focus || !focus.visible) {
-    // No positioned object: show the complete photo without zooming.
+  if (fit === 'contain' || !focus || !focus.visible) {
+    // Sentence practice keeps the complete scene; map its highlight without zooming.
     const scale = Math.min(viewport.width / image.width, viewport.height / image.height);
     const width = image.width * scale, height = image.height * scale;
-    return { image: { x: (viewport.width - width) / 2, y: (viewport.height - height) / 2, width, height }, box: null };
+    const x = (viewport.width - width) / 2, y = (viewport.height - height) / 2;
+    const box = focus?.visible ? { x: x + focus.box[0] * width, y: y + focus.box[1] * height,
+      width: focus.box[2] * width, height: focus.box[3] * height } : null;
+    return { image: { x, y, width, height }, box };
   }
   const [left, top, boxWidth, boxHeight] = focus.box;
   const source = { x: left * image.width, y: top * image.height,

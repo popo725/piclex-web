@@ -52,3 +52,17 @@ test('degenerate sizes return no layout', () => {
   assert.equal(focusLayout(undefined, { width: 408, height: 270 }, undefined), null);
   assert.equal(focusLayout({ width: 1600, height: 1200 }, { width: 0, height: 0 }, { visible: true, box: [0, 0, 1, 1] }), null);
 });
+
+test('sentence portrait stays complete while its object highlight follows the contained photo', () => {
+ const layout=focusLayout({width:800,height:1200},{width:428,height:220},{visible:true,box:[0,0,.2,.2]},'contain');
+ near(layout.image.height,220,'full portrait height');near(layout.image.width,146.6667,'portrait aspect ratio');
+ near(layout.image.y,0,'portrait top');near(layout.image.x,140.6667,'portrait centered');
+ near(layout.box.x,layout.image.x,'corner highlight x');near(layout.box.y,0,'corner highlight y');
+ near(layout.box.width,29.3333,'highlight width');near(layout.box.height,44,'highlight height');
+});
+test('sentence landscape stays complete with an aligned highlight and letterboxing', () => {
+ const layout=focusLayout({width:1200,height:800},{width:428,height:330},{visible:true,box:[.5,.5,.2,.2]},'contain');
+ near(layout.image.width,428,'full landscape width');near(layout.image.height,285.3333,'landscape aspect ratio');
+ near(layout.image.x,0,'landscape left');near(layout.image.y,22.3333,'landscape centered');
+ near(layout.box.x,214,'highlight x');near(layout.box.y,165,'highlight y');
+});
