@@ -10,6 +10,8 @@ import { speak, stopSpeaking } from '../../../packages/learning-ui/src/speech';
 import { readPreference, writePreference, saveDeck, storedDecks } from './storage';
 import './style.css';
 import NativePractice from './NativePractice';
+import LoadProgress,{type DownloadProgress} from '../../../packages/learning-ui/src/LoadProgress';
+import {downloadBytes} from '../../../packages/learning-ui/src/download.mjs';
 import './app-shell.css';
 import './responsive.css';
 
@@ -49,6 +51,7 @@ function App() {
   function navigate(hash:string){if(page==='lab')window.dispatchEvent(new CustomEvent('piclex-game-leave',{detail:hash}));else location.hash=hash;}
   const [cards, setCards] = useState<Card[]>([]), [selected, setSelected] = useState(route), [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true), [ready, setReady] = useState(false), [error, setError] = useState(''), [notice, setNotice] = useState(''), [importing, setImporting] = useState(false);
+  const [deckProgress,setDeckProgress]=useState<DownloadProgress|null>(null);
   const [dark, setDark] = useState(() => readPreference('piclex-web.theme') === 'dark');
   const file = useRef<HTMLInputElement>(null);
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; writePreference('piclex-web.theme', dark ? 'dark' : 'light'); }, [dark]);
@@ -81,11 +84,10 @@ function App() {
     const card = cards.find(c => c.id === selected);
     if (!card) { setDeck(null); setError('没有找到这份卡组。本地导入的卡组只在当前浏览器可用。'); return; }
     if (cache.has(selected)) { setDeck(cache.get(selected)!); setLoading(false); return; }
-    const controller = new AbortController(); setLoading(true); setDeck(null);
+    const controller = new AbortController(); setLoading(true); setDeck(null);setDeckProgress(null);
     (async () => {
       try {
-        const response = await fetch(asset(card.payload!), { signal: controller.signal }); if (!response.ok) throw new Error('卡组暂时无法加载，请返回后重试。');
-        const bytes = new Uint8Array(await response.arrayBuffer()); const parsed = await parsePublicDeck(bytes, card);
+        const {bytes}=await downloadBytes(asset(card.payload!),{signal:controller.signal,maxBytes:8*1024*1024,onProgress:progress=>{if(!controller.signal.aborted)setDeckProgress(progress);}}); const parsed = await parsePublicDeck(bytes, card);
         if (!controller.signal.aborted) {
           const value: Deck = { id: selected, title: parsed.title, fingerprint: parsed.learningFingerprint || parsed.fingerprint, legacyFingerprints: card.progressAliases, words: parsed.words, images: parsed.photos.map((photo: { path: string }) => asset(photo.path)), downloadURL: asset(card.package!) };
           cache.set(selected, value); setDeck(value); setLoading(false);
@@ -120,7 +122,7 @@ function App() {
   return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/capture" aria-label="摄影学英语 首页"><span className="brand-mark"><img src={asset("brand/app-icon.png")} alt=""/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(v => !v)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer" aria-label="在 App Store 下载摄影学英语" title="在 App Store 下载"><img src={asset("brand/app-store-badge.svg")} alt="Download on the App Store"/></a></nav></header>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={()=>go()} notify={setNotice}/></div>
-    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? go() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state" aria-live="polite">正在准备卡组…</main> : <NativePractice key={deck.fingerprint} deck={deck} notify={setNotice} exit={() => go()} download={() => downloadDeck(deck)} share={async () => {
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? go() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} notify={setNotice} exit={() => go()} download={() => downloadDeck(deck)} share={async () => {
           if (selected.startsWith('local-')) { downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : <main className="home">

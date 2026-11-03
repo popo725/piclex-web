@@ -50,19 +50,18 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
   finally{clearTimeout(timer);request.current=null;setWorking(null);const refresh=new AbortController();const timeout=setTimeout(()=>refresh.abort(),10000);void readCaptureQuota(refresh.signal).then(setQuota).catch(()=>{}).finally(()=>clearTimeout(timeout));}
  }
  async function submit(){if(!photo||working)return;setWorking('save');try{await save(await createPhotoDeck({image:photo,title,labels,quote}));setPhoto(null);setPreview('');setLabels([blank()]);setQuote(null);setMessage('');setAttempted(false);}catch(e){notify((e as Error).message);}finally{setWorking(null);}}
- return <main className="capture-page">
-  <div className="page-heading"><h1>拍摄</h1><p>拍下眼前的生活，把它变成自己的英语卡片。</p></div>
+ return <main className="capture-page" aria-label="拍摄">
   <div className="capture-viewfinder">
   <div className={`camera-paper ${photo?'has-photo':''}`}>
-   {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:preview?<img src={preview} alt="准备制卡的照片"/>:<div className="camera-empty"><Icon name="camera"/><p>{opening?'请允许浏览器使用相机':'从一张照片开始'}</p></div>}
+   {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:preview?<img src={preview} alt="准备制卡的照片"/>:<button className="camera-empty" aria-label="打开相机" onClick={()=>void camera()} disabled={!!working||opening}><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span><small>{opening?'等待你的授权…':'首次使用会请求相机权限'}</small></button>}
    {(opening||live)&&<button className="camera-close native-button" onClick={stopCamera}>关闭相机</button>}
   </div>
   <div className="capture-controls"><button className="native-button" onClick={()=>picker.current?.click()} disabled={!!working}>导入照片</button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!!working||opening||(live&&!cameraReady)}><span/></button><button className="native-button" onClick={learn}>开始练习</button></div>
-  <p className="muted small">主动点击 AI 识图后，照片会发送至识图服务及模型供应商。保存的卡组和进度留在此浏览器。<br/>每日最多 10 张，额度于北京时间 08:00 重置；同图重试不重复扣张数。</p>
   </div>
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
   {photo&&<section className="capture-editor">
    <div className="capture-ai"><div><strong>让照片变成英语卡片</strong><span className="muted small">{quota?`今日已用 ${quota.used} / ${quota.daily_limit} 张 · 当前可用 ${quota.remaining} 张`:'每个浏览器每日 10 张'}</span></div>
+    <small className="muted">点击识图会上传这张照片进行 AI 分析。</small>
     <button className="native-primary" onClick={()=>void recognize()} disabled={!!working||live||opening||(quota?.remaining===0&&!attempted)}>{working==='ai'?'正在识图…':attempted?'重新识图':'AI 识图生成卡片'}</button>
     {working==='ai'&&<button className="text-button" onClick={()=>request.current?.abort()}>取消等待</button>}
     <p role="status">{message||(quota?.remaining===0?'今日可用额度已用完，仍可手动填写词汇。':'也可以直接在下方手动填写。')}</p>

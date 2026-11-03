@@ -3,7 +3,7 @@ import path from 'node:path';
 const fixture=path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck');
 async function importCafe(page:any){await page.goto('/piclex-web/#/learn');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();}
 test('three App tabs keep the current deck and draft; earned experience survives reload without duplication',async({page})=>{
- await page.goto('/piclex-web/');const tabs=page.getByRole('navigation',{name:'底部导航'});await expect(tabs.getByRole('button')).toHaveText(['拍摄','学习','设置']);await expect(page.getByRole('heading',{name:'拍摄',exact:true})).toBeVisible();
+ await page.goto('/piclex-web/');const tabs=page.getByRole('navigation',{name:'底部导航'});await expect(tabs.getByRole('button')).toHaveText(['拍摄','学习','设置']);await expect(page.getByRole('main',{name:'拍摄',exact:true})).toBeVisible();
  await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await input.fill('cro');await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(input).toHaveValue('cro');await input.fill('croissant');await expect(page.getByRole('heading',{name:'勺子',exact:true})).toBeVisible();
  await expect(page.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await page.reload();await expect(page.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await tabs.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:/我的等级/}).click();await expect(page.getByText('共 1 经验', {exact:false})).toBeVisible();
 });

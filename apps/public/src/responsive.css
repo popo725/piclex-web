@@ -35,11 +35,10 @@ body[data-page=lab] .laboratory-page{height:calc(100dvh - var(--app-tab-height) 
  .settings-page>.settings-section{margin-top:20px}
  .settings-page>.settings-section>.muted{margin-top:12px;line-height:1.7}
  .capture-page:has(.has-photo){max-width:1000px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 40px;align-items:start}
- .capture-page:has(.has-photo)>.page-heading{grid-column:1/-1}
- .capture-page:has(.has-photo)>.capture-viewfinder{grid-column:1;grid-row:2;min-width:0;position:sticky;top:20px}
+ .capture-page:has(.has-photo)>.capture-viewfinder{grid-column:1;grid-row:1;min-width:0;position:sticky;top:20px}
  .capture-page:has(.has-photo) .camera-paper{margin:0 0 18px;width:100%;max-width:none}
  .capture-page:has(.has-photo) .capture-controls{width:100%;max-width:none}
- .capture-page:has(.has-photo)>.capture-editor{grid-column:2;grid-row:2;margin:0}
+ .capture-page:has(.has-photo)>.capture-editor{grid-column:2;grid-row:1;margin:0}
 }
 @media(min-width:601px) and (max-width:959px){.deck-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{gap:24px}.hero h1{font-size:32px}.hero-photo-label{padding:16px}.hero-photo-label strong{font-size:16px;gap:8px}}
 @media(max-width:600px){
@@ -64,11 +63,11 @@ body[data-page=lab] .laboratory-page{height:calc(100dvh - var(--app-tab-height) 
 @media(prefers-reduced-motion:reduce){.settings-row input[role=switch]::before{transition:none}}
 
 .native-icon{display:inline-block;width:22px;height:22px;flex:none;vertical-align:middle;background:currentColor;mask:var(--native-icon) center/contain no-repeat;-webkit-mask:var(--native-icon) center/contain no-repeat}
-.native-tab-icon{width:26px;height:26px}.native-tab-motion{mask-image:var(--native-frames);-webkit-mask-image:var(--native-frames);mask-size:3100% 100%;-webkit-mask-size:3100% 100%;animation:native-tab-enter var(--native-duration) steps(30) both}
+.native-tab-icon{width:26px;height:26px;min-width:26px;min-height:26px;aspect-ratio:1;flex-shrink:0}.native-tab-motion{mask-image:var(--native-frames);-webkit-mask-image:var(--native-frames);mask-size:3100% 100%;-webkit-mask-size:3100% 100%;animation:native-tab-enter var(--native-duration) steps(30) both}
 @keyframes native-tab-enter{from{mask-position:0% 50%;-webkit-mask-position:0% 50%}to{mask-position:100% 50%;-webkit-mask-position:100% 50%}}
 .deck-caption>.native-icon{position:absolute;right:20px;top:24px;width:16px;height:16px}.hero-photo-label strong>.native-icon{margin-left:auto}.native-back,.hint-speaker,.dialog-body>header>button{display:flex;align-items:center;justify-content:center}.settings-row>.native-icon{width:18px;height:18px}.peek-letter>.native-icon{width:15px;height:15px}.camera-empty>.native-icon{width:62px;height:62px}
 @media(max-width:600px){.deck-caption>.native-icon{right:10px;top:18px;width:14px;height:14px}}
-@media(max-height:520px){.native-tab-icon{width:20px;height:20px}}
+@media(max-height:520px){.native-tab-icon{width:20px;height:20px;min-width:20px;min-height:20px}}
 @media(prefers-reduced-motion:reduce){.native-tab-motion{animation:none;mask-image:var(--native-icon);-webkit-mask-image:var(--native-icon);mask-size:contain;-webkit-mask-size:contain}}
 
 /* Native PracticeProgressBattery + PracticeScreenLayout, shared at every width. */
