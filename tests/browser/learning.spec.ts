@@ -44,7 +44,7 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
 });
 test('direct links, reveal, dark theme and unknown decks have usable states',async({page})=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
- await page.getByRole('button',{name:'切换深色外观'}).click();await page.reload();
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('switch',{name:'深色外观'}).check();await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await page.reload();
  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
  await page.getByRole('button',{name:'不认识'}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue(publicDeck.words[0].english);
  await page.getByRole('button',{name:'下一个',exact:true}).click();await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();
@@ -116,7 +116,7 @@ test('sentence fill checks automatically; failed order can be corrected and assi
  await page.getByRole('button',{name:'重新拼写',exact:true}).click();await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue('');
  await page.getByRole('textbox',{name:'听写句子'}).fill('i am still in bed');
  await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue(''); // auto-advance to next sentence
- await expect(page.getByRole('button',{name:'当前卡组，学习设置'})).toContainText('2 / 850');
+ await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByText('本轮进度 2 / 850',{exact:true})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();
  await page.getByRole('tab',{name:'拼单词'}).click();await expect(page.locator('.answer-feedback')).toHaveText('');
 });
 
