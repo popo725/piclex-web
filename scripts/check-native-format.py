@@ -53,7 +53,7 @@ for name in ["cafe", "travel", "home"] {
 with tempfile.TemporaryDirectory(prefix='piclex-web-native-') as tmp:
     dest = Path(tmp)
     for name in ['cafe', 'travel', 'home']:
-        with zipfile.ZipFile(root / f'apps/public/public/decks/{name}.piclexdeck') as z:
+        with zipfile.ZipFile(root / f'tests/fixtures/demo/decks/{name}.piclexdeck') as z:
             paths = z.namelist()
             (dest / f'{name}-manifest.json').write_bytes(z.read('manifest.json'))
             (dest / f'{name}-metadata.json').write_bytes(z.read(next(p for p in paths if p.startswith('photos/') and p.endswith('.json'))))

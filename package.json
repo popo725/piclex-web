@@ -15,7 +15,8 @@
     "test:browser": "playwright test",
     "decks:build": "node scripts/build-demo-decks.mjs",
     "mirror:build": "node scripts/build-mirror.mjs",
-    "test:deploy": "python3 -B -m unittest discover -s deploy -p \"test_*.py\""
+    "test:deploy": "python3 -B -m unittest discover -s deploy -p \"test_*.py\"",
+    "content:build": "node scripts/build-public-content.mjs"
   },
   "dependencies": {
     "react": "19.2.8",

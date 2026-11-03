@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import activate
-from activate import BEGIN, END, ROOT, OLD_ROOT, patch_site, verify_release, web_block
+from activate import BEGIN, END, ROOT, OLD_ROOT, patch_site, verify_release, web_block, protected_routes
 
 SITE = f'''server {{
     listen 443 ssl;
@@ -56,7 +56,9 @@ class DeploymentTests(unittest.TestCase):
     def test_preserves_routes_and_is_idempotent(self):
         candidate = patch_site(SITE)
         self.assertEqual(patch_site(candidate), candidate)
-        self.assertEqual(candidate.replace(web_block(), '').replace(str(ROOT / 'current'), OLD_ROOT), SITE)
+        self.assertEqual(protected_routes(candidate), protected_routes(SITE))
+        legacy = SITE.replace(OLD_ROOT, str(ROOT / 'current')).replace('    location / { return 404; }', web_block().replace('/piclex-web', '/web') + '    location / { return 404; }')
+        self.assertEqual(patch_site(legacy), candidate)
 
     def test_rejects_unknown_homepage(self):
         with self.assertRaises(ValueError):
@@ -75,18 +77,18 @@ class DeploymentTests(unittest.TestCase):
     def test_release_detects_corruption_and_unlisted_file(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
-            (root / 'web').mkdir()
+            (root / 'piclex-web/library').mkdir(parents=True)
             files = {}
-            for name in ['index.html', 'web/index.html', 'web/source.json', 'web/catalog.json']:
+            for name in ['piclex-web/index.html', 'piclex-web/source.json', 'piclex-web/library/catalog.json']:
                 (root / name).write_bytes(b'test')
                 files[name] = {'bytes': 4, 'sha256': hashlib.sha256(b'test').hexdigest()}
             (root / 'release.json').write_text(json.dumps({'origin': 'https://piclex.v2fy.com', 'releaseID': 'a' * 12 + '-' + 'b' * 12, 'sourceRevision': 'a' * 40, 'files': files}))
             verify_release(root)
-            (root / 'web/source.json').write_bytes(b'bad')
+            (root / 'piclex-web/source.json').write_bytes(b'bad')
             with self.assertRaises(ValueError):
                 verify_release(root)
-            (root / 'web/source.json').write_bytes(b'test')
-            (root / 'web/unexpected.txt').write_text('unexpected')
+            (root / 'piclex-web/source.json').write_bytes(b'test')
+            (root / 'piclex-web/unexpected.txt').write_text('unexpected')
             with self.assertRaises(ValueError):
                 verify_release(root)
 

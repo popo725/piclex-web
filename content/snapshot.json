@@ -1,0 +1,88 @@
+{
+  "sources": [
+    "https://piclex.v2fy.com/decks/source.json",
+    "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json"
+  ],
+  "decks": [
+    {
+      "deckID": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+      "title": "Basic English 850 场景卡片",
+      "description": "850个基础英语词的场景学习卡，已完整制作。本版包含C001–C100共100个场景、850个目标词，每词附中文、英美音标、搭配与原创中英例句；完善504个局部区域框、346个语境词，支持按词查看对应画面，配有原创中英配文。",
+      "version": 6,
+      "photoCount": 100,
+      "wordCount": 850,
+      "packageBytes": 43828624,
+      "packageSHA256": "a298e11d1b5e632f89aed7b5e73a247b8a345306fc03542d6d189a4afc2e99f7",
+      "coverURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
+      "author": "PicLex",
+      "access": "public",
+      "packageURL": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/deck.piclexdeck",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+    },
+    {
+      "deckID": "121d190a-5d4c-4a09-8d50-4741acdbbb1b",
+      "title": "程序员工作英语",
+      "description": "程序员工作英语：8类常见工作沟通，每类10个场景，共80张黑底白线火柴人场景卡、320个词条；原创纯英文A/B对话与独立中文译文，免费学习。",
+      "version": 10,
+      "photoCount": 80,
+      "wordCount": 320,
+      "packageBytes": 15486193,
+      "packageSHA256": "86ccb63944b4da32b824861943f519e0ca283e272c0ee569ebc8a93ceea10f74",
+      "coverURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
+      "author": "PicLex",
+      "access": "public",
+      "packageURL": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/deck.piclexdeck",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+    },
+    {
+      "deckID": "56a51624-d8aa-4167-99c5-e1c727a938db",
+      "title": "程序员 Vibe Coding",
+      "description": "8个子专题，第一季规划40期，当前23张场景卡、92个词条。黑底白线火柴人与OpenAI Logo对话；每张含双语场景说明、四话轮A/B对白和4个相关词条。",
+      "version": 2,
+      "photoCount": 23,
+      "wordCount": 92,
+      "packageBytes": 3149374,
+      "packageSHA256": "f51319dcd051bb07c5a6f16fe5911771b4d41dbca9ae0f760936d811e73287f4",
+      "coverURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
+      "author": "PicLex",
+      "access": "public",
+      "packageURL": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/deck.piclexdeck",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+    },
+    {
+      "deckID": "ba777e29-70c7-4706-8ea3-dd65f592ac16",
+      "title": "下班后，去摄影吧！",
+      "description": "程序员的摄影器材与影像英语：50个原创双语场景、200个摄影与视频学习词条，涵盖选购、镜头、参数、布光、配件、人像、外拍、后期、视频与声音。",
+      "version": 4,
+      "photoCount": 50,
+      "wordCount": 200,
+      "packageBytes": 22640982,
+      "packageSHA256": "bf3d984a0775ca9dd145cb5ddbdb3f4398d6d54c9a42fb6edb5e1d792488c1d0",
+      "coverURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
+      "author": "PicLex",
+      "access": "public",
+      "packageURL": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/deck.piclexdeck",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/decks/source.json"
+    },
+    {
+      "deckID": "099b791c-b48b-4439-b3e1-000ac98ebb0c",
+      "title": "新概念英语第二册",
+      "author": "zhaoolee",
+      "description": "个人学习：第1–40课，427句按原句顺序，每句一个单词，保留重复词与重复句。85张原创场景配图。",
+      "version": 15,
+      "photoCount": 85,
+      "wordCount": 427,
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/15/deck-cadcdd18092f5921.piclexdeck",
+      "packageBytes": 43415218,
+      "packageSHA256": "cadcdd18092f59217e7728f2e1bd1d53d091c4f18aab344a03a6c383df0c1a18",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/15/cover-b8f021273acf8d37.jpg",
+      "access": "public",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json"
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { unzipSync, zipSync, strFromU8, strToU8 } from 'fflate';
 import { parseArchive, sha256 } from '../packages/deck-format/src/archive.mjs';
-const root=new URL('../apps/public/public/',import.meta.url);
+const root=new URL('../tests/fixtures/demo/',import.meta.url);
 const cafe=()=>readFile(new URL('decks/cafe.piclexdeck',root));
 test('all shipped examples satisfy archive checks and source protocol hashes',async()=>{
  const source=JSON.parse(await readFile(new URL('source.json',root),'utf8'));

@@ -1,6 +1,6 @@
 import { unzipSync, strFromU8 } from 'fflate';
 
-export const MAX_PACKAGE_BYTES = 32 * 1024 * 1024;
+export const MAX_PACKAGE_BYTES = 64 * 1024 * 1024;
 const MAX_EXPANDED_BYTES = 96 * 1024 * 1024;
 const MAX_JSON_BYTES = 2 * 1024 * 1024;
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -20,7 +20,7 @@ function mime(bytes) {
 }
 /** Parse the existing iPhone/Studio archive. No uploads, filesystem extraction, or executable media. */
 export async function parseArchive(bytes) {
-  if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length > MAX_PACKAGE_BYTES) fail('请选择不超过 32 MB 的 .piclexdeck 卡组。');
+  if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length > MAX_PACKAGE_BYTES) fail('请选择不超过 64 MB 的 .piclexdeck 卡组。');
   let total = 0, count = 0;
   const names = new Set();
   let files;

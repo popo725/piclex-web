@@ -10,22 +10,9 @@ const temporary = await mkdtemp(join(tmpdir(), 'piclex-mirror-'));
 const sha = data => createHash('sha256').update(data).digest('hex');
 try {
   await mkdir(output); // Refuse to overwrite a previous release.
-  execFileSync('npm', ['run', 'build', '--', '--base=/web/', `--outDir=${join(temporary, 'web')}`], { stdio: 'inherit' });
-  const web = join(temporary, 'web');
-  const sourcePath = join(web, 'source.json');
-  const source = JSON.parse(await readFile(sourcePath, 'utf8'));
-  for (const deck of source.decks) {
-    for (const field of ['packageURL', 'coverURL']) {
-      const url = new URL(deck[field]);
-      if (url.origin !== 'https://zhaoolee.com' || !url.pathname.startsWith('/piclex-web/')) throw new Error('Unexpected example URL');
-      deck[field] = `https://piclex.v2fy.com/web/${url.pathname.slice('/piclex-web/'.length)}`;
-    }
-  }
-  await writeFile(sourcePath, JSON.stringify(source, null, 2) + '\n');
-  const creditsPath = join(web, 'credits.html');
-  await writeFile(creditsPath, (await readFile(creditsPath, 'utf8')).replace('href="./"', 'href="/"'));
-  await cp(web, join(output, 'web'), { recursive: true });
-  await cp(join(web, 'index.html'), join(output, 'index.html'));
+  execFileSync('npm', ['run', 'build'], { stdio: 'inherit' });
+  // Both domains serve exactly the same artifact at /piclex-web/.
+  await cp(resolve('dist'), join(output, 'piclex-web'), { recursive: true });
   const files = {};
   async function collect(directory, prefix = '') {
     for (const entry of (await readdir(directory, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {

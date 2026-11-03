@@ -11,11 +11,17 @@ import tempfile
 import time
 from urllib.error import HTTPError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
-from activate import SITE, ROOT, OLD_ROOT, patch_site, verify_release, web_block
+from urllib.request import Request, build_opener, HTTPRedirectHandler
+from activate import SITE, ROOT, OLD_ROOT, patch_site, verify_release, web_block, homepage_block, protected_routes
+
+
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None
 
 
 def main():
+    opener = build_opener(NoRedirect)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--release', required=True, type=Path)
     args = parser.parse_args()
@@ -23,10 +29,7 @@ def main():
     verify_release(release)
     original = SITE.read_text()
     candidate = patch_site(original)
-    # The entire live configuration must be preserved except these two changes.
-    restored = candidate.replace(web_block(), '').replace(f'root {ROOT / "current"};', f'root {OLD_ROOT};')
-    baseline = original.replace(web_block(), '').replace(f'root {ROOT / "current"};', f'root {OLD_ROOT};')
-    assert restored == baseline, 'Unexpected existing route changes'
+    assert protected_routes(candidate) == protected_routes(original), 'Unexpected existing route changes'
     with socket.socket() as sock:
         sock.bind(('127.0.0.1', 0))
         port = sock.getsockname()[1]
@@ -45,13 +48,7 @@ http {{
     scgi_temp_path {temporary}/scgi;
     server {{
         listen 127.0.0.1:{port};
-        location = / {{
-            limit_except GET HEAD {{ deny all; }}
-            root {release};
-            types {{ text/html html; }}
-            try_files /index.html =404;
-            add_header X-Content-Type-Options "nosniff";
-        }}
+{homepage_block()}
 {web_block(release)}
         location / {{ return 404; }}
     }}
@@ -72,7 +69,7 @@ http {{
 
             def request(path, method='GET', expected=200, mime=None):
                 try:
-                    response = urlopen(Request(f'http://127.0.0.1:{port}{path}', method=method), timeout=5)
+                    response = opener.open(Request(f'http://127.0.0.1:{port}{path}', method=method), timeout=5)
                 except HTTPError as error:
                     response = error
                 with response:
@@ -83,34 +80,34 @@ http {{
                         assert response.headers.get('X-Content-Type-Options') == 'nosniff'
                     return response.read()
 
-            homepage = request('/', mime='text/html')
-            assert homepage == (release / 'index.html').read_bytes()
-            assert request('/web/', mime='text/html') == homepage
-            assert request('/', method='HEAD') == b''
-            for asset in re.findall(r'(?:src|href)="(/web/[^" ]+)"', homepage.decode()):
+            request('/', expected=302)
+            homepage = request('/piclex-web/', mime='text/html')
+            assert homepage == (release / 'piclex-web/index.html').read_bytes()
+            request('/piclex-web', expected=308)
+            assert request('/piclex-web/', method='HEAD') == b''
+            for asset in re.findall(r'(?:src|href)="(/piclex-web/[^" ]+)"', homepage.decode()):
                 mime = {'.js': 'application/javascript', '.css': 'text/css', '.svg': 'image/svg+xml'}[Path(asset).suffix]
                 assert request(asset, mime=mime) == (release / asset.lstrip('/')).read_bytes()
-            catalog = json.loads(request('/web/catalog.json', mime='application/json'))
-            source = json.loads(request('/web/source.json', mime='application/json'))
-            assert len(catalog) == len(source['decks']) == 3
+            catalog = json.loads(request('/piclex-web/library/catalog.json', mime='application/json'))
+            source = json.loads(request('/piclex-web/source.json', mime='application/json'))
+            assert len(catalog) == len(source['decks']) >= 1
             for deck in source['decks']:
                 package = urlsplit(deck['packageURL'])
                 cover = urlsplit(deck['coverURL'])
-                assert package.scheme == cover.scheme == 'https'
-                assert package.netloc == cover.netloc == 'piclex.v2fy.com'
-                assert package.path.startswith('/web/decks/') and cover.path.startswith('/web/images/')
+                assert package.scheme == cover.scheme == '' and package.netloc == cover.netloc == ''
+                assert package.path.startswith('/piclex-web/library/') and cover.path.startswith('/piclex-web/library/')
                 data = request(package.path, mime='application/octet-stream')
                 assert len(data) == deck['packageBytes']
                 assert hashlib.sha256(data).hexdigest() == deck['packageSHA256']
                 request(cover.path, mime='image/jpeg')
-            request('/web/credits.html', mime='text/html')
-            for path in ['/', '/web/catalog.json']:
+            request('/piclex-web/credits.html', mime='text/html')
+            for path in ['/piclex-web/', '/piclex-web/library/catalog.json']:
                 request(path, method='POST', expected=403)
-            for path in ['/release.json', '/web/.env', '/web/missing', '/unknown']:
+            for path in ['/release.json', '/piclex-web/.env', '/piclex-web/missing', '/unknown']:
                 request(path, expected=404)
-            request('/web/assets/', expected=403)
+            request('/piclex-web/assets/', expected=403)
             assert SITE.read_text() == original, 'Production config changed during check'
-            print('PASS: homepage, JS/CSS MIME, catalog, 3 same-origin packages/hashes/covers, credits, HEAD, write/hidden/listing guards; existing routes preserved.')
+            print('PASS: homepage, JS/CSS MIME, catalog, public same-origin packages/hashes/covers, credits, HEAD, write/hidden/listing guards; existing routes preserved.')
         finally:
             process.terminate()
             try:

@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { zipSync, strToU8 } from 'fflate';
-const root = new URL('../apps/public/public/', import.meta.url);
+const root = new URL('../tests/fixtures/demo/', import.meta.url);
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const datasets = [
   { id:'cafe', title:'咖啡馆的早晨', description:'一份早餐，几种平常的小美好', credit:'Kawin Harasai', source:'https://commons.wikimedia.org/wiki/File:Rustic_Cafe_Table_(Unsplash).jpg', license:'CC0 1.0', words:[

@@ -22,8 +22,8 @@ FALLBACK = '    location / { return 404; }\n'
 
 def web_block(root=None):
     root = root or ROOT / 'current'
-    return BEGIN + f'''    location = /web {{ return 308 /web/; }}
-    location ^~ /web/ {{
+    return BEGIN + f'''    location = /piclex-web {{ return 308 /piclex-web/; }}
+    location ^~ /piclex-web/ {{
         root {root};
         index index.html;
         autoindex off;
@@ -49,6 +49,19 @@ def web_block(root=None):
 ''' + END
 
 
+def homepage_block():
+    return """    location = / {
+        return 302 /piclex-web/$is_args$args;
+        add_header Cache-Control "no-cache" always;
+    }
+"""
+
+
+def protected_routes(current):
+    value = re.sub(r'    location = / \{\n.*?^    \}\n', '', current, flags=re.M | re.S)
+    return re.sub(re.escape(BEGIN) + r'.*?' + re.escape(END), '', value, flags=re.S)
+
+
 def patch_site(current):
     if current.count('    location = / {\n') != 1 or current.count(FALLBACK) != 1:
         raise ValueError('Unexpected site layout; review the production configuration first')
@@ -57,22 +70,25 @@ def patch_site(current):
     match = re.search(r'    location = / \{\n.*?^    \}\n', current, re.M | re.S)
     if match is None or match.start() < current.index('listen 443 ssl;'):
         raise ValueError('Expected the existing HTTPS homepage')
-    old = f'        root {OLD_ROOT};\n'
-    new = f'        root {ROOT / "current"};\n'
     homepage = match[0]
-    if homepage.count(old) + homepage.count(new) != 1 or 'try_files /index.html =404;' not in homepage:
+    allowed_roots = [f'        root {OLD_ROOT};\n', f'        root {ROOT / "current"};\n']
+    if homepage != homepage_block() and (sum(homepage.count(root) for root in allowed_roots) != 1 or 'try_files /index.html =404;' not in homepage):
         raise ValueError('Unrecognized homepage; refusing to replace it')
-    candidate = current[:match.start()] + homepage.replace(old, new) + current[match.end():]
+    candidate = current[:match.start()] + homepage_block() + current[match.end():]
     if BEGIN in candidate or END in candidate:
         if candidate.count(BEGIN) != 1 or candidate.count(END) != 1:
             raise ValueError('Malformed Web route markers')
         start, stop = candidate.index(BEGIN), candidate.index(END) + len(END)
-        if candidate[start:stop] != web_block():
+        legacy = web_block().replace('/piclex-web', '/web')
+        if candidate[start:stop] not in [web_block(), legacy]:
             raise ValueError('Existing Web routes differ; review before applying')
+        candidate = candidate[:start] + web_block() + candidate[stop:]
     else:
-        if re.search(r'\blocation\s+[^\n{]*\/web\b', candidate):
-            raise ValueError('An unmarked /web route already exists')
+        if re.search(r'\blocation\s+[^\n{]*\/(?:web|piclex-web)\b', candidate):
+            raise ValueError('An unmarked Web route already exists')
         candidate = candidate.replace(FALLBACK, web_block() + FALLBACK, 1)
+    if protected_routes(candidate) != protected_routes(current):
+        raise ValueError('Unexpected changes outside Web routes')
     return candidate
 
 
@@ -97,17 +113,15 @@ def verify_release(release):
             continue
         if not path.is_file() or any(part.startswith('.') for part in path.relative_to(release).parts):
             raise ValueError('Only public regular files are allowed')
-        if relative != 'index.html' and not relative.startswith('web/'):
+        if not relative.startswith('piclex-web/'):
             raise ValueError('Unexpected file outside web/')
         actual.add(relative)
         data = path.read_bytes()
         expected = manifest['files'].get(relative)
         if expected != {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}:
             raise ValueError(f'Release checksum mismatch: {relative}')
-    if actual != set(manifest['files']) or not {'index.html', 'web/index.html', 'web/source.json', 'web/catalog.json'} <= actual:
+    if actual != set(manifest['files']) or not {'piclex-web/index.html', 'piclex-web/source.json', 'piclex-web/library/catalog.json'} <= actual:
         raise ValueError('Missing release files')
-    if (release / 'index.html').read_bytes() != (release / 'web/index.html').read_bytes():
-        raise ValueError('Homepage mismatch')
     print(f'Verified {len(actual)} files: {manifest["releaseID"]}', flush=True)
     return manifest
 
@@ -216,7 +230,7 @@ def main():
         }, indent=2) + '\n')
         print(f'Backup: {backup}', flush=True)
         apply_change(target, previous, candidate, original, metadata)
-        print('Activated: https://piclex.v2fy.com/', flush=True)
+        print('Activated: https://piclex.v2fy.com/piclex-web/', flush=True)
         print(f'Rollback: sudo python3 {Path(__file__).resolve()} --rollback {backup} --apply', flush=True)
     finally:
         if lock:

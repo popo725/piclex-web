@@ -8,3 +8,5 @@ test-results/
 .DS_Store
 dist-mirror/
 __pycache__/
+apps/public/public/library/
+apps/public/public/source.json

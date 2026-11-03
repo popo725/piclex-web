@@ -9,3 +9,6 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
 @media(max-width:600px){.home-app{display:grid;grid-template-columns:43px minmax(0,1fr)}.home-app>a{margin-left:0;grid-column:2;justify-self:start}.header-app{font-size:10px;max-width:76px;line-height:1.4}.header-app span{font-size:12px;margin-left:3px}}
+
+/* Public catalogs have longer titles and descriptions than the original fixtures. */
+.deck-caption p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.hero-photo-label strong{gap:16px;line-height:1.45}.deck-caption h3{line-height:1.5;padding-right:15px}.hero-photo-label{right:22px}
