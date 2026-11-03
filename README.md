@@ -2,7 +2,7 @@
 
 把眼前的生活，变成英语。一个无需登录的照片英语学习器。
 
-[在线体验](https://zhaoolee.github.io/piclex-web/) · [iPhone App](https://apps.apple.com/app/id6808490052)
+[在线体验](https://zhaoolee.com/piclex-web/) · [iPhone App](https://apps.apple.com/app/id6808490052)
 
 ![PicLex Web 首页](docs/home.png)
 
@@ -54,7 +54,7 @@ packages/deck-format/     原生照片卡组 v1 读取与哈希校验
 
 仓库的 GitHub Actions 执行单元检查、构建、Chrome 浏览器验收，再部署 GitHub Pages。仓库 Pages 的构建来源需设为 GitHub Actions。Fork 后请更新 App/GitHub 链接及 `scripts/build-demo-decks.mjs` 中的公开订阅地址，然后重建示例。
 
-公开示例来源协议地址为 `https://zhaoolee.github.io/piclex-web/source.json`，采用现有 `com.piclex.deck-source` v1 协议。此地址须在 Pages 发布完成后使用。网页内目前仅提供示例和文件导入，不提供远程来源订阅或自动更新 UI。
+公开示例来源协议地址为 `https://zhaoolee.com/piclex-web/source.json`，采用现有 `com.piclex.deck-source` v1 协议。此地址须在 Pages 发布完成后使用。网页内目前仅提供示例和文件导入，不提供远程来源订阅或自动更新 UI。
 
 ## 支持范围
 

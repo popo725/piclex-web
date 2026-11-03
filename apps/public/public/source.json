@@ -11,10 +11,10 @@
       "version": 1,
       "photoCount": 1,
       "wordCount": 6,
-      "packageURL": "https://zhaoolee.github.io/piclex-web/decks/cafe.piclexdeck",
+      "packageURL": "https://zhaoolee.com/piclex-web/decks/cafe.piclexdeck",
       "packageBytes": 359128,
       "packageSHA256": "624353f61b5fdb039d2ea0a5b58615726c3c4081b291e760c7eb9de954b8b7a5",
-      "coverURL": "https://zhaoolee.github.io/piclex-web/images/cafe.jpg",
+      "coverURL": "https://zhaoolee.com/piclex-web/images/cafe.jpg",
       "access": "public"
     },
     {
@@ -25,10 +25,10 @@
       "version": 1,
       "photoCount": 1,
       "wordCount": 6,
-      "packageURL": "https://zhaoolee.github.io/piclex-web/decks/travel.piclexdeck",
+      "packageURL": "https://zhaoolee.com/piclex-web/decks/travel.piclexdeck",
       "packageBytes": 355991,
       "packageSHA256": "ae66bf79501990a9becb443cdc09343e59e63c30d6ee8e596a8d4e90d60230f2",
-      "coverURL": "https://zhaoolee.github.io/piclex-web/images/travel.jpg",
+      "coverURL": "https://zhaoolee.com/piclex-web/images/travel.jpg",
       "access": "public"
     },
     {
@@ -39,10 +39,10 @@
       "version": 1,
       "photoCount": 1,
       "wordCount": 6,
-      "packageURL": "https://zhaoolee.github.io/piclex-web/decks/home.piclexdeck",
+      "packageURL": "https://zhaoolee.com/piclex-web/decks/home.piclexdeck",
       "packageBytes": 242730,
       "packageSHA256": "522fb54eda3b54ec6cfacf8641b6f774cbceb899b1cf7658c93cd62fc32aeaf7",
-      "coverURL": "https://zhaoolee.github.io/piclex-web/images/home.jpg",
+      "coverURL": "https://zhaoolee.com/piclex-web/images/home.jpg",
       "access": "public"
     }
   ]

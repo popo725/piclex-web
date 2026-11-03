@@ -47,7 +47,7 @@ for (const [index, d] of datasets.entries()) {
   const bytes = zipSync({ 'manifest.json':strToU8(JSON.stringify(manifest)),[jsonPath]:metadata,[imagePath]:image }, { level:0, mtime:new Date(2026,10,3,0,0,0) });
   await writeFile(new URL(`decks/${d.id}.piclexdeck`,root),bytes);
   catalog.push({id:d.id,title:d.title,description:d.description,count:d.words.length,cover:`images/${d.id}.jpg`,package:`decks/${d.id}.piclexdeck`,credit:d.credit,source:d.source});
-  sourceDecks.push({deckID,title:d.title,author:'PicLex',description:d.description,version:1,photoCount:1,wordCount:d.words.length,packageURL:`https://zhaoolee.github.io/piclex-web/decks/${d.id}.piclexdeck`,packageBytes:bytes.length,packageSHA256:digest(bytes),coverURL:`https://zhaoolee.github.io/piclex-web/images/${d.id}.jpg`,access:'public'});
+  sourceDecks.push({deckID,title:d.title,author:'PicLex',description:d.description,version:1,photoCount:1,wordCount:d.words.length,packageURL:`https://zhaoolee.com/piclex-web/decks/${d.id}.piclexdeck`,packageBytes:bytes.length,packageSHA256:digest(bytes),coverURL:`https://zhaoolee.com/piclex-web/images/${d.id}.jpg`,access:'public'});
 }
 await writeFile(new URL('catalog.json',root),JSON.stringify(catalog,null,2)+'\n');
 await writeFile(new URL('source.json',root),JSON.stringify({format:'com.piclex.deck-source',schemaVersion:1,title:'PicLex Web 场景体验',decks:sourceDecks},null,2)+'\n');
