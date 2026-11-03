@@ -136,3 +136,21 @@ test('guided dictation, listening controls, compact height and reduced-motion re
  await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('.focus-box>span')).toHaveCSS('animation-name','none');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
+
+
+test('speaking starts only on explicit action and stops when leaving the module',async({page})=>{
+ await page.addInitScript(()=>{
+  const state={starts:0,aborts:0};(window as any).__speechTest=state;
+  (window as any).SpeechRecognition=class {onresult:any;onend:any;onerror:any;start(){state.starts++;this.onresult?.({results:[[{transcript:'I am still in bed'}]]});}abort(){state.aborts++;}};
+ });
+ await page.goto('/piclex-web/#/deck/'+publicCard.id);await page.getByRole('tab',{name:'练口语'}).click();
+ expect(await page.evaluate(()=>(window as any).__speechTest.starts)).toBe(0);
+ await expect(page.getByText('浏览器可能将语音发送给其识别服务；点击后授权麦克风。')).toBeVisible();
+ await page.getByRole('button',{name:'开始跟读',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('本句单词已匹配');
+ await page.getByRole('tab',{name:'拼单词'}).click();
+ expect(await page.evaluate(()=>(window as any).__speechTest.aborts)).toBe(1);
+ await page.getByRole('tab',{name:'练口语'}).click();
+ await expect(page.getByRole('status')).toContainText('I am still in bed');
+ expect(await page.evaluate(()=>(window as any).__speechTest.starts)).toBe(1);
+});
