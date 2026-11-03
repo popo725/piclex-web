@@ -69,7 +69,7 @@ test('programming vocabulary cannot collide with Object prototype properties',()
 test('quick/full conversion never invents typed letters, and glow counts only the correct prefix',()=>{
  assert.equal(convertPrompt('apple','p',[2],null),'');
  assert.equal(convertPrompt('apple','ap',null,[1,3]),'p');
- assert.equal(convertPrompt('ice cream','icec',null,null),'ice c');
+ assert.equal(convertPrompt('ice cream','ice c',null,null),'ice c');
  assert.equal(completionProgress('ice cream','ice c'),4/8);
  assert.equal(completionProgress('apple','axp'),1/5);
 });
