@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-03",
+  "sourceRevision": "23df6515fc042b3e541a9ef3d2088187b59d720e",
+  "mirrorRelease": "23df6515fc04-f06c7f84055d",
+  "ciRun": 41652978781,
+  "unitPassed": 188,
+  "deploymentPassed": 8,
+  "browserPassed": 50,
+  "isolatedFiles": 455,
+  "nginxSHA256": "8dad950ee41641251cc534e631d0b403e4690a1d52a9d19764ca3a51d7c2669f",
+  "resources": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "02e9be83ccf248ac68c6bd0e96be554750dffe193a4c0acd2e539ec937bac5dd"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-DqQIMAv3.js",
+      "bytes": 313284,
+      "sha256": "2c4f7f8cc359fbb7d0531138503504002e592bbfc39fe20c6e19af6fb68f201c"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-uISGSlgu.css",
+      "bytes": 47379,
+      "sha256": "51d074d98f843ed4bd0d8214c8dfb7872d7176efc3ad165d163b0730d410118c"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "02e9be83ccf248ac68c6bd0e96be554750dffe193a4c0acd2e539ec937bac5dd"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/credits.html",
+      "bytes": 3620,
+      "sha256": "449665a08479ab7256a218c7d27005813cd305100d0204a8c60c2e13252fde28"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-DqQIMAv3.js",
+      "bytes": 313284,
+      "sha256": "2c4f7f8cc359fbb7d0531138503504002e592bbfc39fe20c6e19af6fb68f201c"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-uISGSlgu.css",
+      "bytes": 47379,
+      "sha256": "51d074d98f843ed4bd0d8214c8dfb7872d7176efc3ad165d163b0730d410118c"
+    }
+  ],
+  "scope": "Entrypoints, six preloaded navigation assets and main bundles on both domains; 455-file mirror verification passed separately.",
+  "limits": "Desktop browser at phone widths; not a mainland network speed measurement. Browser and native account progress remain independent."
+}
