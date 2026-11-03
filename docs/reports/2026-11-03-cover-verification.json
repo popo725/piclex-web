@@ -1,0 +1,107 @@
+{
+  "revision": "4dd07290cd05f984ba141a4e61c7913d01ba4b9e",
+  "releaseID": "4dd07290cd05-cb1f29e47baa",
+  "workflow": "https://github.com/zhaoolee/piclex-web/actions/runs/41586405744",
+  "checks": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-CpKNUUR6.js",
+      "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-EdvZikXi.css",
+      "sha256": "8c9120be5acb95d7636722411056fef94a05f05f9ee1a410ece96184949c794d",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "sha256": "48ff6941e92f4084beb778b649583511894863a0f0fa0c8dae802396a1d4ea98",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/cover.jpg",
+      "sha256": "b8f021273acf8d3711ce8a0ddf89195d7daa008ca13ed16e6d58d9a1095f4d6b",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
+      "sha256": "fd2945e3d731e135981747cec4112824df71952155687a26bcf3d0df3e1b71ed",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
+      "sha256": "faf4a6e9ec6db731bcead43e7c1bc550a528aaed0d456c5ab3170d31933f2c1d",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
+      "sha256": "de83950470938844a1ae7095080d80f4246e7572dcfeee1e0bbc4ef7d39989ac",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
+      "sha256": "a101af8f5a5c4cef2c53d8b7bacf30daa0a7be998e11a0e5710ab83c7b77a515",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/catalog.json",
+      "sha256": "717e1ede39ec160738a127188c257905c844d023b5dccf71225826a391528409",
+      "verified": true
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/source.json",
+      "sha256": "ce7d675c34230ba07b5809671f4fd2c69f02e485e9808c289cf57b5d109e93ba",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/index-CpKNUUR6.js",
+      "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/index-EdvZikXi.css",
+      "sha256": "8c9120be5acb95d7636722411056fef94a05f05f9ee1a410ece96184949c794d",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "sha256": "48ff6941e92f4084beb778b649583511894863a0f0fa0c8dae802396a1d4ea98",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v15-cadcdd18092f5921/cover.jpg",
+      "sha256": "b8f021273acf8d3711ce8a0ddf89195d7daa008ca13ed16e6d58d9a1095f4d6b",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v10-86ccb63944b4da32/cover.jpg",
+      "sha256": "fd2945e3d731e135981747cec4112824df71952155687a26bcf3d0df3e1b71ed",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v2-f51319dcd051bb07/cover.jpg",
+      "sha256": "faf4a6e9ec6db731bcead43e7c1bc550a528aaed0d456c5ab3170d31933f2c1d",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v6-a298e11d1b5e632f/cover.jpg",
+      "sha256": "de83950470938844a1ae7095080d80f4246e7572dcfeee1e0bbc4ef7d39989ac",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v4-bf3d984a0775ca9d/cover.jpg",
+      "sha256": "a101af8f5a5c4cef2c53d8b7bacf30daa0a7be998e11a0e5710ab83c7b77a515",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/catalog.json",
+      "sha256": "717e1ede39ec160738a127188c257905c844d023b5dccf71225826a391528409",
+      "verified": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/source.json",
+      "sha256": "ce7d675c34230ba07b5809671f4fd2c69f02e485e9808c289cf57b5d109e93ba",
+      "verified": true
+    }
+  ]
+}
