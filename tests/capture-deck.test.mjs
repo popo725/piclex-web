@@ -18,3 +18,10 @@ test('contextual words and invalid positions never invent focus boxes',async()=>
   const parsed=await parseArchive(await createPhotoDeck({image,title:'位置校验',labels:[{...label,...change}]}));assert.equal(parsed.words[0].focus,null);
  }
 });
+
+test('AI fractional coordinates export as native integers without creating collapsed boxes',async()=>{
+ const bytes=await createPhotoDeck({image,title:'坐标兼容',labels:[{...label,bbox:[100.2,200.4,400.3,600.1],anchor:[150.8,250.2]}]});
+ const files=unzipSync(bytes),meta=JSON.parse(strFromU8(files[Object.keys(files).find(k=>k.startsWith('photos/')&&k.endsWith('.json'))]));
+ assert.equal(meta.labels[0].x,151);assert.equal(meta.labels[0].boundingBox.left,100);
+ const parsed=await parseArchive(await createPhotoDeck({image,title:'边界',labels:[{...label,bbox:[100.1,200,100.2,600],anchor:[100.15,250]}]}));assert.equal(parsed.words[0].focus,null);
+});

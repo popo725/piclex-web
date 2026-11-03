@@ -6,7 +6,8 @@ export async function createPhotoDeck({image,title,labels,quote=null,id=crypto.r
  for(const l of labels)if(typeof l.english!=='string'||!/^[a-z][a-z0-9 '\-.,!?()]{0,99}$/i.test(l.english.trim())||typeof l.chinese!=='string'||!l.chinese.trim()||l.chinese.length>200)throw Error('请填写有效的英文单词或短语和中文释义。');
  const imagePath=`photos/${id}.jpg`,jsonPath=`photos/${id}.json`;
  const data=strToU8(JSON.stringify({formatVersion:1,id,createdAt:date,imagePath,imageByteCount:image.length,imageSHA256:await sha256(image),recognitionCompleted:true,libraryAppendOrder:0,quote:quote?{...quote,sourceURL:null,provenance:'model'}:{chinese:'',english:'',source:'',sourceURL:null,provenance:'none'},labels:labels.map(l=>{
-  const b=l.bbox,a=l.anchor;
+  const rounded=v=>Array.isArray(v)?v.map(n=>Number.isFinite(n)?Math.round(n):NaN):null;
+  const b=rounded(l.bbox),a=rounded(l.anchor);
   const box=l.relation==='visible'&&Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[0]>=0&&b[1]>=0&&b[2]>b[0]&&b[3]>b[1]&&b[2]<=1000&&b[3]<=1000;
   const visible=box&&Array.isArray(a)&&a.length===2&&a.every(Number.isFinite)&&a[0]>=b[0]&&a[0]<=b[2]&&a[1]>=b[1]&&a[1]<=b[3];
   return {english:l.english.trim(),chinese:l.chinese.trim(),x:visible?a[0]:500,y:visible?a[1]:500,
