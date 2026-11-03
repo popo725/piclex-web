@@ -23,6 +23,7 @@ for(const kind of ['portrait','landscape'])test(`listening preserves the full ${
   await page.setViewportSize(size);await mode.selectOption('free');
   for(const difficulty of ['hard','easy','medium']){await page.getByLabel('听写难度').selectOption(difficulty);await contained();}
   await page.getByLabel('听写难度').selectOption('hard');
+  const xp=(await page.locator('.learning-experience b').boundingBox())!,title=(await page.locator('.practice-deck-target').boundingBox())!;expect(xp.y+xp.height).toBeLessThanOrEqual(title.y+.5);
   if(info.project.name==='desktop'){
    await expect(keyboard).toBeVisible();
    const k=(await keyboard.boundingBox())!,tabs=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;
