@@ -1,0 +1,28 @@
+{
+  "sourceCommit": "b6182ad",
+  "files": [
+    {
+      "source": "local-web/src/spelling.mjs",
+      "sha256": "e8b18db2f350d15e7e463f7ee48ae7aee4792f5abe2b7533f79d68f6330d4433",
+      "destination": "packages/learning-ui/src/spelling.mjs"
+    },
+    {
+      "source": "local-web/src/focus.mjs",
+      "sha256": "139c1edd0fcd16742e7809a5ad5173d885bc1f2f6bc75c38eab06ffbc2cd8c5e",
+      "destination": "packages/learning-ui/src/focus.mjs"
+    },
+    {
+      "source": "local-web/src/character-ripples.mjs",
+      "sha256": "583ff40e8c7b066aeab7939795533d53ecbf00f327df59e4a1bc8f7131fbb736",
+      "destination": "packages/learning-ui/src/character-ripples.mjs"
+    },
+    {
+      "source": "local-web/src/CharacterRipples.tsx",
+      "sha256": "02f1cdf9881e56011d04493c6d7484538256a7bf09b708c54351a17a0c224cd0",
+      "destination": "packages/learning-ui/src/CharacterRipples.tsx"
+    }
+  ],
+  "modifications": {
+    "packages/learning-ui/src/CharacterRipples.tsx": "Use --ripple theme color rather than fixed gold."
+  }
+}

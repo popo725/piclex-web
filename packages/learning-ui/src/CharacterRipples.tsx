@@ -1,0 +1,61 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { CharacterRippleLedger, RIPPLE_DURATION, rippleFrame } from './character-ripples.mjs';
+
+type Shock = { x: number; y: number; rotation: number; started: number };
+export default function CharacterRipples({ scope, expected, entered, quickIndices, revealed, active }: {
+  scope: string; expected: string; entered: string; quickIndices?: number[] | null; revealed: boolean; active: boolean;
+}) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  const ledger = useRef(new CharacterRippleLedger());
+  const shocks = useRef<Shock[]>([]), frame = useRef(0);
+  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const stop = () => {
+    cancelAnimationFrame(frame.current); frame.current = 0; shocks.current = [];
+    const node = canvas.current; node?.getContext('2d')?.clearRect(0, 0, node.width, node.height);
+  };
+  useEffect(() => {
+    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => { if (media.matches) stop(); setReduced(media.matches); };
+    const hide = () => { if (document.hidden) stop(); };
+    media.addEventListener('change', update); document.addEventListener('visibilitychange', hide);
+    window.addEventListener('pagehide', stop); window.addEventListener('resize', stop);
+    return () => { stop(); media.removeEventListener('change', update); document.removeEventListener('visibilitychange', hide);
+      window.removeEventListener('pagehide', stop); window.removeEventListener('resize', stop); };
+  }, []);
+  useLayoutEffect(() => {
+    const enabled = active && !reduced && !document.hidden;
+    const indices = ledger.current.update({ scope, expected, entered, quickIndices, revealed, active: enabled });
+    if (!enabled || revealed) { stop(); return; }
+    const node = canvas.current, context = node?.getContext('2d');
+    if (!node || !context || !indices.length) return;
+    const bounds = node.getBoundingClientRect(), ratio = Math.min(2, window.devicePixelRatio || 1);
+    const width = Math.round(bounds.width * ratio), height = Math.round(bounds.height * ratio);
+    if (node.width !== width || node.height !== height) { node.width = width; node.height = height; shocks.current = []; }
+    const started = performance.now();
+    for (const index of indices) {
+      const glyph = node.parentElement?.querySelector(`[data-letter-index="${index}"] .letter-glyph`);
+      const rect = glyph?.getBoundingClientRect();
+      // Never substitute the underline or slot when character geometry is absent.
+      if (!rect?.width || !rect.height || shocks.current.length >= 64) continue;
+      shocks.current.push({ x: rect.x + rect.width / 2 - bounds.x, y: rect.y + rect.height / 2 - bounds.y,
+        rotation: index * 2.399, started });
+    }
+    if (frame.current || !shocks.current.length) return;
+    const draw = (now: number) => {
+      context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, bounds.width, bounds.height);
+      shocks.current = shocks.current.filter(shock => now - shock.started < RIPPLE_DURATION);
+      for (const shock of shocks.current) {
+        const value = rippleFrame(now - shock.started); if (!value) continue;
+        context.strokeStyle = getComputedStyle(node).getPropertyValue('--ripple').trim() || '#777'; context.globalAlpha = value.opacity * .65; context.lineWidth = value.width;
+        context.beginPath(); context.arc(shock.x, shock.y, value.radius, 0, Math.PI * 2); context.stroke();
+        context.globalAlpha = value.opacity; context.lineWidth = 1.05; context.lineCap = 'round';
+        for (const angle of [.16, 2.24, 4.20]) {
+          context.beginPath(); context.arc(shock.x, shock.y, value.radius, angle + shock.rotation, angle + .78 + shock.rotation); context.stroke();
+        }
+      }
+      frame.current = shocks.current.length ? requestAnimationFrame(draw) : 0;
+    };
+    frame.current = requestAnimationFrame(draw);
+  }, [scope, expected, entered, quickIndices, revealed, active, reduced]);
+  return <canvas ref={canvas} className="character-ripples" aria-hidden="true" />;
+}

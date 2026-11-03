@@ -1,0 +1,30 @@
+{
+  "name": "piclex-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 18120",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 18120",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
+    "decks:build": "node scripts/build-demo-decks.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "fflate": "0.8.2"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@playwright/test": "1.63.0"
+  }
+}
