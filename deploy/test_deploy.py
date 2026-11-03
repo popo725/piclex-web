@@ -57,7 +57,7 @@ class DeploymentTests(unittest.TestCase):
         candidate = patch_site(SITE)
         self.assertEqual(patch_site(candidate), candidate)
         self.assertEqual(protected_routes(candidate), protected_routes(SITE))
-        legacy = SITE.replace(OLD_ROOT, str(ROOT / 'current')).replace('    location / { return 404; }', web_block().replace('/piclex-web', '/web') + '    location / { return 404; }')
+        legacy = SITE.replace(OLD_ROOT, str(ROOT / 'current')).replace('    location / { return 404; }', web_block().replace('location = /piclex-web ', 'location = /web ').replace('return 308 /piclex-web/;', 'return 308 /web/;').replace('location ^~ /piclex-web/', 'location ^~ /web/') + '    location / { return 404; }')
         self.assertEqual(patch_site(legacy), candidate)
 
     def test_rejects_unknown_homepage(self):

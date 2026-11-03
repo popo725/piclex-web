@@ -79,7 +79,7 @@ def patch_site(current):
         if candidate.count(BEGIN) != 1 or candidate.count(END) != 1:
             raise ValueError('Malformed Web route markers')
         start, stop = candidate.index(BEGIN), candidate.index(END) + len(END)
-        legacy = web_block().replace('/piclex-web', '/web')
+        legacy = web_block().replace('location = /piclex-web ', 'location = /web ').replace('return 308 /piclex-web/;', 'return 308 /web/;').replace('location ^~ /piclex-web/', 'location ^~ /web/')
         if candidate[start:stop] not in [web_block(), legacy]:
             raise ValueError('Existing Web routes differ; review before applying')
         candidate = candidate[:start] + web_block() + candidate[stop:]
