@@ -4,7 +4,7 @@ export const rates = [.75, .85, 1, 1.15];
 export function tokens(text) {
   const contractions = {wanna:'want to',gonna:'going to',gotta:'got to',"can't":'can not',cannot:'can not',"won't":'will not',"shan\'t":'shall not',"i'm":'i am',"let's":'let us',"it's":'it is',"that's":'that is',"there's":'there is',"what's":'what is',"here's":'here is'};
   return (text.toLowerCase().replace(/[‘’]/g,"'").match(/[\p{L}\p{N}]+(?:'[\p{L}]+)*/gu)||[]).flatMap(word=>{
-    if(contractions[word]) return contractions[word].split(' ');
+    if(Object.hasOwn(contractions,word)) return contractions[word].split(' ');
     for(const [suffix,value] of [["n't",'not'],["'re",'are'],["'ve",'have'],["'ll",'will']]) if(word.endsWith(suffix)) return [word.slice(0,-suffix.length),value];
     return [word];
   });

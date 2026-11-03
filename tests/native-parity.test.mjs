@@ -62,3 +62,5 @@ test('refresh validates drafts, preserves bank order and assistance, and clears 
 });
 
 test('native teaching chunks match the mobile baseline example',()=>assert.deepEqual(chunks('She swings the racket to hit the ball.').map(c=>c.text),['She','swings','the racket','to hit','the ball.']));
+
+test('programming vocabulary cannot collide with Object prototype properties',()=>{assert.deepEqual(tokens('constructor prototype toString hasOwnProperty'),['constructor','prototype','tostring','hasownproperty']);assert.equal(checkSentence('Use the constructor.','use the constructor').isCorrect,true);});
