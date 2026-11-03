@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-03",
+  "release": "7b7cdd7618be-eccb96befd94",
+  "site": "https://piclex.v2fy.com/piclex-web/",
+  "pagesMirror": "https://zhaoolee.com/piclex-web/",
+  "publicDecks": 5,
+  "cards": 338,
+  "words": 1889,
+  "filesVerifiedOnDisk": 361,
+  "publicAssetSHA256Checks": 16,
+  "fullOriginPackageSHA256Checks": 5,
+  "publicPackageRangeChecks": 5,
+  "rootRedirect": 302,
+  "slashRedirect": 308,
+  "health": "ok",
+  "officialCatalog": "matches existing backend",
+  "subscriptionFeed": "available",
+  "existingNonWebRoutes": "byte-for-byte preserved",
+  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41575901865",
+  "limits": [
+    "Two concurrent full public downloads exceeded 90 seconds; source files and public byte ranges subsequently passed. This does not establish mainland China download performance.",
+    "No physical iPhone browser acceptance was performed."
+  ],
+  "cleanup": "Local dist-mirror removed after live verification; source library cache, deployed release and rollback releases retained."
+}
