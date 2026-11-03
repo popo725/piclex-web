@@ -1,0 +1,400 @@
+{
+  "date": "2026-11-03",
+  "sourceRevision": "8e41081f1f1f853f22fb4a9bb23737aa09a2d117",
+  "mirrorRelease": "8e41081f1f1f-fd83eaf7e827",
+  "isolatedReleaseFiles": 371,
+  "nginxSHA256Unchanged": "8dad950ee41641251cc534e631d0b403e4690a1d52a9d19764ca3a51d7c2669f",
+  "webResources": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "bytes": 705,
+      "sha256": "0becc52d6f9cae1340b6cda16e812525251f78e97bb9c43f266470e43184e829",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/source.json",
+      "bytes": 7967,
+      "sha256": "00083f3cc3a1397ee2575f06f5d49dfc4c158c82107ebb7bba547eaf44011456",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/catalog.json",
+      "bytes": 7161,
+      "sha256": "83296775fcb9a419344620f285b8826935cc5f90739972bc99d1eca8d6dcf193",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-CynoUZbu.js",
+      "bytes": 271574,
+      "sha256": "f68ac19944db1f77b78d88063cbbda476eafbf03719a56cc20922ea864c89ba7",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-DnSJS0yi.css",
+      "bytes": 28112,
+      "sha256": "cea5be8956b69b2b79ea359a5c84e9f3fa5e4e2fea575a2dd0813ba6fde14e9e",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-landscape.jpg",
+      "bytes": 278403,
+      "sha256": "2b8077a1e82695fdc7ad59c7734f4b9d28ba4687ce24bc91052f42630211e7b0",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-portrait.jpg",
+      "bytes": 274054,
+      "sha256": "e336346eb7e95aecec0c16f7e5bc1f8ee26260b6649b8a9588e6f647cd6292f9",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/deck.json",
+      "bytes": 276258,
+      "sha256": "510bbe3d36df403fb241f956807c130d374c8db98e7c954f5c6525759138dcc5",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-landscape.jpg",
+      "bytes": 182257,
+      "sha256": "59edc66821c681dcbf122aa13aa2e510989f4b0692a57144781ed3299a9c7cc7",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-portrait.jpg",
+      "bytes": 204769,
+      "sha256": "7098994e3e21d3d9c34705f4b96d3f780ec2b0913129e8c5448509e1f0a5d7f0",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/deck.json",
+      "bytes": 150010,
+      "sha256": "c586ecda9f74ccb7a7650a4d0140ba25914e1882e6e60fc5e0fbbb9e7fa8bbc2",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-landscape.jpg",
+      "bytes": 177721,
+      "sha256": "7d462fc95de1eaf78f0f09122d1bee59ba69baef878c3e595a829e7b4c966500",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-portrait.jpg",
+      "bytes": 189087,
+      "sha256": "396d587a4ce2f261d9c6c97b3577949263a3ee7280b61665b8ac9572bcf8232e",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/deck.json",
+      "bytes": 44078,
+      "sha256": "421fff5aadf8f7490e740c4c39503b24c19c693175e45166574af4d2256c85ac",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-landscape.jpg",
+      "bytes": 331869,
+      "sha256": "5add242c231475e31ef9cbc9529cc14a185be7fcc6dd313863e2a6b9ff93e035",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-portrait.jpg",
+      "bytes": 320215,
+      "sha256": "68f42aca3e76ed085eea0646ec6ec8938d77c428c702333ec14756ea0b1c4b1c",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/deck.json",
+      "bytes": 91101,
+      "sha256": "db30a202d0d1478f423b272756c06c19b34688af59522ef48cbab342e8792371",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/cover-landscape.jpg",
+      "bytes": 415613,
+      "sha256": "9a00316406310707ab2b08be1d0a3d7b571265bbfd2217dcff05a028e453ca47",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/cover-portrait.jpg",
+      "bytes": 436438,
+      "sha256": "a8e1997d185be7ce81a56ce6d67e16ec3adc141486632b5e23ba51c5afc0f0da",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/deck.json",
+      "bytes": 166676,
+      "sha256": "1dfa0a71923c450468e04b949b3cb558fefb28522107b953197233de8789b254",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "bytes": 705,
+      "sha256": "0becc52d6f9cae1340b6cda16e812525251f78e97bb9c43f266470e43184e829",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/source.json",
+      "bytes": 7967,
+      "sha256": "00083f3cc3a1397ee2575f06f5d49dfc4c158c82107ebb7bba547eaf44011456",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/catalog.json",
+      "bytes": 7161,
+      "sha256": "83296775fcb9a419344620f285b8826935cc5f90739972bc99d1eca8d6dcf193",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/index-CynoUZbu.js",
+      "bytes": 271574,
+      "sha256": "f68ac19944db1f77b78d88063cbbda476eafbf03719a56cc20922ea864c89ba7",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/index-DnSJS0yi.css",
+      "bytes": 28112,
+      "sha256": "cea5be8956b69b2b79ea359a5c84e9f3fa5e4e2fea575a2dd0813ba6fde14e9e",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-landscape.jpg",
+      "bytes": 278403,
+      "sha256": "2b8077a1e82695fdc7ad59c7734f4b9d28ba4687ce24bc91052f42630211e7b0",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-portrait.jpg",
+      "bytes": 274054,
+      "sha256": "e336346eb7e95aecec0c16f7e5bc1f8ee26260b6649b8a9588e6f647cd6292f9",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/deck.json",
+      "bytes": 276258,
+      "sha256": "510bbe3d36df403fb241f956807c130d374c8db98e7c954f5c6525759138dcc5",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-landscape.jpg",
+      "bytes": 182257,
+      "sha256": "59edc66821c681dcbf122aa13aa2e510989f4b0692a57144781ed3299a9c7cc7",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-portrait.jpg",
+      "bytes": 204769,
+      "sha256": "7098994e3e21d3d9c34705f4b96d3f780ec2b0913129e8c5448509e1f0a5d7f0",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/deck.json",
+      "bytes": 150010,
+      "sha256": "c586ecda9f74ccb7a7650a4d0140ba25914e1882e6e60fc5e0fbbb9e7fa8bbc2",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-landscape.jpg",
+      "bytes": 177721,
+      "sha256": "7d462fc95de1eaf78f0f09122d1bee59ba69baef878c3e595a829e7b4c966500",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-portrait.jpg",
+      "bytes": 189087,
+      "sha256": "396d587a4ce2f261d9c6c97b3577949263a3ee7280b61665b8ac9572bcf8232e",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/deck.json",
+      "bytes": 44078,
+      "sha256": "421fff5aadf8f7490e740c4c39503b24c19c693175e45166574af4d2256c85ac",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-landscape.jpg",
+      "bytes": 331869,
+      "sha256": "5add242c231475e31ef9cbc9529cc14a185be7fcc6dd313863e2a6b9ff93e035",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-portrait.jpg",
+      "bytes": 320215,
+      "sha256": "68f42aca3e76ed085eea0646ec6ec8938d77c428c702333ec14756ea0b1c4b1c",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/deck.json",
+      "bytes": 91101,
+      "sha256": "db30a202d0d1478f423b272756c06c19b34688af59522ef48cbab342e8792371",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/cover-landscape.jpg",
+      "bytes": 415613,
+      "sha256": "9a00316406310707ab2b08be1d0a3d7b571265bbfd2217dcff05a028e453ca47",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/cover-portrait.jpg",
+      "bytes": 436438,
+      "sha256": "a8e1997d185be7ce81a56ce6d67e16ec3adc141486632b5e23ba51c5afc0f0da",
+      "status": "passed"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/099b791c-b48b-4439-b3e1-000ac98ebb0c/v16-1245570cda02f0dd/deck.json",
+      "bytes": 166676,
+      "sha256": "1dfa0a71923c450468e04b949b3cb558fefb28522107b953197233de8789b254",
+      "status": "passed"
+    }
+  ],
+  "sourceCovers": [
+    {
+      "url": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-landscape.jpg",
+      "bytes": 278403,
+      "sha256": "2b8077a1e82695fdc7ad59c7734f4b9d28ba4687ce24bc91052f42630211e7b0",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/cover-portrait.jpg",
+      "bytes": 274054,
+      "sha256": "e336346eb7e95aecec0c16f7e5bc1f8ee26260b6649b8a9588e6f647cd6292f9",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-landscape.jpg",
+      "bytes": 182257,
+      "sha256": "59edc66821c681dcbf122aa13aa2e510989f4b0692a57144781ed3299a9c7cc7",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/121d190a-5d4c-4a09-8d50-4741acdbbb1b/v11-76fabb4c7eead2a1/cover-portrait.jpg",
+      "bytes": 204769,
+      "sha256": "7098994e3e21d3d9c34705f4b96d3f780ec2b0913129e8c5448509e1f0a5d7f0",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-landscape.jpg",
+      "bytes": 177721,
+      "sha256": "7d462fc95de1eaf78f0f09122d1bee59ba69baef878c3e595a829e7b4c966500",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/56a51624-d8aa-4167-99c5-e1c727a938db/v3-3c6f1c9b60b13a5b/cover-portrait.jpg",
+      "bytes": 189087,
+      "sha256": "396d587a4ce2f261d9c6c97b3577949263a3ee7280b61665b8ac9572bcf8232e",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/a7e08e87-33ff-44a1-a686-8275696dcc93/v2-0dae005c38304a37/cover-landscape.jpg",
+      "bytes": 165367,
+      "sha256": "b20488a934bd48eb37a78911081593a60e442c1509813e5109474922c18f1dbf",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/a7e08e87-33ff-44a1-a686-8275696dcc93/v2-0dae005c38304a37/cover-portrait.jpg",
+      "bytes": 195179,
+      "sha256": "4a3050d2805c8bb710c4ba58505395f6e6819dfe3d76dc9a07f92b39b23f0fdc",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-landscape.jpg",
+      "bytes": 331869,
+      "sha256": "5add242c231475e31ef9cbc9529cc14a185be7fcc6dd313863e2a6b9ff93e035",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/decks/ba777e29-70c7-4706-8ea3-dd65f592ac16/v5-1ccd9831b62615d8/cover-portrait.jpg",
+      "bytes": 320215,
+      "sha256": "68f42aca3e76ed085eea0646ec6ec8938d77c428c702333ec14756ea0b1c4b1c",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-landscape-9a00316406310707.jpg",
+      "bytes": 415613,
+      "sha256": "9a00316406310707ab2b08be1d0a3d7b571265bbfd2217dcff05a028e453ca47",
+      "status": "passed"
+    },
+    {
+      "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-portrait-a8e1997d185be7ce.jpg",
+      "bytes": 436438,
+      "sha256": "a8e1997d185be7ce81a56ce6d67e16ec3adc141486632b5e23ba51c5afc0f0da",
+      "status": "passed"
+    }
+  ],
+  "releases": [
+    {
+      "deckID": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+      "title": "Basic English 850 场景卡片",
+      "version": 7,
+      "access": "public",
+      "photoCount": 100,
+      "wordCount": 850
+    },
+    {
+      "deckID": "121d190a-5d4c-4a09-8d50-4741acdbbb1b",
+      "title": "程序员工作英语",
+      "version": 11,
+      "access": "public",
+      "photoCount": 80,
+      "wordCount": 320
+    },
+    {
+      "deckID": "56a51624-d8aa-4167-99c5-e1c727a938db",
+      "title": "程序员 Vibe Coding",
+      "version": 3,
+      "access": "public",
+      "photoCount": 23,
+      "wordCount": 92
+    },
+    {
+      "deckID": "a7e08e87-33ff-44a1-a686-8275696dcc93",
+      "title": "程序员面试",
+      "version": 2,
+      "access": "storekit",
+      "photoCount": 40,
+      "wordCount": 160
+    },
+    {
+      "deckID": "ba777e29-70c7-4706-8ea3-dd65f592ac16",
+      "title": "下班后，去摄影吧！",
+      "version": 5,
+      "access": "public",
+      "photoCount": 50,
+      "wordCount": 200
+    },
+    {
+      "deckID": "099b791c-b48b-4439-b3e1-000ac98ebb0c",
+      "title": "新概念英语第二册",
+      "version": 16,
+      "access": "public",
+      "photoCount": 85,
+      "wordCount": 427
+    }
+  ],
+  "privatePackageWithoutAuthorization": 401,
+  "apiHealth": {
+    "url": "https://piclex.v2fy.com/healthz",
+    "bytes": 48,
+    "sha256": "07ece0c5c03c742b76d5b4492c94011e98cf0fc7e1580c00b55a08ec158c5d8a",
+    "status": "passed"
+  },
+  "rootRedirect": "/piclex-web/",
+  "ci": {
+    "runID": 41601511193,
+    "unit": 39,
+    "deploy": 8,
+    "browser": 16,
+    "status": "success"
+  },
+  "verificationBoundary": "CI fetched and verified all five public packages. Public post-deploy checks cover pages, bundles, JSON and cover image bytes/MIME; no claim about mainland network speed or real-device UI.",
+  "browser": {
+    "desktop": "Both production sites show 摄影学英语; landscape hero and 5 portrait covers loaded with contain; no horizontal overflow",
+    "mobile": "390x844 production mirror; all 6 covers loaded with contain; no horizontal overflow; viewport reset",
+    "progress": "Existing localhost Basic progress restored at 4/850 with speaking selection; spelling and sentence block controls verified",
+    "studio": "Both cover editors verified; wrong landscape-to-portrait upload rejected; correct portrait upload retained draft; Studio service left running on 18100"
+  },
+  "transientNetworkIssue": "An initial concurrent curl batch hit TLS timeouts. Reduced-concurrency retries passed all 40 Web resources and 12 source covers.",
+  "screenshots": [
+    "docs/dual-covers-desktop.jpg",
+    "docs/dual-covers-mobile.jpg"
+  ]
+}
