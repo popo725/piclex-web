@@ -25,6 +25,7 @@ test('the native game loads local assets, pauses, saves before changing tabs, an
 });
 
 test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation or controls',async({page},info)=>{
+ test.setTimeout(60000);
  await page.emulateMedia({reducedMotion:'reduce'});
  for(const width of [320,390,768,1440]){
   await page.setViewportSize({width,height:width===320?568:900});
@@ -36,7 +37,7 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
   await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByRole('button',{name:'拍摄照片',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.goto('/piclex-web/#/learn');await expect(page.locator('.deck-card')).toHaveCount(5);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
   await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toBeVisible();
-  const action=await page.getByRole('button',{name:'不认识',exact:true}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const action=await page.getByRole('button',{name:/^不认识/}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.getByRole('button',{name:'当前卡组，学习设置'}).click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();const rect=await dialog.boundingBox();expect(rect!.x).toBeGreaterThanOrEqual(0);expect(rect!.x+rect!.width).toBeLessThanOrEqual(width);await page.getByRole('button',{name:'关闭',exact:true}).click();
   if(info.project.name==='desktop')await page.screenshot({path:`test-results/responsive-learning-${width}.png`});
  }

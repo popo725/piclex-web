@@ -16,7 +16,7 @@
 
 来源核对：2026-11-03。照片由来源 CDN 输出适合网页展示的 JPEG 尺寸。示例包内保留相同图片字节；没有将素材许可改写为 MIT。新增或替换素材时应更新此表和公开站 credits.html。
 
-示例词汇释义与例句为本项目编写，不使用教材课程正文。摄影图标为项目内 SVG。第三方软件依赖许可由各包提供，根 package-lock.json 锁定版本。
+示例词汇释义与例句为本项目编写，不使用教材课程正文。摄影图标复用 App 的生产绘制。第三方软件依赖许可由各包提供，根 package-lock.json 锁定版本。
 
 ## 薯薯求生与学习反馈
 
@@ -25,3 +25,5 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 ## 品牌标志
 
 `brand/app-icon.png` 与摄影学英语 App 的 `AppIcon.appiconset/AppIcon.png` 字节一致。App Store 图标来自 [Apple Developer 官方 App Store 页面](https://developer.apple.com/app-store/) 的 [官方图标资源](https://developer.apple.com/assets/elements/icons/app-store-s/app-store-s-96x96_2x.png)，仅用于链接已上架 App，不属于项目 MIT 代码许可。
+
+`icons/tab-*.png` 来自 App 的 `PracticeEntryIcon.swift` 原绘制与动画；其余界面符号由 App 所用 UIKit/SF Symbols 渲染，不将 Apple 的系统符号重新授权为项目原创 MIT 美术。来源和摘要保存在 `docs/native-icons.json`。
