@@ -12,7 +12,7 @@ export function PhotoFocus({ src, focus, alt, active = true,retry=0,onLoadState 
  useEffect(()=>{
   const controller=new AbortController();let objectURL='';setBroken('');setPhoto(undefined);setTransfer({source:src,progress:{received:0,total:null},decoding:false});onLoadState?.('loading');
   void(async()=>{try{
-   const result=await downloadBytes(src,{signal:controller.signal,onProgress:progress=>{if(!controller.signal.aborted)setTransfer({source:src,progress,decoding:false});}});
+   const result=await downloadBytes(src,{maxBytes:64*1024*1024,signal:controller.signal,onProgress:progress=>{if(!controller.signal.aborted)setTransfer({source:src,progress,decoding:false});}});
    if(controller.signal.aborted)return;
    setTransfer({source:src,progress:{received:result.bytes.length,total:result.bytes.length},decoding:true});
    objectURL=URL.createObjectURL(new Blob([result.bytes],{type:result.type||'image/jpeg'}));
