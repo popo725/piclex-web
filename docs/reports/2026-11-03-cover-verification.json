@@ -1,21 +1,21 @@
 {
-  "revision": "4dd07290cd05f984ba141a4e61c7913d01ba4b9e",
-  "releaseID": "4dd07290cd05-cb1f29e47baa",
-  "workflow": "https://github.com/zhaoolee/piclex-web/actions/runs/41586405744",
+  "revision": "71e732d4c099a97b002c02114eb32ef66ab15428",
+  "releaseID": "71e732d4c099-9e3e15e8dea3",
+  "workflow": "https://github.com/zhaoolee/piclex-web/actions/runs/41590242289",
   "checks": [
     {
-      "url": "https://piclex.v2fy.com/piclex-web/assets/index-CpKNUUR6.js",
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-C1gKutgA.js",
       "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad",
       "verified": true
     },
     {
-      "url": "https://piclex.v2fy.com/piclex-web/assets/index-EdvZikXi.css",
-      "sha256": "8c9120be5acb95d7636722411056fef94a05f05f9ee1a410ece96184949c794d",
+      "url": "https://piclex.v2fy.com/piclex-web/assets/index-CDxL7ECx.css",
+      "sha256": "3a6d50441e6549580ba6ad5f4c8719b2df3687a7d570fa1c30c5cd04cdc3eb9d",
       "verified": true
     },
     {
       "url": "https://piclex.v2fy.com/piclex-web/index.html",
-      "sha256": "48ff6941e92f4084beb778b649583511894863a0f0fa0c8dae802396a1d4ea98",
+      "sha256": "e64655e93c7fb16420c48f279fcb805e7ebeea9c3bd59005c2ce42c7d674254a",
       "verified": true
     },
     {
@@ -54,18 +54,18 @@
       "verified": true
     },
     {
-      "url": "https://zhaoolee.com/piclex-web/assets/index-CpKNUUR6.js",
+      "url": "https://zhaoolee.com/piclex-web/assets/index-C1gKutgA.js",
       "sha256": "e8cb6882ed843eb2d56eb5e5292663cb1cf0e046f1ccdd2e00966d9ec11145ad",
       "verified": true
     },
     {
-      "url": "https://zhaoolee.com/piclex-web/assets/index-EdvZikXi.css",
-      "sha256": "8c9120be5acb95d7636722411056fef94a05f05f9ee1a410ece96184949c794d",
+      "url": "https://zhaoolee.com/piclex-web/assets/index-CDxL7ECx.css",
+      "sha256": "3a6d50441e6549580ba6ad5f4c8719b2df3687a7d570fa1c30c5cd04cdc3eb9d",
       "verified": true
     },
     {
       "url": "https://zhaoolee.com/piclex-web/index.html",
-      "sha256": "48ff6941e92f4084beb778b649583511894863a0f0fa0c8dae802396a1d4ea98",
+      "sha256": "e64655e93c7fb16420c48f279fcb805e7ebeea9c3bd59005c2ce42c7d674254a",
       "verified": true
     },
     {
