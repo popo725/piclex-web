@@ -1,0 +1,4 @@
+import type {CSSProperties} from 'react';
+// Assets are rendered by App's production UIKit drawing; use alpha masks to follow the current theme.
+export function NativeIcon({name}:{name:string}){return <span className="native-icon" aria-hidden="true" style={{'--native-icon':`url("${import.meta.env.BASE_URL}icons/${name}.png")`} as CSSProperties}/>;}
+export function NativeTabIcon({name,animate=false}:{name:string;animate?:boolean}){return <span className={`native-icon native-tab-icon ${animate?'native-tab-motion':''}`} aria-hidden="true" style={{'--native-icon':`url("${import.meta.env.BASE_URL}icons/tab-${name}.png")`,'--native-frames':`url("${import.meta.env.BASE_URL}icons/tab-${name}-frames.png")`,'--native-duration':name==='learn'?'.72s':name==='capture'?'.66s':'.5s'} as CSSProperties}/>;}

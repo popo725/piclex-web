@@ -23,3 +23,21 @@ test('the native game loads local assets, pauses, saves before changing tabs, an
  await page.goto('/piclex-web/#/settings');await page.getByRole('button',{name:/薯薯求生/}).click();const game=page.frameLocator('iframe');await game.getByRole('button',{name:'开始冒险',exact:true}).click();await game.getByRole('button',{name:'暂停',exact:true}).click();await expect(game.getByRole('heading',{name:'已暂停',exact:true})).toBeVisible();await page.screenshot({path:`test-results/game-paused-${info.project.name}.png`});
  await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await expect(page.locator('iframe')).toHaveCount(0);await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:/薯薯求生/}).click();await expect(game.getByRole('button',{name:/继续冒险 · 第 1 波/})).toBeVisible();expect(failed).toEqual([]);expect(bad).toEqual([]);
 });
+
+test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation or controls',async({page},info)=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [320,390,768,1440]){
+  await page.setViewportSize({width,height:width===320?568:900});
+  await page.goto('/piclex-web/#/settings');
+  const tabs=page.getByRole('navigation',{name:'底部导航'});await expect(tabs.getByRole('button')).toHaveText(['拍摄','学习','设置']);await expect(page.locator('.app-footer')).toHaveCount(0);
+  await expect(page.getByRole('link',{name:'在 App Store 下载摄影学英语',exact:true})).toHaveAttribute('href','https://apps.apple.com/app/id6808490052');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const sections=page.locator('.settings-section');const a=await sections.nth(0).boundingBox(),b=await sections.nth(1).boundingBox();if(width>=960)expect(b!.x-a!.x).toBeGreaterThan(100);else expect(Math.abs(b!.x-a!.x)).toBeLessThan(1);
+  await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByRole('button',{name:'拍摄照片',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.goto('/piclex-web/#/learn');await expect(page.locator('.deck-card')).toHaveCount(5);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
+  await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toBeVisible();
+  const action=await page.getByRole('button',{name:'不认识',exact:true}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.getByRole('button',{name:'当前卡组，学习设置'}).click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();const rect=await dialog.boundingBox();expect(rect!.x).toBeGreaterThanOrEqual(0);expect(rect!.x+rect!.width).toBeLessThanOrEqual(width);await page.getByRole('button',{name:'关闭',exact:true}).click();
+  if(info.project.name==='desktop')await page.screenshot({path:`test-results/responsive-learning-${width}.png`});
+ }
+});

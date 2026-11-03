@@ -1,0 +1,42 @@
+{
+  "source": "PicLex/Shared/PracticeEntryIcon.swift",
+  "sourceSHA256": "9f6bff276d649fc3d02388861ca72ca18ef700dbe2e22428ea1c3fb5081a473e",
+  "exporter": "scripts/export-native-icons.swift",
+  "tabs": {
+    "capture": "TabEntryIcon.image(at: 0)",
+    "learn": "PracticeEntryIcon.image",
+    "settings": "TabSliderArtwork.draw"
+  },
+  "durations": {
+    "capture": 0.66,
+    "learn": 0.72,
+    "settings": 0.5
+  },
+  "frames": 31,
+  "files": {
+    "headphones.png": "77881837b62b410ecfcf794755735053ed6d070dcb8f04720a9dcc3d21c2fab3",
+    "check.png": "4cb0266094c512f658d1584134c7e54ea25fe9d0f7caffa30483f12c3df1c1bf",
+    "external.png": "5ad0895222a2bd55b941f2f18b6f098339617fda2cc56c1c922984484d9e4421",
+    "stop.png": "044dc8be65e23252e48e34700117c476ea6c01da0e73e9cd2f03904a43f84d0e",
+    "tab-learn.png": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46",
+    "tab-settings-frames.png": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b",
+    "tab-settings.png": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932",
+    "microphone.png": "3d04f1d5b6c0ea016eca08d1c31142da236645fcc2c165b2f62b0f62b8f12abe",
+    "arrow.png": "49fdb569d23a667e945e197073d36e1ebcd835ba9af76098a32109c9045cc040",
+    "sound.png": "16427753428eaba8a3a873a6006269e345a8051ecb5ea0bb9a284c7a9d357333",
+    "moon.png": "20e71ea8a554f7869aa52650cd0cf4ddf75c7dbfe0e123403eb08339f1f8bccf",
+    "photo.png": "f967f8c92c1e31fd4ea8315664bbe81d6ade1b34113a9756aba9517860ba23ef",
+    "forward.png": "a74f91c61948080c823be43ef01c1b7772f3c98aa0da2d1a7551e08fa49d05c3",
+    "pause.png": "ea14bb82ecbd7536ed277b183ae29b746e52d632f91a81334b741c5213466f77",
+    "upload.png": "d5536a5bab05732c8553cc8e091d327b3801f04f645a4b279fc0bf71efc67f0b",
+    "tab-capture.png": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280",
+    "tab-capture-frames.png": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901",
+    "share.png": "b10f91d47626f4772f719967acbf278ac294708a6efa451df43e1bf8942edcc9",
+    "sun.png": "f65f7b183fac842f23b99553f2b16cd5f43fd79180c7de98723fd6736b3a0dea",
+    "peek.png": "077da10ab9d60e88d8cd025680936aa6b6c2767afba80bb08b110f7c6172dcac",
+    "tab-learn-frames.png": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61",
+    "camera.png": "fed191fa988a0af9fae3e8326849b9a997785af0bd68c323bfd684d8c0b51e43",
+    "back.png": "a2c32f05de17eefb6d94a70554b90aa6faf88ac71cd03ddccf54140d8111fe95",
+    "close.png": "cee9fa9a7fd36d9ab5ca51fcec11937746f1e0b9dc28d0b313472dd6aca2a0fa"
+  }
+}
