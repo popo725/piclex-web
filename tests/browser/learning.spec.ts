@@ -13,11 +13,11 @@ test('a visitor can complete a scene, resume after refresh, and restart without 
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();
  const input=page.getByRole('textbox',{name:'输入英文'});
- await input.fill('crx');await expect(page.getByRole('status')).toContainText('退格');await input.fill('cr');
+ await input.fill('crx');await expect(page.locator('.answer-feedback')).toContainText('退格');await input.fill('cr');
  await page.reload();await expect(input).toHaveValue('cr');
  await page.screenshot({path:`test-results/practice-${testInfo.project.name}.png`,fullPage:true});
  for(const [i,word] of words.entries()){
-   await input.fill(word);await expect(page.getByRole('status')).toContainText('拼对了');
+   await input.fill(word);await expect(page.locator('.answer-feedback')).toContainText('拼对了');
    await page.getByRole('button',{name:i===5?'完成这一组':'下一词',exact:true}).click();
  }
  await expect(page.getByRole('heading',{name:'又记住了一点生活。'})).toBeVisible();
@@ -64,7 +64,7 @@ test('public catalog reuses existing content and practice never downloads a whol
  expect(requests.some(url=>url.endsWith('.piclexdeck'))).toBe(false);
  expect(requests.filter(url=>url.includes('/photos/')).length).toBeLessThanOrEqual(2);
  await page.getByRole('textbox',{name:'输入英文'}).fill(publicDeck.words[0].english);
- await expect(page.getByRole('status')).toContainText('拼对了');
+ await expect(page.locator('.answer-feedback')).toContainText('拼对了');
  await page.reload();await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue(publicDeck.words[0].english);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
