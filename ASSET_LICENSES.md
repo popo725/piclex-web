@@ -21,3 +21,7 @@
 ## 薯薯求生与学习反馈
 
 Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／道具美术、合成音效及经典按键声音。音标子集来自 [ipa-dict](https://github.com/open-dict-data/ipa-dict)，版权与完整 MIT 许可保存在 `apps/public/public/lab/EnglishPronunciations-LICENSE.txt` 和源文件。游戏素材沿用项目资产，不把公开卡组照片的许可改为代码 MIT 许可。
+
+## 品牌标志
+
+`brand/app-icon.png` 与摄影学英语 App 的 `AppIcon.appiconset/AppIcon.png` 字节一致。App Store 图标来自 [Apple Developer 官方 App Store 页面](https://developer.apple.com/app-store/) 的 [官方图标资源](https://developer.apple.com/assets/elements/icons/app-store-s/app-store-s-96x96_2x.png)，仅用于链接已上架 App，不属于项目 MIT 代码许可。

@@ -3,3 +3,7 @@
 body[data-page=lab] .site-header,body[data-page=lab] .app-footer{display:none}body[data-page=lab] .laboratory-page{height:calc(100dvh - 64px - env(safe-area-inset-bottom,0px))}body[data-page=lab]{overflow:hidden}body[data-page=lab] #root{padding-bottom:0}
 
 @media(max-height:520px){body[data-page=lab] .laboratory-page{height:calc(100dvh - 52px - env(safe-area-inset-bottom,0px))}}
+
+.brand-mark{padding:0;overflow:hidden;background:transparent}.brand-mark>img,.app-icon>img{display:block;width:100%;height:100%;object-fit:contain}.app-icon{padding:0;overflow:hidden;background:none}.site-header .header-app{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border:0;padding:0;max-width:none;border-radius:10px}.header-app>img{display:block;width:36px;height:36px;object-fit:contain}body[data-practice=true] .site-header .header-app{display:flex;width:32px;height:32px}body[data-practice=true] .header-app>img{width:28px;height:28px}
+
+@media(max-width:380px){.site-header{padding-left:16px;padding-right:16px;gap:8px}.site-header .brand{gap:8px}.site-header .brand strong{font-size:17px}}
