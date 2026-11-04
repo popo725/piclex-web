@@ -2,7 +2,7 @@
    CardReviewOverlay: dimmed camera, white print, actions outside the print. */
 body[data-page=capture] .site-header{display:none}
 body[data-page=capture]{background:var(--surface)}
-body[data-page=capture] #root{padding-bottom:0}
+body[data-page=capture] #root{padding-bottom:calc(var(--app-tab-height) + env(safe-area-inset-bottom,0px))}
 .capture-page{width:100%;max-width:460px;min-height:calc(100dvh - var(--app-tab-height) - env(safe-area-inset-bottom,0px));margin:auto;padding:24px 20px}
 .capture-page .capture-viewfinder{min-height:calc(100dvh - var(--app-tab-height) - 48px - env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;justify-content:center}
 .capture-page .camera-paper{--photo-width:min(calc(100vw - 68px),calc((100dvh - 310px)*.75),364px);position:relative;width:calc(var(--photo-width) + 28px);max-width:100%;margin:0 auto 32px;padding:14px 14px 52px;border:.5px solid #dbdbdb52;border-radius:7px;background:white;box-shadow:-6px -6px 14px #fffffff2,7px 9px 16px #bdbdbd99,1px 2px 3px #0000000e}

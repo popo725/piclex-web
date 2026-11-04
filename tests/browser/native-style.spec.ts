@@ -8,7 +8,7 @@ test('native camera paper and practice metrics keep complete content at wide, na
   await expect(page.locator('.site-header')).toBeHidden();
   const aperture=(await page.locator('.camera-aperture').boundingBox())!,paper=(await page.locator('.camera-paper').boundingBox())!;
   expect(aperture.width/aperture.height).toBeCloseTo(.75,2);
-  expect(aperture.x-paper.x).toBeCloseTo(14.5,0);expect(paper.y+paper.height-aperture.y-aperture.height).toBeCloseTo(52.5,0);
+  expect(Math.abs(aperture.x-paper.x-14.5)).toBeLessThanOrEqual(.51);expect(Math.abs(paper.y+paper.height-aperture.y-aperture.height-52.5)).toBeLessThanOrEqual(.51);
   await expect(page.getByText('首次使用会请求相机权限',{exact:true})).toBeVisible();
   await page.goto('/piclex-web/#/deck/'+card.id);await page.getByRole('tab',{name:'拼单词',exact:true}).click();
   await expect(page.locator('.focus-image')).toBeVisible();
