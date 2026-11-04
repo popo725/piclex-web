@@ -46,7 +46,7 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
 });
 test('direct links, reveal, dark theme and unknown decks have usable states',async({page})=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
- await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:'外观与主题',exact:true}).click();await page.getByRole('button',{name:'深色',exact:true}).click();await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await page.reload();
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:'外观与主题',exact:true}).click();await page.getByLabel('外观模式',{exact:true}).selectOption('dark');await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await page.reload();
  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
  await page.getByRole('button',{name:'不认识'}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue(publicDeck.words[0].english);
  await page.getByRole('button',{name:'下一个',exact:true}).click();await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();
@@ -118,7 +118,7 @@ test('sentence fill checks automatically; failed order can be corrected and assi
  await page.getByRole('button',{name:'重新拼写',exact:true}).click();await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue('');
  await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'i am still in bed');
  await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue(''); // auto-advance to next sentence
- await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByText('本轮进度 2 / 850',{exact:true})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();
+ await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByRole('dialog',{name:'选择卡组',exact:true})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();
  await page.getByRole('tab',{name:'拼单词'}).click();await expect(page.locator('.answer-feedback')).toHaveText('');
 });
 
@@ -150,10 +150,10 @@ test('speaking starts only on explicit action and stops when leaving the module'
  expect(await page.evaluate(()=>(window as any).__speechTest.starts)).toBe(0);
  await expect(page.getByText('浏览器可能将语音发送给其识别服务；点击后授权麦克风。')).toBeVisible();
  await page.getByRole('button',{name:'开始跟读',exact:true}).click();
- await expect(page.getByRole('status')).toContainText('本句单词已匹配');
+ await expect(page.locator('.reading-state')).toContainText('朗读完成');
  await page.getByRole('tab',{name:'拼单词'}).click();
  expect(await page.evaluate(()=>(window as any).__speechTest.aborts)).toBe(1);
  await page.getByRole('tab',{name:'练口语'}).click();
- await expect(page.getByRole('status')).toContainText('I am still in bed');
+ await expect(page.locator('.reading-transcript')).toContainText('I am still in bed');
  expect(await page.evaluate(()=>(window as any).__speechTest.starts)).toBe(1);
 });

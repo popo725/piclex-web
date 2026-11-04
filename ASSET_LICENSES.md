@@ -56,3 +56,9 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 `kodak-shutter.wav` / `brownie-shutter.wav` are unmodified copies of PicLex's ShutterSoundKodak / ShutterSoundBrownieHawkeye datasets, under the same rights as the native assets.
 
 The camera's GitHub mark is `mark-github-16` from [GitHub Octicons](https://github.com/primer/octicons/blob/main/icons/mark-github-16.svg), MIT license (Copyright GitHub, Inc.); GitHub trademarks remain their owner's. The full existing MIT terms apply to this incorporated SVG.
+
+## 学习页表面与句子背景声
+
+浅色学习页复用 App 的 `PracticeReliefSurface` 参数；其 Uiverse ke1221 ancient-walrus-24 来源和完整 MIT 声明保存在 `docs/licenses/uiverse-ke1221.txt`。
+
+`audio/ambience/piano.m4a` 与 `cafe.m4a` 原样复用 App `Resources/PracticeAmbience`。钢琴为项目原创16小节旋律；咖啡厅使用 stephan 的公共领域 [Restaurant Ambience](https://commons.wikimedia.org/wiki/File:Restaurant_ambience.ogg) 加工录音（2007-05-18，PDSounds 274）。混音、均衡、瓷器／蒸汽层与循环处理与 App 一致，不包含用户录音。

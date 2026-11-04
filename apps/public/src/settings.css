@@ -31,3 +31,12 @@ body[data-page=settings] #root{padding-bottom:0}
 .deck-download-form input{display:block;width:100%;min-height:48px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;padding:12px}
 
 .theme-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.theme-swatch{display:grid;gap:6px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:14px;min-height:100px}.theme-swatch>span{font-size:24px}.theme-swatch small{font-size:11px}.theme-swatch[aria-pressed=true]{outline:2px solid var(--button);outline-offset:2px}.custom-theme-row{display:flex;gap:8px;align-items:center}.custom-theme-row>.settings-row{flex:1}.custom-theme-row details{position:relative}.custom-theme-row summary{padding:12px;cursor:pointer}.custom-theme-row details button{display:block;min-height:44px}.theme-preview{padding:24px;border-radius:12px;margin:16px 0;display:flex;justify-content:space-between}.settings-row input:not([type=checkbox]):not([type=color]){width:60%;min-width:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:8px;border-radius:8px}.settings-row input[type=color]{width:44px;height:36px;border:0;padding:2px;background:none}.native-settings-home .settings-level-card{background:var(--surface);color:var(--ink)}.native-settings-home .settings-level-inset{background:var(--bg)}.native-settings-home .settings-level-heading small,.native-settings-home .settings-level-total small{color:var(--muted)}.native-settings-home .settings-level-inset .learning-experience{background:var(--line)}.native-settings-home .settings-level-inset .learning-experience i{background:var(--button)}
+
+/* ThemePickerView: compact single-column swatches, with no full-card previews. */
+.theme-grid{display:flex;flex-direction:column;gap:4px}
+.theme-swatch{display:flex;align-items:center;gap:14px;text-align:left;min-height:64px;padding:12px;border:0;border-radius:14px;background:transparent;color:var(--ink);box-shadow:none}
+.theme-swatch[aria-pressed=true]{background:var(--surface);outline:none}
+.theme-swatch>.theme-colors{display:flex;align-items:center;justify-content:center;gap:5px;width:56px;height:40px;flex:none;border:1px solid var(--line);border-radius:10px;font-size:18px;font-weight:500}
+.theme-colors i{width:8px;height:8px;display:block;border-radius:50%;flex:none}
+.theme-swatch>.theme-name{font-size:16px;font-weight:400;min-width:0;overflow-wrap:anywhere}
+.theme-swatch>.theme-check{font-size:18px;margin-left:auto;min-width:18px}

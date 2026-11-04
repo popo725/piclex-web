@@ -60,7 +60,7 @@
   "remainingProductGaps": [
     "学习目标及词表覆盖率、词表数据管理、每日统计与分享统计卡片尚未移植；不能把累计经验误作每日正确词统计。",
     "复古相机界面选择、闭眼记单词及对应原生交互尚未移植。",
-    "学习设置抽屉仍保留部分快捷偏好；共享卡组的仅卡组列表抽屉、原生照片多选和完整卡组编辑尚有差异。",
+    "照片多选和完整卡组编辑仍有差异；卡组/照片选择与偏好入口已按独立布局审查报告修正。",
     "第三方卡组自动检查更新、完整订阅管理、App内二维码识别与购买权益尚未移植。",
     "照片全量备份、回收站和相册管理尚未等价；Web目前为本地卡组导入导出。",
     "自定义AI模型配置尚未移植；Web当前只提供官方模型与额度。"
@@ -146,5 +146,6 @@
     "local": "Removed 26 task-owned temporary result/script/build paths; remaining smoke outputs removed after final verification",
     "server": "Removed only superseded inactive f7ece55893a7-3ac806acee06; live 6fda4efa201b-4c7ea1353a0a and rollback 390ab5efce94-0b7255c1c08d retained",
     "shared": "18126 preview, main dist/dependencies and content cache retained for user and concurrent work"
-  }
+  },
+  "followUpLayoutAudit": "docs/reports/2026-11-04-layout-parity-audit.json"
 }

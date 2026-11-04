@@ -1,0 +1,153 @@
+{
+  "date": "2026-11-04",
+  "scope": "Public Web layout and state-by-state parity with current native source; no device or simulator used",
+  "nativeReference": "PicLex/PicLex/Features and Shared source as read during this audit",
+  "auditedAreas": [
+    {
+      "area": "学习顶部",
+      "result": "整个头像右侧包含经验条、卡组名和空白均打开卡组选择；头像独立打开等级；消除等级弹层重复标题",
+      "reference": "PracticeModeOverlay.swift / PracticeView.swift"
+    },
+    {
+      "area": "照片与页面高度",
+      "result": "按拼词照片高度统一听力、口语；四种视口下正文可滚动，主要操作位于底栏之上",
+      "reference": "PracticeScreenLayout.swift"
+    },
+    {
+      "area": "学习浅色表面",
+      "result": "画布和操作面统一 #e8e8e8、左上白影/右下 #c5c5c5；按下内影；三模块仍是无背景文字导航",
+      "reference": "PracticeModeOverlay.swift: PracticeReliefSurface"
+    },
+    {
+      "area": "听力文字与工具条",
+      "result": "48px中性工具条；英文衬线20px、译文14px；去除旧黑金块和额外的滑块标题",
+      "reference": "SentenceListening.swift"
+    },
+    {
+      "area": "听力控制布局",
+      "result": "滑块下同一行显示序号、循环、倍速，下方三个等宽50px操作；去掉重复遍数和行内复选框",
+      "reference": "SentenceListening.swift"
+    },
+    {
+      "area": "单卡单句设置",
+      "result": "移到设置/个性化；默认关闭、持久化、保持当前句；前后导航和自动播放使用同一筛选列表，保留歌曲显式句序",
+      "reference": "PersonalizationSettingsView.swift / SentenceListening.swift"
+    },
+    {
+      "area": "听力生命周期",
+      "result": "默认单句一遍；首尾循环、精确跳转句子；暂停/弹层保留位置；滑块松手才提交；失败可重试；快3慢2锁定当前倍速",
+      "reference": "SentenceListening.swift"
+    },
+    {
+      "area": "背景声",
+      "result": "接入App原版钢琴/咖啡厅素材、音量、选择持久化及人声时降音量；拼词/听力共享；口语/面板/后台停止并释放",
+      "reference": "PracticeView.swift / PracticeAmbience"
+    },
+    {
+      "area": "口语区",
+      "result": "去除重复照片说明；正文滚动、操作停靠底部；真实收音/关闭状态，示范与收音互斥；高亮保留原句大小写、标点、缩写",
+      "reference": "PracticeModeOverlay.swift / SentenceSpeaking"
+    },
+    {
+      "area": "卡组选择",
+      "result": "原生选择卡组标题、单列左勾选/名称/照片数/右封面；选择即关闭并保留各卡组草稿",
+      "reference": "PracticeModeOverlay.swift"
+    },
+    {
+      "area": "照片选择",
+      "result": "单独照片入口与三列图库，卡组分享/下载归于照片抽屉，不挤入卡组切换",
+      "reference": "PracticeModeOverlay.swift"
+    },
+    {
+      "area": "外观入口",
+      "result": "系统/浅色/深色使用菜单；内置主题进入有返回按钮的下级页面",
+      "reference": "AppearanceSettingsView.swift"
+    },
+    {
+      "area": "主题目录",
+      "result": "紧凑单列56×40 Aa色样/强调色点/名称/勾选；选择后留在主题页",
+      "reference": "AppearanceSettingsView.swift"
+    },
+    {
+      "area": "自定义主题",
+      "result": "移除示例装饰预览，名称最长40字；编辑与选择仅写当前日/夜槽，保留另一模式",
+      "reference": "AppearanceSettingsView.swift"
+    },
+    {
+      "area": "拍摄与底部导航",
+      "result": "复核既有取景/导入/短屏/横屏/浅深色/键盘及底栏，保留明确的Web GitHub入口差异",
+      "reference": "SimpleCameraChrome.swift / current Web baseline"
+    },
+    {
+      "area": "下载、声音、设置、等级",
+      "result": "复核下载失败取消、设置层级、原生键盘/快门样本、等级草稿保留、声音切页清理",
+      "reference": "SettingsHomeContent / current Web baseline"
+    }
+  ],
+  "verification": {
+    "build": "TypeScript + Vite passed",
+    "unitPassed": 203,
+    "deploymentUnitPassed": 8,
+    "fullBrowserRun": {
+      "passed": 211,
+      "failed": 3,
+      "skipped": 2,
+      "failureCause": "Keyboard sound test also counted newly added ambience audio; corrected observer to count only keyboard sounds"
+    },
+    "affectedFinalRerun": {
+      "passed": 30,
+      "failed": 0
+    },
+    "remainingKnownTestFailures": 0,
+    "browsers": [
+      "Chrome desktop",
+      "Chrome mobile viewport",
+      "WebKit mobile viewport"
+    ],
+    "viewports": [
+      [
+        320,
+        568
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        1440,
+        1000
+      ]
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "audio": "Muted isolated browser sessions; playback, decoding, volume and lifecycle checked, not subjective speaker listening"
+  },
+  "remainingProductGaps": [
+    "学习目标、词表数据/覆盖率、每日统计与分享统计尚未移植",
+    "复古相机、闭眼记单词尚未移植",
+    "照片多选和完整卡组编辑、全量备份/回收站仍与App不同",
+    "第三方订阅自动更新、扫码和购买权益尚未移植",
+    "自定义AI配置尚未移植"
+  ],
+  "platformDifferences": [
+    "Web首次音频播放需要用户手势；返回后台后不擅自恢复背景声",
+    "口语识别受浏览器支持和授权限制，未伪造原生识别评分或波形",
+    "浏览器存储与App、另一域名独立；CSS材质并非UIKit像素级一致"
+  ],
+  "screenshots": [
+    "docs/reports/layout-2026-11-04/listening-dark-390x844.png",
+    "docs/reports/layout-2026-11-04/themes-native-list.png",
+    "docs/reports/layout-2026-11-04/listening-light-390x844.png",
+    "docs/reports/layout-2026-11-04/deck-picker.png",
+    "docs/reports/layout-2026-11-04/speaking-light-390x844.png"
+  ],
+  "deployment": {
+    "status": "pending"
+  }
+}

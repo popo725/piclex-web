@@ -5,6 +5,7 @@ import {createPlaybackProgress} from './playback-progress';
 export function useSpeech(notify:(s:string)=>void){
  const generation=useRef(0),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),media=useRef<HTMLAudioElement|null>(null),blob=useRef('');
  const [playing,setPlaying]=useState(false),[preparing,setPreparing]=useState(false),[position,setPosition]=useState(-1);
+ const [error,setError]=useState('');
  const [progress]=useState(createPlaybackProgress);
  const clearMedia=useCallback(()=>{
   const current=media.current;media.current=null;
@@ -16,7 +17,7 @@ export function useSpeech(notify:(s:string)=>void){
   setPlaying(false);setPreparing(false);setPosition(-1);progress.update(0);
  },[clearMedia,progress]);
  const play=useCallback((texts:string[],rate=1,onEnd?:()=>void,offset=0,clip?:AudioClip,startFraction=0)=>{
-  stop();const id=generation.current,queue=texts.filter(t=>t.trim());
+  stop();setError('');const id=generation.current,queue=texts.filter(t=>t.trim());
   const valid=()=>id===generation.current&&!document.hidden;
   // TTS supplies character boundaries, not a duration. Queue progress is weighted
   // by text length; original audio uses its actual currentTime/duration per segment.
@@ -27,7 +28,7 @@ export function useSpeech(notify:(s:string)=>void){
    const value=total?(before+(queue[i]?.length||0)*Math.min(1,Math.max(0,fraction)))/total:0;
    progress.update(Math.max(progress.getSnapshot().value,value),indeterminate);
   };
-  const fail=(message?:string)=>{if(!valid())return;stop();if(message)notify(message);};
+  const fail=(message?:string)=>{if(!valid())return;stop();if(message){setError(message);notify(message);}};
   const next=(i:number)=>{
    if(!valid())return;
    if(i===queue.length){stop();onEnd?.();return;}
@@ -68,5 +69,5 @@ export function useSpeech(notify:(s:string)=>void){
   setPreparing(queue.length>0);next(0);
  },[stop,clearMedia,notify,progress]);
  useEffect(()=>{const hide=()=>{if(document.hidden)stop();};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stop);return ()=>{stop();document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stop);};},[stop]);
- return {playing,preparing,position,progress,play,stop};
+ return {error,playing,preparing,position,progress,play,stop};
 }
