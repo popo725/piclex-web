@@ -41,7 +41,7 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
  await chooser.setInputFiles(path.resolve('tests/fixtures/demo/decks/travel.piclexdeck'));
  await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('pass');
  await page.getByRole('button',{name:'全部卡组'}).click();
- await expect(page.locator('.deck-card')).toHaveCount(6);
+ await expect(page.locator('.deck-card')).toHaveCount(7);
 });
 test('direct links, reveal, dark theme and unknown decks have usable states',async({page})=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
