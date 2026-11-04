@@ -1,4 +1,6 @@
 import {prepareShutterSound,playShutterSound} from './shutter-sound';
+import AppStoreLink from './AppStoreLink';
+import PhotoAnnotations from './PhotoAnnotations';
 import RecognitionHalo from './RecognitionHalo';
 import PolaroidPrint from './PolaroidPrint';
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
@@ -52,11 +54,11 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  return <main className={`capture-page ${job?'capture-result-page':''}`} aria-label="拍摄">
   {job?<CaptureReview key={job.id} job={job} active={active} settled={!printing} consume={()=>flow.consume(job.id)} retry={()=>flow.retry(job)} cancel={()=>flow.cancel(job.id)} edit={(title,labels)=>flow.edit(job.id,title,labels,job.quote)} start={()=>{if(job.deckID){flow.consume(job.id);setPresented(null);learn(job.deckID);}}} resume={resume}/>:<div className="capture-viewfinder">
    <div className="camera-paper"><div className="camera-aperture">
-    {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className="camera-empty" aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span><small>{opening?'等待你的授权…':'首次使用会请求相机权限'}</small></button>}
+    {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className={`camera-empty ${active?"is-active":""}`} aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><span className="camera-aurora" aria-hidden="true"><i/><i/><i/><b/></span><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span></button>}
     <span className="camera-corners" aria-hidden="true"/></div>
     {(opening||live)&&<button className="camera-close native-button" onClick={stopCamera}>关闭相机</button>}
    </div>
-   <div className="capture-controls"><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><button className="camera-accessory" aria-label="开始练习" onClick={()=>learn()}><Icon name="tab-learn"/></button></div>
+   <div className="capture-controls"><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><AppStoreLink/></div>
    {preparing&&<p className="capture-status" role="status">正在准备照片…</p>}
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
@@ -78,7 +80,14 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
   if(!settled||!loaded){setReadyLabels(null);return;}
   if(!active||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){setReadyLabels(job.labels);return;}
   setReadyLabels(null);let disposed=false;
-  const animations=[...card.current!.querySelectorAll('.capture-photo-label')].map((node,index)=>node.animate([{opacity:0},{opacity:1}],{duration:1000,delay:index*220,easing:'linear',fill:'both'}));
+  // Labels render at the native 1000px reference size, then scale as a whole.
+  const scale=1;
+  const animations=[...card.current!.querySelectorAll<HTMLElement>('.capture-annotation')].flatMap((node,index)=>{
+   const dx=Number(node.style.getPropertyValue('--label-entrance-x'))*scale,dy=Number(node.style.getPropertyValue('--label-entrance-y'))*scale;
+   const frames=Array.from({length:21},(_,i)=>{const p=i/20,eased=p*p*(3-2*p);return {offset:p,transform:`translate(${dx*(1-eased)}px,${dy*(1-eased)}px)`};});
+   const options={duration:1000,delay:index*220,easing:'linear',fill:'both' as FillMode};
+   return [node.animate([{opacity:0},{opacity:1}],options),node.querySelector('.capture-photo-label')!.animate(frames,options)];
+  });
   void Promise.all(animations.map(a=>a.finished)).then(()=>{if(!disposed)setReadyLabels(job.labels);}).catch(()=>{});
   return()=>{disposed=true;animations.forEach(a=>a.cancel());};
  },[job.labels,settled,loaded,active]);
@@ -105,17 +114,10 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}
     {finishing&&<RecognitionHalo active={active&&settled}/>}
-    {job.labels.map((label,index)=>{
-     const a=label.anchor,b=label.bbox,visible=label.relation==='visible'&&a?.length===2&&b?.length===4&&a.every(Number.isFinite)&&b.every(Number.isFinite)&&b[0]>=0&&b[1]>=0&&b[2]<=1000&&b[3]<=1000&&b[2]>b[0]&&b[3]>b[1]&&a[0]>=b[0]&&a[0]<=b[2]&&a[1]>=b[1]&&a[1]<=b[3];
-     if(!visible)return null;
-     return <div key={index} className="capture-annotation">
-      {selected===index&&<span className="capture-object-box" style={{left:`${b[0]/10}%`,top:`${b[1]/10}%`,width:`${(b[2]-b[0])/10}%`,height:`${(b[3]-b[1])/10}%`}}/>}
-      <button className="capture-photo-label" aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)} style={{left:`${Math.max(18,Math.min(82,a[0]/10))}%`,top:`${Math.max(10,Math.min(90,a[1]/10))}%`}}><strong>{label.english}</strong><span>{label.chinese}</span></button>
-     </div>;
-    })}
+    <PhotoAnnotations labels={job.labels} aspect={aspect} selected={selected} select={index=>setSelected(selected===index?null:index)}/>
    </div>
    <div className="capture-poster-footer">
-    <div className="capture-poster-brand"><img src={`${import.meta.env.BASE_URL}brand/app-icon.png`} alt=""/><span>摄影学英语</span></div>
+    <div className="capture-poster-brand"><img src={`${import.meta.env.BASE_URL}brand/card-logo.png`} alt=""/><span>摄影<br/>学英语</span></div>
     {job.quote?.chinese&&job.quote.english&&job.quote.source&&<blockquote className="capture-quote"><p>{job.quote.chinese}</p><p>{job.quote.english}</p><cite>— {job.quote.source}</cite></blockquote>}
    </div>
   </div>

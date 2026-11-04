@@ -11,7 +11,7 @@ test('first learning visit opens the first official deck in spelling without a c
 test('learning tab and capture start choose a deck while explicit library remains available',async({page})=>{
  await page.goto('/piclex-web/#/capture');const tabs=page.getByRole('navigation',{name:'底部导航'});await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();await expect(page.locator('.home')).toHaveCount(0);
  await page.getByRole('button',{name:'全部卡组',exact:true}).click();await expect(page).toHaveURL(/#\/decks$/);await expect(page.locator('.deck-card')).toHaveCount(6);await tabs.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:/官方卡组与个人卡组/}).click();await expect(page).toHaveURL(/#\/decks$/);await expect(page.locator('.deck-card')).toHaveCount(6);
- await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
+ await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
 });
 test('remembered local deck opens spelling without losing spelling or listening drafts',async({page})=>{
  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组',exact:true})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);const input=page.getByRole('textbox',{name:'输入英文',exact:true});await fillSpelling(page,'cr');

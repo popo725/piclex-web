@@ -1,0 +1,2 @@
+const destination='https://apps.apple.com/app/id6808490052';
+export default function AppStoreLink(){return <a className="camera-accessory camera-app-store" href={destination} target="_blank" rel="noopener noreferrer" aria-label="在 App Store 下载摄影学英语（新标签页）"><img src={`${import.meta.env.BASE_URL}brand/app-store-icon.png`} width="26" height="26" alt="" style={{filter:'grayscale(1)',borderRadius:'22%'}}/></a>;}

@@ -23,5 +23,45 @@
     "audio": "real HTMLAudioElement playing event, muted in automated test"
   },
   "nativeShutterSHA256": "c7ffe1ffb064940c7f28a0339f91e992a13a9b0f6949aeaafb2d45819fee75e8",
-  "deviceActions": []
+  "deviceActions": [],
+  "slowNetworkRegressionPassed": 27,
+  "domesticWebKitLivePassed": 10,
+  "domesticGameColdStart": {
+    "ready": true,
+    "stages": [
+      "正在读取游戏进度…",
+      "正在准备学习卡组…",
+      "正在下载游戏程序…",
+      "正在启动游戏…",
+      "正在加载游戏素材…",
+      "游戏已就绪"
+    ],
+    "downloadPartialEvents": 26,
+    "artworkComplete": true
+  },
+  "domesticRelease": "b0305429ac3e-37c13ddda74b",
+  "cameraSurface": {
+    "unitPassed": 197,
+    "deploymentPassed": 8,
+    "browserTotal": 147,
+    "fullRun": {
+      "passed": 143,
+      "failed": 2,
+      "skipped": 2
+    },
+    "failure": "legacy native-style assertion still expected the explicitly removed permission hint",
+    "updatedSurfaceAndLayoutPassed": 8,
+    "browserPassedAfterAssertionUpdate": 145,
+    "appStoreWebKitBoundary": "actual href verified; native App Store URL interception means new-tab semantics tested with a neutral intercepted destination",
+    "screenshots": [
+      "web-camera-aurora.png",
+      "web-native-card-light.png",
+      "web-native-card-dark.png"
+    ]
+  },
+  "slowNetworkPatchCI": {
+    "id": 41804349946,
+    "conclusion": "success"
+  },
+  "pagesWebKitLivePassed": 10
 }

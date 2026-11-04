@@ -1,3 +1,4 @@
+import {resolveCardLabels} from '../../../packages/deck-format/src/card-appearance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {createPhotoDeck} from '../../../packages/deck-format/src/create.mjs';
 import {analyzePhoto,type PhotoLabel,type PhotoQuote} from './capture-api';
@@ -33,7 +34,7 @@ export function useCaptureJobs(save:(bytes:Uint8Array,id:string)=>Promise<string
      try{
       const result=await analyzePhoto(job.image,controller.signal);
       if(controller.signal.aborted)throw Error('已取消等待，照片已保留。');
-      job={...job,labels:result.labels,quote:result.quote};retrySave=true;
+      job={...job,labels:resolveCardLabels(result.labels),quote:result.quote};retrySave=true;
       patch(id,{labels:job.labels,quote:job.quote,retrySave:true});
      }catch(e){throw Error(controller.signal.aborted?(timedOut?'识图等待超时，可以重试这张照片。':'已取消等待，照片已保留。'):(e as Error).message);}
      finally{clearTimeout(timer);}

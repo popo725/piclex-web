@@ -33,3 +33,7 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 ## 快门声音
 
 `audio/minolta-shutter.wav` 原样复用 PicLex `ShutterSoundMinolta.dataset/minolta-shutter.wav`，与 App 默认快门音字节一致；素材沿用原项目权利，不另行声称为 MIT 代码。
+
+## 相机商店入口与卡片品牌
+
+`brand/app-store-icon.png` 从本机 `/System/Applications/App Store.app/Contents/Resources/AppIcon.icns` 提取128px系统图标，仅用于用户指定的App Store入口，显示层去色；Apple图标不属于本项目MIT代码许可。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。

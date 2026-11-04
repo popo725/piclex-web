@@ -1,5 +1,5 @@
 export type Quota = {daily_limit:number; used:number; remaining:number; resets_at:number};
-export type PhotoLabel = {english:string; chinese:string; example:string; exampleChinese:string; phoneticUS?:string; phoneticUK?:string; partOfSpeech?:string; relation?:string; sceneConnection?:string; association?:string; collocation?:string; bbox?:number[]|null; anchor?:number[]|null};
+export type PhotoLabel = {backgroundColor?:string;textColor?:string;paletteColorIsFixed?:boolean;suggestedBubblePosition?:{x:number;y:number};english:string; chinese:string; example:string; exampleChinese:string; phoneticUS?:string; phoneticUK?:string; partOfSpeech?:string; relation?:string; sceneConnection?:string; association?:string; collocation?:string; bbox?:number[]|null; anchor?:number[]|null};
 export type PhotoQuote = {chinese:string;english:string;source:string}|null;
 const endpoint='https://piclex.v2fy.com/v1/web';
 export function browserIdentity(){

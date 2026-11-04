@@ -27,7 +27,7 @@ body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,v
 .capture-annotation{position:absolute;inset:0;pointer-events:none}
 .capture-photo-label{position:absolute;transform:translate(-50%,-50%);display:grid;gap:2px;max-width:150px;padding:5px 9px;border-radius:5px;background:var(--photo-background,#fff);color:var(--photo-ink,#000);text-align:center;pointer-events:auto;overflow-wrap:anywhere;box-shadow:0 1px 4px #0003}
 .capture-photo-label strong{font-size:13px}.capture-photo-label span{font-size:11px}.capture-photo-label[aria-pressed=true]{outline:2px solid #44b7c5}.capture-object-box{position:absolute;border:2px solid #54c2dc;box-shadow:0 0 6px #7ce5fa,inset 0 0 5px #7ce5fa;border-radius:5px}
-.capture-vocabulary{position:relative;color:#555;font-size:11px;margin-top:8px}.capture-vocabulary summary{cursor:pointer;text-align:center;list-style:none}.capture-vocabulary>div{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding-top:8px}.capture-vocabulary button{font-size:13px;border-radius:6px;padding:5px 8px;text-align:left;background:#f1f1f1;color:#202020}.capture-vocabulary button span{font-size:11px;color:#666;margin-left:5px}.capture-vocabulary button[aria-pressed=true]{outline:1px solid #333}
+.capture-vocabulary{position:relative;color:var(--muted);font-size:11px;margin-top:8px}.capture-vocabulary summary{cursor:pointer;text-align:center;list-style:none}.capture-vocabulary>div{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding-top:8px}.capture-vocabulary button{font-size:13px;border-radius:6px;padding:5px 8px;text-align:left;background:var(--surface);color:var(--ink)}.capture-vocabulary button span{font-size:11px;color:var(--muted);margin-left:5px}.capture-vocabulary button[aria-pressed=true]{outline:1px solid var(--ink)}
 .capture-label-detail{padding:12px 8px 0;font-size:14px;color:#202020}.capture-label-detail p{margin:6px 0}.capture-label-detail small{color:#666}
 .capture-quote{margin:10px 0 0;padding:12px;text-align:center;font-size:14px;line-height:1.6;background:var(--photo-background,#fff);color:var(--photo-ink,#000)}.capture-quote p{margin:4px 0}.capture-quote p+p,.capture-quote cite{font-size:12px}
 .capture-status{display:flex;justify-content:center;align-items:center;gap:8px;text-align:center;font-size:14px;margin:12px 0;line-height:1.7}.capture-result-page .capture-status{color:white}
@@ -67,3 +67,38 @@ body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,v
 @media(prefers-reduced-motion:reduce){.processing-detail>span{animation:none;background:none;color:inherit}}
 
 .print-close{position:absolute;z-index:3;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);min-width:88px;min-height:48px;border-radius:999px;background:#0006;color:#ffffffe6;font-weight:600}
+/* Native PosterRenderer reference: 1000px labels, 34% footer, 5% paper. */
+.capture-review{width:min(100%,500px,calc(max(1px,100dvh - var(--app-tab-height) - env(safe-area-inset-bottom,0px) - 148px)*var(--capture-paper-aspect)))}
+.capture-card{container-type:inline-size;background:rgb(251.175 249.9 245.82);border-radius:0;box-shadow:inset 0 0 0 .6px #00000012}
+.capture-annotated-photo{container-type:inline-size}
+.capture-photo-label{transform:none;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:.448cqw;max-width:none;padding:1.4cqw 2.016cqw;border:0;border-radius:1.512cqw;background:linear-gradient(#ffffff24,#ffffff05),rgb(var(--label-tint)/.88);color:#fff;text-align:left;white-space:nowrap;overflow:hidden;backdrop-filter:blur(1.2cqw);-webkit-backdrop-filter:blur(1.2cqw);box-shadow:0 .56cqw 1.736cqw #00000040,inset 0 0 0 .1316cqw #ffffff9e;text-shadow:0 .112cqw .252cqw #00000047}
+.capture-photo-label strong{font:700 2.8cqw/1 system-ui;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.capture-photo-label span{font:500 2.24cqw/1 system-ui;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.capture-photo-label.scene-label{border-radius:0}
+.capture-photo-label[aria-pressed=true]{outline:.2cqw solid #fff;outline-offset:.2cqw}
+.capture-connector{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;pointer-events:none}
+.capture-connector path{stroke-linecap:round}.connector-halo{stroke:#ffffffd6;stroke-width:4.2}.connector-ink{stroke:rgb(var(--label-tint)/.96);stroke-width:2.2}
+.capture-connector circle{fill:rgb(var(--label-tint)/.98);stroke:#ffffffeb;stroke-width:1.584}
+.capture-poster-footer{position:relative;aspect-ratio:100/34;display:block;padding:0;container-type:normal}
+.capture-poster-brand{position:absolute;left:4%;top:50%;transform:translateY(-50%);width:9%;gap:1cqw;font:600 2cqw/1.2 system-ui}
+.capture-poster-brand>img{width:100%;border-radius:24%;box-shadow:inset 0 0 0 .139cqw #ffffffd1}
+.capture-poster-brand>span{white-space:normal;text-align:center}
+.capture-poster-footer .capture-quote{position:absolute;left:21.1%;right:4%;top:50%;transform:translateY(-50%);min-height:46%;max-height:72%;display:flex;flex-direction:column;justify-content:center;gap:1.19cqw;overflow:hidden;font:600 3.2cqw/1.25 system-ui}
+.capture-poster-footer .capture-quote p{margin:0}.capture-poster-footer .capture-quote p+p{font-size:2.24cqw;font-weight:500}.capture-poster-footer .capture-quote cite{font-size:1.952cqw;font-weight:500;align-self:stretch}
+.print-paper{background:rgb(251.175 249.9 245.82);border-radius:0;box-shadow:inset 0 0 0 .6px #00000012}
+/* The requested aurora lives only inside the empty photograph aperture. */
+.capture-page .camera-empty{position:relative;isolation:isolate;overflow:hidden;background:#e5e5ed;color:#292a32}
+.camera-empty>.native-icon,.camera-empty>span:not(.camera-aurora){position:relative;z-index:1;text-shadow:0 1px 8px #fff8}
+.camera-aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(145deg,#e4efff,#f4dff2 45%,#f8e9db);z-index:0}
+.camera-aurora>i{position:absolute;width:115%;height:85%;left:-25%;top:-15%;border-radius:50%;background:radial-gradient(ellipse at 35% 35%,#53a7ff 0%,#8f73f0 28%,#df76bd 53%,transparent 72%);filter:blur(38px);animation:camera-aurora-flow 13s ease-in-out infinite alternate;animation-play-state:paused;will-change:transform}
+.camera-aurora>i:nth-child(2){left:10%;top:25%;background:radial-gradient(ellipse,#ffac82,#eb77b8 36%,#a6a1ef 58%,transparent 75%);animation-duration:17s;animation-delay:-8s}
+.camera-aurora>i:nth-child(3){left:15%;top:45%;background:radial-gradient(ellipse,#83dbe0,#7b9dff 40%,transparent 72%);animation-duration:19s;animation-delay:-5s}
+.camera-aurora>b{position:absolute;inset:0;background:#ffffff55;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
+.camera-empty.is-active .camera-aurora>i{animation-play-state:running}
+@keyframes camera-aurora-flow{0%{transform:translate(-8%,-5%) rotate(-16deg) scale(1)}50%{transform:translate(15%,12%) rotate(12deg) scale(1.18)}100%{transform:translate(-2%,27%) rotate(36deg) scale(1.08)}}
+:root[data-theme=dark] .camera-empty{color:#fff}:root[data-theme=dark] .camera-aurora{background:#20202e}:root[data-theme=dark] .camera-aurora>b{background:#11172570}:root[data-theme=dark] .camera-empty>.native-icon,:root[data-theme=dark] .camera-empty>span:not(.camera-aurora){text-shadow:0 1px 8px #0008}
+.camera-app-store img{display:block;object-fit:contain}
+@media(prefers-reduced-motion:reduce){.camera-aurora>i{animation:none;will-change:auto}}
+
+.capture-annotation-stage{position:absolute;left:0;top:0;width:1000px;transform-origin:top left;container-type:inline-size;pointer-events:none}
+.capture-photo-label strong,.capture-photo-label span{overflow:visible;text-overflow:clip;max-width:none}
