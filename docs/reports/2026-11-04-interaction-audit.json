@@ -57,7 +57,16 @@
       "web-camera-aurora.png",
       "web-native-card-light.png",
       "web-native-card-dark.png"
-    ]
+    ],
+    "domesticRelease": "f8ea20583c92-049cbbf05963",
+    "domesticLivePassed": 8,
+    "domesticResourceHashesVerified": 13,
+    "ciRun": 41808982591,
+    "ciConclusion": "success",
+    "ciBrowserPassed": 145,
+    "ciBrowserSkipped": 2,
+    "pagesLivePassed": 8,
+    "pagesResourceHashesVerified": 13
   },
   "slowNetworkPatchCI": {
     "id": 41804349946,
