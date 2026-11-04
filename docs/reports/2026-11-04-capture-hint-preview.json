@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-04",
+  "sourceRevision": "2af2e5558244ade89d3074fc743b8c8b790cd402",
+  "releaseID": "2af2e5558244-6417c62e7960",
+  "previousRelease": "04e2d01105d9-a89de396995a",
+  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41781775439",
+  "ciConclusion": "success",
+  "isolatedFilesVerified": 518,
+  "unchangedBaselineFiles": 515,
+  "pagesBuildAssetsMatched": 7,
+  "localCameraRegressionPassed": 2,
+  "live": [
+    {
+      "origin": "https://piclex.v2fy.com",
+      "hintCount": 0,
+      "previewFit": "cover",
+      "verifiedAssetHashes": 9
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "hintCount": 0,
+      "previewFit": "cover",
+      "verifiedAssetHashes": 9
+    }
+  ],
+  "nginxConfigUnchanged": true,
+  "camera": "Browser fake camera; no physical camera or simulator used",
+  "build": "Built from committed source in temporary directory; all changed outputs and bundled assets match successful Pages artifact hashes",
+  "cleanup": "Temporary build, partial download, browser results and screenshots removed; existing unrelated build outputs and release rollback retained"
+}
