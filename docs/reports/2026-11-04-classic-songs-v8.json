@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-04",
+  "contentVersion": 8,
+  "deckID": "0a1ff2e2-3db0-4bb1-889a-b27b62798cbe",
+  "photos": 22,
+  "occurrences": 153,
+  "changedAudioClips": 99,
+  "imagesCoversLyricsIDsAndLearningFingerprintPreserved": true,
+  "sourcePackageSHA256": "b0de796e5bd56e88ff21a58aa7c64481eed04d9cbd28f3a05084a0222cc8d5ba",
+  "sourceVerification": "Feed, package, covers and retained V7 downloaded with exact hash and size checks",
+  "webRelease": "f4af20256a91-50f7c95598c0",
+  "webFrontendPreserved": true,
+  "deviceAudibleAcceptance": false,
+  "webPublicVerification": {
+    "passed": true,
+    "verifiedAt": "2026-11-04T13:26:45.041565+00:00",
+    "publicAudioSamples": 8,
+    "all153EntriesAndAudioReferencesExact": true,
+    "learningFingerprintPreserved": true,
+    "browserInteractionRechecked": false
+  }
+}
