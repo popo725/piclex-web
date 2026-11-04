@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-04",
+  "unitPassed": 193,
+  "browserPassed": 104,
+  "browserSkipped": 2,
+  "deployPassed": 8,
+  "newPlaybackCases": 9,
+  "baseline": "ab2959c914d0-d7ed4bd1c878",
+  "unchangedBuildFiles": 632,
+  "changedBuildFiles": 3,
+  "limits": "Browser touch emulation; no physical iPhone/Safari or simulator used. TTS progress uses real character boundaries, with indeterminate activity when unavailable.",
+  "deployment": "pending"
+}

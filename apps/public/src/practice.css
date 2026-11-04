@@ -147,3 +147,12 @@ body[data-practice=true] .toast button{pointer-events:auto}
  .native-practice:has(>.virtual-keyboard)>.virtual-keyboard{grid-column:2;grid-row:3;align-self:end}
  .native-practice:has(>.virtual-keyboard) .native-button,.native-practice:has(>.virtual-keyboard) .native-primary{font-size:13px;padding-inline:6px}
 }
+
+/* App playback: one stable replay button, with progress clipped inside its surface. */
+.playback-button{position:relative;overflow:hidden;isolation:isolate}
+.playback-label{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px}
+.playback-progress{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
+.playback-fill{position:absolute;inset:0;background:var(--ink);opacity:.16;transform-origin:left;transition:transform .18s linear}
+.playback-activity{position:absolute;inset:0;background:var(--ink);opacity:.08;animation:playback-pulse 1.2s ease-in-out infinite alternate}
+@keyframes playback-pulse{to{opacity:.2}}
+@media(prefers-reduced-motion:reduce){.playback-fill{transition:none}.playback-activity{animation:none}}
