@@ -31,7 +31,7 @@ function Dialog({title,close,children}:{title:string;close:()=>void;children:Rea
 }
 function SpeakerIcon(){return <Icon name="sound"/>;}
 function Playback({play,stop,playing,rate,setRate,label='播放句子'}:{play:()=>void;stop:()=>void;playing:boolean;rate:number;setRate:(n:number)=>void;label?:string}){
- return <div className="native-playback"><button className="native-button" onClick={play}><SpeakerIcon/>{playing?'重新播放':label}</button>{playing&&<button className="native-button" aria-label="停止播放" onClick={stop}><Icon name="stop"/></button>}<select aria-label="播放速度" value={rate} onChange={e=>setRate(Number(e.target.value))}>{rates.map(r=><option key={r} value={r}>{r===1?'1.0':r}×</option>)}</select></div>;
+ return <div className="native-playback"><button className="native-button" onClick={play}><SpeakerIcon/>{playing?'重新播放':label}</button>{playing&&<button className="native-button" aria-label="停止播放" onClick={stop}><Icon name="stop"/></button>}<span className="playback-rate"><select aria-label="播放速度" value={rate} onChange={e=>setRate(Number(e.target.value))}>{rates.map(r=><option key={r} value={r}>{r===1?'1.0':r}×</option>)}</select><span aria-hidden="true">⌄</span></span></div>;
 }
 function SentenceLine({sentence,target,translation,hidden,position,open}:{sentence:string;target:string;translation:string;hidden:boolean;position:number;open:()=>void}){
  const display=exampleTokens(sentence,target),words=exampleWords(sentence),index=words.findIndex(w=>position>=w.start&&position<w.end),highlight=tokenForWord(display,index);
@@ -180,19 +180,26 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
  const layoutRoot=useRef<HTMLElement>(null);
  useLayoutEffect(()=>{
   const root=layoutRoot.current;if(!root)return;
+  let frame=0;
   const update=()=>{
-   const header=root.querySelector('.native-header')?.getBoundingClientRect().height||52;
-   const tabs=root.querySelector('.module-tabs')?.getBoundingClientRect().height||47;
-   const keyboard=root.querySelector('.virtual-keyboard')?.getBoundingClientRect().height||0;
-   // Native footer: board 50, playback 44, action 44, two 8pt gaps.
-   const footer=154;
-   const available=root.clientHeight-header-tabs-keyboard-footer-40-48-(word?.example?44:0);
-   root.style.setProperty('--photo-height',`${Math.max(220,Math.min(word?.example?330:270,available))}px`);
+   cancelAnimationFrame(frame);
+   frame=requestAnimationFrame(()=>{
+    const photo=root.querySelector<HTMLElement>('.photo-browse');if(!photo)return;
+    const style=getComputedStyle(root),body=root.querySelector<HTMLElement>('.native-body')!;
+    const height=(node:Element)=>{const s=getComputedStyle(node);return node.getBoundingClientRect().height+parseFloat(s.marginTop)+parseFloat(s.marginBottom);};
+    // Measure real controls, including feedback and wrapped dictation. Preserve a
+    // readable photograph on exceptionally short screens; only those scroll.
+    const siblings=[...root.children].filter(n=>n!==body&&getComputedStyle(n).position!=='absolute'&&getComputedStyle(n).position!=='fixed'&&n.tagName!=='DIALOG');
+    const bodyExtras=[...body.children].reduce((sum,n)=>sum+(n.classList.contains('native-card')?height(n)-photo.getBoundingClientRect().height:height(n)),0);
+    const available=root.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-parseFloat(style.rowGap)*siblings.length-siblings.reduce((sum,n)=>sum+height(n),0)-bodyExtras;
+    const target=Math.max(220,Math.min(word?.example?330:270,Math.floor(available)));
+    if(root.style.getPropertyValue('--photo-height')!==`${target}px`)root.style.setProperty('--photo-height',`${target}px`);
+   });
   };
-  update();const observer=new ResizeObserver(update);observer.observe(root);
-  const keyboard=root.querySelector('.virtual-keyboard');if(keyboard)observer.observe(keyboard);
-  return()=>observer.disconnect();
- },[state.module,state.mode,desktopKeyboard,!!word?.example,complete]);
+  const observer=new ResizeObserver(update);
+  for(const element of [root,...root.querySelectorAll('.native-header,.module-tabs,.virtual-keyboard,.native-answer-footer,.native-hint,.sentence-toolbar,.native-example,.sentence-content')])observer.observe(element);
+  update();return()=>{cancelAnimationFrame(frame);observer.disconnect();};
+ },[state.module,state.mode,state.difficulty,desktopKeyboard,!!word?.example,complete]);
  const held=useRef(new Set<number>()),swipe=useRef<{x:number;y:number}|null>(null),suppressPhoto=useRef(0);
  return <main ref={layoutRoot} style={photoPalette.style} className="native-practice" data-example={!!word?.example} data-module={state.module} aria-label="学习">
   {imeWarning&&<div className="english-input-warning" role="status">请切换到英语输入法</div>}
@@ -201,7 +208,7 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
   {complete?<section className="native-completion"><h1>本轮训练完成</h1><p>拼对 {correct} 个词，复习 {reviewed} 个词。</p><button className="native-primary" onClick={()=>dispatch({type:'restart'})}>再来一轮</button><button className="native-button" onClick={exit}>换个卡组</button><button className="text-button" onClick={download}>下载卡组，在 App 中打开</button></section>:<>
    <div className="native-body" onPointerDown={e=>{if(e.pointerType==='mouse'||(e.target as HTMLElement).closest('input,textarea,select,.chunk,.reading-content,.native-example'))return;swipe.current={x:e.clientX,y:e.clientY};}} onPointerUp={e=>{const start=swipe.current;swipe.current=null;if(!start||panel||held.current.size>1)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4){const i=modules.findIndex(([id])=>id===state.module),target=modules[i+(dx<0?1:-1)];if(target){suppressPhoto.current=Date.now()+400;selectModule(target[0]);}}}} onPointerCancel={()=>{swipe.current=null;}}>
     <article className="native-card"><div className="photo-browse">
-     <PhotoFocus onImageReady={photoPalette.read} src={deck.images[word.imageIndex]} fit={state.module==='listening'?'contain':'focus'} focus={word.focus} alt={word.focus?'训练照片，彩色框标示当前物体':'完整场景照片'} active={active} retry={photoRetry} onLoadState={setPhotoState}/><button className="photo-open" aria-label={photoState==='error'?'重新加载图片':'选择照片'} onClick={()=>{if(photoState==='error'){setPhotoRetry(n=>n+1);return;}if(Date.now()<suppressPhoto.current){suppressPhoto.current=0;return;}openPanel('gallery');}} onPointerDown={e=>{held.current.add(e.pointerId);if(held.current.size>1)openPanel('gallery');}} onPointerUp={e=>held.current.delete(e.pointerId)} onPointerCancel={()=>held.current.clear()}></button></div>
+     <PhotoFocus onImageReady={photoPalette.read} src={deck.images[word.imageIndex]} fit={desktopKeyboard||state.module==='listening'?'contain':'focus'} focus={word.focus} alt={word.focus?'训练照片，彩色框标示当前物体':'完整场景照片'} active={active} retry={photoRetry} onLoadState={setPhotoState}/><button className="photo-open" aria-label={photoState==='error'?'重新加载图片':'选择照片'} onClick={()=>{if(photoState==='error'){setPhotoRetry(n=>n+1);return;}if(Date.now()<suppressPhoto.current){suppressPhoto.current=0;return;}openPanel('gallery');}} onPointerDown={e=>{held.current.add(e.pointerId);if(held.current.size>1)openPanel('gallery');}} onPointerUp={e=>held.current.delete(e.pointerId)} onPointerCancel={()=>held.current.clear()}></button></div>
      {state.module==='spelling'?<div className="native-hint"><button aria-label={state.hiddenChinese?'显示中文提示':'隐藏中文提示'} onClick={()=>dispatch({type:'preference',name:'hiddenChinese',value:!state.hiddenChinese})}><h1>{state.hiddenChinese?'点击显示释义':word.chinese}</h1><small>{word.phonetic}</small></button><button className="hint-speaker" aria-label="播放英文发音" onClick={replay}><SpeakerIcon/></button></div>:state.module==='listening'?<div className="sentence-toolbar"><select aria-label="句子练习模式" value={state.mode} onChange={e=>setMode(e.target.value)}>{modes.map(([id,title])=><option key={id} value={id}>{title}</option>)}</select>{state.mode==='free'&&<select aria-label="听写难度" value={state.difficulty} onChange={e=>setDifficulty(e.target.value)}><option value="easy">简单 · 字母数量</option><option value="medium">中等 · 单词数量</option><option value="hard">困难 · 无提示</option></select>}</div>:<div className="native-hint"><span>听示范，再读出句子</span></div>}
     </article>
     {state.module==='spelling'&&word.example&&<SentenceLine sentence={word.example} target={word.english} translation={word.exampleChinese} hidden={state.hiddenChinese} position={audio.position} open={()=>selectModule('speaking')}/>}

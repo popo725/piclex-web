@@ -1,3 +1,5 @@
+import RecognitionHalo from './RecognitionHalo';
+import PolaroidPrint from './PolaroidPrint';
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
 import {useCallback,useEffect,useRef,useState,type CSSProperties} from 'react';
 import type {PhotoLabel} from './capture-api';
@@ -25,7 +27,6 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  useEffect(()=>{if(!active){stopCamera();setPrinting(false);}},[active,stopCamera]);
  useEffect(()=>{const hide=()=>{if(document.hidden){stopCamera();setPrinting(false);}};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stopCamera);window.addEventListener('hashchange',stopCamera);return()=>{document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stopCamera);window.removeEventListener('hashchange',stopCamera);stopCamera();};},[stopCamera]);
  useEffect(()=>{if(live&&video.current&&stream.current){video.current.srcObject=stream.current;void video.current.play().catch(()=>{stopCamera();notify('相机预览无法播放，请重试或导入照片。');});}},[live,notify,stopCamera]);
- useEffect(()=>{if(!printing)return;const timer=setTimeout(()=>setPrinting(false),700);return()=>clearTimeout(timer);},[printing]);
  async function accept(blob:Blob){const id=flow.add(new Uint8Array(await blob.arrayBuffer()));setPresented(id);}
  async function choose(file?:File){
   if(!file)return;stopCamera();setPreparing(true);
@@ -57,7 +58,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
   {pending.length>0&&<div className="capture-recent" aria-label="本次拍摄的卡片">{pending.map((value,index)=><button key={value.id} className="native-button" onClick={()=>{stopCamera();flow.consume(value.id);setPresented(value.id);}}>照片 {index+1} · {busy(value)?'正在生成':value.phase==='review'?'已保存':'待重试'}</button>)}</div>}
-  {printing&&active&&<div className="capture-printing" aria-label="正在出片"><span/></div>}
+  {printing&&active&&<PolaroidPrint image={job?.image} finished={()=>setPrinting(false)}/>}
  </main>;
 }
 
@@ -65,7 +66,19 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
  const [preview,setPreview]=useState(''),[loaded,setLoaded]=useState(false),[seconds,setSeconds]=useState<number|null>(null),[editing,setEditing]=useState(false),[title,setTitle]=useState(job.title),[labels,setLabels]=useState<PhotoLabel[]>(job.labels.length?job.labels:[blank()]),[selected,setSelected]=useState<number|null>(null);
  const countdown=useRef<ReturnType<typeof setInterval>|null>(null),consumed=useRef(!job.autoPractice),latest=useRef({start,consume,active});latest.current={start,consume,active};
  const [aspect,setAspect]=useState(1.333);
- const processing=busy(job);
+ const processing=busy(job),card=useRef<HTMLDivElement>(null);
+ const [readyLabels,setReadyLabels]=useState<PhotoLabel[]|null>(null);
+ const labelsReady=!job.labels.length||readyLabels===job.labels;
+ const finishing=processing||job.phase==='review'&&!labelsReady;
+ useEffect(()=>{
+  if(!job.labels.length){setReadyLabels(job.labels);return;}
+  if(!settled||!loaded){setReadyLabels(null);return;}
+  if(!active||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){setReadyLabels(job.labels);return;}
+  setReadyLabels(null);let disposed=false;
+  const animations=[...card.current!.querySelectorAll('.capture-photo-label')].map((node,index)=>node.animate([{opacity:0},{opacity:1}],{duration:1000,delay:index*220,easing:'linear',fill:'both'}));
+  void Promise.all(animations.map(a=>a.finished)).then(()=>{if(!disposed)setReadyLabels(job.labels);}).catch(()=>{});
+  return()=>{disposed=true;animations.forEach(a=>a.cancel());};
+ },[job.labels,settled,loaded,active]);
  const palette=usePhotoPalette(preview);
  const stopCountdown=useCallback(()=>{if(countdown.current)clearInterval(countdown.current);countdown.current=null;setSeconds(null);consumed.current=true;latest.current.consume();},[]);
  useEffect(()=>{const url=URL.createObjectURL(new Blob([job.image.slice().buffer],{type:'image/jpeg'}));setPreview(url);return()=>URL.revokeObjectURL(url);},[job.image]);
@@ -75,20 +88,20 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
  },[stopCountdown]);
  useEffect(()=>{if(!active&&!processing)stopCountdown();},[active,processing,stopCountdown]);
  useEffect(()=>{
-  if(job.phase!=='review'||!settled||!loaded||editing||consumed.current||!job.autoPractice)return;
+  if(job.phase!=='review'||!settled||!loaded||!labelsReady||editing||consumed.current||!job.autoPractice)return;
   if(!active||document.hidden){stopCountdown();return;}
   consumed.current=true;let remaining=3;setSeconds(remaining);
   countdown.current=setInterval(()=>{remaining--;if(remaining>0){setSeconds(remaining);return;}stopCountdown();if(latest.current.active&&!document.hidden)latest.current.start();},1000);
- },[job.phase,job.autoPractice,settled,loaded,editing,active,stopCountdown]);
+ },[job.phase,job.autoPractice,settled,loaded,labelsReady,editing,active,stopCountdown]);
  function openEditor(){stopCountdown();setTitle(job.title);setLabels(job.labels.length?job.labels:[blank()]);setEditing(true);}
  function saveEdit(){stopCountdown();edit(title,labels);setEditing(false);}
  function interact(){if(seconds!==null)stopCountdown();}
  const currentLabel=selected===null?null:job.labels[selected];
- return <section className="capture-review" style={{'--capture-photo-aspect':aspect} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
-  <div style={palette.style} className={`capture-card ${processing?'is-processing':''}`}>
+ return <section className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
+  <div ref={card} style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}
-    {processing&&<span className="capture-scan" aria-hidden="true"/>}
+    {finishing&&<RecognitionHalo active={active&&settled}/>}
     {job.labels.map((label,index)=>{
      const a=label.anchor,b=label.bbox,visible=label.relation==='visible'&&a?.length===2&&b?.length===4&&a.every(Number.isFinite)&&b.every(Number.isFinite)&&b[0]>=0&&b[1]>=0&&b[2]<=1000&&b[3]<=1000&&b[2]>b[0]&&b[3]>b[1]&&a[0]>=b[0]&&a[0]<=b[2]&&a[1]>=b[1]&&a[1]<=b[3];
      if(!visible)return null;
@@ -98,11 +111,12 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
      </div>;
     })}
    </div>
-   {!!job.labels.length&&<details className="capture-vocabulary"><summary>识别词汇</summary><div aria-label="识别词汇">{job.labels.map((label,index)=><button key={index} aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)}>{label.english}<span>{label.chinese}</span></button>)}</div></details>}
-   {currentLabel&&<div className="capture-label-detail"><strong>{currentLabel.english} {currentLabel.phoneticUS||currentLabel.phoneticUK}</strong><p>{currentLabel.example}</p><small>{currentLabel.exampleChinese}</small></div>}
-   {job.quote&&(job.quote.chinese||job.quote.english)&&<blockquote className="capture-quote"><p>{job.quote.chinese}</p><p>{job.quote.english}</p>{job.quote.source&&<cite>{job.quote.source}</cite>}</blockquote>}
+   <div className="capture-poster-footer">
+    <div className="capture-poster-brand"><img src={`${import.meta.env.BASE_URL}brand/app-icon.png`} alt=""/><span>摄影学英语</span></div>
+    {job.quote?.chinese&&job.quote.english&&job.quote.source&&<blockquote className="capture-quote"><p>{job.quote.chinese}</p><p>{job.quote.english}</p><cite>— {job.quote.source}</cite></blockquote>}
+   </div>
   </div>
-  {processing?<><p className="capture-status" role="status"><span className="capture-spinner"/>{job.phase==='queued'?'正在准备识图…':job.phase==='recognizing'?'正在识图并生成卡片…':'正在保存卡片…'}</p><div className="capture-review-actions">{job.phase!=='saving'&&<button className="native-button" onClick={cancel}>取消等待</button>}<button className="native-primary" onClick={resume}>继续拍摄</button></div></>:editing?<form className="capture-editor" aria-label="编辑照片卡片" onSubmit={e=>{e.preventDefault();saveEdit();}}>
+  {finishing?<div className="capture-processing-controls"><p className="processing-detail" role="status"><span>{job.phase==='queued'?'识别排队中':job.phase==='recognizing'?'识别中':job.phase==='saving'?'合成卡片 · 保存到本机':'合成卡片'}</span></p><div className="capture-processing-actions"><button className="native-primary" onClick={resume}>关闭</button>{job.phase!=='saving'&&job.phase!=='review'&&<button className="native-button" onClick={cancel}>取消识别</button>}</div></div>:editing?<form className="capture-editor" aria-label="编辑照片卡片" onSubmit={e=>{e.preventDefault();saveEdit();}}>
    <label>卡组名称<input value={title} maxLength={80} required onChange={e=>setTitle(e.target.value)}/></label>
    {labels.map((label,i)=><fieldset key={i}><legend>词条 {i+1}</legend>{([['english','英文'],['chinese','中文释义'],['example','英文例句（可选）'],['exampleChinese','例句中文（可选）']] as const).map(([key,name])=><label key={key}>{name}<input value={label[key]||''} required={key==='english'||key==='chinese'} maxLength={key.includes('example')?2000:200} onChange={e=>setLabels(v=>v.map((l,n)=>n===i?{...l,[key]:e.target.value}:l))}/></label>)}{labels.length>1&&<button type="button" className="text-button" onClick={()=>setLabels(v=>v.filter((_,n)=>n!==i))}>移除此词条</button>}</fieldset>)}
    <button type="button" className="native-button" onClick={()=>setLabels(v=>[...v,blank()])} disabled={labels.length>=100}>添加词条</button><div className="capture-review-actions"><button type="button" className="native-button" onClick={()=>setEditing(false)}>取消编辑</button><button className="native-primary" type="submit">保存修改</button></div>
@@ -114,5 +128,9 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
     <button className="native-primary" onClick={resume}>继续拍摄</button>
    </div>}
   </>}
+  {!finishing&&!editing&&seconds===null&&<div className="capture-card-tools">
+   {!!job.labels.length&&<details className="capture-vocabulary"><summary>识别词汇</summary><div aria-label="识别词汇">{job.labels.map((label,index)=><button key={index} aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)}>{label.english}<span>{label.chinese}</span></button>)}</div></details>}
+   {currentLabel&&<div className="capture-label-detail"><strong>{currentLabel.english} {currentLabel.phoneticUS||currentLabel.phoneticUK}</strong><p>{currentLabel.example}</p><small>{currentLabel.exampleChinese}</small></div>}
+  </div>}
  </section>;
 }

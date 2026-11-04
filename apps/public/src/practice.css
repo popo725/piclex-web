@@ -1,5 +1,5 @@
 /* Native sources: PracticeScreenLayout, PracticeProgressBattery, PracticeView.answerArea.
-   One column at every width. Short browser viewports scroll the photo region; never squash it. */
+   One column at every width. Desktop budgets use measured controls; exceptionally short viewports scroll without squashing the photograph. */
 body[data-practice=true]{overflow:hidden}
 body[data-practice=true] .site-header{display:none}
 body[data-practice=true] #root{padding-bottom:0}
@@ -24,7 +24,7 @@ body[data-practice=true] #root{padding-bottom:0}
 .native-answer-footer .answer-feedback{margin:0;font-size:12px;line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.native-answer-footer .answer-feedback:empty{display:none}
 .native-answer{position:relative;flex:none;height:50px;border:1px solid var(--line);border-radius:15px;background:var(--surface);padding:0 12px;cursor:text;isolation:isolate}
 .native-answer.wrong{border:2px solid #c64444}.native-answer .answer-slots{height:100%;min-height:0;justify-content:center;align-items:center;padding:0;flex-wrap:nowrap;gap:4px;line-height:1}.native-answer .letter-slot{font-size:inherit;min-width:0;width:.72em;line-height:1.1;padding:0 0 3px;border-width:1.5px;flex:none}.native-answer .letter-slot.fixed{width:.4em}.native-answer .letter-slot.prefilled{opacity:.45}.native-answer .letter-slot.next-letter{border-color:var(--ink);animation:slot-caret 1s steps(2) infinite}.native-answer .spelling-input{font-size:16px;z-index:2}.native-answer:focus-within{outline:none}
-.native-playback{display:flex;gap:8px}.native-button,.native-primary,.native-playback select{min-height:44px;padding:8px 12px;font-size:16px;font-weight:600;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;text-align:center}.native-primary{background:var(--button);color:var(--button-text);border-color:var(--button);border-radius:10px;position:relative}.native-primary kbd{display:none}.native-button:active,.native-primary:active{opacity:.75}.native-playback>.native-button:first-child{flex:1}.native-playback select{width:72px;flex:none;font-size:15px}.native-playback>.native-primary{flex:1}.native-primary:disabled{cursor:default;opacity:1}.native-unavailable{padding:24px 8px;font-size:14px;color:var(--muted)}
+.native-playback{display:flex;gap:8px}.native-button,.native-primary,.native-playback select{min-height:44px;padding:8px 12px;font-size:16px;font-weight:600;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;text-align:center}.native-primary{background:var(--button);color:var(--button-text);border-color:var(--button);border-radius:10px;position:relative}.native-primary kbd{display:none}.native-button:active,.native-primary:active{opacity:.75}.native-playback>.native-button:first-child{flex:1}.native-playback .playback-rate{position:relative;flex:0 0 88px;width:88px;display:block}.native-playback .playback-rate select{appearance:none;-webkit-appearance:none;display:block;width:100%;height:44px;min-width:88px;padding:8px 26px 8px 10px;font-size:15px;line-height:26px;text-align:left;white-space:nowrap;font-variant-numeric:tabular-nums}.playback-rate>span{position:absolute;right:10px;top:50%;transform:translateY(-55%);pointer-events:none;font-size:17px}.native-playback>.native-primary{flex:1}.native-primary:disabled{cursor:default;opacity:1}.native-unavailable{padding:24px 8px;font-size:14px;color:var(--muted)}
 .practice-progress-battery{position:relative;flex:1;min-width:0;height:50px;border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
 .practice-level-target{position:absolute;inset:0;padding:3px 6px 3px 5px;text-align:left}
 .practice-player-avatar{position:absolute;left:5px;top:3px;bottom:3px;width:50px;border-radius:8px;background:var(--elevated,var(--bg));overflow:hidden}
@@ -61,3 +61,21 @@ body[data-practice=true] #root{padding-bottom:0}
 .photo-browse{position:relative}.photo-open{position:absolute;inset:0;width:100%;height:100%;background:transparent;border:0;padding:0}.photo-open:focus-visible{outline:2px solid var(--ink);outline-offset:-3px}
 
 .practice-library{flex:none;width:52px;height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0}.practice-library strong{font-size:15px;font-weight:600}.practice-library small{font-size:9px;font-weight:500}
+
+/* On a desktop, the two action rows can share the available width. The image,
+   prompt and answer keep their native order and their original aspect ratio. */
+@media(hover:hover) and (pointer:fine) and (min-width:700px){
+ .native-practice{max-width:560px}
+ .native-answer-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 8px}
+ .native-answer-footer>.answer-feedback,.native-answer-footer>.native-answer{grid-column:1/-1}
+ .native-answer-footer>.native-primary{min-width:88px}
+ .sentence-footer .sentence-actions{gap:6px}
+ .sentence-footer .sentence-actions>button{padding-inline:10px;flex:none}
+ .sentence-footer:has(.listening-status){display:flex}
+}
+@media(hover:hover) and (pointer:fine) and (min-width:700px) and (max-height:800px){
+ .native-practice{padding-block:4px;gap:3px}
+ .native-header{height:44px;margin-bottom:0}
+ .native-header .native-back,.practice-progress-battery,.practice-library{height:44px}
+ .module-tabs,.module-tabs>button{height:39px;min-height:39px}
+}
