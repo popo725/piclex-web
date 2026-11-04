@@ -13,7 +13,7 @@ const report=(state:string,message:string,loaded?:number,total?:number)=>{
 };
 scope.PICLEX_LAB_LOAD=report;
 const downloads=new AbortController();
-const timeout=setTimeout(()=>{downloads.abort();report('error','游戏加载超时，请检查网络后重试。');},85000);
+const timeout=setTimeout(()=>{downloads.abort();report('error','游戏加载超时，请检查网络后重试。');},180000);
 window.addEventListener('pagehide',()=>{clearTimeout(timeout);downloads.abort();},{once:true});
 window.addEventListener('error',()=>{if(!done)report('error','游戏启动失败，请重新加载。');});
 async function start(){

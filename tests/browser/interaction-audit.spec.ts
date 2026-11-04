@@ -16,7 +16,7 @@ test('dictation assistance speaks its answer; replay of a correct answer holds t
  await page.locator('.playback-button').click();await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.at(-1)?.text)).toBe('I am still in bed.');
  await page.waitForTimeout(1150);await expect(page.getByRole('textbox',{name:'听写句子',exact:true})).toHaveValue('I am still in bed');
  await page.getByRole('button',{name:'下一个',exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(2);
- await page.getByRole('button',{name:'听不懂',exact:true}).click();await expect(page.getByRole('status')).toContainText('参考答案');await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(3);
+ await page.getByRole('button',{name:'听不懂',exact:true}).click();await expect(page.locator('.sentence-feedback')).toContainText('参考答案');await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(3);
 });
 test('demonstration releases the microphone before playing and restarting reading stops the example',async({page})=>{
  await open(page);await page.evaluate(()=>{const w=window as any;w.__aborted=0;w.SpeechRecognition=class{onresult:any;onerror:any;onend:any;start(){}abort(){w.__aborted++;}};});

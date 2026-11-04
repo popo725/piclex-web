@@ -7,7 +7,7 @@ export default function Laboratory({deck,exit}:{deck:PracticeDeck;exit:(hash?:st
  const [attempt,setAttempt]=useState(0),[loading,setLoading]=useState<Loading>(initial);exitRef.current=exit;
  useEffect(()=>{
   let destination:string|undefined;ready.current=false;setLoading(initial);
-  const timeout=setTimeout(()=>setLoading(current=>current.state==='loading'?{state:'error',message:'游戏加载超时，请检查网络后重试。'}:current),90000);
+  const timeout=setTimeout(()=>setLoading(current=>current.state==='loading'?{state:'error',message:'游戏加载超时，请检查网络后重试。'}:current),190000);
   function leave(e:Event){destination=(e as CustomEvent).detail;if(!ready.current){exitRef.current(destination);return;}frame.current?.contentWindow?.postMessage({type:'piclex-lab-leave'},location.origin);}
   function receive(e:MessageEvent){
    if(e.origin!==location.origin||e.source!==frame.current?.contentWindow)return;

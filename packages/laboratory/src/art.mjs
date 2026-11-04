@@ -22,7 +22,7 @@ export function loadArtwork(redraw,progress=()=>{}) {
   return Promise.all(assets.map(([name,path])=>new Promise(resolve=>{
     const image=new Image();let settled=false;
     const finish=success=>{if(settled)return;settled=true;clearTimeout(timer);image.onload=image.onerror=null;if(success){artwork[name]=image;redraw();}progress(++loaded,assets.length);resolve(success);};
-    const timer=setTimeout(()=>finish(false),45000);
+    const timer=setTimeout(()=>finish(false),120000);
     image.onload=()=>finish(true);image.onerror=()=>finish(false);image.src=path;
   })));
 
