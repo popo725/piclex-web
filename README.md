@@ -1,35 +1,65 @@
 # 摄影学英语 Web
 
-把眼前的生活，变成英语。一个无需登录的照片英语学习器。
+把眼前的生活，变成英语。拍摄或导入一张照片，生成英语卡片，也可以直接打开卡组开始练习，无需登录。
 
 [在线体验](https://piclex.v2fy.com/piclex-web/) · [GitHub Pages 镜像](https://zhaoolee.com/piclex-web/) · [iPhone App](https://apps.apple.com/app/id6808490052)
 
-![摄影学英语 Web 首页](docs/home.png)
+<table>
+  <tr><th>拍摄</th><th>学习</th><th>设置</th></tr>
+  <tr>
+    <td><img src="docs/readme/capture-light.png" width="260" alt="当前拍摄页：柔和金色流沙、开启相机按钮、GitHub 徽章与玻璃导航"></td>
+    <td><img src="docs/readme/learning.png" width="260" alt="当前学习页：照片、单词拼写、网页键盘与第三方卡组下载入口"></td>
+    <td><img src="docs/readme/settings.png" width="260" alt="当前设置页：固定等级卡、官方卡组横向展示及与 App 对应的设置入口"></td>
+  </tr>
+</table>
 
-## 现在可以做什么
+以上为 **2026-11-04 当前 Web 界面的实际截图**。拍摄页的沙丘会缓慢流动；静态截图不展示动画。
 
-- 与 App 相同的品牌图标、原生图标和「拍摄、学习、设置」三个底部 Tab；拍摄可导入照片、填写词汇并制作本地卡组，未保存草稿在栏目切换时保留。
-- 同一结构适配 320–1440 像素宽度：手机单列，平板双列卡组，桌面三列卡组和双列设置；学习页保持居中单列，矮屏保留输入与底部导航。
-- 学习页按 App 结构排列：顶部薯薯头像／等级与卡组合为同一个控件，模块选中图标同源；PC 默认可点击键盘并同步实体按键；拼单词与全部自由听写难度在手机、平板、桌面均显示网页键盘，练习输入框从挂载起禁止系统键盘弹出。键盘与答题操作保留底部空间，短屏只滚动上方照片／题目，提示条不覆盖按键。拼词键盘统一为三行26字母，退格位于输入区。
-- 正确字母渐入、波纹及经验粒子沿 App 路径飞入经验条；支持减少动态效果。
-- 与 App 相同的等级公式、拼写／句子／跟读计分及薯薯求生经验收支；经典键盘音默认可用（LV3是更多音色的门槛，Web暂未新增其他音色）；LV6 快拼、LV7 粒子样式。
-- 设置 → 实验室可玩薯薯求生；复用 App 游戏、素材、成就和存档，离开前保存。
+## 可以做什么
 
-- 复用现有 6 套公开卡组：Basic English 850、程序员工作英语、程序员 Vibe Coding、下班后去摄影、新概念英语第二册、经典英语歌曲；共 346 张卡片、1,941 个词条。歌曲卡组附52段原声片段，例句优先播放原声，单词继续使用英文朗读。
-- 按移动端学习页组织拼单词、练听力、练口语；保留局部彩色光框、照片选题、快拼、逐字纠错和答对自动前进。
-- 词块拼句、三档自由听写、随身听，分别保留草稿；跟读能力随浏览器支持情况提供。在线练习只加载轻量词条数据和当前图片，不预先下载完整卡组。
-- 浏览器自动保存各卡组进度，支持刷新续练、重新练习和深浅外观。
-- 分享公开卡组的独立链接；下载 `.piclexdeck` 在 iPhone App 中打开。
-- 导入 App 或摄影学英语 Studio 导出的 `.piclexdeck`。照片和词汇保存在当前浏览器的 IndexedDB，不上传服务器。
-- 重复导入完全相同的文件保留进度；损坏文件不覆盖已有卡组。
+- **拍照制卡**：开启相机或导入照片，自动识别词汇、生成例句和照片卡片；保留出片动画、识别进度、失败重试和手动修改。卡片保存后可直接进入拼写。
+- **照片学英语**：拼单词、词块拼句、三档自由听写、随身听和口语跟读。照片定位框、逐字纠错、正确反馈与经验粒子跟随练习；各卡组分别保留进度和草稿。
+- **可点击的网页键盘**：手机和桌面都能使用，支持实体键盘；拼词退格键在键盘右下角，听写键盘提供空格、符号和回车。浏览器支持的语音识别可用于跟读。
+- **下载第三方卡组**：学习页右上角打开「下载第三方卡组」，粘贴公开 HTTPS 卡组或订阅清单 URL；下载时验证内容，重复包显示「已下载」。也可以导入 App 或 Studio 导出的 `.piclexdeck` 文件。
+- **与 App 对应的设置**：设置首页使用等级卡、官方卡组横向展示和统一的单列入口。查看学习等级会打开弹层，关闭后仍在原题。
+- **主题与声音**：内置主题提供 16 种浅色、28 种深色选择，分别记住主题和强调色；支持自定义配色。14 种原生自定义键盘音可试听，Web 默认 Cherry MX Blue；提供 3 种快门录音及浏览器朗读声音选择。
+- **更多练习方式**：LV6 快拼、LV7 粒子效果；「设置 → 个性化设置 → 实验室」可以玩薯薯求生，学习与游戏共用经验。更多键盘音、快门音分别在 LV3、LV4 解锁。
 
-这是独立运行的公开体验版。现有手机局域网前端暂时仍在 PicLex 仓库维护。本仓库不需要 iPhone、API Key、模型服务或登录账号。
+底部采用浮动玻璃导航，支持点击、拖动选择和键盘操作。拍摄背景在浅色下为柔和金色沙丘，深色下为黑色沙丘；支持减少动态效果。快门上方的小章鱼会在新标签页打开本仓库。
 
-详细行为、原生来源与浏览器能力边界见 [学习页对齐说明](docs/native-learning-parity.md)。
+<details>
+<summary>查看深色拍摄与主题选择</summary>
+
+<table>
+  <tr>
+    <td><img src="docs/readme/capture-dark.png" width="300" alt="深色拍摄页与黑色流沙背景"></td>
+    <td><img src="docs/readme/themes-dark.png" width="300" alt="深色内置主题选择弹窗"></td>
+  </tr>
+</table>
+
+</details>
+
+## 开箱即用的公开卡组
+
+目前内置 6 套公开卡组：Basic English 850、程序员工作英语、程序员 Vibe Coding、下班后去摄影、新概念英语第二册、经典英语歌曲。当前快照共 **360 张照片卡、2,042 个词条**。
+
+练习时按需加载词条、照片和声音，不必先下载完整卡组。歌曲卡组当前为 V8，含 22 张场景卡、153 句歌词，例句优先使用卡组原声，单词使用英文朗读。公开卡组可分享独立链接，也可下载后在 App 中打开。
+
+卡组支持独立的横版与竖版封面。封面不参与学习内容指纹，换封面不会重置练习进度。内容格式见 [卡组来源协议](docs/deck-source-protocol.md)。
+
+## 数据与平台边界
+
+- 学习进度、导入卡组和设置保存在当前浏览器；刷新可继续学习。不同域名、浏览器与 iPhone App 之间**不会自动同步**。
+- 导入 `.piclexdeck` 在本地解析，不上传卡组。**拍摄或导入单张图片发起 AI 制卡时，会将照片发送给官方识别服务**，受当天额度和网络状态影响；用户无需填写 API Key。
+- Web 是静态前端；公开卡组学习和本地文件导入可独立使用，AI 制卡依赖官方服务。浏览器朗读、语音识别和相机能力随设备与授权情况变化，不能保证与 iOS 完全相同的音色或硬件能力。
+- 单包上限 64 MB，解压后上限 96 MB，最多 500 张照片、5,000 个词条。卡组图片支持 JPEG、PNG；HEIC/HEIF 请先在 App 或 Studio 中转换。
+- 文件导入校验失败不会覆盖已有卡组。清理站点数据或浏览器回收存储可能移除本地内容，请保留原始文件或导出卡组。
+- 第三方下载需要来源允许浏览器跨域访问。目前尚未提供订阅自动更新或购买权益；学习目标、每日统计、闭眼记单词等 App 功能也仍待移植。当前核对范围见 [Web/App 对齐记录](docs/reports/2026-11-04-web-app-parity-audit.json)。
+- 默认不接入统计 SDK。GitHub Stars 和访问量不代表实际 App 转化。
 
 ## 本地运行
 
-需要 Node.js 22.12+。依赖版本由 `package-lock.json` 固定。
+需要 Node.js 22.12+，依赖由 `package-lock.json` 固定。
 
 ```sh
 npm ci
@@ -37,59 +67,42 @@ npm run content:build
 npm run dev
 ```
 
-打开终端给出的本机地址（默认 `http://127.0.0.1:18120/piclex-web/`）。
+打开终端给出的地址，默认是 `http://127.0.0.1:18120/piclex-web/`。
 
 ```sh
-npm test                   # 练习状态、原有交互规则、卡组解析与校验
-npm run build             # TypeScript + 独立静态产物 dist/
-npm run preview           # 预览构建结果
-npm run test:browser      # 桌面/手机宽度 Chrome 验收；须先 build，需安装 Chrome
+npm test                         # 状态机、解析、完整性与交互规则
+npm run test:deploy               # 部署脚本检查
+npm run build                    # TypeScript + dist/ 静态产物
+npx playwright install chrome webkit
+npm run test:browser              # 构建后运行桌面/手机 Chrome、移动 WebKit 回归
+npm run preview                  # 本地预览构建结果
 ```
 
-`content/snapshot.json` 固定公开来源、卡组 ID、版本、大小与哈希。`npm run content:build` 只从已经公开的来源下载并验证内容，生成被 Git 忽略的 `apps/public/public/library/` 和来源清单。原始大包和课程内容不提交到源码仓库。后续更新卡组时先刷新并审查来源快照，再构建、验证和发布；本版本不是实时订阅同步。
+`content/snapshot.json` 固定公开来源、卡组 ID、版本、大小和 SHA256。内容构建下载并校验这些公开文件，生成被 Git 忽略的 `apps/public/public/library/` 和来源清单；原始大包不提交到源码仓库。三个小型照片示例保留在 `tests/fixtures/demo/`，通过 `npm run decks:build` 重建。
 
-原先的三个照片示例只保留为 `tests/fixtures/demo/` 中的测试夹具；`npm run decks:build` 用于重建这些夹具。
-
-## 目录与迁移
+## 目录
 
 ```text
-apps/public/              公开站入口、浏览器存储、生成的公开内容
-apps/lan/                 后续迁入说明；当前没有伪装成可用的局域网入口
-packages/learning-ui/     照片定位、拼写展示、例句遮罩、字符反馈、浏览器发音
-packages/practice/        公开版练习状态机（局域网仍由手机判题）
-packages/deck-format/     原生照片卡组 v1 读取与哈希校验
+apps/public/              Web 入口、拍摄、学习、设置和浏览器存储
+apps/lan/                 局域网前端迁移说明
+packages/learning-ui/     照片定位、拼写、键盘、反馈与声音
+packages/practice/        练习状态机、进度和经验规则
+packages/deck-format/     卡组读取、内容与哈希校验
+packages/subscription/    订阅分享封面工具
 ```
 
-复用来源及指纹见 [extracted-files.json](docs/extracted-files.json)，阶段边界见 [迁移说明](docs/migration.md)。当前阶段不更改 PicLex App 的构建、局域网服务或手机数据。
+复用来源见 [extracted-files.json](docs/extracted-files.json)，迁移背景见 [迁移说明](docs/migration.md)。手机局域网前端仍在 PicLex 仓库维护。
 
-## 发布
+## 发布与第三方卡组
 
-本项目是纯静态站点。`dist/` 可部署到 GitHub Pages 或其他静态托管；两个站点统一使用 `/piclex-web/` 与 hash 路由，同一份构建产物可直接部署到两处。
+`dist/` 可部署到 GitHub Pages 或其他静态托管。两个公开入口统一使用 `/piclex-web/` 和 hash 路由；GitHub Actions 负责校验、构建、浏览器回归及 Pages 发布。独立域名的验收与回滚见 [部署说明](deploy/README.md)。Fork 后请检查内容来源、使用范围和产品链接。
 
-仓库的 GitHub Actions 校验逻辑与部署脚本、下载固定版本的公开内容、构建并运行 Chrome 浏览器验收，然后部署 GitHub Pages。仓库 Pages 的构建来源需设为 GitHub Actions。Fork 后应审查公开内容来源与使用范围，并更新产品链接。
+[公开来源清单](https://piclex.v2fy.com/piclex-web/source.json)采用 `com.piclex.deck-source` v1；公开构建不包含付费卡组。
 
-公开来源协议地址为 `https://piclex.v2fy.com/piclex-web/source.json`，Pages 镜像对应 `https://zhaoolee.com/piclex-web/source.json`；都采用 `com.piclex.deck-source` v1 和站内绝对路径，原始卡组字节与哈希保持一致。付费卡组不进入公开构建。网页目前不提供自行添加来源或自动订阅更新 UI。
+要发布自己的卡组，请阅读 [完整发布指南](docs/publishing-decks.md)，其中包含包格式、JSON Schema、校验工具和 HTTPS 托管要求。二维码直接编码普通订阅 URL，可由 App「下载第三方卡组」中的扫描窗口识别。
 
-独立域名镜像的构建、验证与回滚见 [部署说明](deploy/README.md)。两个域名的浏览器进度分别保存。
-
-## 支持范围
-
-- 浏览器版单包上限 64 MB，解压后总量上限 96 MB，最多 500 张照片、5000 个词。
-- 图片支持 JPEG、PNG；HEIC/HEIF 请先在 App/Studio 中转换。不会静默丢弃不支持的内容。
-- 发音使用浏览器/系统提供的英语语音，音色和离线能力随环境变化。
-- 不包含账号、跨设备学习进度同步、在线 AI 制卡或付费解锁。网页进度不会自动同步到 App。
-- 本地卡组使用文件分享；独立网页链接只分享公开卡组，不能带走接收者访问不到的本地照片。
-- 清理站点数据或浏览器回收存储可能移除进度与导入卡组，请保留原始文件。
-- 默认不接入统计 SDK。不能用 GitHub Stars、访问量或本地统计冒充实际 App 转化；增长分析需另接经过明确选择的统计方案。
+[在线制作二维码分享封面](https://piclex.v2fy.com/piclex-web/subscribe/) · [示例分享封面](docs/subscription-qr/README.md)
 
 ## 许可
 
-代码与原创界面文案使用 [MIT](LICENSE)。现有卡组及其文字、图片不因公开访问或与代码一起分发而改为 MIT；内容权利以原来源为准。原测试夹具的照片许可见 [素材说明](ASSET_LICENSES.md)。
-
-独立封面：公开卡组和本地导入包支持单独定制的横版、竖版封面。首页使用横版，卡组列表使用竖版；图片完整显示。旧卡组保留原封面回退。封面不参与学习内容指纹，更换封面时保留浏览器进度。协议约定见 [摄影学英语卡组来源协议](docs/deck-source-protocol.md)。
-
-## 发布第三方订阅卡组
-
-[完整发布指南](docs/publishing-decks.md)提供内容包格式、来源 JSON Schema、清单生成与校验、HTTPS 托管、更新规则及二维码工具。二维码就是普通订阅 URL，任何 HTTPS 作者站点都可使用；在 App「下载第三方卡组」的扫描窗口识别后下载。
-
-[在线制作二维码分享封面](https://piclex.v2fy.com/piclex-web/subscribe/) · [新概念第二册与经典歌曲分享封面](docs/subscription-qr/README.md)
+代码与原创界面文案使用 [MIT](LICENSE)。卡组的文字、图片、声音不因公开访问而改为 MIT，权利以原来源为准；图标、录音和测试图片来源见 [素材说明](ASSET_LICENSES.md)。
