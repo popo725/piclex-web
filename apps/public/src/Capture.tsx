@@ -1,3 +1,6 @@
+import {readPreference} from './storage';
+import FlowingSand from './FlowingSand';
+import goldSand from './assets/camera-soft-dunes.webp';
 import {prepareShutterSound,playShutterSound} from './shutter-sound';
 import AppStoreLink from './AppStoreLink';
 import PhotoAnnotations from './PhotoAnnotations';
@@ -34,7 +37,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  async function choose(file?:File){
   if(!file)return;stopCamera();setPreparing(true);
   try{if(!file.type.startsWith('image/')||file.size>20*1024*1024)throw Error('请选择 20 MB 以内的照片。');
-   const image=await createImageBitmap(file);try{const canvas=imageCanvas(image.width,image.height);canvas.getContext('2d')!.drawImage(image,0,0,canvas.width,canvas.height);await accept(await jpeg(canvas));}finally{image.close();}
+   const image=await createImageBitmap(file);try{const canvas=imageCanvas(image.width,image.height);canvas.getContext('2d')!.drawImage(image,0,0,canvas.width,canvas.height);await accept(await jpeg(canvas));setPrinting(readPreference('piclex-web.import-animation')!=='false');}finally{image.close();}
   }catch(e){notify((e as Error).message);}finally{setPreparing(false);if(picker.current)picker.current.value='';}
  }
  async function camera(){
@@ -54,11 +57,11 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  return <main className={`capture-page ${job?'capture-result-page':''}`} aria-label="拍摄">
   {job?<CaptureReview key={job.id} job={job} active={active} settled={!printing} consume={()=>flow.consume(job.id)} retry={()=>flow.retry(job)} cancel={()=>flow.cancel(job.id)} edit={(title,labels)=>flow.edit(job.id,title,labels,job.quote)} start={()=>{if(job.deckID){flow.consume(job.id);setPresented(null);learn(job.deckID);}}} resume={resume}/>:<div className="capture-viewfinder">
    <div className="camera-paper"><div className="camera-aperture">
-    {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className={`camera-empty ${active?"is-active":""}`} aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><span className="camera-aurora" aria-hidden="true"><i/><i/><i/><b/></span><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span></button>}
+    {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className={`camera-empty ${active?"is-active":""}`} aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><span className="camera-aurora" aria-hidden="true"><FlowingSand src={goldSand} active={active}/></span><span className="camera-start-hint"><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span></span></button>}
     <span className="camera-corners" aria-hidden="true"/></div>
     {(opening||live)&&<button className="camera-close native-button" onClick={stopCamera}>关闭相机</button>}
    </div>
-   <div className="capture-controls"><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><AppStoreLink/></div>
+   <div className="capture-controls"><a className="camera-github" href="https://github.com/zhaoolee/piclex-web" target="_blank" rel="noopener noreferrer" aria-label="GitHub 查看 Web 源码（新标签页）" title="在 GitHub 查看 Web 源码"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656"/></svg></a><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><AppStoreLink/></div>
    {preparing&&<p className="capture-status" role="status">正在准备照片…</p>}
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>

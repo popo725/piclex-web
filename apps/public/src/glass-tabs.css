@@ -1,0 +1,60 @@
+/* Native UITabBarController proportions, translated into a floating web material.
+   The outside nav is transparent; only the shared capsule catches light/content. */
+:root{--app-tab-height:88px}
+.app-tabs{
+ position:fixed;z-index:100;inset:auto auto calc(12px + env(safe-area-inset-bottom,0px)) 50%;
+ transform:translateX(-50%);width:min(400px,calc(100% - 32px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)));
+ height:64px;padding:0;border:0;background:none;box-shadow:none;display:block;
+}
+.app-tabs-glass{
+ position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ width:100%;height:100%;padding:6px;border-radius:999px;touch-action:none;user-select:none;-webkit-user-select:none;
+ background:linear-gradient(155deg,#ffffff99,#ffffff38 42%,#ffffff66),#e9e9e959;
+ backdrop-filter:blur(28px) saturate(1.65);-webkit-backdrop-filter:blur(28px) saturate(1.65);
+ box-shadow:0 8px 28px #00000012,0 2px 5px #00000009,inset 0 1px 1px #ffffffed,inset 0 -1px 1px #ffffff80,inset 1px 0 1px #ffffff80,inset -1px 0 1px #00000008;
+}
+.app-tabs-glass::before{
+ content:'';position:absolute;inset:0;z-index:0;border-radius:inherit;pointer-events:none;
+ border:1px solid #ffffff66;
+ background:radial-gradient(ellipse at 20% 0%,#ffffff8c,transparent 55%),radial-gradient(ellipse at 90% 100%,#ffffff40,transparent 50%);
+}
+.app-tab-lens{
+ position:absolute;z-index:0;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/3);border-radius:999px;pointer-events:none;
+ transform:translateX(calc(var(--tab-position)*100%));transform-origin:center;
+ background:linear-gradient(155deg,#ffffff5c,#ffffff1a),#b4b4b438;
+ box-shadow:inset 0 1px 1px #ffffffa3,inset 0 -1px 1px #00000008,0 1px 3px #00000005;
+ transition:transform .42s cubic-bezier(.22,1,.36,1),background .2s;
+}
+.app-tabs .app-tabs-glass button{
+ position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ width:100%;min-width:0;max-width:none;min-height:44px;padding:3px 8px;gap:2px;border:0;border-radius:999px;
+ color:#686868;background:none;font-size:10px;line-height:13px;font-weight:500;letter-spacing:0;
+ transition:color .18s,transform .2s;
+}
+.app-tabs .app-tabs-glass button[aria-current=page]{background:none;color:var(--ink);font-weight:650}
+.app-tabs .native-tab-icon{width:25px;height:25px;min-width:25px;min-height:25px}
+.app-tabs .app-tabs-glass button:hover{color:var(--ink)}
+.app-tabs .app-tabs-glass button:active{transform:scale(.94)}
+.app-tabs .app-tabs-glass button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.app-tabs-glass.is-scrubbing .app-tab-lens{transform:translateX(calc(var(--tab-position)*100%)) scale(1.04,1.06);transition:transform .09s linear;background:#ffffff80}
+:root[data-theme=dark] .app-tabs-glass{
+ background:linear-gradient(155deg,#ffffff17,#ffffff03 42%,#ffffff0b),#1d1d1db3;
+ box-shadow:0 8px 28px #0005,0 2px 6px #0003,inset 0 1px 1px #ffffff3b,inset 0 -1px 1px #ffffff0d,inset 1px 0 1px #ffffff17,inset -1px 0 1px #0004;
+}
+:root[data-theme=dark] .app-tabs-glass::before{border-color:#ffffff17;background:radial-gradient(ellipse at 20% 0%,#ffffff0d,transparent 55%)}
+:root[data-theme=dark] .app-tab-lens{background:linear-gradient(155deg,#ffffff17,#ffffff05),#ffffff0d;box-shadow:inset 0 1px 1px #ffffff29,inset 0 -1px 1px #ffffff08}
+:root[data-theme=dark] .app-tabs .app-tabs-glass button{color:#b6b6b6}
+:root[data-theme=dark] .app-tabs .app-tabs-glass button[aria-current=page]{color:#f5f5f5}
+:root[data-theme=dark] .app-tabs-glass.is-scrubbing .app-tab-lens{background:#ffffff24}
+@media(max-height:520px){
+ :root{--app-tab-height:72px}
+ .app-tabs{height:54px;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100% - 32px - env(safe-area-inset-left,0px) - env(safe-area-inset-right,0px)))}
+ .app-tabs-glass{padding:4px 6px}
+ .app-tab-lens{top:4px;bottom:4px}
+ .app-tabs .native-tab-icon{width:21px;height:21px;min-width:21px;min-height:21px}
+ .app-tabs .app-tabs-glass button{gap:1px;font-size:9px;line-height:11px}
+}
+@media(prefers-reduced-motion:reduce){.app-tab-lens,.app-tabs .app-tabs-glass button,.app-tabs-glass.is-scrubbing .app-tab-lens{transition:none}}
+@media(prefers-reduced-transparency:reduce){.app-tabs-glass{background:#ededed;backdrop-filter:none;-webkit-backdrop-filter:none}:root[data-theme=dark] .app-tabs-glass{background:#242424}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.app-tabs-glass{background:#ededed}:root[data-theme=dark] .app-tabs-glass{background:#242424}}
+@media(forced-colors:active){.app-tabs-glass{background:Canvas;border:1px solid CanvasText}.app-tabs .app-tabs-glass button[aria-current=page]{outline:2px solid Highlight}.app-tab-lens{display:none}}

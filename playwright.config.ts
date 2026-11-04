@@ -5,7 +5,7 @@ export default defineConfig({
   projects: [
     { name:'desktop', use:{...devices['Desktop Chrome'], channel:'chrome', viewport:{width:1440,height:1000}} },
     { name:'mobile', use:{...devices['Pixel 7'], channel:'chrome', viewport:{width:390,height:844}} },
-    { name:'mobile-webkit', testMatch:['keyboard-viewport.spec.ts','touch-spelling.spec.ts','playback-parity.spec.ts','interaction-audit.spec.ts','camera-parity.spec.ts','camera-surface.spec.ts','word-completion.spec.ts'], use:{...devices['iPhone 13'],viewport:{width:390,height:844}} }
+    { name:'mobile-webkit', testMatch:['keyboard-viewport.spec.ts','touch-spelling.spec.ts','playback-parity.spec.ts','interaction-audit.spec.ts','camera-parity.spec.ts','camera-surface.spec.ts','glass-tabs.spec.ts','settings-parity.spec.ts','alignment-extension.spec.ts','word-completion.spec.ts'], use:{...devices['iPhone 13'],viewport:{width:390,height:844}} }
   ],
   webServer:{command:'npm run preview',url:'http://127.0.0.1:18120',reuseExistingServer:!process.env.CI}
 });

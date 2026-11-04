@@ -1,0 +1,32 @@
+{
+  "status": "local preview, not deployed",
+  "build": "TypeScript + Vite passed",
+  "reference": "https://www.apple.com/newsroom/2018/06/apple-introduces-macos-mojave/",
+  "asset": "Original imagegen dune photograph compressed to camera-soft-dunes.webp (21 KB); no Apple image shipped",
+  "appearance": "Muted golden sand by day; neutral charcoal/black in dark appearance; 18px Gaussian blur; centered frosted camera action",
+  "motion": "WebGL spatial UV displacement and advected grain/light; 24fps cap; DPR <=1.5, longest buffer side <=768; no whole-image CSS animation",
+  "browserTests": {
+    "passed": 9,
+    "projects": [
+      "desktop Chrome",
+      "mobile Chrome",
+      "mobile WebKit"
+    ],
+    "coverage": [
+      "decoded image",
+      "rendered pixel change over time with no CSS transform",
+      "real dark appearance toggle",
+      "leave capture removes renderer",
+      "reduced motion removes renderer and resumes",
+      "WebGL unavailable fallback",
+      "lost GPU context fallback and re-entry recovery",
+      "existing App Store and generated card parity"
+    ]
+  },
+  "manual": "In-app browser inspected golden and black dunes; final light CTA/blur inspected; mobile screenshots retained",
+  "limitations": [
+    "No physical iPhone battery/GPU profiling",
+    "Local preview only"
+  ],
+  "preview": "http://127.0.0.1:18126/piclex-web/#/capture"
+}

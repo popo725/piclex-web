@@ -7,6 +7,8 @@ export function PracticeProgress({deckTitle,position,count,openLevel,openDeck}:{
  const xp=useExperience();return <div className="practice-progress-battery">
   <button className="practice-level-target" onClick={openLevel} aria-label={`等级 LV${xp.level}，${xp.total} 经验`}>
    <span className="practice-player-avatar"><img src={`${import.meta.env.BASE_URL}lab/assets/hero.png`} alt=""/><strong>LV{xp.level}</strong></span>
+  </button>
+  <button className="practice-experience-target" onClick={openLevel} aria-label="查看等级进度">
    <span className="learning-experience" role="progressbar" aria-label="等级经验" aria-valuenow={Math.round(xp.fraction*100)} aria-valuemin={0} aria-valuemax={100}><i style={{width:`${xp.fraction*100}%`}}/><b>{(xp.fraction*100).toFixed(2)}%</b></span>
   </button>
   <button className="practice-deck-target" onClick={openDeck} aria-label="当前卡组，学习设置"><span>{deckTitle}</span><i aria-hidden="true">▾</i></button>

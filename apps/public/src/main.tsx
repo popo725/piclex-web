@@ -1,4 +1,7 @@
-import {NativeIcon as Icon,NativeTabIcon} from '../../../packages/learning-ui/src/NativeIcon';
+import {useAppearancePalette} from './appearance';
+import Settings from './Settings';
+import GlassTabs from './GlassTabs';
+import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
 import Capture from './Capture';
 import Laboratory from './Laboratory';
 import {ExperienceMeter,LevelPage,useExperience} from './Experience';
@@ -15,10 +18,12 @@ import {downloadBytes} from '../../../packages/learning-ui/src/download.mjs';
 import './app-shell.css';
 import './responsive.css';
 import './capture.css';
+import './glass-tabs.css';
+import './settings.css';
 
 type Parsed = Awaited<ReturnType<typeof parseArchive>>;
 type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; bytes?: Uint8Array; downloadURL?: string };
-type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
+type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
 const appStore = 'https://apps.apple.com/app/id6808490052';
 const repository = 'https://github.com/zhaoolee/piclex-web';
@@ -26,7 +31,7 @@ const cache = new Map<string, Deck>();
 function route() { try { return decodeURIComponent(location.hash.match(/^#\/deck\/(.+)$/)?.[1] || ''); } catch { return ''; } }
 function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
 function browseDecks(){location.hash='/decks';}
-function screen(){const path=location.hash.slice(1);return path.startsWith('/settings/lab')?'lab':path.startsWith('/settings/level')?'level':path.startsWith('/settings')?'settings':path.startsWith('/deck/')||path.startsWith('/decks')||path.startsWith('/learn')?'learn':'capture';}
+function screen(){const path=location.hash.slice(1);return path==='/settings/lab'?'lab':path.startsWith('/settings/level')?'level':path.startsWith('/settings')?'settings':path.startsWith('/deck/')||path.startsWith('/decks')||path.startsWith('/learn')?'learn':'capture';}
 function materialize(id: string, parsed: Parsed, bytes: Uint8Array, aliases: string[] = []): Deck {
   const covers = Object.fromEntries(Object.entries(parsed.covers).map(([role, image]) => [role, URL.createObjectURL(new Blob([image.bytes as BlobPart], { type: image.mime }))]));
   const deck = { ...parsed, id, bytes, covers, fingerprint: parsed.learningFingerprint, legacyFingerprints: [...new Set([...aliases, parsed.fingerprint])], images: parsed.photos.map(p => URL.createObjectURL(new Blob([p.bytes as BlobPart], { type: p.mime }))) };
@@ -45,7 +50,6 @@ function downloadDeck(deck: Deck) {
 }
 
 function App() {
-  const [tabPulse,setTabPulse]=useState(0);
   const [showLibrary,setShowLibrary]=useState(()=>location.hash==='#/decks');
   const [spellingEntry,setSpellingEntry]=useState({id:'',sequence:0});
   const [page,setPage]=useState(screen),[labDeck,setLabDeck]=useState<Deck|null>(null),[gameBusy,setGameBusy]=useState(false);
@@ -56,9 +60,14 @@ function App() {
   const [cards, setCards] = useState<Card[]>([]), [selected, setSelected] = useState(route), [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true), [ready, setReady] = useState(false), [error, setError] = useState(''), [notice, setNotice] = useState(''), [importing, setImporting] = useState(false);
   const [deckProgress,setDeckProgress]=useState<DownloadProgress|null>(null);
-  const [dark, setDark] = useState(() => readPreference('piclex-web.theme') === 'dark');
+  const [theme,setTheme]=useState(()=>readPreference('piclex-web.theme')||'system');
+  const [systemDark,setSystemDark]=useState(()=>matchMedia('(prefers-color-scheme: dark)').matches);
+  const dark=theme==='dark'||theme==='system'&&systemDark;
+  useAppearancePalette(dark);
+  function setDark(value:boolean){setTheme(value?'dark':'light');}
+  useEffect(()=>{const media=matchMedia('(prefers-color-scheme: dark)');const update=()=>setSystemDark(media.matches);media.addEventListener('change',update);return()=>media.removeEventListener('change',update);},[]);
   const file = useRef<HTMLInputElement>(null);
-  useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; writePreference('piclex-web.theme', dark ? 'dark' : 'light'); }, [dark]);
+  useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; writePreference('piclex-web.theme',theme); }, [dark,theme]);
   useEffect(() => { const update = () => { stopSpeaking(); setSelected(route()); setPage(screen()); setShowLibrary(location.hash==='#/decks'); setError(''); }; window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
   useEffect(() => { const hide = () => { if (document.hidden) stopSpeaking(); }; document.addEventListener('visibilitychange', hide); window.addEventListener('pagehide', stopSpeaking); return () => { document.removeEventListener('visibilitychange', hide); window.removeEventListener('pagehide', stopSpeaking); }; }, []);
   useEffect(() => { if (!notice) return; const timer = setTimeout(() => setNotice(''), 6500); return () => clearTimeout(timer); }, [notice]);
@@ -74,7 +83,7 @@ function App() {
             try {
               const bytes = new Uint8Array(stored.bytes); const parsed = await parseArchive(bytes);
               let d = cache.get(stored.id); if (!d) d = materialize(stored.id, parsed, bytes, stored.progressAliases);
-              imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, local: true });
+              imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, fingerprint:parsed.fingerprint, local: true });
             } catch { if (!cancelled) setNotice('有一份本地卡组暂时无法读取，原文件仍保存在浏览器中。'); }
           }
         } catch { if (!cancelled) setNotice('浏览器未开放卡组存储，仍可体验公开卡组。'); }
@@ -122,7 +131,7 @@ function App() {
       const progressAliases = existing?.legacyFingerprints || [];
       await saveDeck({ id, title: parsed.title, bytes: buffer, progressAliases, addedAt: Date.now() });
       const value = materialize(id, parsed, bytes, progressAliases);
-      const card: Card = { id, title: value.title, count: value.words.length, description: '你自己的照片与词汇', cover: value.images[0], covers: value.covers, local: true };
+      const card: Card = { id, title: value.title, count: value.words.length, description: '你自己的照片与词汇', cover: value.images[0], covers: value.covers, fingerprint:parsed.fingerprint, local: true };
       setCards(current => current.some(c => c.id === id) ? current.map(c => c.id === id ? card : c) : [...current, card]);
       setNotice('卡组已保存到当前浏览器。'); go(id);
     } catch (e) { setNotice((e as Error).message); }
@@ -138,13 +147,22 @@ function App() {
   }
   async function openGame(){if(gameBusy||!ready)return;setGameBusy(true);try{const card=cards.find(c=>c.id===gameDeckID)||cards[0];if(!card)throw Error('请先选择或导入一份卡组。');let value=cache.get(card.id);if(!value){const response=await fetch(asset(card.payload!));if(!response.ok)throw Error('卡组加载失败，请重试。');const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};cache.set(card.id,value);}setLabDeck(value);location.hash='/settings/lab';}catch(e){setNotice((e as Error).message);location.hash='/settings';}finally{setGameBusy(false);}}
   useEffect(()=>{if(page==='lab'&&ready&&!labDeck)void openGame();},[page,ready]);
-  const settings=<main className="settings-page"><div className="page-heading"><h1>设置</h1></div><ExperienceMeter open={()=>{location.hash='/settings/level';}}/><button className="settings-row" onClick={()=>{location.hash='/settings/level';}}><span>我的等级<small>LV{xp.level} · {xp.total} 经验</small></span><Icon name="forward"/></button><section className="settings-section"><h2>卡组</h2><button className="settings-row" onClick={browseDecks}><span>官方卡组与个人卡组<small>选择卡组，继续学习</small></span><Icon name="forward"/></button><button className="settings-row" onClick={()=>file.current?.click()}>导入卡组文件 <Icon name="forward"/></button></section><section className="settings-section"><h2>实验室</h2><label className="game-deck-choice">游戏使用的卡组<select aria-label="游戏卡组" value={gameDeckID||cards[0]?.id||''} onChange={e=>{setGameDeckID(e.target.value);setLabDeck(null);}}>{cards.map(c=><option value={c.id} key={c.id}>{c.title}</option>)}</select></label><button className="settings-row" disabled={!ready||gameBusy} onClick={()=>void openGame()}><span>薯薯求生<small>坚持20波，用单词换装备</small></span><b>{gameBusy?'加载中…':<Icon name="forward"/>}</b></button></section><section className="settings-section"><h2>外观</h2><label className="settings-row"><span>深色外观</span><input type="checkbox" role="switch" aria-label="深色外观" checked={dark} onChange={e=>setDark(e.target.checked)}/></label></section><section className="settings-section"><h2>关于摄影学英语</h2><a className="settings-row" href={appStore} target="_blank" rel="noreferrer">获取 iPhone App <Icon name="external"/></a><a className="settings-row" href={repository} target="_blank" rel="noreferrer">开源代码 <Icon name="external"/></a><a className="settings-row" href={asset('credits.html')}>素材与隐私 <Icon name="forward"/></a><p className="muted small">卡组、学习进度、等级及游戏存档保存在当前浏览器。换域名或设备不会自动同步。</p></section></main>;
+  async function saveDownloaded(bytes:Uint8Array,signal:AbortSignal){
+    const parsed=await parseArchive(bytes);signal.throwIfAborted();
+    if([...cache.values()].some(d=>d.fingerprint===parsed.learningFingerprint)||cards.some(c=>c.fingerprint===parsed.fingerprint)){setNotice('卡组已下载。');return;}
+    const id=`local-${parsed.learningFingerprint}`;
+    await saveDeck({id,title:parsed.title,bytes:bytes.slice().buffer,addedAt:Date.now()});
+    const value=materialize(id,parsed,bytes);
+    setCards(current=>[...current.filter(c=>c.id!==id),{id,title:value.title,count:value.words.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,fingerprint:parsed.fingerprint,local:true}]);
+    if(!signal.aborted)setNotice('卡组已下载，可在当前卡组菜单中选择。');
+  }
+  const settings=<Settings cards={cards} ready={ready} error={error} theme={theme} setTheme={setTheme} importFile={()=>file.current?.click()} exportDeck={id=>{const value=cache.get(id);if(value)downloadDeck(value);}} openDeck={go} openGame={()=>void openGame()} gameBusy={gameBusy} gameDeckID={gameDeckID} setGameDeckID={id=>{setGameDeckID(id);setLabDeck(null);}} notify={setNotice}/>;
   const featured = cards.find(card => !card.local);
   const cover = (card: Card, role: "landscape" | "portrait") => { const path = card.covers?.[role] || card.covers?.landscape || card.covers?.portrait || card.cover; return card.local ? path : asset(path); };
-  return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/capture" aria-label="摄影学英语 首页"><span className="brand-mark"><img src={asset("brand/app-icon.png")} alt=""/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(v => !v)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer" aria-label="在 App Store 下载摄影学英语" title="在 App Store 下载"><img src={asset("brand/app-store-badge.svg")} alt="Download on the App Store"/></a></nav></header>
+  return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/capture" aria-label="摄影学英语 首页"><span className="brand-mark"><img src={asset("brand/app-icon.png")} alt=""/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(!dark)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer" aria-label="在 App Store 下载摄影学英语" title="在 App Store 下载"><img src={asset("brand/app-store-badge.svg")} alt="Download on the App Store"/></a></nav></header>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={startLearning} notify={setNotice}/></div>
-    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(({id,title})=>({id,title}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} exit={browseDecks} download={() => downloadDeck(deck)} share={async () => {
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings/laboratory';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(({id,title})=>({id,title}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => downloadDeck(deck)} share={async () => {
           if (selected.startsWith('local-')) { downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : !showLibrary ? <main className="empty-state">{!ready?<LoadProgress label="正在准备学习" progress={null}/>:<><h1>还没有可用卡组</h1><button className="primary" onClick={()=>file.current?.click()}>导入卡组文件</button></>}</main> : <main className="home">
@@ -153,7 +171,7 @@ function App() {
       <section className="home-app"><div className="app-icon"><img src={asset("brand/app-icon.png")} alt=""/></div><div><h2>你的照片，就是你的词书。</h2><p>用摄影学英语 iPhone App 拍照制卡，在自己的生活里持续练习。</p></div><a className="secondary" href={appStore} target="_blank" rel="noreferrer">探索 iPhone App <Icon name="arrow"/></a></section>
     </main>}
     </div>
-    <nav className="app-tabs" aria-label="底部导航">{[['capture','拍摄','camera'],['learn','学习','book'],['settings','设置','settings']].map(([id,title,icon])=><button key={id} aria-label={title} aria-current={(page===id||(id==='settings'&&['level','lab'].includes(page)))?'page':undefined} onClick={()=>{setTabPulse(n=>n+1);if(id==='learn'){startLearning();}else navigate(`/${id}`);}}><NativeTabIcon key={`${id}:${tabPulse}`} name={id} animate={tabPulse>0&&(page===id||(id==='settings'&&['level','lab'].includes(page)))}/><span>{title}</span></button>)}</nav>
+    <GlassTabs selected={page==='capture'?'capture':page==='learn'?'learn':'settings'} onSelect={id=>{if(id==='learn'){startLearning();}else navigate(`/${id}`);}}/>
     <input ref={file} className="file-input" type="file" accept=".piclexdeck" aria-label="选择照片卡组文件" onChange={e => void importFile(e.target.files?.[0])}/>
     {notice && <div className="toast" role="status"><span>{notice}</span><button aria-label="关闭提示" onClick={() => setNotice('')}><Icon name="close"/></button></div>}
   </>;

@@ -1,3 +1,4 @@
+import {selectedSpeechVoice} from './speech-voice';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import type {AudioClip} from './NativePractice';
 import {createPlaybackProgress} from './playback-progress';
@@ -56,7 +57,7 @@ export function useSpeech(notify:(s:string)=>void){
    if(!window.speechSynthesis){fail('此浏览器没有提供英文朗读功能。');return;}
    try{
     const utterance=new SpeechSynthesisUtterance(queue[i]);utterance.lang='en-US';utterance.rate=rate;
-    const voice=speechSynthesis.getVoices().find(v=>/^en-US$/i.test(v.lang))||speechSynthesis.getVoices().find(v=>/^en/i.test(v.lang));if(voice)utterance.voice=voice;
+    const voice=selectedSpeechVoice();if(voice)utterance.voice=voice;
     utterance.onstart=()=>{if(current()){started();update(i,0,true);}};
     utterance.onboundary=e=>{if(current()){started();update(i,e.charIndex/queue[i].length);if(i===0)setPosition(e.charIndex+offset);}};
     utterance.onend=ended;

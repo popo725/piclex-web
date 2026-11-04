@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-04",
+  "scope": "Web/App source and browser interaction parity; physical iPhone not started or modified",
+  "reference": "/Users/zhaoolee/github/PicLex/PicLex",
+  "fixed": [
+    {
+      "area": "拍摄入口",
+      "change": "柔和日金夜黑实时沙丘、18px高斯模糊、居中相机CTA；修复resize黑帧",
+      "reference": "Features/Capture/SimpleCameraChrome.swift"
+    },
+    {
+      "area": "GitHub入口",
+      "change": "按用户明确Web差异要求，原生焦段控件位置改为20px官方Octocat、44px命中区，新标签打开现有Web仓库",
+      "intentionalWebDifference": true
+    },
+    {
+      "area": "导航",
+      "change": "相同三个栏目、原生图标动画，浮动玻璃胶囊；支持拖动、键盘、减少动态",
+      "limitation": "CSS/WebGL实现无法逐像素复制UIKit Liquid Glass"
+    },
+    {
+      "area": "设置首页与层级",
+      "change": "固定等级卡、官方卡组横滑、原生分组和子页面"
+    },
+    {
+      "area": "外观与主题",
+      "change": "原生29种主题，16浅色/28深色组合；独立选择和强调色；自定义编辑/复制/删除/可读性校验/保留自定义的恢复默认",
+      "reference": "Shared/AppAppearance.swift"
+    },
+    {
+      "area": "键盘声音",
+      "change": "14份原生素材、8声部、预加载、试听、静音与离页停声；按用户明确选择默认Cherry MX Blue"
+    },
+    {
+      "area": "快门声音",
+      "change": "3份原生WAV、选择试听和开关、LV4更多音色、实际拍摄读取相同偏好"
+    },
+    {
+      "area": "朗读声音",
+      "change": "统一设置试听与学习TTS的持久化声音选择，保留卡组原音频",
+      "limitation": "仅能列出浏览器提供的声音，无AVSpeech原生品质级别"
+    },
+    {
+      "area": "快拼",
+      "change": "个性化设置可配置，跨卡组共享；迁移时保留没有全局偏好的旧卡组设置"
+    },
+    {
+      "area": "照片导入",
+      "change": "补齐默认开启拍立得出片动画及开关、减少动态、后台取消、结束后识别结果倒计时"
+    },
+    {
+      "area": "学习等级",
+      "change": "页内弹层，保留当前题/草稿/栏目；修复头像与卡组点击区域覆盖"
+    },
+    {
+      "area": "第三方卡组",
+      "change": "原生下载第三方卡组入口与已下载状态，支持URL下载和校验，保留练习上下文"
+    }
+  ],
+  "remainingProductGaps": [
+    "学习目标及词表覆盖率、词表数据管理、每日统计与分享统计卡片尚未移植；不能把累计经验误作每日正确词统计。",
+    "复古相机界面选择、闭眼记单词及对应原生交互尚未移植。",
+    "学习设置抽屉仍保留部分快捷偏好；共享卡组的仅卡组列表抽屉、原生照片多选和完整卡组编辑尚有差异。",
+    "第三方卡组自动检查更新、完整订阅管理、App内二维码识别与购买权益尚未移植。",
+    "照片全量备份、回收站和相册管理尚未等价；Web目前为本地卡组导入导出。",
+    "自定义AI模型配置尚未移植；Web当前只提供官方模型与额度。"
+  ],
+  "platformDifferences": [
+    "浏览器存储独立，不与App/另一域名自动同步",
+    "光学焦段、相册自动保存、灵动岛、小组件、局域网服务、系统触感无法直接调用原生能力",
+    "语音识别依赖浏览器可用性和授权；未做真机主观音质及UIKit像素级材质对比"
+  ],
+  "verification": {
+    "targetedBrowserTests": 27,
+    "result": "passed",
+    "browsers": [
+      "Chrome desktop",
+      "Chrome mobile viewport",
+      "WebKit mobile viewport"
+    ],
+    "build": "passed",
+    "fullReleaseRegression": "pending"
+  },
+  "deployment": "pending",
+  "nativeShutterSHA256": {
+    "minolta-shutter.wav": "c7ffe1ffb064940c7f28a0339f91e992a13a9b0f6949aeaafb2d45819fee75e8",
+    "kodak-shutter.wav": "6dced3bf9dacf0d525bf19d9ce14f3473e10c86243742fb5263d50fd6d184675",
+    "brownie-shutter.wav": "458c69b284a872f494d811444dc138e8dda347747a8e947ef0ee3e462502eecf"
+  }
+}

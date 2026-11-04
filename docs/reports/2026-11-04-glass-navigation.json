@@ -1,0 +1,29 @@
+{
+  "status": "local preview only",
+  "build": "TypeScript/Vite passed",
+  "browserChecks": {
+    "cameraGlassKeyboard": 18,
+    "draftResponsive": 4,
+    "total": 22
+  },
+  "nativeReference": "PicLex/App/PicLexApp.swift PreparedTabController uses UITabBarController with native capture/learn/settings artwork and monochrome theme accent",
+  "appearance": "Floating shared glass capsule, backdrop blur/saturation, edge highlights, sliding selection lens, native icon animations; dark and reduced-motion/transparency variants",
+  "interaction": "Click/keyboard preserved; horizontal pointer scrub selects on release, release outside cancels; reserved bottom space protects keyboard",
+  "icon": {
+    "problem": "Old crossing of two full diagonal lines crowded the A counter",
+    "source": "https://github.com/simple-icons/simple-icons/blob/develop/icons/appstore.svg",
+    "license": "CC0 for vector, Apple trademark retained",
+    "reference": "Installed system App Store icon and Apple developer marketing resources",
+    "behavior": "Transparent monochrome glyph; same URL, new tab, rel and accessible label"
+  },
+  "references": [
+    "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+    "https://developer.apple.com/videos/play/wwdc2025/284/",
+    "https://developer.apple.com/app-store/marketing/guidelines/"
+  ],
+  "limitations": [
+    "Web approximation of native glass, not the UIKit compositor",
+    "No physical iPhone gesture/material acceptance test"
+  ],
+  "preview": "http://127.0.0.1:18126/piclex-web/#/capture"
+}

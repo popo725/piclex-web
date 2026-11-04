@@ -1,0 +1,100 @@
+[
+  {
+    "id": "classic",
+    "label": "经典",
+    "file": "key-click.wav",
+    "sha256": "635e59f05362cb7ffa6ad0edac97a3a72f657205396325a5447932c22c3321db",
+    "source": "PicLex/Resources/Assets.xcassets/TypingKeySound.dataset/key-click.wav"
+  },
+  {
+    "id": "alpaca",
+    "label": "Alpaca",
+    "file": "alpaca.mp3",
+    "sha256": "ee2d4f2c47c256f11aabbf3284e1ba7f1d70e12ec211b1c7a7c48d58584fbacc",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundAlpaca.dataset/alpaca.mp3"
+  },
+  {
+    "id": "buckling-spring",
+    "label": "Buckling Spring",
+    "file": "buckling-spring.mp3",
+    "sha256": "c3cb73b029aee81bc661227de4fabf7e245e4dbddd76ec3657c6e30c257b2212",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundBucklingSpring.dataset/buckling-spring.mp3"
+  },
+  {
+    "id": "cherry-mx-black",
+    "label": "Cherry MX Black",
+    "file": "cherry-mx-black.mp3",
+    "sha256": "a908202ed34f3f6bf5ee5bd4cd66a8b52dc75af0eb6108698f7bbb69c07dc4a0",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundCherryMXBlack.dataset/cherry-mx-black.mp3"
+  },
+  {
+    "id": "cherry-mx-blue",
+    "label": "Cherry MX Blue",
+    "file": "cherry-mx-blue.mp3",
+    "sha256": "9460f5ccd67aa5c01a125c26533fdbbcf1ce064bb049534bd7e306695fa845b4",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundCherryMXBlue.dataset/cherry-mx-blue.mp3"
+  },
+  {
+    "id": "cherry-mx-brown",
+    "label": "Cherry MX Brown",
+    "file": "cherry-mx-brown.mp3",
+    "sha256": "227363367cf62d93b73994cde9124956aecd8bf44c63167909c1079ceae37688",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundCherryMXBrown.dataset/cherry-mx-brown.mp3"
+  },
+  {
+    "id": "gateron-black-ink",
+    "label": "Gateron Black Ink",
+    "file": "gateron-black-ink.mp3",
+    "sha256": "e00b6d20cb56995025632a197124f37f1ef191acd2a562e967712e19505a79be",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundGateronBlackInk.dataset/gateron-black-ink.mp3"
+  },
+  {
+    "id": "gateron-red-ink",
+    "label": "Gateron Red Ink",
+    "file": "gateron-red-ink.mp3",
+    "sha256": "058b2dca1f44764b490ca3616f24c2494d95f6a0268224616c5fd913bcc773bf",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundGateronRedInk.dataset/gateron-red-ink.mp3"
+  },
+  {
+    "id": "holy-panda",
+    "label": "Holy Panda",
+    "file": "holy-panda.mp3",
+    "sha256": "d346d76ef4c32f09be58556ccce843d7a88199214f9ebfdbf8b95226faf7ba3e",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundHolyPanda.dataset/holy-panda.mp3"
+  },
+  {
+    "id": "kailh-box-navy",
+    "label": "Kailh Box Navy",
+    "file": "kailh-box-navy.mp3",
+    "sha256": "46f158f5fe4d42d92bb65da292a789cbdfd547512f9a40da52bbf693fe861d8f",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundKailhBoxNavy.dataset/kailh-box-navy.mp3"
+  },
+  {
+    "id": "novelkeys-cream",
+    "label": "NovelKeys Cream",
+    "file": "novelkeys-cream.mp3",
+    "sha256": "9a54ada9209a4ecabd38616421de1a495df04bee3f0ec7b5247e2d8a507ac70f",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundNovelKeysCream.dataset/novelkeys-cream.mp3"
+  },
+  {
+    "id": "skcm-blue-alps",
+    "label": "SKCM Blue Alps",
+    "file": "skcm-blue-alps.mp3",
+    "sha256": "0669b6b0fce41ec679ad52c412dc603f2f03c8e8178c979ab694db1dd093daf9",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundSKCMBlueAlps.dataset/skcm-blue-alps.mp3"
+  },
+  {
+    "id": "topre",
+    "label": "Topre",
+    "file": "topre.mp3",
+    "sha256": "3009e146a2f17e9eb98faf34050cf534bed24be2d2295b69a0cff28e5bc43f77",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundTopre.dataset/topre.mp3"
+  },
+  {
+    "id": "turquoise-tealios",
+    "label": "Turquoise Tealios",
+    "file": "turquoise-tealios.mp3",
+    "sha256": "06ab4c0ffc7f37ed08a4d1abd5ad583b997a81427d52a0099e3f41cc5b7d6509",
+    "source": "PicLex/Resources/Assets.xcassets/TypingSoundTurquoiseTealios.dataset/turquoise-tealios.mp3"
+  }
+]

@@ -1,5 +1,5 @@
 // Rules ported from native UserLevel.swift, not a second scoring system.
-export const rewards=[{level:2,title:'学习目标',web:false},{level:3,title:'键盘声音',web:true},{level:4,title:'快门声音',web:false},{level:5,title:'相机界面',web:false},{level:6,title:'快拼',web:true},{level:7,title:'粒子效果',web:true},{level:8,title:'闭眼记单词',web:false}];
+export const rewards=[{level:2,title:'学习目标',web:false},{level:3,title:'键盘声音',web:true},{level:4,title:'快门声音',web:true},{level:5,title:'相机界面',web:false},{level:6,title:'快拼',web:true},{level:7,title:'粒子效果',web:true},{level:8,title:'闭眼记单词',web:false}];
 export function levelProgress(value){const total=Math.max(0,Number.isSafeInteger(value)?value:0);let low=0,high=total;while(low<high){const n=low+Math.floor((high-low+1)/2);if(n<=Math.floor(total/(n+1)))low=n;else high=n-1;}const level=low,earned=total-level*(level+1),required=(level+1)*2;return {schemaVersion:1,total,level,earned,required,remaining:required-earned,fraction:earned/required};}
 export const sentencePoints=count=>Number.isInteger(count)&&count>0&&count<=2000?3+Math.min(3,Math.floor((count-1)/8)):0;
 export const skipCost=tier=>[12,18,26,36][tier-1]??null;

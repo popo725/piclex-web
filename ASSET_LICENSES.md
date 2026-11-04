@@ -36,8 +36,23 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 
 ## 相机商店入口与卡片品牌
 
-商店入口仅以三条圆头矢量线呈现App Store的A标记，不带图标底色/外框；该商标标记不作为本项目原创MIT品牌资产。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。
+商店入口使用 [Simple Icons App Store矢量轮廓](https://github.com/simple-icons/simple-icons/blob/develop/icons/appstore.svg)，按其[CC0许可](https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md)保留透明单色，不使用自行拼接的三条贯穿直线。App Store商标仍归Apple，不作为本项目原创MIT品牌资产。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。
 
 ## 拼写成功反馈
 
 `audio/correct-word.wav` 原样复用PicLex `PracticeCorrectSound.dataset/correct-word.wav`，0.32秒清脆双音，沿用原项目权利；不是新生成或替代音色。
+
+
+## 拍摄页沙丘背景
+
+`apps/public/src/assets/camera-soft-dunes.webp` 为本项目通过 imagegen 生成的原创摄影风格素材，参考 Mojave 沙丘的柔和光影。Apple 官方示意图仅用于视觉研究，不随站点分发；本文件不声称对 Apple 壁纸拥有授权。原始生成图保留于本机生成图库，网页使用约21KB的WebP。
+
+## 自定义键盘音色
+
+`audio/` 中经典及其余13种键盘敲击音原样复用 App `TypingKeySound.dataset` 与 `TypingSound*.dataset`；名称、原始字节、音高与播放增益保持一致，沿用原项目素材权利，不作为新合成音或重新授权为 MIT。
+
+## Additional native shutter sounds and GitHub mark
+
+`kodak-shutter.wav` / `brownie-shutter.wav` are unmodified copies of PicLex's ShutterSoundKodak / ShutterSoundBrownieHawkeye datasets, under the same rights as the native assets.
+
+The camera's GitHub mark is `mark-github-16` from [GitHub Octicons](https://github.com/primer/octicons/blob/main/icons/mark-github-16.svg), MIT license (Copyright GitHub, Inc.); GitHub trademarks remain their owner's. The full existing MIT terms apply to this incorporated SVG.

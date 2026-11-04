@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-04",
+  "scope": [
+    "native settings home hierarchy",
+    "third-party download entry and lifecycle",
+    "14 native keyboard samples and eight-voice playback"
+  ],
+  "build": "passed",
+  "browser_runs": [
+    {
+      "passed": 47,
+      "log": "/tmp/piclex-parity-test.log"
+    },
+    {
+      "passed": 64,
+      "log": "/tmp/piclex-parity-final-test.log"
+    },
+    {
+      "passed": 1,
+      "purpose": "final screenshot framing",
+      "log": "/tmp/piclex-parity-proof.log"
+    }
+  ],
+  "note": "Runs overlap; counts are not distinct cases. Chrome desktop/mobile and WebKit. Physical iPhone subjective audio not assessed. Local only, not deployed.",
+  "screenshots": [
+    "docs/web-settings-native-light.png",
+    "docs/web-settings-native-dark.png",
+    "docs/web-third-party-download.png"
+  ],
+  "audio_manifest": "docs/native-keyboard-sounds.json",
+  "cleanup": "Own temporary scripts and browser results removed; logs and docs retained; shared dist/server retained."
+}

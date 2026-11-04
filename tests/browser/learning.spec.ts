@@ -36,17 +36,17 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
  await expect(page.getByRole('heading',{name:'护照',exact:true})).toBeVisible();
  await fillSpelling(page,'pass');await page.reload();
  await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('pass');
- await page.getByRole('button',{name:'全部卡组'}).click();
+ await page.goto('/piclex-web/#/decks');
  await chooser.setInputFiles({name:'bad.piclexdeck',mimeType:'application/zip',buffer:Buffer.from('bad')});
  await expect(page.getByRole('status')).toContainText('损坏');
  await chooser.setInputFiles(path.resolve('tests/fixtures/demo/decks/travel.piclexdeck'));
  await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('pass');
- await page.getByRole('button',{name:'全部卡组'}).click();
+ await page.goto('/piclex-web/#/decks');
  await expect(page.locator('.deck-card')).toHaveCount(7);
 });
 test('direct links, reveal, dark theme and unknown decks have usable states',async({page})=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
- await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('switch',{name:'深色外观'}).check();await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await page.reload();
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:'外观与主题',exact:true}).click();await page.getByRole('button',{name:'深色',exact:true}).click();await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'学习',exact:true}).click();await page.reload();
  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
  await page.getByRole('button',{name:'不认识'}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue(publicDeck.words[0].english);
  await page.getByRole('button',{name:'下一个',exact:true}).click();await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();

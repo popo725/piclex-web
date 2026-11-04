@@ -1,0 +1,437 @@
+[
+  {
+    "id": "chatgpt",
+    "name": "ChatGPT",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#000000",
+      "#ededed",
+      "#3a83f7"
+    ],
+    "availability": null
+  },
+  {
+    "id": "absolutely",
+    "name": "Absolutely",
+    "light": [
+      "#f9f9f7",
+      "#2d2d2b",
+      "#cc7d5e"
+    ],
+    "dark": [
+      "#2d2d2b",
+      "#f9f9f7",
+      "#cc7d5e"
+    ],
+    "availability": null
+  },
+  {
+    "id": "ayu",
+    "name": "Ayu",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#10141c",
+      "#bfbdb6",
+      "#e6b450"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "catppuccin",
+    "name": "Catppuccin",
+    "light": [
+      "#eff1f5",
+      "#4c4f69",
+      "#8839ef"
+    ],
+    "dark": [
+      "#1e1e2e",
+      "#cdd6f4",
+      "#cba6f7"
+    ],
+    "availability": null
+  },
+  {
+    "id": "dracula",
+    "name": "Dracula",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#282a36",
+      "#f8f8f2",
+      "#ff79c6"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "everforest",
+    "name": "Everforest",
+    "light": [
+      "#fdf6e3",
+      "#5c6a72",
+      "#93b259"
+    ],
+    "dark": [
+      "#2d353b",
+      "#d3c6aa",
+      "#a7c080"
+    ],
+    "availability": null
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "light": [
+      "#ffffff",
+      "#1f2328",
+      "#0969da"
+    ],
+    "dark": [
+      "#0d1117",
+      "#e6edf3",
+      "#1f6feb"
+    ],
+    "availability": null
+  },
+  {
+    "id": "gruvbox",
+    "name": "Gruvbox",
+    "light": [
+      "#fbf1c7",
+      "#3c3836",
+      "#458588"
+    ],
+    "dark": [
+      "#282828",
+      "#ebdbb2",
+      "#458588"
+    ],
+    "availability": null
+  },
+  {
+    "id": "linear",
+    "name": "Linear",
+    "light": [
+      "#fcfcfd",
+      "#1b1b1b",
+      "#5e6ad2"
+    ],
+    "dark": [
+      "#0f0f11",
+      "#e3e4e6",
+      "#606acc"
+    ],
+    "availability": null
+  },
+  {
+    "id": "lobster",
+    "name": "Lobster",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#111827",
+      "#e4e4e7",
+      "#ff5c5c"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "material",
+    "name": "Material",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#212121",
+      "#eeffff",
+      "#80cbc4"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "matrix",
+    "name": "Matrix",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#040805",
+      "#b8ffca",
+      "#1eff5a"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "monokai",
+    "name": "Monokai",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#272822",
+      "#f8f8f2",
+      "#99947c"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "night-owl",
+    "name": "Night Owl",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#011627",
+      "#d6deeb",
+      "#44596b"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "nord",
+    "name": "Nord",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#2e3440",
+      "#d8dee9",
+      "#88c0d0"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "light": [
+      "#ffffff",
+      "#37352f",
+      "#3183d8"
+    ],
+    "dark": [
+      "#191919",
+      "#d9d9d8",
+      "#3183d8"
+    ],
+    "availability": null
+  },
+  {
+    "id": "og",
+    "name": "OG",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#343541",
+      "#d1d5db",
+      "#10a37f"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "one",
+    "name": "One",
+    "light": [
+      "#fafafa",
+      "#383a42",
+      "#526fff"
+    ],
+    "dark": [
+      "#282c34",
+      "#abb2bf",
+      "#4d78cc"
+    ],
+    "availability": null
+  },
+  {
+    "id": "oscurange",
+    "name": "Oscurange",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#0b0b0f",
+      "#e6e6e6",
+      "#f9b98c"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "proof",
+    "name": "Proof",
+    "light": [
+      "#f5f3ed",
+      "#2f312d",
+      "#3d755d"
+    ],
+    "dark": [
+      "#000000",
+      "#ededed",
+      "#3a83f7"
+    ],
+    "availability": "light"
+  },
+  {
+    "id": "raycast",
+    "name": "Raycast",
+    "light": [
+      "#ffffff",
+      "#030303",
+      "#ff6363"
+    ],
+    "dark": [
+      "#101010",
+      "#fefefe",
+      "#ff6363"
+    ],
+    "availability": null
+  },
+  {
+    "id": "rose-pine",
+    "name": "Rose Pine",
+    "light": [
+      "#faf4ed",
+      "#575279",
+      "#d7827e"
+    ],
+    "dark": [
+      "#232136",
+      "#e0def4",
+      "#ea9a97"
+    ],
+    "availability": null
+  },
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#2d2935",
+      "#e6dff9",
+      "#7055f6"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "solarized",
+    "name": "Solarized",
+    "light": [
+      "#fdf6e3",
+      "#657b83",
+      "#b58900"
+    ],
+    "dark": [
+      "#002b36",
+      "#839496",
+      "#d30102"
+    ],
+    "availability": null
+  },
+  {
+    "id": "temple",
+    "name": "Temple",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#02120c",
+      "#c7e6da",
+      "#e4f222"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "tokyo-night",
+    "name": "Tokyo Night",
+    "light": [
+      "#fcfcfc",
+      "#0d0d0d",
+      "#3a83f7"
+    ],
+    "dark": [
+      "#1a1b26",
+      "#a9b1d6",
+      "#3d59a1"
+    ],
+    "availability": "dark"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "light": [
+      "#ffffff",
+      "#171717",
+      "#006aff"
+    ],
+    "dark": [
+      "#000000",
+      "#ededed",
+      "#006efe"
+    ],
+    "availability": null
+  },
+  {
+    "id": "vscode",
+    "name": "VS Code Plus",
+    "light": [
+      "#ffffff",
+      "#000000",
+      "#007acc"
+    ],
+    "dark": [
+      "#1e1e1e",
+      "#d4d4d4",
+      "#007acc"
+    ],
+    "availability": null
+  },
+  {
+    "id": "xcode",
+    "name": "Xcode",
+    "light": [
+      "#ffffff",
+      "#000000",
+      "#0e0eff"
+    ],
+    "dark": [
+      "#1f1f24",
+      "#ffffff",
+      "#5482ff"
+    ],
+    "availability": null
+  }
+]
