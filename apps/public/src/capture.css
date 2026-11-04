@@ -109,13 +109,13 @@ body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,v
 .capture-photo-label strong,.capture-photo-label span{overflow:visible;text-overflow:clip;max-width:none}
 
 /* A quiet engraved source badge in the native zoom control's position. */
-.capture-page .camera-paper{margin-bottom:52px;--photo-width:min(calc(100vw - 68px),calc((100dvh - 330px)*.75),364px)}
+.capture-page .camera-paper{margin-bottom:82px;--photo-width:min(calc(100vw - 68px),calc((100dvh - 360px)*.75),364px)}
 .capture-page .capture-controls{position:relative}
-.camera-github{position:absolute;top:-49px;left:50%;transform:translateX(-50%);width:44px;height:44px;display:grid;place-items:center;color:#6c6c6c;border-radius:50%;isolation:isolate;transition:color .18s ease}
+.camera-github{position:absolute;top:-63px;left:50%;transform:translateX(-50%);width:44px;height:44px;display:grid;place-items:center;color:#6c6c6c;border-radius:50%;isolation:isolate;transition:color .18s ease}
 .camera-github::before{content:"";position:absolute;inset:6px;border-radius:50%;background:linear-gradient(145deg,#ffffff80,#ffffff05);box-shadow:inset 0 1px 1px #ffffffb0,0 1px 2px #0000000c;z-index:-1}
 .camera-github svg{width:20px;height:20px;filter:drop-shadow(0 1px 0 #ffffffa0)}
 @media(hover:hover){.camera-github:hover{color:#202020}.camera-github:hover::before{box-shadow:inset 0 1px 1px #fff,0 2px 5px #00000018}}
 .camera-github:active::before{box-shadow:inset 0 1px 3px #00000024}
 :root[data-theme=dark] .camera-github{color:#9c9c9c}:root[data-theme=dark] .camera-github::before{background:linear-gradient(145deg,#ffffff0a,#ffffff02);box-shadow:inset 0 1px 1px #ffffff12,0 1px 2px #00000028}:root[data-theme=dark] .camera-github svg{filter:drop-shadow(0 1px 0 #00000060)}
-@media(max-height:600px){.capture-page .camera-paper{margin-bottom:52px;--photo-width:min(calc(100vw - 68px),calc((100dvh - 276px)*.75),364px)}}
+@media(max-height:600px){.capture-page .camera-paper{margin-bottom:82px;--photo-width:min(calc(100vw - 68px),calc((100dvh - 326px)*.75),364px)}}
 @media(prefers-reduced-motion:reduce){.camera-github{transition:none}}

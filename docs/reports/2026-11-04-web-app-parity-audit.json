@@ -79,7 +79,39 @@
       "WebKit mobile viewport"
     ],
     "build": "passed",
-    "fullReleaseRegression": "pending"
+    "fullReleaseRegression": {
+      "cases": 195,
+      "initialPassed": 183,
+      "initialFailed": 10,
+      "skipped": 2,
+      "affectedCasesAfterFixPassed": 79,
+      "remainingFailures": 0,
+      "finalSpacingAndPortableExportPassed": 5
+    },
+    "spacing": {
+      "gap": 82,
+      "badgeHitArea": 44,
+      "badgeTopAndBottomSpace": 19,
+      "sizes": [
+        [
+          320,
+          568
+        ],
+        [
+          390,
+          844
+        ],
+        [
+          844,
+          390
+        ],
+        [
+          1440,
+          1000
+        ]
+      ],
+      "controlsAboveNavigation": true
+    }
   },
   "deployment": "pending",
   "nativeShutterSHA256": {
