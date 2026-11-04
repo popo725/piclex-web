@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 import path from 'node:path';
 
 test('touch spelling keeps the OS keyboard disabled through taps, next word and navigation',async({page},info)=>{
- test.skip(info.project.name!=='mobile','Touch input contract');
+ test.skip(!info.project.use.hasTouch,'Touch input contract');
  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  const input=page.getByRole('textbox',{name:'输入英文',exact:true}),keyboard=page.getByRole('region',{name:'虚拟键盘'});

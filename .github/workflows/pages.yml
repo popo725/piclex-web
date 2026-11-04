@@ -25,7 +25,7 @@ jobs:
       - run: npm run test:deploy
       - run: npm run content:build
       - run: npm run build
-      - run: npx playwright install --with-deps chrome
+      - run: npx playwright install --with-deps chrome webkit
       - run: npm run test:browser
       - uses: actions/upload-artifact@v4
         if: always()

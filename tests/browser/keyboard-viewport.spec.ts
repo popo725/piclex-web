@@ -1,4 +1,4 @@
-import {test,expect,type Page} from '@playwright/test';
+import {test,expect,type Page,type Locator} from '@playwright/test';
 import path from 'node:path';
 async function keyboardIsUncovered(page:Page){
  const keyboard=page.getByRole('region',{name:'虚拟键盘'});
@@ -13,6 +13,7 @@ test('every keyboard row stays clickable with browser chrome, short screens and 
  test.setTimeout(90000);
  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
+ const activate=async(key:Locator)=>info.project.use.hasTouch?key.tap():key.click();
  // These are usable page heights, after the phone browser has taken its bars.
  for(const size of [{width:390,height:668},{width:393,height:640},{width:320,height:568},{width:390,height:430},{width:844,height:390},{width:390,height:844}]){
   await page.setViewportSize(size);await page.getByRole('tab',{name:'拼单词',exact:true}).click();
@@ -20,7 +21,7 @@ test('every keyboard row stays clickable with browser chrome, short screens and 
   const spelling=page.getByRole('textbox',{name:'输入英文',exact:true});await spelling.click();
   await expect(spelling).toHaveAttribute('readonly','');await expect(spelling).toHaveAttribute('inputmode','none');
   const keyboard=page.getByRole('region',{name:'虚拟键盘'});
-  await keyboard.getByRole('button',{name:'按键 Z',exact:true}).click();await expect(spelling).toHaveValue('z');
+  await activate(keyboard.getByRole('button',{name:'按键 Z',exact:true}));await expect(spelling).toHaveValue('z');
   await keyboardIsUncovered(page);await page.locator('.answer-backspace').click();await expect(spelling).toHaveValue('');
   if(size.height===668)await page.screenshot({path:info.outputPath('spelling-browser-chrome.png')});
   await page.getByRole('tab',{name:'练听力',exact:true}).click();await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
@@ -31,8 +32,8 @@ test('every keyboard row stays clickable with browser chrome, short screens and 
    for(const field of await fields.all()){await expect(field).toHaveAttribute('readonly','');await expect(field).toHaveAttribute('inputmode','none');}
    const first=fields.first();await first.click();await first.press('ControlOrMeta+a');
    // A complete lower keyboard row must work without scrolling the page to it.
-   await keyboard.getByRole('button',{name:'按键 Z',exact:true}).click();await expect(first).toHaveValue('z');
-   await first.focus();await first.press('End');await keyboard.getByRole('button',{name:'退格',exact:true}).click();await expect(first).toHaveValue('');
+   await activate(keyboard.getByRole('button',{name:'按键 Z',exact:true}));await expect(first).toHaveValue('z');
+   await first.focus();await first.press('End');await activate(keyboard.getByRole('button',{name:'退格',exact:true}));await expect(first).toHaveValue('');
    await keyboardIsUncovered(page);
    if(size.height===668&&difficulty==='hard')await page.screenshot({path:info.outputPath('dictation-browser-chrome.png')});
   }

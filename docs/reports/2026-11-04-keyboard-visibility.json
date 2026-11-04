@@ -3,7 +3,8 @@
   "cause": [
     "free dictation omitted virtualKeyboardOnly",
     "whole practice scrolled behind navigation",
-    "mobile tests expected no dictation keyboard"
+    "mobile tests expected no dictation keyboard",
+    "WebKit can suppress click after touch pointerdown preventDefault; pointerup now activates once"
   ],
   "validation": {
     "unit": 193,
@@ -41,7 +42,16 @@
         390,
         844
       ]
-    ]
+    ],
+    "finalBrowser": {
+      "passed": 95,
+      "platformSkipped": 2,
+      "engines": [
+        "Chromium desktop",
+        "Chromium touch",
+        "WebKit touch"
+      ]
+    }
   },
   "realIPhoneVerified": false,
   "production": "pending"
