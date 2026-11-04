@@ -100,6 +100,14 @@ http {{
                 assert len(data) == deck['packageBytes']
                 assert hashlib.sha256(data).hexdigest() == deck['packageSHA256']
                 request(cover.path, mime='image/jpeg')
+            for card in catalog:
+                payload = json.loads(request('/piclex-web/' + card['payload'], mime='application/json'))
+                for word in payload['words']:
+                    clip = word.get('audio')
+                    if clip:
+                        data = request('/piclex-web/' + clip['path'], mime='audio/mpeg')
+                        assert len(data) == clip['byteCount']
+                        assert hashlib.sha256(data).hexdigest() == clip['sha256']
             request('/piclex-web/credits.html', mime='text/html')
             for path in ['/piclex-web/', '/piclex-web/library/catalog.json']:
                 request(path, method='POST', expected=403)

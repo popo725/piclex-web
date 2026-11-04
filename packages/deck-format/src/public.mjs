@@ -1,3 +1,4 @@
+import {validateAudioInfo} from './audio.mjs';
 import { MAX_PACKAGE_BYTES, sha256 } from './archive.mjs';
 import { validateCoverInfo, coverRoles } from './covers.mjs';
 
@@ -10,7 +11,7 @@ const assetPath = value => string(value, 1, 300) && /^library\/[a-zA-Z0-9/._-]+$
 
 /** A reviewed build snapshot; only publicly downloadable sources may be mirrored. */
 export function validateSnapshot(snapshot) {
-  const sources = new Set(['https://piclex.v2fy.com/decks/source.json', 'https://piclex.v2fy.com/public/subscriptions/nce2/feed.json']);
+  const sources = new Set(['https://piclex.v2fy.com/decks/source.json', 'https://piclex.v2fy.com/public/subscriptions/nce2/feed.json', 'https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json']);
   if (!snapshot || !Array.isArray(snapshot.decks) || !snapshot.decks.length || snapshot.decks.length > 1000) fail();
   const ids = new Set();
   for (const entry of snapshot.decks) {
@@ -54,6 +55,7 @@ export async function parsePublicDeck(bytes, card) {
   for (const photo of value.photos) if (!photo || !uuid.test(photo.id) || !assetPath(photo.path)) fail();
   for (const word of value.words) {
     if (!word || !string(word.id, 1, 200) || !string(word.english, 1, 100) || !string(word.chinese, 1, 200) || !Number.isInteger(word.imageIndex) || word.imageIndex < 0 || word.imageIndex >= value.photos.length || !string(word.example, 0, 2000) || !string(word.exampleChinese, 0, 2000) || !string(word.phonetic, 0, 200) || !string(word.partOfSpeech, 0, 50)) fail();
+    if (word.audio !== undefined) { validateAudioInfo(word.audio); if (!assetPath(word.audio.path) || Object.hasOwn(word.audio, 'dataBase64')) fail(); }
     if (word.occurrenceID != null && !string(word.occurrenceID, 0, 200)) fail();
     if (word.focus && (word.focus.visible !== true || !Array.isArray(word.focus.box) || word.focus.box.length !== 4 || !word.focus.box.every(n => Number.isFinite(n) && n >= 0 && n <= 1))) fail();
   }

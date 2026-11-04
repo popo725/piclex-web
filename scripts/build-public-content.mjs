@@ -48,9 +48,17 @@ try {
       const filename = `cover-${role}.jpg`;
       await writeFile(join(directory, filename), cover.bytes); covers[role] = `library/${name}/${filename}`;
     }
+    const words=[];
+    for(const word of parsed.words){
+      if(!word.audio){words.push(word);continue;}
+      await mkdir(join(directory,'audio'),{recursive:true});
+      const {dataBase64,...info}=word.audio,path=`audio/${info.sha256}.mp3`;
+      await writeFile(join(directory,path),Buffer.from(dataBase64,'base64'));
+      words.push({...word,audio:{...info,path:`library/${name}/${path}`}});
+    }
     const progressAliases = entry.progressAliases || [];
     const learningFingerprint = parsed.learningFingerprint;
-    const payload = JSON.stringify({ format: 'com.piclex.web-deck', schemaVersion: 1, deckID: entry.deckID, fingerprint: parsed.fingerprint, learningFingerprint, title: entry.title, photos, words: parsed.words });
+    const payload = JSON.stringify({ format: 'com.piclex.web-deck', schemaVersion: 1, deckID: entry.deckID, fingerprint: parsed.fingerprint, learningFingerprint, title: entry.title, photos, words });
     await writeFile(join(directory, 'deck.json'), payload);
     catalog.push({ id: entry.deckID, title: entry.title, description: entry.description, count: entry.wordCount, photoCount: entry.photoCount,
       ...(Object.keys(covers).length ? { covers } : {}), learningFingerprint, progressAliases,

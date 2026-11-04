@@ -101,3 +101,5 @@ body[data-practice=true] #root{padding-bottom:0}
 /* A complete scene follows frame resizing immediately; animated focus zoom is
    reserved for object practice, never for keyboard/module height changes. */
 .photo-focus[data-fit=contain] .focus-image{transition:none}
+
+.native-deck-select{width:100%;min-height:44px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px}

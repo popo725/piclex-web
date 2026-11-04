@@ -18,7 +18,8 @@ import {useSpeech} from './useSpeech';
 import './practice.css';
 import EnglishInput from './EnglishInput';
 import {flushSync} from 'react-dom';
-export type Word={id:string;english:string;chinese:string;imageIndex:number;focus:Focus;example:string;exampleChinese:string;phonetic:string;partOfSpeech:string;occurrenceID?:string};
+export type AudioClip={mediaType:string;sha256:string;byteCount:number;durationSeconds:number;dataBase64?:string;path?:string};
+export type Word={audio?:AudioClip;id:string;english:string;chinese:string;imageIndex:number;focus:Focus;example:string;exampleChinese:string;phonetic:string;partOfSpeech:string;occurrenceID?:string};
 export type PracticeDeck={id:string;title:string;fingerprint:string;legacyFingerprints?:string[];words:Word[];images:string[]};
 type Action={type:string;[key:string]:unknown};
 const modes=[['listening','随身听'],['chunks','词块拼句'],['free','自由听写']];
@@ -68,13 +69,13 @@ function Reading({word,active,audio,rate,notify,saved,next,reward}:{word:Word;ac
  const previousMatches=useRef(check?.edits.filter((e:any)=>e.kind==='match').length||0);
  useEffect(()=>{if(!check||!active)return;const matched=check.edits.filter((e:any)=>e.kind==='match').length;if(matched>previousMatches.current){emitExperience([...document.querySelectorAll('.reading-sentence .matched')].slice(previousMatches.current).map(n=>n.getBoundingClientRect()),check.isCorrect,check.isCorrect);}previousMatches.current=matched;reward(matched,writtenWords(word.example).length);},[transcript,active]);
  return <section className="reading-content" aria-label="口语跟读"><p className="reading-sentence">{check?check.edits.filter((e:any)=>e.expected).map((e:any,i:number)=><span key={i} className={e.kind==='match'?'matched':''}>{e.expected} </span>):word.example}</p><p className="muted">{word.exampleChinese}</p>
-  <button className="native-button" onClick={()=>audio.play([word.example],rate)}>听示范</button>
+  <button className="native-button" onClick={()=>audio.play([word.example],rate,undefined,0,word.audio)}>听示范</button>
   {supported?<><p className="muted small">浏览器可能将语音发送给其识别服务；点击后授权麦克风。</p><button className="native-primary" onClick={begin}>{listening?'结束跟读':'开始跟读'}</button></>:<p className="muted">当前浏览器未提供语音识别，可听示范并跟读。</p>}
   {transcript&&<div role="status"><p>识别结果：{transcript}</p><p>{check?.isCorrect?'本句单词已匹配。':'继续练习，已匹配的单词会标色。'}</p><button className="text-button" onClick={()=>{stop();setTranscript('');saved.delete(word.id);}}>重新跟读</button></div>}
   <button className="native-button" onClick={()=>{stop();next();}}>下一句</button>
  </section>;
 }
-export default function NativePractice({deck,spellingRequest=0,notify,exit,download,share}:{deck:PracticeDeck;spellingRequest?:number;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void}){
+export default function NativePractice({deck,deckChoices,selectDeck,spellingRequest=0,notify,exit,download,share}:{deck:PracticeDeck;deckChoices:{id:string;title:string}[];selectDeck:(id:string)=>void;spellingRequest?:number;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void}){
  const desktopKeyboard=useDesktopKeyboard();
  const [photoState,setPhotoState]=useState<'loading'|'ready'|'error'>('loading'),[photoRetry,setPhotoRetry]=useState(0);
  const xp=useExperience(),[effect,setEffect]=useState(()=>readPreference('piclex-web.particle-effect')||'socialCode');
@@ -89,6 +90,7 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
  const [listenRun,setListenRun]=useState(false),[pass,setPass]=useState(0),[seek,setSeek]=useState(0);
  const readingSaved=useRef(new Map<string,string>()),audio=useSpeech(notify),prompts=useMemo(()=>promptsFor(deck),[deck]);
  const prompt=prompts[state.sentenceIndex],word=deck.words[state.index],draft=wordDraft(deck,state),sentence=prompt?(state.sentences[prompt.key]||newSentence(prompt)):null;
+ const promptWord=prompt?deck.words[prompt.wordIndex]:undefined,promptAudio=promptWord?.example.trim()===prompt?.sentence.trim()?promptWord?.audio:undefined;
  const active=visible&&!panel,complete=!word,playback=state.module==='listening'&&state.mode==='listening';
  function dispatch(action:Action){setState((s:any)=>reduceStudy(deck,s,{...action,question:key}));}
  const credited=useRef(new Set<string>());
@@ -130,18 +132,18 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
  const selectModule=(value:string)=>{setListenRun(false);audio.stop();flushSync(()=>dispatch({type:'module',value}));focusAnswer();};
  const setMode=(value:string)=>{setListenRun(false);setPass(0);audio.stop();flushSync(()=>dispatch({type:'mode',value}));focusAnswer();};
  const setDifficulty=(value:string)=>{setComposing(false);setImeWarning(false);flushSync(()=>dispatch({type:'preference',name:'difficulty',value}));focusAnswer();};
- const replay=()=>{if(!active)return;if(state.module==='spelling'&&word)audio.play(word.example?[word.example,word.english]:[word.english],state.rate);else if(prompt){act({type:'play',rate:state.rate});audio.play([prompt.sentence],state.rate);}};
- const setRate=(rate:number)=>{dispatch({type:'preference',name:'rate',value:rate});if(!playback&&word)audio.play(state.module==='spelling'?(word.example?[word.example,word.english]:[word.english]):[prompt.sentence],rate);};
+ const replay=()=>{if(!active)return;if(state.module==='spelling'&&word)audio.play(word.example?[word.example,word.english]:[word.english],state.rate,undefined,0,word.example?word.audio:undefined);else if(prompt){act({type:'play',rate:state.rate});audio.play([prompt.sentence],state.rate,undefined,0,promptAudio);}};
+ const setRate=(rate:number)=>{dispatch({type:'preference',name:'rate',value:rate});if(!playback&&word)audio.play(state.module==='spelling'?(word.example?[word.example,word.english]:[word.english]):[prompt.sentence],rate,undefined,0,state.module==='spelling'?(word.example?word.audio:undefined):promptAudio);};
  useEffect(()=>{if(!listenRun||!active||!playback||!prompt||state.sentenceFinished)return;
   const rate=repeat==='fastThreeSlowTwo'?(pass<3?1:.75):state.rate;
-  audio.play([prompt.sentence.slice(seek)],rate,()=>{
+  audio.play([promptAudio?prompt.sentence:prompt.sentence.slice(seek)],rate,()=>{
    const count=repeat==='single'?Infinity:repeat==='once'?1:5;
    if(pass+1<count){setSeek(0);setPass(p=>p+1);}else{
     setPass(0);setSeek(0);
     if(onePhoto){const next=prompts.findIndex((p:any,i:number)=>i>state.sentenceIndex&&(deck.words[p.wordIndex].occurrenceID||p.imageIndex!==prompt.imageIndex));if(next<0){setListenRun(false);return;}dispatch({type:'selectWord',index:prompts[next].wordIndex});}
     else if(state.sentenceIndex+1<prompts.length)dispatch({type:'sentenceNext'});else{dispatch({type:'sentenceNext'});setListenRun(false);}
    }
-  },seek);
+  },promptAudio?0:seek,promptAudio);
   return audio.stop;
  },[listenRun,active,playback,prompt?.key,pass,repeat,state.rate,seek,onePhoto]);
  useEffect(()=>{const keyboard=(e:KeyboardEvent)=>{
@@ -228,7 +230,7 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
    </div>:null}
   </>}
   {(desktopKeyboard||state.module==='spelling')&&!complete&&(state.module==='spelling'||state.module==='listening'&&state.mode==='free'&&!!prompt&&!state.sentenceFinished)&&<VirtualKeyboard active={active} press={virtualPress} lettersOnly={state.module==='spelling'}/>}
-  {panel&&<Dialog title={panel==='gallery'?'选择照片':'学习设置'} close={()=>setPanel(null)}>{panel==='settings'?<><p className="muted small">本轮进度 {Math.min(state.index+1,deck.words.length)} / {deck.words.length}</p><button className="native-button" onClick={exit}>切换卡组</button><label className="check-row"><span>快拼{xp.level<6?" · LV6 解锁":""}</span><input type="checkbox" role="switch" aria-label="快拼" disabled={xp.level<6&&!state.quick} checked={state.quick} onChange={e=>dispatch({type:'preference',name:'quick',value:e.target.checked})}/></label><label className="check-row"><span>经典键盘声音{xp.level<3?' · LV3 解锁':''}</span><input type="checkbox" role="switch" aria-label="经典键盘声音" disabled={xp.level<3} checked={typingSound&&xp.level>=3} onChange={e=>{setTypingSound(e.target.checked);writePreference('piclex-web.typing-sound',String(e.target.checked));}}/></label><label className="check-row">粒子效果<select aria-label="粒子效果" value={particleEffect} onChange={e=>{setEffect(e.target.value);writePreference("piclex-web.particle-effect",e.target.value);}}><option value="socialCode">社交暗号</option><option value="judgmentLight" disabled={xp.level<7}>裁决之光{xp.level<7?" · LV7 解锁":""}</option></select></label><p className="muted small">优先练习出错的字母，跳过本浏览器中已掌握的单词。</p><label className="check-row"><span>显示中文提示</span><input type="checkbox" checked={!state.hiddenChinese} onChange={e=>dispatch({type:'preference',name:'hiddenChinese',value:!e.target.checked})}/></label><button className="native-button" onClick={()=>setPanel('gallery')}>选择照片</button><button className="native-button" onClick={share}>分享卡组</button><button className="native-button" onClick={download}>下载卡组</button><p className="muted small">学习进度保存在当前浏览器。</p></>:<><p className="muted small">选择照片，按卡片顺序练习</p><div className="native-photo-grid">{deck.images.map((src,imageIndex)=>{const first=deck.words.findIndex(w=>w.imageIndex===imageIndex);return <button key={src} aria-label={`照片 ${imageIndex+1}`} aria-pressed={word?.imageIndex===imageIndex} onClick={()=>{dispatch({type:'selectWord',index:word?.imageIndex===imageIndex?state.index:first});setPanel(null);}}><img src={src} alt="" loading="lazy"/><span>{imageIndex+1}</span></button>;})}</div></>}</Dialog>}
+  {panel&&<Dialog title={panel==='gallery'?'选择照片':'学习设置'} close={()=>setPanel(null)}>{panel==='settings'?<><p className="muted small">本轮进度 {Math.min(state.index+1,deck.words.length)} / {deck.words.length}</p><select className="native-deck-select" aria-label="切换卡组" value={deck.id} onChange={e=>{audio.stop();setPanel(null);selectDeck(e.target.value);}}>{deckChoices.map(item=><option key={item.id} value={item.id}>{item.title}</option>)}</select><label className="check-row"><span>快拼{xp.level<6?" · LV6 解锁":""}</span><input type="checkbox" role="switch" aria-label="快拼" disabled={xp.level<6&&!state.quick} checked={state.quick} onChange={e=>dispatch({type:'preference',name:'quick',value:e.target.checked})}/></label><label className="check-row"><span>经典键盘声音{xp.level<3?' · LV3 解锁':''}</span><input type="checkbox" role="switch" aria-label="经典键盘声音" disabled={xp.level<3} checked={typingSound&&xp.level>=3} onChange={e=>{setTypingSound(e.target.checked);writePreference('piclex-web.typing-sound',String(e.target.checked));}}/></label><label className="check-row">粒子效果<select aria-label="粒子效果" value={particleEffect} onChange={e=>{setEffect(e.target.value);writePreference("piclex-web.particle-effect",e.target.value);}}><option value="socialCode">社交暗号</option><option value="judgmentLight" disabled={xp.level<7}>裁决之光{xp.level<7?" · LV7 解锁":""}</option></select></label><p className="muted small">优先练习出错的字母，跳过本浏览器中已掌握的单词。</p><label className="check-row"><span>显示中文提示</span><input type="checkbox" checked={!state.hiddenChinese} onChange={e=>dispatch({type:'preference',name:'hiddenChinese',value:!e.target.checked})}/></label><button className="native-button" onClick={()=>setPanel('gallery')}>选择照片</button><button className="native-button" onClick={share}>分享卡组</button><button className="native-button" onClick={download}>下载卡组</button><p className="muted small">学习进度保存在当前浏览器。</p></>:<><p className="muted small">选择照片，按卡片顺序练习</p><div className="native-photo-grid">{deck.images.map((src,imageIndex)=>{const first=deck.words.findIndex(w=>w.imageIndex===imageIndex);return <button key={src} aria-label={`照片 ${imageIndex+1}`} aria-pressed={word?.imageIndex===imageIndex} onClick={()=>{dispatch({type:'selectWord',index:word?.imageIndex===imageIndex?state.index:first});setPanel(null);}}><img src={src} alt="" loading="lazy"/><span>{imageIndex+1}</span></button>;})}</div></>}</Dialog>}
  </main>;
 }
 function Chunk({text,disabled,remove,move}:{text:string;disabled:boolean;remove:()=>void;move:(offset:number)=>void}){

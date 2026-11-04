@@ -1,5 +1,6 @@
 import { unzipSync, strFromU8 } from 'fflate';
 import { parseEmbeddedCovers } from './covers.mjs';
+import {parseEmbeddedAudio} from './audio.mjs';
 
 export const MAX_PACKAGE_BYTES = 64 * 1024 * 1024;
 const MAX_EXPANDED_BYTES = 96 * 1024 * 1024;
@@ -61,13 +62,14 @@ export async function parseArchive(bytes) {
       const visible = label.positionUnavailable !== true && (!label.learning || label.learning.relation === 'visible');
       const normalized = box && [box.left, box.top, box.right, box.bottom].every(Number.isFinite) && box.left >= 0 && box.top >= 0 && box.right > box.left && box.bottom > box.top && box.right <= 1000 && box.bottom <= 1000
         ? [box.left / 1000, box.top / 1000, (box.right - box.left) / 1000, (box.bottom - box.top) / 1000] : null;
-      words.push({ id: `${item.id}:${index}`, english, chinese, imageIndex, focus: visible && normalized ? { visible: true, box: normalized } : null,
+      const audio=await parseEmbeddedAudio(label.learning?.audio);
+      words.push({ ...(audio?{audio}:{}), id: `${item.id}:${index}`, english, chinese, imageIndex, focus: visible && normalized ? { visible: true, box: normalized } : null,
         occurrenceID: text(label.learning?.occurrenceID, 200), example: text(label.learning?.example), exampleChinese: text(label.learning?.exampleChinese), phonetic: text(label.phoneticUS, 200), partOfSpeech: text(label.learning?.partOfSpeech, 50) });
       if (words.length > 5000) fail('卡组词汇过多，请拆分为 5000 词以内。');
     }
   }
   if (!words.length) fail('这份卡组还没有可练习的单词。');
   const covers = await parseEmbeddedCovers(manifest.covers);
-  const learningFingerprint = await sha256(new TextEncoder().encode(JSON.stringify({ photos: await Promise.all(photos.map(async p => ({ id: p.id, sha256: await sha256(p.bytes) }))), words })));
+  const learningFingerprint = await sha256(new TextEncoder().encode(JSON.stringify({ photos: await Promise.all(photos.map(async p => ({ id: p.id, sha256: await sha256(p.bytes) }))), words:words.map(({audio,...word})=>word) })));
   return { fingerprint: await sha256(bytes), learningFingerprint, covers, title: text(manifest.deckName, 80).trim() || '我的照片卡组', photos, words };
 }

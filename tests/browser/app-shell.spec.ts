@@ -37,7 +37,7 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const sections=page.locator('.settings-section');const a=await sections.nth(0).boundingBox(),b=await sections.nth(1).boundingBox();if(width>=960)expect(b!.x-a!.x).toBeGreaterThan(100);else expect(Math.abs(b!.x-a!.x)).toBeLessThan(1);
   await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByRole('button',{name:'拍摄照片',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  await page.goto('/piclex-web/#/decks');await expect(page.locator('.deck-card')).toHaveCount(5);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
+  await page.goto('/piclex-web/#/decks');await expect(page.locator('.deck-card')).toHaveCount(6);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
   await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toBeVisible();
   await page.getByRole('button',{name:/^不认识/}).scrollIntoViewIfNeeded();
   const action=await page.getByRole('button',{name:/^不认识/}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

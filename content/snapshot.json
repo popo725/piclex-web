@@ -1,7 +1,8 @@
 {
   "sources": [
     "https://piclex.v2fy.com/decks/source.json",
-    "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json"
+    "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json",
+    "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json"
   ],
   "decks": [
     {
@@ -193,6 +194,22 @@
           "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-portrait-a8e1997d185be7ce.jpg"
         }
       }
+    },
+    {
+      "deckID": "0a1ff2e2-3db0-4bb1-889a-b27b62798cbe",
+      "title": "经典英语歌曲",
+      "author": "zhaoolee",
+      "description": "通过经典英语歌曲练习拼词与歌词默写，按歌曲及歌词顺序学习，每句选一个词，保留重复句。当前收录 Galway Girl：8张场景卡、52句歌词，附原唱片段及中文译文。后续歌曲持续追加到同一卡组。原音频需摄影学英语353版或更高版本；首批短感叹词切片仍待试听校准。",
+      "version": 4,
+      "photoCount": 8,
+      "wordCount": 52,
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/4/deck-092fe83de3492f3a.piclexdeck",
+      "packageBytes": 4985185,
+      "packageSHA256": "092fe83de3492f3aefbc76f01c540ce96f6001b3ee2905e4ff2903b86c26bf52",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/4/cover-135a2d8481e9d0b3.jpg",
+      "access": "public",
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json"
     }
   ]
 }

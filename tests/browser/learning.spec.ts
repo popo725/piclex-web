@@ -56,7 +56,7 @@ test('direct links, reveal, dark theme and unknown decks have usable states',asy
 test('public catalog reuses existing content and practice never downloads a whole archive',async({page})=>{
  const requests:string[]=[];page.on('request',request=>requests.push(new URL(request.url()).pathname));
  await page.goto('/piclex-web/#/decks');
- await expect(page.locator('.deck-card')).toHaveCount(5);
+ await expect(page.locator('.deck-card')).toHaveCount(6);
  await expect(page.getByRole('heading',{name:'Basic English 850 场景卡片',exact:true})).toBeVisible();
  await expect(page.getByRole('heading',{name:'新概念英语第二册',exact:true})).toBeVisible();
  await expect(page.getByRole('heading',{name:'程序员面试',exact:true})).toHaveCount(0);

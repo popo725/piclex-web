@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {validateSnapshot,parsePublicCatalog,parsePublicDeck} from '../packages/deck-format/src/public.mjs';
 const snapshot=JSON.parse(await readFile(new URL('../content/snapshot.json',import.meta.url)));
 test('reviewed public snapshot excludes paid entitlements and rejects duplicates or foreign origins',()=>{
- assert.equal(validateSnapshot(structuredClone(snapshot)).decks.length,5);
+ assert.equal(validateSnapshot(structuredClone(snapshot)).decks.length,6);
  for(const mutate of [s=>s.decks[0].access='storekit',s=>s.decks[0].productID='paid',s=>s.decks.push(s.decks[0]),s=>s.decks[0].packageURL='https://other.example/deck.piclexdeck',s=>s.decks[0].packageBytes=65*1024*1024]){
   const value=structuredClone(snapshot);mutate(value);assert.throws(()=>validateSnapshot(value));
  }
