@@ -36,4 +36,4 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 
 ## 相机商店入口与卡片品牌
 
-`brand/app-store-icon.png` 从本机 `/System/Applications/App Store.app/Contents/Resources/AppIcon.icns` 提取128px系统图标，仅用于用户指定的App Store入口，显示层去色；Apple图标不属于本项目MIT代码许可。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。
+商店入口仅以三条圆头矢量线呈现App Store的A标记，不带图标底色/外框；该商标标记不作为本项目原创MIT品牌资产。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。

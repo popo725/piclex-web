@@ -87,17 +87,17 @@ body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,v
 .capture-poster-footer .capture-quote p{margin:0}.capture-poster-footer .capture-quote p+p{font-size:2.24cqw;font-weight:500}.capture-poster-footer .capture-quote cite{font-size:1.952cqw;font-weight:500;align-self:stretch}
 .print-paper{background:rgb(251.175 249.9 245.82);border-radius:0;box-shadow:inset 0 0 0 .6px #00000012}
 /* The requested aurora lives only inside the empty photograph aperture. */
-.capture-page .camera-empty{position:relative;isolation:isolate;overflow:hidden;background:#e5e5ed;color:#292a32}
+.capture-page .camera-empty{position:relative;isolation:isolate;overflow:hidden;background:#f3dda1;color:#382b12}
 .camera-empty>.native-icon,.camera-empty>span:not(.camera-aurora){position:relative;z-index:1;text-shadow:0 1px 8px #fff8}
-.camera-aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(145deg,#e4efff,#f4dff2 45%,#f8e9db);z-index:0}
-.camera-aurora>i{position:absolute;width:115%;height:85%;left:-25%;top:-15%;border-radius:50%;background:radial-gradient(ellipse at 35% 35%,#53a7ff 0%,#8f73f0 28%,#df76bd 53%,transparent 72%);filter:blur(38px);animation:camera-aurora-flow 13s ease-in-out infinite alternate;animation-play-state:paused;will-change:transform}
-.camera-aurora>i:nth-child(2){left:10%;top:25%;background:radial-gradient(ellipse,#ffac82,#eb77b8 36%,#a6a1ef 58%,transparent 75%);animation-duration:17s;animation-delay:-8s}
-.camera-aurora>i:nth-child(3){left:15%;top:45%;background:radial-gradient(ellipse,#83dbe0,#7b9dff 40%,transparent 72%);animation-duration:19s;animation-delay:-5s}
+.camera-aurora{position:absolute;inset:0;overflow:hidden;pointer-events:none;background:linear-gradient(145deg,#fff4cc,#f0cf77 45%,#e7b74b);z-index:0}
+.camera-aurora>i{position:absolute;width:115%;height:85%;left:-25%;top:-15%;border-radius:50%;background:radial-gradient(ellipse at 35% 35%,#ffe7a0 0%,#e6b445 28%,#c98d23 53%,transparent 72%);filter:blur(38px);animation:camera-aurora-flow 13s ease-in-out infinite alternate;animation-play-state:paused;will-change:transform}
+.camera-aurora>i:nth-child(2){left:10%;top:25%;background:radial-gradient(ellipse,#fff0bf,#edc45e 36%,#d69d33 58%,transparent 75%);animation-duration:17s;animation-delay:-8s}
+.camera-aurora>i:nth-child(3){left:15%;top:45%;background:radial-gradient(ellipse,#fff8de,#f6d277 40%,transparent 72%);animation-duration:19s;animation-delay:-5s}
 .camera-aurora>b{position:absolute;inset:0;background:#ffffff55;backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
 .camera-empty.is-active .camera-aurora>i{animation-play-state:running}
 @keyframes camera-aurora-flow{0%{transform:translate(-8%,-5%) rotate(-16deg) scale(1)}50%{transform:translate(15%,12%) rotate(12deg) scale(1.18)}100%{transform:translate(-2%,27%) rotate(36deg) scale(1.08)}}
-:root[data-theme=dark] .camera-empty{color:#fff}:root[data-theme=dark] .camera-aurora{background:#20202e}:root[data-theme=dark] .camera-aurora>b{background:#11172570}:root[data-theme=dark] .camera-empty>.native-icon,:root[data-theme=dark] .camera-empty>span:not(.camera-aurora){text-shadow:0 1px 8px #0008}
-.camera-app-store img{display:block;object-fit:contain}
+:root[data-theme=dark] .camera-empty{color:#fff}:root[data-theme=dark] .camera-aurora{background:#241d0c}:root[data-theme=dark] .camera-aurora>b{background:#21190570}:root[data-theme=dark] .camera-empty>.native-icon,:root[data-theme=dark] .camera-empty>span:not(.camera-aurora){text-shadow:0 1px 8px #0008}
+.camera-app-store svg{display:block;width:26px;height:26px}
 @media(prefers-reduced-motion:reduce){.camera-aurora>i{animation:none;will-change:auto}}
 
 .capture-annotation-stage{position:absolute;left:0;top:0;width:1000px;transform-origin:top left;container-type:inline-size;pointer-events:none}
