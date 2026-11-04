@@ -22,7 +22,7 @@ test('every keyboard row stays clickable with browser chrome, short screens and 
   await expect(spelling).toHaveAttribute('readonly','');await expect(spelling).toHaveAttribute('inputmode','none');
   const keyboard=page.getByRole('region',{name:'虚拟键盘'});
   await activate(keyboard.getByRole('button',{name:'按键 Z',exact:true}));await expect(spelling).toHaveValue('z');
-  await keyboardIsUncovered(page);await page.locator('.answer-backspace').click();await expect(spelling).toHaveValue('');
+  await keyboardIsUncovered(page);await expect(page.locator('.native-answer').getByRole('button',{name:'退格',exact:true})).toHaveCount(0);await activate(keyboard.getByRole('button',{name:'退格',exact:true}));await expect(spelling).toHaveValue('');
   if(size.height===668)await page.screenshot({path:info.outputPath('spelling-browser-chrome.png')});
   await page.getByRole('tab',{name:'练听力',exact:true}).click();await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
   for(const difficulty of ['hard','easy','medium']){

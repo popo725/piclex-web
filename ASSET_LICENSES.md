@@ -37,3 +37,7 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 ## 相机商店入口与卡片品牌
 
 商店入口仅以三条圆头矢量线呈现App Store的A标记，不带图标底色/外框；该商标标记不作为本项目原创MIT品牌资产。`brand/card-logo.png` 原样复用PicLex `BrandLogo.imageset/BrandLogo.png`，与App卡片实际品牌资产一致。
+
+## 拼写成功反馈
+
+`audio/correct-word.wav` 原样复用PicLex `PracticeCorrectSound.dataset/correct-word.wav`，0.32秒清脆双音，沿用原项目权利；不是新生成或替代音色。

@@ -72,5 +72,23 @@
     "id": 41804349946,
     "conclusion": "success"
   },
-  "pagesWebKitLivePassed": 10
+  "pagesWebKitLivePassed": 10,
+  "goldCorrection": {
+    "sourceRevision": "3118feb7fba226774dc613c91ef44b9c72e856d5",
+    "domesticRelease": "3118feb7fba2-6520895aee76",
+    "localSurfacePassed": 6,
+    "domesticLivePassed": 2,
+    "domesticChangedResourceHashesVerified": 3,
+    "palette": "champagne / warm gold / amber; no purple",
+    "storeMark": "three rounded vector strokes, transparent background",
+    "ciRun": 41811403501,
+    "ciStatus": "success"
+  },
+  "keyboardSuccess": {
+    "targetedBrowserPassed": 29,
+    "platformSkipped": 1,
+    "nativeCorrectSoundSHA256": "ef426713d7c67da7bbd74108979cc77c52438fc4cb0e01fba054278c48c1329f",
+    "duration": 0.32,
+    "actualMediaPlayingAndEnded": true
+  }
 }

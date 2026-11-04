@@ -6,12 +6,12 @@ test('touch spelling keeps the OS keyboard disabled through taps, next word and 
  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  const input=page.getByRole('textbox',{name:'输入英文',exact:true}),keyboard=page.getByRole('region',{name:'虚拟键盘'});
- const protectedInput=async()=>{await expect(input).toHaveAttribute('readonly','');await expect(input).toHaveAttribute('inputmode','none');await expect(keyboard).toBeVisible();await expect(keyboard.getByRole('button')).toHaveCount(26);await expect(keyboard.locator('.virtual-key-row')).toHaveCount(3);};
+ const protectedInput=async()=>{await expect(input).toHaveAttribute('readonly','');await expect(input).toHaveAttribute('inputmode','none');await expect(keyboard).toBeVisible();await expect(keyboard.getByRole('button')).toHaveCount(27);await expect(keyboard.locator('.virtual-key-row')).toHaveCount(3);};
  await protectedInput();const viewport=await page.evaluate(()=>visualViewport!.height);
  await input.tap();await protectedInput();
  await keyboard.getByRole('button',{name:'按键 C',exact:true}).tap();await expect(input).toHaveValue('c');
  await keyboard.getByRole('button',{name:'按键 R',exact:true}).tap();await expect(input).toHaveValue('cr');
- await page.locator('.native-answer').getByRole('button',{name:'退格',exact:true}).tap();await expect(input).toHaveValue('c');
+ await keyboard.getByRole('button',{name:'退格',exact:true}).tap();await expect(input).toHaveValue('c');
  const tabs=page.getByRole('navigation',{name:'底部导航'});await tabs.getByRole('button',{name:'设置',exact:true}).tap();await tabs.getByRole('button',{name:'学习',exact:true}).tap();await protectedInput();await expect(input).toHaveValue('c');
  await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).tap();await page.getByRole('button',{name:'关闭',exact:true}).tap();await protectedInput();
  for(const letter of 'roissant')await keyboard.getByRole('button',{name:`按键 ${letter.toUpperCase()}`,exact:true}).tap();
