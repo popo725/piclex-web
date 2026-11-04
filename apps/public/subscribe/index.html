@@ -1,6 +1,20 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>订阅二维码 · 摄影学英语</title></head><body><main>
-<a class="brand" href="../">摄影学英语</a><h1>生成卡组订阅二维码</h1><p>在 App 学习页打开「下载第三方卡组」，把二维码放入正方形扫描窗口，即可下载卡组。</p>
-<section><form id="generator"><label>订阅清单地址<input id="source" type="url" required placeholder="https://example.com/series/feed.json"></label><button class="primary" type="submit">生成二维码</button></form><p>支持任意 HTTPS 站点。二维码只包含填写的 URL，生成过程在浏览器本地完成；不会上传地址，也不会请求订阅服务器。</p></section>
-<p id="error" role="alert"></p><section id="result" hidden><img id="qr" alt="卡组订阅二维码"><a id="save-qr" download="subscription-qr.png">保存二维码</a><button id="copy-source">复制订阅地址</button><p id="source-display"></p><p>也可复制地址，在 App 中粘贴下载。一个来源包含多个卡组时，App 会显示选择列表。</p></section><p id="notice" role="status"></p>
-<section><h2>现有卡组</h2><div id="examples"></div></section><footer><a href="https://github.com/zhaoolee/piclex-web/blob/main/docs/publishing-decks.md">第三方卡组发布指南</a></footer>
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>卡组分享封面工具 · 摄影学英语</title></head><body><main>
+<a class="brand" href="../">摄影学英语</a><h1>卡组分享封面工具</h1><p class="intro">选封面、填地址、改文案，直接下载带二维码的分享图。</p>
+<div class="editor-layout"><section class="controls"><form id="generator">
+<label>订阅清单地址<input id="source" type="url" required placeholder="https://example.com/series/feed.json"></label>
+<label>封面模板<select id="preset"><option value="nce2">新概念英语第二册</option><option value="classic-english-songs">经典英语歌曲</option></select></label>
+<label class="upload">上传自己的封面<input id="cover-file" type="file" accept="image/jpeg,image/png,image/webp"></label><p class="small">推荐竖版 2:3。图片和订阅地址只在浏览器本地处理。</p>
+<details open><summary>调整文案与版式</summary>
+<label>顶部文案<input id="brand-text" maxlength="40"></label>
+<label>主标题<input id="heading-text" maxlength="28"></label>
+<label>扫码指引（最多3行）<textarea id="guide-text" rows="3" maxlength="120"></textarea></label>
+<label>加粗词（用逗号分隔）<input id="emphasis-text" maxlength="80"></label>
+<label>配色<select id="theme"><option value="paper">暖白纸色</option><option value="night">深绿金色</option></select></label>
+<label>二维码区域位置<input id="panel-y" type="range" min="640" max="1106" step="1" value="1004"></label>
+<label>二维码大小<input id="qr-size" type="range" min="240" max="310" step="1" value="310"></label>
+</details><button class="primary" type="submit">生成二维码</button><button id="reset-template" type="button">恢复默认文案</button>
+</form><p id="error" role="alert"></p><p id="notice" role="status"></p></section>
+<section class="preview-column"><div id="poster-result" hidden><canvas id="poster" aria-label="分享封面预览"></canvas><a id="save-poster" class="primary" download="subscription-poster.png">下载封面 PNG</a><p class="small">1024 × 1536，二维码内容就是原始订阅 URL。</p></div><p id="preview-placeholder">正在准备封面…</p>
+<details><summary>只下载二维码</summary><div id="result" hidden><img id="qr" alt="卡组订阅二维码"><a id="save-qr" download="subscription-qr.png">下载纯二维码</a><button id="copy-source">复制订阅地址</button><p id="source-display"></p></div></details>
+</section></div><section><h2>现有卡组</h2><div id="examples"></div></section><footer><a href="https://github.com/zhaoolee/piclex-web/blob/main/docs/publishing-decks.md">第三方卡组发布指南</a> · <a href="https://github.com/zhaoolee/piclex-web/blob/main/packages/subscription/poster.mjs">模板源码</a></footer>
 </main><script type="module" src="./main.mjs"></script></body></html>

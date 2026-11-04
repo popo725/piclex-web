@@ -92,4 +92,4 @@ packages/deck-format/     原生照片卡组 v1 读取与哈希校验
 
 [完整发布指南](docs/publishing-decks.md)提供内容包格式、来源 JSON Schema、清单生成与校验、HTTPS 托管、更新规则及二维码工具。二维码就是普通订阅 URL，任何 HTTPS 作者站点都可使用；在 App「下载第三方卡组」的扫描窗口识别后下载。
 
-[在线生成二维码](https://piclex.v2fy.com/piclex-web/subscribe/) · [新概念第二册与经典歌曲分享封面](docs/subscription-qr/README.md)
+[在线制作二维码分享封面](https://piclex.v2fy.com/piclex-web/subscribe/) · [新概念第二册与经典歌曲分享封面](docs/subscription-qr/README.md)

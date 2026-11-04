@@ -71,6 +71,8 @@ english/
 
 ## 4. 生成普通 URL 二维码
 
+使用[网页分享封面工具](https://piclex.v2fy.com/piclex-web/subscribe/)选择或上传封面，填写订阅地址，调整文案及加粗词后导出 PNG。整个合成在浏览器本地完成；网页与批量脚本共用可编辑 Canvas 模板，详见[模板说明](subscription-qr/README.md#网页模板工具)。
+
 ```sh
 npm ci
 node scripts/subscription-qr.mjs \
