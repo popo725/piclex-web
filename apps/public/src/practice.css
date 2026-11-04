@@ -77,5 +77,6 @@ body[data-practice=true] #root{padding-bottom:0}
  .native-practice{padding-block:4px;gap:3px}
  .native-header{height:44px;margin-bottom:0}
  .native-header .native-back,.practice-progress-battery,.practice-library{height:44px}
+ .practice-deck-target{height:20px}
  .module-tabs,.module-tabs>button{height:39px;min-height:39px}
 }

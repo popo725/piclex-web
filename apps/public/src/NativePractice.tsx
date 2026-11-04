@@ -158,7 +158,7 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
    if(pressed==='Enter'){if(draft.result)dispatch({type:'next'});return;}
    if(draft.result)return;
    const edited=editKeyboardText(draft.input,input.current?.selectionStart,input.current?.selectionEnd,pressed);
-   if(edited){setImeWarning(false);if(typingSound&&xp.level>=3)playTypingSound();dispatch({type:'input',value:edited.value});requestAnimationFrame(()=>input.current?.setSelectionRange(edited.cursor,edited.cursor));}
+   if(edited){setImeWarning(false);if(typingSound&&xp.level>=3)playTypingSound();flushSync(()=>dispatch({type:'input',value:edited.value}));input.current?.setSelectionRange(edited.cursor,edited.cursor);}
   }else if(state.module==='listening'&&state.mode==='free'&&!state.sentenceFinished){
    if(sentenceResult){if(pressed==='Enter')dispatch({type:'sentenceNext'});return;}
    const inputs=[...document.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('.guided-input input,.dictation-input')];
