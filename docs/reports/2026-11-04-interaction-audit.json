@@ -89,6 +89,20 @@
     "platformSkipped": 1,
     "nativeCorrectSoundSHA256": "ef426713d7c67da7bbd74108979cc77c52438fc4cb0e01fba054278c48c1329f",
     "duration": 0.32,
-    "actualMediaPlayingAndEnded": true
+    "actualMediaPlayingAndEnded": true,
+    "sourceRevision": "f4af20256a91646f09a8786bc878fda28bcb43dd",
+    "domesticRelease": "f4af20256a91-cb6c2fec7bea",
+    "isolatedUnitPassed": 197,
+    "isolatedBrowserPassed": 30,
+    "unmutedLowVolumeBrowserPassed": 2,
+    "domesticLivePassed": 8,
+    "domesticResourceHashesVerified": 4,
+    "ciRun": 41820062668,
+    "ciConclusion": "success",
+    "ciBrowserPassed": 151,
+    "ciBrowserSkipped": 2,
+    "pagesLivePassed": 8,
+    "pagesResourceHashesVerified": 4,
+    "isolatedTemporaryBuildRemoved": true
   }
 }
