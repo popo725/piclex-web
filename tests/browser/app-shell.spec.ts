@@ -1,10 +1,11 @@
+import {fillSpelling} from './helpers/spelling';
 import {test,expect} from '@playwright/test';
 import path from 'node:path';
 const fixture=path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck');
 async function importCafe(page:any){await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();}
 test('three App tabs keep the current deck and draft; earned experience survives reload without duplication',async({page})=>{
  await page.goto('/piclex-web/');const tabs=page.getByRole('navigation',{name:'底部导航'});await expect(tabs.getByRole('button')).toHaveText(['拍摄','学习','设置']);await expect(page.getByRole('main',{name:'拍摄',exact:true})).toBeVisible();
- await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await input.fill('cro');await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(input).toHaveValue('cro');await input.fill('croissant');await expect(page.getByRole('heading',{name:'勺子',exact:true})).toBeVisible();
+ await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await fillSpelling(page,'cro');await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(input).toHaveValue('cro');await fillSpelling(page,'croissant');await expect(page.getByRole('heading',{name:'勺子',exact:true})).toBeVisible();
  await expect(page.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await page.reload();await expect(page.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await tabs.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:/我的等级/}).click();await expect(page.getByText('共 1 经验', {exact:false})).toBeVisible();
 });
 test('capture creates a real local deck and retains an unsaved photo when changing tabs',async({page})=>{
@@ -14,10 +15,10 @@ test('capture creates a real local deck and retains an unsaved photo when changi
  const tabs=page.getByRole('navigation',{name:'底部导航'});await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByLabel('英文',{exact:true})).toHaveValue('cup');await expect(page.getByAltText('拍摄后的照片卡片')).toBeVisible();await page.getByRole('button',{name:'保存修改',exact:true}).click();await page.getByRole('button',{name:'开练',exact:true}).click();await expect(page.getByRole('heading',{name:'杯子',exact:true})).toBeVisible();await page.reload();await expect(page.getByRole('heading',{name:'杯子',exact:true})).toBeVisible();
 });
 test('new correct letters render particles, restored answers do not, and reduced motion suppresses them',async({page})=>{
- await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await input.fill('c');await expect(page.locator('.experience-particles')).toBeAttached();await expect(page.locator('.letter-glyph').first()).toHaveText('c');await page.reload();await expect(input).toHaveValue('c');await expect(page.locator('.experience-particles')).toHaveCount(0);await page.emulateMedia({reducedMotion:'reduce'});await input.fill('cr');await expect(page.locator('.experience-particles')).toHaveCount(0);
+ await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await fillSpelling(page,'c');await expect(page.locator('.experience-particles')).toBeAttached();await expect(page.locator('.letter-glyph').first()).toHaveText('c');await page.reload();await expect(input).toHaveValue('c');await expect(page.locator('.experience-particles')).toHaveCount(0);await page.emulateMedia({reducedMotion:'reduce'});await fillSpelling(page,'cr');await expect(page.locator('.experience-particles')).toHaveCount(0);
 });
 test('two tabs award a completed word only once and keep low-level rewards locked',async({page,context})=>{
- await importCafe(page);const second=await context.newPage();await second.goto(page.url());await expect(second.getByRole('textbox',{name:'输入英文'})).toBeVisible();await Promise.all([page.getByRole('textbox',{name:'输入英文'}).fill('croissant'),second.getByRole('textbox',{name:'输入英文'}).fill('croissant')]);for(const p of [page,second])await expect(p.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByRole('switch',{name:'快拼',exact:true})).toBeDisabled();await expect(page.getByRole('switch',{name:'经典键盘声音',exact:true})).toBeDisabled();await second.close();
+ await importCafe(page);const second=await context.newPage();await second.goto(page.url());await expect(second.getByRole('textbox',{name:'输入英文'})).toBeVisible();await Promise.all([fillSpelling(page,'croissant'),fillSpelling(second,'croissant')]);for(const p of [page,second])await expect(p.getByRole('button',{name:'等级 LV0，1 经验',exact:true})).toBeVisible();await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByRole('switch',{name:'快拼',exact:true})).toBeDisabled();await expect(page.getByRole('switch',{name:'经典键盘声音',exact:true})).toBeDisabled();await second.close();
 });
 test('the native game loads local assets, pauses, saves before changing tabs, and resumes',async({page},info)=>{
  await page.setViewportSize({width:844,height:390});const bad:string[]=[];page.on('pageerror',e=>bad.push(e.message));const failed:string[]=[];page.on('response',r=>{if(r.url().includes('/lab/assets/')&&r.status()>=400)failed.push(r.url());});
@@ -45,14 +46,14 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
  }
 });
 
-test('desktop keyboard mirrors real keys and edits through the same learning input; phones retain the system keyboard',async({page},info)=>{
+test('spelling keyboard mirrors hardware keys on desktop and suppresses the OS keyboard on touch devices',async({page},info)=>{
  await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'}),keyboard=page.getByRole('region',{name:'虚拟键盘'});
- if(info.project.name==='mobile'){await expect(keyboard).toHaveCount(0);await expect(input).toBeFocused();return;}
+ if(info.project.name==='mobile'){await expect(keyboard).toBeVisible();await expect(input).toHaveAttribute('readonly','');await expect(input).toHaveAttribute('inputmode','none');await expect(input).toBeFocused();}
  await expect(keyboard).toBeVisible();await expect(page.locator('.site-header')).toBeHidden();await expect(page.locator('.practice-player-avatar img')).toBeVisible();
  await input.press('c');await expect(input).toHaveValue('c');await keyboard.getByRole('button',{name:'按键 R',exact:true}).click();await expect(input).toHaveValue('cr');await keyboard.getByRole('button',{name:'退格',exact:true}).click();await expect(input).toHaveValue('c');await expect(input).toBeFocused();
  await page.keyboard.down('r');await expect(keyboard.locator('[data-key="r"]')).toHaveAttribute('data-pressed','true');await page.keyboard.up('r');await expect(keyboard.locator('[data-key="r"]')).toHaveAttribute('data-pressed','false');await expect(input).toHaveValue('cr');
  await keyboard.getByRole('button',{name:'按键 X',exact:true}).click();await expect(input).toHaveValue('crx');await keyboard.getByRole('button',{name:'按键 O',exact:true}).click();await expect(input).toHaveValue('crx');await keyboard.getByRole('button',{name:'退格',exact:true}).click();await keyboard.getByRole('button',{name:'按键 O',exact:true}).click();await expect(input).toHaveValue('cro');
- await page.getByRole('tab',{name:'练听力',exact:true}).click();await expect(keyboard).toHaveCount(0);await page.getByLabel('句子练习模式').selectOption('free');await page.getByLabel('听写难度').selectOption('easy');await expect(keyboard).toBeVisible();const guided=page.getByRole('textbox',{name:/第 1 个单词/});await guided.focus();await keyboard.getByRole('button',{name:'按键 I',exact:true}).click();await expect(guided).not.toHaveValue('');
+ await page.getByRole('tab',{name:'练听力',exact:true}).click();await expect(keyboard).toHaveCount(0);if(info.project.name==='mobile')return;await page.getByLabel('句子练习模式').selectOption('free');await page.getByLabel('听写难度').selectOption('easy');await expect(keyboard).toBeVisible();const guided=page.getByRole('textbox',{name:/第 1 个单词/});await guided.focus();await keyboard.getByRole('button',{name:'按键 I',exact:true}).click();await expect(guided).not.toHaveValue('');
  await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await expect(keyboard).toHaveCount(0);
 });
 

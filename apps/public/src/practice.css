@@ -81,3 +81,11 @@ body[data-practice=true] #root{padding-bottom:0}
  .practice-deck-target{height:20px}
  .module-tabs,.module-tabs>button{height:39px;min-height:39px}
 }
+
+/* Touch spelling uses the page keyboard, without shrinking the visual viewport
+   for an OS keyboard. Keep wider touch targets; short screens can still scroll. */
+@media(pointer:coarse){
+ .native-practice[data-module=spelling] .virtual-key{height:36px;font-size:16px}
+ .native-practice[data-module=spelling] .virtual-key.key-wide{font-size:13px}
+ .native-practice[data-module=spelling] .virtual-key.key-space{font-size:12px}
+}

@@ -20,9 +20,9 @@ test('native camera paper and practice metrics keep complete content at wide, na
   await page.getByRole('button',{name:'不认识',exact:true}).scrollIntoViewIfNeeded();
   const action=(await page.getByRole('button',{name:'不认识',exact:true}).boundingBox())!,tabs=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;
   expect(action.y+action.height).toBeLessThanOrEqual(tabs.y+1);
-  if(info.project.name==='desktop'){
+  {
    const keyboard=page.getByRole('region',{name:'虚拟键盘'});await keyboard.scrollIntoViewIfNeeded();const k=(await keyboard.boundingBox())!;expect(k.y+k.height).toBeLessThanOrEqual(tabs.y+1);
-  }else await expect(page.getByRole('region',{name:'虚拟键盘'})).toHaveCount(0);
+  }
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  }
 });

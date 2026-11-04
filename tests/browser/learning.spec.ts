@@ -1,3 +1,4 @@
+import {fillSpelling} from './helpers/spelling';
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
 import fs from 'node:fs';
@@ -13,11 +14,11 @@ test('a visitor can complete a scene, resume after refresh, and restart without 
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();
  const input=page.getByRole('textbox',{name:'输入英文'});
- await input.fill('crx');await expect(page.locator('.answer-feedback')).toContainText('删除错误字母');await input.fill('cr');
+ await fillSpelling(page,'crx');await expect(page.locator('.answer-feedback')).toContainText('删除错误字母');await fillSpelling(page,'cr');
  await page.reload();await expect(input).toHaveValue('cr');
  await page.screenshot({path:`test-results/practice-${testInfo.project.name}.png`,fullPage:true});
  for(const [i,word] of words.entries()){
-   await input.fill(word);
+   await fillSpelling(page,word);
    if(i<words.length-1) await expect(input).toHaveValue('');
  }
  await expect(page.getByRole('heading',{name:'本轮训练完成'})).toBeVisible();
@@ -32,7 +33,7 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
  const chooser=page.getByLabel('选择照片卡组文件');
  await chooser.setInputFiles(path.resolve('tests/fixtures/demo/decks/travel.piclexdeck'));
  await expect(page.getByRole('heading',{name:'护照',exact:true})).toBeVisible();
- await page.getByRole('textbox',{name:'输入英文'}).fill('pass');await page.reload();
+ await fillSpelling(page,'pass');await page.reload();
  await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('pass');
  await page.getByRole('button',{name:'全部卡组'}).click();
  await chooser.setInputFiles({name:'bad.piclexdeck',mimeType:'application/zip',buffer:Buffer.from('bad')});
@@ -63,7 +64,7 @@ test('public catalog reuses existing content and practice never downloads a whol
  await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
  expect(requests.some(url=>url.endsWith('.piclexdeck'))).toBe(false);
  expect(requests.filter(url=>url.includes('/photos/')).length).toBeLessThanOrEqual(2);
- await page.getByRole('textbox',{name:'输入英文'}).fill(publicDeck.words[0].english);
+ await fillSpelling(page,publicDeck.words[0].english);
  await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();
  await page.reload();await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -72,7 +73,7 @@ test('public catalog reuses existing content and practice never downloads a whol
 
 test('native modules preserve independent sentence drafts, shuffle order and photo navigation',async({page},testInfo)=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);
- await page.getByRole('textbox',{name:'输入英文'}).fill('b');
+ await fillSpelling(page,'b');
  await page.getByRole('tab',{name:'练听力'}).click();
  const mode=page.getByRole('combobox',{name:'句子练习模式'});
  await expect(mode).toHaveValue('chunks');
