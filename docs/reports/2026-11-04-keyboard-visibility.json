@@ -54,5 +54,166 @@
     }
   },
   "realIPhoneVerified": false,
-  "production": "pending"
+  "production": {
+    "domesticRelease": "ab2959c914d0-d7ed4bd1c878",
+    "previousRelease": "2af2e5558244-4217738e3831",
+    "sourceRevision": "ab2959c914d032324b1692a5376202bb009ac25d",
+    "manifestFiles": 700,
+    "configSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+    "domesticUI": [
+      {
+        "browser": "chrome",
+        "mode": "spelling",
+        "protectedFields": true,
+        "keys": 26,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "hard",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "easy",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "medium",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "spelling",
+        "protectedFields": true,
+        "keys": 26,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "hard",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "easy",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "medium",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      }
+    ],
+    "pagesRun": 41793949685,
+    "pagesStatus": "success",
+    "domesticHTTPHashes": [
+      "piclex-web/index.html",
+      "piclex-web/assets/main-Blivbn8d.css",
+      "piclex-web/assets/main-DEQrVZsk.js"
+    ],
+    "pagesUI": [
+      {
+        "browser": "chrome",
+        "mode": "spelling",
+        "protectedFields": true,
+        "keys": 26,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "hard",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "easy",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "chrome",
+        "mode": "medium",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "spelling",
+        "protectedFields": true,
+        "keys": 26,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "hard",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "easy",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      },
+      {
+        "browser": "webkit",
+        "mode": "medium",
+        "protectedFields": true,
+        "keys": 32,
+        "hit": true,
+        "bottom": 598,
+        "navTop": 604
+      }
+    ]
+  }
 }
