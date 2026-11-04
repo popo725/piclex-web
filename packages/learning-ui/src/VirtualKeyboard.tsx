@@ -3,7 +3,7 @@ export function useDesktopKeyboard(){
  const [enabled,setEnabled]=useState(()=>matchMedia('(hover: hover) and (pointer: fine)').matches);
  useEffect(()=>{const query=matchMedia('(hover: hover) and (pointer: fine)');const update=()=>setEnabled(query.matches);query.addEventListener('change',update);return()=>query.removeEventListener('change',update);},[]);return enabled;
 }
-export default function VirtualKeyboard({active,press}:{active:boolean;press:(key:string)=>void}){
+export default function VirtualKeyboard({active,press,lettersOnly=false}:{active:boolean;press:(key:string)=>void;lettersOnly?:boolean}){
  const [pressed,setPressed]=useState<Set<string>>(new Set()),[symbols,setSymbols]=useState(false),[shift,setShift]=useState(false),timers=useRef(new Map<string,ReturnType<typeof setTimeout>>());
  const normal=(key:string)=>key.length===1?key.toLowerCase():key;
  const down=(key:string)=>{key=normal(key);clearTimeout(timers.current.get(key));setPressed(previous=>new Set(previous).add(key));};
@@ -16,6 +16,7 @@ export default function VirtualKeyboard({active,press}:{active:boolean;press:(ke
  },[active]);
  const labels:Record<string,string>={'Backspace':'退格','Enter':'回车','Escape':'Escape 键',' ':'空格','Shift':'大写','123':'数字和符号','ABC':'字母键盘'};
  const label=(key:string)=>labels[key]||`按键 ${key.toUpperCase()}`;
- const key=(value:string,text=value,wide='')=><button key={value} type="button" className={`virtual-key ${wide}`} aria-label={label(value)} data-key={value} data-pressed={pressed.has(normal(value))||value==='Shift'&&shift} disabled={!active} onPointerDown={event=>{event.preventDefault();down(value);}} onPointerUp={()=>up(value)} onPointerCancel={()=>up(value)} onClick={()=>{down(value);up(value);if(value==='Shift')setShift(v=>!v);else if(value==='123'||value==='ABC')setSymbols(v=>!v);else{press(shift&&value.length===1?value.toUpperCase():value);if(shift)setShift(false);}}}>{text}</button>;
+ const key=(value:string,text=value,wide='')=><button key={value} type="button" className={`virtual-key ${wide}`} aria-label={label(value)} data-key={value} data-pressed={pressed.has(normal(value))||value==='Shift'&&shift} disabled={!active} onPointerDown={event=>{event.preventDefault();down(value);}} onPointerUp={()=>up(value)} onPointerCancel={()=>up(value)} onClick={()=>{down(value);up(value);if(value==='Shift')setShift(v=>!v);else if(value==='123'||value==='ABC')setSymbols(v=>!v);else{press(!lettersOnly&&shift&&value.length===1?value.toUpperCase():value);if(shift)setShift(false);}}}>{text}</button>;
+ if(lettersOnly)return <section className="virtual-keyboard" aria-label="虚拟键盘" data-layout="letters">{["qwertyuiop","asdfghjkl","zxcvbnm"].map((row,index)=><div key={row} className={`virtual-key-row ${index===1?"keyboard-middle":index===2?"keyboard-bottom":""}`}>{row.split('').map(c=>key(c))}</div>)}</section>;
  return <section className="virtual-keyboard" aria-label="虚拟键盘"><div className="virtual-key-row">{(symbols?'1234567890':'qwertyuiop').split('').map(c=>key(c,shift?c.toUpperCase():c))}</div><div className="virtual-key-row keyboard-middle">{(symbols?'@#$&*()-':'asdfghjkl').split('').map(c=>key(c,shift?c.toUpperCase():c))}</div><div className="virtual-key-row">{key('Shift','⇧','key-wide')}{(symbols?".,?!':;":'zxcvbnm').split('').map(c=>key(c,shift?c.toUpperCase():c))}{key('Backspace','⌫','key-wide')}</div><div className="virtual-key-row">{key(symbols?'ABC':'123',symbols?'ABC':'123','key-wide')}{key('Escape','Esc','key-wide')}{key(' ','空格','key-space')}{key('Enter','↵','key-wide')}</div></section>;
 }
