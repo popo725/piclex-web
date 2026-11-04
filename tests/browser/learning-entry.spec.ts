@@ -22,5 +22,5 @@ test('remembered local deck opens spelling without losing spelling or listening 
 test('missing remembered deck falls back and a failed catalog has a recovery action',async({page})=>{
  await page.addInitScript(()=>localStorage.setItem('piclex-web.last-deck','local-missing'));
  await page.goto('/piclex-web/#/learn');await expect(page.getByRole('heading',{name:firstDeck.words[0].chinese,exact:true})).toBeVisible();await expect(page).toHaveURL(new RegExp('#/deck/'+first.id+'$'));
- await page.route('**/library/catalog.json',route=>route.fulfill({status:503,body:'unavailable'}));await page.goto('/piclex-web/#/learn');await page.reload();await expect(page.getByRole('heading',{name:'暂时无法打开',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'重新加载',exact:true})).toBeVisible();await expect(page.locator('.home')).toHaveCount(0);
+ await page.route('**/library/catalog.json',route=>route.fulfill({status:503,body:'unavailable'}));await page.goto('/piclex-web/?catalog-error#/learn');await expect(page.getByRole('heading',{name:'暂时无法打开',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'重新加载',exact:true})).toBeVisible();await expect(page.locator('.home')).toHaveCount(0);
 });
