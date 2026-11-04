@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-04",
+  "feature": "Editable subscription poster template",
+  "sourceRevision": "390ab5efce940d9a1eb37332f2c07a8eb8b7cca7",
+  "url": "https://piclex.v2fy.com/piclex-web/subscribe/",
+  "release": "390ab5efce94-0b7255c1c08d",
+  "defaultBrand": "App Store下载“摄影学英语”",
+  "boldWords": [
+    "学习",
+    "右上角"
+  ],
+  "checks": {
+    "build": "passed",
+    "localBrowserCases": 6,
+    "liveBrowserCases": 2,
+    "visionQRAndCoverCases": 8,
+    "actualBrowserPNGDecodeCases": 2,
+    "releaseFileCount": 1085,
+    "liveResourceHashes": 4,
+    "nginxUnchanged": true
+  },
+  "limitations": [
+    "App physical camera scan not verified; phone locked after successful install",
+    "GitHub Pages mirror not independently checked"
+  ]
+}
