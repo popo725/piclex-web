@@ -41,12 +41,12 @@
     {
       "area": "背景声",
       "result": "接入App原版钢琴/咖啡厅素材、音量、选择持久化及人声时降音量；拼词/听力共享；口语/面板/后台停止并释放",
-      "reference": "PracticeView.swift / PracticeAmbience"
+      "reference": "Features/Practice/PracticeView.swift / SentencePracticeAmbience.swift"
     },
     {
       "area": "口语区",
       "result": "去除重复照片说明；正文滚动、操作停靠底部；真实收音/关闭状态，示范与收音互斥；高亮保留原句大小写、标点、缩写",
-      "reference": "PracticeModeOverlay.swift / SentenceSpeaking"
+      "reference": "Features/Practice/ReadingOverlay.swift / ReadingPracticeViewModel.swift"
     },
     {
       "area": "卡组选择",
@@ -82,6 +82,11 @@
       "area": "下载、声音、设置、等级",
       "result": "复核下载失败取消、设置层级、原生键盘/快门样本、等级草稿保留、声音切页清理",
       "reference": "SettingsHomeContent / current Web baseline"
+    },
+    {
+      "area": "即时暂停与设置变更",
+      "result": "不等待timeupdate；直接保存真实currentTime/duration，覆盖暂停、弹层、倍速切换和拖动开始；屏蔽事件后25%位置回归与真实站Chrome/WebKit均通过",
+      "reference": "apps/public/src/useSpeech.ts / NativePractice.tsx"
     }
   ],
   "verification": {
@@ -98,7 +103,6 @@
       "passed": 30,
       "failed": 0
     },
-    "remainingKnownTestFailures": 0,
     "browsers": [
       "Chrome desktop",
       "Chrome mobile viewport",
@@ -126,7 +130,32 @@
       "light",
       "dark"
     ],
-    "audio": "Muted isolated browser sessions; playback, decoding, volume and lifecycle checked, not subjective speaker listening"
+    "audio": "Muted isolated browser sessions; playback, decoding, volume and lifecycle checked, not subjective speaker listening",
+    "productionV8ContentRerun": {
+      "passed": 31,
+      "failed": 0
+    },
+    "publicationChecks": [
+      "Existing V8 library and source manifests matched byte-for-byte before activation; stale local V6 candidate was blocked and removed",
+      "Production WebKit audio first load exceeded 20s; separate diagnostic confirmed successful decode; both browsers passed with 45s network-only allowance",
+      "Linux WebKit launch flags fixed; original-audio coverage added for WebKit, and the speech mock uses a configurable global instead of assigning a readonly method."
+    ],
+    "finalLinuxCIVerified": false,
+    "finalRegressionStatus": "All identified failures addressed and verified locally; final Linux CI remains queued during the official Actions/Pages incident",
+    "secondLinuxRun": {
+      "passed": 212,
+      "failed": 2,
+      "skipped": 2,
+      "findings": [
+        "Quick original-audio pause captured stale timeupdate progress; fixed by reading currentTime/duration synchronously",
+        "Camera geometry file injection raced disabled import UI/draft initialization; test now waits for enabled import button and controls the transient countdown"
+      ]
+    },
+    "finalFixChecks": {
+      "relatedBrowserPassed": 46,
+      "repeatedCameraGeometryPassed": 9,
+      "primaryLiveBrowserPassed": 2
+    }
   },
   "remainingProductGaps": [
     "学习目标、词表数据/覆盖率、每日统计与分享统计尚未移植",
@@ -145,9 +174,72 @@
     "docs/reports/layout-2026-11-04/themes-native-list.png",
     "docs/reports/layout-2026-11-04/listening-light-390x844.png",
     "docs/reports/layout-2026-11-04/deck-picker.png",
-    "docs/reports/layout-2026-11-04/speaking-light-390x844.png"
+    "docs/reports/layout-2026-11-04/speaking-light-390x844.png",
+    "docs/reports/layout-2026-11-04/production-listening-webkit.png"
   ],
   "deployment": {
-    "status": "pending"
+    "status": "primary_active_pages_blocked_by_github_incident",
+    "primary": "https://piclex.v2fy.com/piclex-web/",
+    "release": "adde7ae98418-6726c41aa99b",
+    "sourceRevision": "adde7ae98418be2b3a59ae0ffbab61df83279dfb",
+    "previousRelease": "adf83262f672-d4a20df6cd57",
+    "filesVerified": 661,
+    "nginxConfigUnchanged": true,
+    "originHTTPSPathsVerified": [
+      "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+      "piclex-web/assets/experience-store-BaMgA33l.js",
+      "piclex-web/assets/lab-pMlgwsrx.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-BVym-om3.css",
+      "piclex-web/assets/main-Bn91C4bn.js",
+      "piclex-web/assets/main-_Eul92ti.js",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-HvvHd9oy.js",
+      "piclex-web/audio/ambience/cafe.m4a",
+      "piclex-web/audio/ambience/piano.m4a",
+      "piclex-web/credits.html",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/library/catalog.json",
+      "piclex-web/source.json"
+    ],
+    "publicLibraryUnchanged": true,
+    "primaryBrowserSmoke": [
+      {
+        "browser": "chrome",
+        "domain": "https://piclex.v2fy.com",
+        "result": "passed",
+        "themeRows": 16,
+        "deckRows": 6,
+        "ambienceDecoded": true,
+        "equalListeningControls": true,
+        "quickPauseKeepsLivePosition": true,
+        "pageErrors": []
+      },
+      {
+        "browser": "webkit",
+        "domain": "https://piclex.v2fy.com",
+        "result": "passed",
+        "themeRows": 16,
+        "deckRows": 6,
+        "ambienceDecoded": true,
+        "equalListeningControls": true,
+        "quickPauseKeepsLivePosition": true,
+        "pageErrors": []
+      }
+    ],
+    "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41864797062",
+    "finalCIStatus": "queued",
+    "pages": "https://zhaoolee.com/piclex-web/",
+    "pagesUpdated": false,
+    "blockingIncident": "https://www.githubstatus.com/incidents/xr3myzj7ms51",
+    "incidentStartedUTC": "2026-11-04T16:05:00Z"
+  },
+  "cleanup": {
+    "local": "Removed six task-owned isolated build/package/browser-artifact directories and intermediate scripts; retained only lightweight logs and repository evidence",
+    "server": "Removed this task’s unused V6 candidate and isolated check scripts; kept current and prior formal releases",
+    "shared": "Original public checkout build/dependencies/cache and unrelated native edits preserved",
+    "finalQueuedCI": "Left queued; no automation created"
   }
 }
