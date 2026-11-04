@@ -16,6 +16,8 @@ test('empty camera has soft day/night dunes and a transparent App Store mark ope
  await page.emulateMedia({reducedMotion:'reduce'});await expect(flow).toHaveCount(0);await expect(blob).toBeVisible();expect(await blob.evaluate(n=>getComputedStyle(n).animationName)).toBe('none');await page.emulateMedia({reducedMotion:'no-preference'});await expect(flow).toBeVisible();
 });
 test('generated card uses native paper, separated glass callouts, object connectors and fixed footer proportions in both themes',async({page},info)=>{
+ // Print timing is covered by camera-parity and alignment-extension; this case inspects the settled card.
+ await page.addInitScript(()=>localStorage.setItem('piclex-web.import-animation','false'));
  await page.route('https://piclex.v2fy.com/v1/web/analyze',route=>route.fulfill({headers:{'Access-Control-Allow-Origin':'*'},json:{labels,quote:{chinese:'把日常的小小发现留在相片里。',english:'Keep little discoveries in a photograph.',source:'摄影学英语'},quota:{daily_limit:10,used:1,remaining:9}}}));
  await page.goto('/piclex-web/#/capture');await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(path.resolve('tests/fixtures/demo/images/cafe.jpg'));
  await expect(page.getByRole('button',{name:/秒后进入拼写，点击取消/})).toBeVisible({timeout:15000});await page.getByRole('button',{name:/秒后进入拼写，点击取消/}).click();await expect(page.locator('.capture-photo-label')).toHaveCount(3);await expect(page.locator('.capture-connector')).toHaveCount(2);

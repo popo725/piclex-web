@@ -111,9 +111,21 @@
         ]
       ],
       "controlsAboveNavigation": true
-    }
+    },
+    "linuxTimingChecksAfterFix": 24
   },
-  "deployment": "pending",
+  "deployment": {
+    "primary": "https://piclex.v2fy.com/piclex-web/",
+    "release": "6fda4efa201b-4c7ea1353a0a",
+    "sourceRevision": "6fda4efa201bfa3843de7313aeb8b93ae6a28d6d",
+    "previousRelease": "390ab5efce94-0b7255c1c08d",
+    "status": "primary_active",
+    "filesVerified": 659,
+    "nginxConfigUnchanged": true,
+    "publicChecks": "HTML after removal of one observed Cloudflare beacon; all JS/CSS/WebP assets, source/catalog/Cherry hashes and health endpoint verified",
+    "browserSmoke": "passed",
+    "pages": "pending CI timing fixes"
+  },
   "nativeShutterSHA256": {
     "minolta-shutter.wav": "c7ffe1ffb064940c7f28a0339f91e992a13a9b0f6949aeaafb2d45819fee75e8",
     "kodak-shutter.wav": "6dced3bf9dacf0d525bf19d9ce14f3473e10c86243742fb5263d50fd6d184675",

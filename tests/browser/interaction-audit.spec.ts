@@ -11,11 +11,13 @@ test('reveal speaks the word, next speaks the next prompt, and tapping the selec
  await expect(page.getByRole('button',{name:'播放英文发音'})).toHaveCount(0);
 });
 test('dictation assistance speaks its answer; replay of a correct answer holds the current sentence',async({page})=>{
- await open(page);await page.getByRole('tab',{name:'练听力',exact:true}).click();await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+ await page.clock.install();await open(page);await page.getByRole('tab',{name:'练听力',exact:true}).click();await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+ // Freeze the answer deadline before entering the final character: slow CI must still click replay before auto-next.
+ await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));
  await fillEnglish(page.getByRole('textbox',{name:'听写句子',exact:true}),'I am still in bed');
  await page.locator('.playback-button').click();await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.at(-1)?.text)).toBe('I am still in bed.');
- await page.waitForTimeout(1150);await expect(page.getByRole('textbox',{name:'听写句子',exact:true})).toHaveValue('I am still in bed');
- await page.getByRole('button',{name:'下一个',exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(2);
+ await page.clock.runFor(1150);await expect(page.getByRole('textbox',{name:'听写句子',exact:true})).toHaveValue('I am still in bed');
+ await page.getByRole('button',{name:'下一个',exact:true}).click();await page.clock.runFor(150);await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(2);
  await page.getByRole('button',{name:'听不懂',exact:true}).click();await expect(page.locator('.sentence-feedback')).toContainText('参考答案');await expect.poll(()=>page.evaluate(()=>(window as any).__spoken.length)).toBe(3);
 });
 test('demonstration releases the microphone before playing and restarting reading stops the example',async({page})=>{
