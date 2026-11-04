@@ -145,7 +145,7 @@ export default function NativePractice({deck,spellingRequest=0,notify,exit,downl
   return audio.stop;
  },[listenRun,active,playback,prompt?.key,pass,repeat,state.rate,seek,onePhoto]);
  useEffect(()=>{const keyboard=(e:KeyboardEvent)=>{
-  if(!active||composing||e.isComposing||e.keyCode===229||e.repeat||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;
+  if(e.defaultPrevented||!active||composing||e.isComposing||e.keyCode===229||e.repeat||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;
   if(e.target!==input.current&&e.target!==document.body&&e.target!==document.documentElement)return;
   if(state.module==='spelling'){if(e.key===' '){e.preventDefault();replay();}if(e.key==='Escape'&&!draft.result){e.preventDefault();dispatch({type:'reveal'});}if(e.key==='Enter'&&draft.result){e.preventDefault();dispatch({type:'next'});}}
  };window.addEventListener('keydown',keyboard);return()=>window.removeEventListener('keydown',keyboard);});
