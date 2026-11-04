@@ -26,6 +26,7 @@ for(const kind of ['portrait','landscape'])test(`listening preserves the full ${
   const xp=(await page.locator('.learning-experience b').boundingBox())!,title=(await page.locator('.practice-deck-target').boundingBox())!;expect(xp.y+xp.height).toBeLessThanOrEqual(title.y+.5);
   if(info.project.name==='desktop'){
    await expect(keyboard).toBeVisible();
+   await keyboard.scrollIntoViewIfNeeded();
    const k=(await keyboard.boundingBox())!,tabs=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;
    expect(k.y+k.height).toBeLessThanOrEqual(tabs.y+1);
    expect((await keyboard.getByRole('button',{name:'按键 Q',exact:true}).boundingBox())!.height).toBeGreaterThanOrEqual(26);

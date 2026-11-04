@@ -1,8 +1,8 @@
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
-import {useCallback,useEffect,useRef,useState} from 'react';
+import {useCallback,useEffect,useRef,useState,type CSSProperties} from 'react';
 import type {PhotoLabel} from './capture-api';
 import {useCaptureJobs,type CaptureJob} from './useCaptureJobs';
-import './capture.css';
+import {usePhotoPalette} from './usePhotoPalette';
 const blank=():PhotoLabel=>({english:'',chinese:'',example:'',exampleChinese:''});
 const busy=(job:CaptureJob)=>['queued','recognizing','saving'].includes(job.phase);
 async function jpeg(canvas:HTMLCanvasElement){
@@ -46,12 +46,13 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  const pending=flow.jobs.filter(value=>value.id!==presented);
  return <main className={`capture-page ${job?'capture-result-page':''}`} aria-label="拍摄">
   {job?<CaptureReview key={job.id} job={job} active={active} settled={!printing} consume={()=>flow.consume(job.id)} retry={()=>flow.retry(job)} cancel={()=>flow.cancel(job.id)} edit={(title,labels)=>flow.edit(job.id,title,labels,job.quote)} start={()=>{if(job.deckID){flow.consume(job.id);setPresented(null);learn(job.deckID);}}} resume={resume}/>:<div className="capture-viewfinder">
-   <div className="camera-paper">
+   <div className="camera-paper"><div className="camera-aperture">
     {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className="camera-empty" aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span><small>{opening?'等待你的授权…':'首次使用会请求相机权限'}</small></button>}
+    <span className="camera-corners" aria-hidden="true"/></div>
     {(opening||live)&&<button className="camera-close native-button" onClick={stopCamera}>关闭相机</button>}
    </div>
-   <div className="capture-controls"><button className="native-button" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}>导入照片</button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><button className="native-button" onClick={()=>learn()}>开始练习</button></div>
-   <p className="capture-upload-hint">拍摄或导入后，照片将自动上传进行 AI 识图</p>
+   <div className="capture-controls"><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><button className="camera-accessory" aria-label="开始练习" onClick={()=>learn()}><Icon name="tab-learn"/></button></div>
+   <p className="capture-upload-hint">拍摄或导入后，自动上传并生成英语卡片</p>
    {preparing&&<p className="capture-status" role="status">正在准备照片…</p>}
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
@@ -63,7 +64,9 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
 function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resume}:{job:CaptureJob;active:boolean;settled:boolean;consume:()=>void;retry:()=>void;cancel:()=>void;edit:(title:string,labels:PhotoLabel[])=>void;start:()=>void;resume:()=>void}){
  const [preview,setPreview]=useState(''),[loaded,setLoaded]=useState(false),[seconds,setSeconds]=useState<number|null>(null),[editing,setEditing]=useState(false),[title,setTitle]=useState(job.title),[labels,setLabels]=useState<PhotoLabel[]>(job.labels.length?job.labels:[blank()]),[selected,setSelected]=useState<number|null>(null);
  const countdown=useRef<ReturnType<typeof setInterval>|null>(null),consumed=useRef(!job.autoPractice),latest=useRef({start,consume,active});latest.current={start,consume,active};
+ const [aspect,setAspect]=useState(1.333);
  const processing=busy(job);
+ const palette=usePhotoPalette(preview);
  const stopCountdown=useCallback(()=>{if(countdown.current)clearInterval(countdown.current);countdown.current=null;setSeconds(null);consumed.current=true;latest.current.consume();},[]);
  useEffect(()=>{const url=URL.createObjectURL(new Blob([job.image.slice().buffer],{type:'image/jpeg'}));setPreview(url);return()=>URL.revokeObjectURL(url);},[job.image]);
  useEffect(()=>{
@@ -81,10 +84,10 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
  function saveEdit(){stopCountdown();edit(title,labels);setEditing(false);}
  function interact(){if(seconds!==null)stopCountdown();}
  const currentLabel=selected===null?null:job.labels[selected];
- return <section className="capture-review" aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
-  <div className={`capture-card ${processing?'is-processing':''}`}>
+ return <section className="capture-review" style={{'--capture-photo-aspect':aspect} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
+  <div style={palette.style} className={`capture-card ${processing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
-    {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={()=>setLoaded(true)}/>}
+    {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}
     {processing&&<span className="capture-scan" aria-hidden="true"/>}
     {job.labels.map((label,index)=>{
      const a=label.anchor,b=label.bbox,visible=label.relation==='visible'&&a?.length===2&&b?.length===4&&a.every(Number.isFinite)&&b.every(Number.isFinite)&&b[0]>=0&&b[1]>=0&&b[2]<=1000&&b[3]<=1000&&b[2]>b[0]&&b[3]>b[1]&&a[0]>=b[0]&&a[0]<=b[2]&&a[1]>=b[1]&&a[1]<=b[3];
@@ -95,20 +98,20 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
      </div>;
     })}
    </div>
-   {!!job.labels.length&&<div className="capture-vocabulary" aria-label="识别词汇">{job.labels.map((label,index)=><button key={index} aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)}>{label.english}<span>{label.chinese}</span></button>)}</div>}
+   {!!job.labels.length&&<details className="capture-vocabulary"><summary>识别词汇</summary><div aria-label="识别词汇">{job.labels.map((label,index)=><button key={index} aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)}>{label.english}<span>{label.chinese}</span></button>)}</div></details>}
    {currentLabel&&<div className="capture-label-detail"><strong>{currentLabel.english} {currentLabel.phoneticUS||currentLabel.phoneticUK}</strong><p>{currentLabel.example}</p><small>{currentLabel.exampleChinese}</small></div>}
    {job.quote&&(job.quote.chinese||job.quote.english)&&<blockquote className="capture-quote"><p>{job.quote.chinese}</p><p>{job.quote.english}</p>{job.quote.source&&<cite>{job.quote.source}</cite>}</blockquote>}
   </div>
-  {processing?<><p className="capture-status" role="status"><span className="capture-spinner"/>{job.phase==='queued'?'正在准备识图…':job.phase==='recognizing'?'正在识图并生成卡片…':'正在保存卡片…'}</p><div className="capture-review-actions">{job.phase!=='saving'&&<button className="native-button" onClick={cancel}>取消等待</button>}<button className="native-button" onClick={resume}>继续拍摄</button></div></>:editing?<form className="capture-editor" aria-label="编辑照片卡片" onSubmit={e=>{e.preventDefault();saveEdit();}}>
+  {processing?<><p className="capture-status" role="status"><span className="capture-spinner"/>{job.phase==='queued'?'正在准备识图…':job.phase==='recognizing'?'正在识图并生成卡片…':'正在保存卡片…'}</p><div className="capture-review-actions">{job.phase!=='saving'&&<button className="native-button" onClick={cancel}>取消等待</button>}<button className="native-primary" onClick={resume}>继续拍摄</button></div></>:editing?<form className="capture-editor" aria-label="编辑照片卡片" onSubmit={e=>{e.preventDefault();saveEdit();}}>
    <label>卡组名称<input value={title} maxLength={80} required onChange={e=>setTitle(e.target.value)}/></label>
    {labels.map((label,i)=><fieldset key={i}><legend>词条 {i+1}</legend>{([['english','英文'],['chinese','中文释义'],['example','英文例句（可选）'],['exampleChinese','例句中文（可选）']] as const).map(([key,name])=><label key={key}>{name}<input value={label[key]||''} required={key==='english'||key==='chinese'} maxLength={key.includes('example')?2000:200} onChange={e=>setLabels(v=>v.map((l,n)=>n===i?{...l,[key]:e.target.value}:l))}/></label>)}{labels.length>1&&<button type="button" className="text-button" onClick={()=>setLabels(v=>v.filter((_,n)=>n!==i))}>移除此词条</button>}</fieldset>)}
    <button type="button" className="native-button" onClick={()=>setLabels(v=>[...v,blank()])} disabled={labels.length>=100}>添加词条</button><div className="capture-review-actions"><button type="button" className="native-button" onClick={()=>setEditing(false)}>取消编辑</button><button className="native-primary" type="submit">保存修改</button></div>
   </form>:<>
    {job.phase==='failed'&&<p className="capture-status capture-error" role="status">{job.message}</p>}
    {seconds!==null?<button className="capture-countdown native-primary" onClick={stopCountdown}>{seconds}秒后进入拼写，点击取消</button>:<div className="capture-review-actions">
-    <button className="native-button" onClick={openEditor}>{job.labels.length?'编辑卡片':'手动填写'}</button>
+    <button className="native-button capture-edit-button" onClick={openEditor}>{job.labels.length?<><Icon name="tab-settings"/><span>编辑卡片</span></>:'手动填写'}</button>
     {job.phase==='failed'?<button className="native-primary" onClick={retry}>{job.retrySave?'重试保存':'重试识别'}</button>:<button className="native-primary" onClick={start}>开练</button>}
-    <button className="native-button" onClick={resume}>继续拍摄</button>
+    <button className="native-primary" onClick={resume}>继续拍摄</button>
    </div>}
   </>}
  </section>;

@@ -14,6 +14,7 @@ import LoadProgress,{type DownloadProgress} from '../../../packages/learning-ui/
 import {downloadBytes} from '../../../packages/learning-ui/src/download.mjs';
 import './app-shell.css';
 import './responsive.css';
+import './capture.css';
 
 type Parsed = Awaited<ReturnType<typeof parseArchive>>;
 type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; bytes?: Uint8Array; downloadURL?: string };
