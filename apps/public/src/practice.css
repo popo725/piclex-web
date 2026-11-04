@@ -97,3 +97,7 @@ body[data-practice=true] #root{padding-bottom:0}
 .answer-backspace{position:absolute;right:2px;top:2px;width:42px;height:44px;z-index:3;display:grid;place-items:center;border-radius:10px;font-size:21px;color:var(--muted);padding:0}
 .answer-backspace:active{background:var(--line)}
 .answer-backspace:disabled{cursor:default;opacity:.35}
+
+/* A complete scene follows frame resizing immediately; animated focus zoom is
+   reserved for object practice, never for keyboard/module height changes. */
+.photo-focus[data-fit=contain] .focus-image{transition:none}

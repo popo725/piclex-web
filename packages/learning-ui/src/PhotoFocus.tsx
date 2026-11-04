@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import {flushSync} from 'react-dom';
 import { focusLayout } from './focus.mjs';
 import {downloadBytes} from './download.mjs';
 import LoadProgress,{type DownloadProgress} from './LoadProgress';
@@ -21,9 +22,9 @@ export function PhotoFocus({ src, focus, alt, active = true,fit='focus',retry=0,
   }catch{if(!controller.signal.aborted){setBroken(src);onLoadState?.('error');}}})();
   return()=>{controller.abort();if(objectURL)URL.revokeObjectURL(objectURL);};
  },[src,retry,onLoadState,onImageReady]);
- useEffect(()=>{const observer=new ResizeObserver(([entry])=>setSize({width:entry.contentRect.width,height:entry.contentRect.height}));if(host.current)observer.observe(host.current);return()=>observer.disconnect();},[]);
+ useEffect(()=>{const observer=new ResizeObserver(([entry])=>{const {width,height}=entry.contentRect;flushSync(()=>setSize(current=>current.width===width&&current.height===height?current:{width,height}));});if(host.current)observer.observe(host.current);return()=>observer.disconnect();},[]);
  const current=photo?.source===src?photo:undefined,layout=current&&focusLayout(current,size,focus,fit),target=layout?.box;
- return <div className={`photo-focus ${active?'':'effects-paused'}`} ref={host} aria-busy={!current&&broken!==src}>
+ return <div className={`photo-focus ${active?'':'effects-paused'}`} ref={host} data-fit={fit} aria-busy={!current&&broken!==src}>
   {current&&<img key={current.src} src={current.src} alt={alt} className="focus-image" style={layout?{left:layout.image.x,top:layout.image.y,width:layout.image.width,height:layout.image.height}:undefined}/>}
   {broken===src?<p className="image-error">图片加载失败，点击重试</p>:!current&&<div className="photo-loading"><LoadProgress label="正在加载图片" progress={transfer?.source===src?transfer.progress:null} finishing={transfer?.source===src&&transfer.decoding}/></div>}
   {current&&target&&<span className="focus-box" aria-hidden="true" style={{left:target.x+target.width/2,top:target.y+target.height/2,width:Math.max(30,target.width),height:Math.max(30,target.height)}}><span style={{width:Math.hypot(Math.max(30,target.width),Math.max(30,target.height)),height:Math.hypot(Math.max(30,target.width),Math.max(30,target.height))}}/></span>}
