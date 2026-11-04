@@ -41,6 +41,7 @@ body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,v
 .capture-poster-brand>img{width:45%;height:auto;aspect-ratio:1;border-radius:24%}
 .capture-poster-footer .capture-quote{padding:0;margin:0;flex:1;text-align:left;font-size:3.2cqw;line-height:1.35;max-height:100%;overflow:auto}
 .capture-poster-footer .capture-quote p{margin:0 0 3px}.capture-poster-footer .capture-quote p+p{font-size:2.24cqw}.capture-poster-footer .capture-quote cite{display:block;text-align:right;font-size:1.95cqw;font-style:normal}
+.capture-review-control-slot{min-height:112px}
 .capture-processing-controls{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px;min-height:100px}
 .processing-detail{position:relative;overflow:hidden;margin:0;padding:6px 12px;border:.5px solid #00000012;border-radius:10px;background:rgb(242,241,237);color:#000b;font-size:12px;font-weight:500;line-height:18px;font-variant-numeric:tabular-nums;white-space:nowrap;max-width:100%}
 .processing-detail>span{display:block;background:linear-gradient(100deg,#0009 25%,#000e 50%,#0009 75%);background-size:260% 100%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:thinking-shimmer 1.55s linear infinite}

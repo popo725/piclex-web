@@ -70,6 +70,8 @@ test('native recognition halo and fixed poster footer survive completion before 
  await expect.poll(pixels).toBeGreaterThan(100);
  finish();await expect(page.locator('.capture-photo-label')).toHaveCount(2);
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toHaveCount(0);
+ await expect(page.getByRole('button',{name:/秒后进入拼写/})).toBeVisible();
+ const landed=(await page.locator('.capture-card').boundingBox())!;expect(landed.y).toBeCloseTo(before.y,0);
  await cancelCountdown(page);const after=(await page.locator('.capture-card').boundingBox())!;
  expect(after.width).toBeCloseTo(before.width,0);expect(after.height).toBeCloseTo(before.height,0);
  await expect(page.locator('.recognition-halo')).toHaveCount(0);expect(await savedCount(page)).toBe(1);

@@ -116,6 +116,7 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
     {job.quote?.chinese&&job.quote.english&&job.quote.source&&<blockquote className="capture-quote"><p>{job.quote.chinese}</p><p>{job.quote.english}</p><cite>— {job.quote.source}</cite></blockquote>}
    </div>
   </div>
+  <div className="capture-review-control-slot">
   {finishing?<div className="capture-processing-controls"><p className="processing-detail" role="status"><span>{job.phase==='queued'?'识别排队中':job.phase==='recognizing'?'识别中':job.phase==='saving'?'合成卡片 · 保存到本机':'合成卡片'}</span></p><div className="capture-processing-actions"><button className="native-primary" onClick={resume}>关闭</button>{job.phase!=='saving'&&job.phase!=='review'&&<button className="native-button" onClick={cancel}>取消识别</button>}</div></div>:editing?<form className="capture-editor" aria-label="编辑照片卡片" onSubmit={e=>{e.preventDefault();saveEdit();}}>
    <label>卡组名称<input value={title} maxLength={80} required onChange={e=>setTitle(e.target.value)}/></label>
    {labels.map((label,i)=><fieldset key={i}><legend>词条 {i+1}</legend>{([['english','英文'],['chinese','中文释义'],['example','英文例句（可选）'],['exampleChinese','例句中文（可选）']] as const).map(([key,name])=><label key={key}>{name}<input value={label[key]||''} required={key==='english'||key==='chinese'} maxLength={key.includes('example')?2000:200} onChange={e=>setLabels(v=>v.map((l,n)=>n===i?{...l,[key]:e.target.value}:l))}/></label>)}{labels.length>1&&<button type="button" className="text-button" onClick={()=>setLabels(v=>v.filter((_,n)=>n!==i))}>移除此词条</button>}</fieldset>)}
@@ -128,6 +129,7 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
     <button className="native-primary" onClick={resume}>继续拍摄</button>
    </div>}
   </>}
+  </div>
   {!finishing&&!editing&&seconds===null&&<div className="capture-card-tools">
    {!!job.labels.length&&<details className="capture-vocabulary"><summary>识别词汇</summary><div aria-label="识别词汇">{job.labels.map((label,index)=><button key={index} aria-pressed={selected===index} onClick={()=>setSelected(selected===index?null:index)}>{label.english}<span>{label.chinese}</span></button>)}</div></details>}
    {currentLabel&&<div className="capture-label-detail"><strong>{currentLabel.english} {currentLabel.phoneticUS||currentLabel.phoneticUK}</strong><p>{currentLabel.example}</p><small>{currentLabel.exampleChinese}</small></div>}

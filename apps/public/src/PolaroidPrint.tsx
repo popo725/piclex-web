@@ -42,5 +42,5 @@ export default function PolaroidPrint({image,finished}:{image?:Uint8Array;finish
   const reduce=()=>{if(motion.matches)latest.current();};motion.addEventListener('change',reduce);
   return()=>{disposed=true;animations.forEach(a=>a.cancel());motion.removeEventListener('change',reduce);};
  },[loaded,ratio]);
- return <div ref={root} className="capture-printing" aria-label="正在出片" style={{'--print-ratio':ratio} as CSSProperties}><div className="print-slot"/><div className="print-window"><div className="print-paper">{url&&<img src={url} alt="" onLoad={e=>{setRatio(e.currentTarget.naturalWidth/e.currentTarget.naturalHeight);setLoaded(true);}}/>}</div></div></div>;
+ return <div ref={root} className="capture-printing" aria-label="正在出片" style={{'--print-ratio':ratio} as CSSProperties}><div className="print-slot"/><div className="print-window"><div className="print-paper">{url&&<img src={url} alt="" onError={()=>latest.current()} onLoad={e=>{setRatio(e.currentTarget.naturalWidth/e.currentTarget.naturalHeight);setLoaded(true);}}/>}</div></div></div>;
 }
