@@ -7,6 +7,8 @@ export function useSpeech(notify:(s:string)=>void){
  const [playing,setPlaying]=useState(false),[preparing,setPreparing]=useState(false),[position,setPosition]=useState(-1);
  const [error,setError]=useState('');
  const [progress]=useState(createPlaybackProgress);
+ // Capture the media clock synchronously; timeupdate may lag a quick pause, sheet or rate change.
+ const readProgress=useCallback(()=>{const player=media.current;return player&&Number.isFinite(player.duration)&&player.duration>0?Math.min(1,Math.max(0,player.currentTime/player.duration)):progress.getSnapshot().value;},[progress]);
  const clearMedia=useCallback(()=>{
   const current=media.current;media.current=null;
   if(current){current.onended=null;current.onerror=null;current.ontimeupdate=null;current.onplaying=null;current.onwaiting=null;current.onstalled=null;current.onloadedmetadata=null;current.pause();current.removeAttribute('src');current.load();}
@@ -69,5 +71,5 @@ export function useSpeech(notify:(s:string)=>void){
   setPreparing(queue.length>0);next(0);
  },[stop,clearMedia,notify,progress]);
  useEffect(()=>{const hide=()=>{if(document.hidden)stop();};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stop);return ()=>{stop();document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stop);};},[stop]);
- return {error,playing,preparing,position,progress,play,stop};
+ return {error,playing,preparing,position,progress,readProgress,play,stop};
 }
