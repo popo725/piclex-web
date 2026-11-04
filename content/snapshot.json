@@ -200,13 +200,13 @@
       "title": "经典英语歌曲",
       "author": "zhaoolee",
       "description": "通过经典英语歌曲练习拼词与歌词默写，按歌曲及歌词顺序学习，每句选一个词，保留重复句。现收录 Galway Girl、God Is a Girl（Chillout Mix）和 Hotel California：22张场景卡、153句歌词，附原唱片段及中文译文。后续歌曲持续追加到同一卡组。原音频需摄影学英语353版或更高版本。",
-      "version": 6,
+      "version": 7,
       "photoCount": 22,
       "wordCount": 153,
-      "packageURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/6/deck-c60d2b10263a6780.piclexdeck",
-      "packageBytes": 16202540,
-      "packageSHA256": "c60d2b10263a6780052e2d36dec1803c21402e00af959272cec2cb3b3888bc51",
-      "coverURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/6/cover-5fbd162a687559d9.jpg",
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/7/deck-1a488b732cb91bce.piclexdeck",
+      "packageBytes": 16064333,
+      "packageSHA256": "1a488b732cb91bce7c6caa68e55de5eba4aed0f3b60592bc8d84c34f26ff344b",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/7/cover-5fbd162a687559d9.jpg",
       "access": "public",
       "covers": {
         "landscape": {
@@ -215,7 +215,7 @@
           "height": 1024,
           "bytes": 334799,
           "sha256": "05955bb6ca1c5db59d66711b4b84b8c2874b25fc98ddcf4ffcf5348c85a7cc46",
-          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/6/cover-landscape-05955bb6ca1c5db5.jpg"
+          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/7/cover-landscape-05955bb6ca1c5db5.jpg"
         },
         "portrait": {
           "mimeType": "image/jpeg",
@@ -223,16 +223,18 @@
           "height": 1536,
           "bytes": 349718,
           "sha256": "5fbd162a687559d9b1f973155d5f85b8f422a1eeb34d707fd87d692c699b4db3",
-          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/6/cover-portrait-5fbd162a687559d9.jpg"
+          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/7/cover-portrait-5fbd162a687559d9.jpg"
         }
       },
       "minimumIOS": "17.0",
       "sourceURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json",
-      "learningSHA256": "66f36957cb2ef0a5b9a5f0e70534836074bf31b1bf1de472eeb4722a0a7ce0cc",
       "progressAliases": [
         "fb90e3a2846db2b193ecca4ffff41f4dea90ee58aaf498859893803a01ef4c67",
-        "092fe83de3492f3aefbc76f01c540ce96f6001b3ee2905e4ff2903b86c26bf52"
-      ]
+        "092fe83de3492f3aefbc76f01c540ce96f6001b3ee2905e4ff2903b86c26bf52",
+        "66f36957cb2ef0a5b9a5f0e70534836074bf31b1bf1de472eeb4722a0a7ce0cc",
+        "c60d2b10263a6780052e2d36dec1803c21402e00af959272cec2cb3b3888bc51"
+      ],
+      "learningSHA256": "0debbd9d532e0885cd8ca36c997f2a7e5a34676079dc97c2f5f2d24dfa35caab"
     }
   ]
 }
