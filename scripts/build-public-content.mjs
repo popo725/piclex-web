@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { parseArchive } from '../packages/deck-format/src/archive.mjs';
@@ -20,8 +20,13 @@ async function obtain(name, url, maximum) {
   const path = join(cache, name);
   try { return await readFile(path); } catch (error) { if (error.code !== 'ENOENT') throw error; }
   // No redirects, authentication, cookies, or private API. curl works with the public CDN.
-  execFileSync('curl', ['--fail', '--silent', '--show-error', '--retry', '2', '--max-time', '180', '--max-filesize', String(maximum), '--output', path, url]);
-  return readFile(path);
+  // A reset connection is retryable too. Never expose a partial download as a cache hit.
+  const partial = path + '.part';
+  try {
+    execFileSync('curl', ['--fail', '--silent', '--show-error', '--retry', '2', '--retry-all-errors', '--connect-timeout', '20', '--max-time', '180', '--max-filesize', String(maximum), '--output', partial, url]);
+    await rename(partial, path);
+    return readFile(path);
+  } finally { await rm(partial, { force: true }); }
 }
 try {
   for (const entry of snapshot.decks) {
