@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "com.piclex.deck-source"
+    },
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "decks": {
+      "maxItems": 1000,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "deckID": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "author": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999999999
+          },
+          "photoCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "wordCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "packageURL": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^(?:https:\\/\\/|\\/(?!\\/))[^\\u0000-\\u001f\\u007f]*$"
+          },
+          "packageBytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 140509184
+          },
+          "packageSHA256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "coverURL": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^(?:https:\\/\\/|\\/(?!\\/))[^\\u0000-\\u001f\\u007f]*$"
+          },
+          "access": {
+            "type": "string",
+            "enum": [
+              "public",
+              "storekit"
+            ]
+          },
+          "covers": {
+            "type": "object",
+            "properties": {
+              "landscape": {
+                "type": "object",
+                "properties": {
+                  "mimeType": {
+                    "type": "string",
+                    "const": "image/jpeg"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 64,
+                    "maximum": 4096
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 64,
+                    "maximum": 4096
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 2097152
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "url": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096,
+                    "pattern": "^(?:https:\\/\\/|\\/(?!\\/))[^\\u0000-\\u001f\\u007f]*$"
+                  }
+                },
+                "required": [
+                  "mimeType",
+                  "width",
+                  "height",
+                  "bytes",
+                  "sha256",
+                  "url"
+                ],
+                "additionalProperties": false
+              },
+              "portrait": {
+                "type": "object",
+                "properties": {
+                  "mimeType": {
+                    "type": "string",
+                    "const": "image/jpeg"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 64,
+                    "maximum": 4096
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 64,
+                    "maximum": 4096
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "exclusiveMinimum": 0,
+                    "maximum": 2097152
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "url": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096,
+                    "pattern": "^(?:https:\\/\\/|\\/(?!\\/))[^\\u0000-\\u001f\\u007f]*$"
+                  }
+                },
+                "required": [
+                  "mimeType",
+                  "width",
+                  "height",
+                  "bytes",
+                  "sha256",
+                  "url"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "productID": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "minimumIOS": {
+            "type": "string",
+            "pattern": "^\\d{1,3}(?:\\.\\d{1,3}){0,2}$"
+          }
+        },
+        "required": [
+          "deckID",
+          "title",
+          "author",
+          "description",
+          "version",
+          "photoCount",
+          "wordCount",
+          "packageURL",
+          "packageBytes",
+          "packageSHA256",
+          "access"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "purchasesAvailable": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "format",
+    "schemaVersion",
+    "title",
+    "decks"
+  ],
+  "additionalProperties": false
+}

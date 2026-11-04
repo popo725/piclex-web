@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "nce2",
+    "title": "新概念英语第二册",
+    "source": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json"
+  },
+  {
+    "slug": "classic-english-songs",
+    "title": "经典英语歌曲",
+    "source": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json"
+  }
+]

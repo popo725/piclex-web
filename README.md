@@ -86,4 +86,10 @@ packages/deck-format/     原生照片卡组 v1 读取与哈希校验
 
 代码与原创界面文案使用 [MIT](LICENSE)。现有卡组及其文字、图片不因公开访问或与代码一起分发而改为 MIT；内容权利以原来源为准。原测试夹具的照片许可见 [素材说明](ASSET_LICENSES.md)。
 
-独立封面：公开卡组和本地导入包支持单独定制的横版、竖版封面。首页使用横版，卡组列表使用竖版；图片完整显示。旧卡组保留原封面回退。封面不参与学习内容指纹，更换封面时保留浏览器进度。协议约定见 [摄影学英语卡组来源协议](https://github.com/zhaoolee/PicLex/blob/main/docs/deck-source-protocol.md)。
+独立封面：公开卡组和本地导入包支持单独定制的横版、竖版封面。首页使用横版，卡组列表使用竖版；图片完整显示。旧卡组保留原封面回退。封面不参与学习内容指纹，更换封面时保留浏览器进度。协议约定见 [摄影学英语卡组来源协议](docs/deck-source-protocol.md)。
+
+## 发布第三方订阅卡组
+
+[完整发布指南](docs/publishing-decks.md)提供内容包格式、来源 JSON Schema、清单生成与校验、HTTPS 托管、更新规则及二维码工具。二维码就是普通订阅 URL，任何 HTTPS 作者站点都可使用；在 App「下载第三方卡组」的扫描窗口识别后下载。
+
+[在线生成二维码](https://piclex.v2fy.com/piclex-web/subscribe/) · [新概念第二册与经典歌曲分享封面](docs/subscription-qr/README.md)

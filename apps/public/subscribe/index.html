@@ -1,0 +1,6 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>订阅二维码 · 摄影学英语</title></head><body><main>
+<a class="brand" href="../">摄影学英语</a><h1>生成卡组订阅二维码</h1><p>在 App 学习页打开「下载第三方卡组」，把二维码放入正方形扫描窗口，即可下载卡组。</p>
+<section><form id="generator"><label>订阅清单地址<input id="source" type="url" required placeholder="https://example.com/series/feed.json"></label><button class="primary" type="submit">生成二维码</button></form><p>支持任意 HTTPS 站点。二维码只包含填写的 URL，生成过程在浏览器本地完成；不会上传地址，也不会请求订阅服务器。</p></section>
+<p id="error" role="alert"></p><section id="result" hidden><img id="qr" alt="卡组订阅二维码"><a id="save-qr" download="subscription-qr.png">保存二维码</a><button id="copy-source">复制订阅地址</button><p id="source-display"></p><p>也可复制地址，在 App 中粘贴下载。一个来源包含多个卡组时，App 会显示选择列表。</p></section><p id="notice" role="status"></p>
+<section><h2>现有卡组</h2><div id="examples"></div></section><footer><a href="https://github.com/zhaoolee/piclex-web/blob/main/docs/publishing-decks.md">第三方卡组发布指南</a></footer>
+</main><script type="module" src="./main.mjs"></script></body></html>
