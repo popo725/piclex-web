@@ -15,7 +15,7 @@ test('camera starts automatic recognition, retains a full photo and releases tra
  const video=page.getByLabel('相机实时预览');await expect(video).toBeVisible();await expect(page.getByRole('button',{name:'拍下这张照片'})).toBeEnabled();await video.evaluate((element:HTMLVideoElement)=>(window as any).__captureTrack=(element.srcObject as MediaStream).getVideoTracks()[0]);
  await page.getByRole('button',{name:'拍下这张照片'}).click();await cancelCountdown(page);expect(await page.evaluate(()=>(window as any).__captureTrack.readyState)).toBe('ended');
  await page.getByRole('button',{name:'继续拍摄',exact:true}).click();await page.getByRole('button',{name:'拍摄照片',exact:true}).click();await expect(video).toBeVisible();await video.evaluate((element:HTMLVideoElement)=>(window as any).__captureTrack=(element.srcObject as MediaStream).getVideoTracks()[0]);
- await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();expect(await page.evaluate(()=>(window as any).__captureTrack.readyState)).toBe('ended');
+ await page.getByRole('navigation',{name:'底部导航'}).getByRole('button',{name:'设置',exact:true}).click();await expect(page.getByRole('heading',{name:'设置',exact:true})).toBeVisible();await expect.poll(()=>page.evaluate(()=>(window as any).__captureTrack.readyState)).toBe('ended');
 });
 test('import automatically recognizes and saves, then enters spelling after three seconds',async({page})=>{
  let uploads=0;await page.route(`${api}analyze`,async route=>{uploads++;expect(route.request().method()).toBe('POST');expect(route.request().headers()['content-type']).toContain('multipart/form-data');expect(route.request().postData()).toContain('client_id');await response(route,{labels:[label],quote:null,quota});});

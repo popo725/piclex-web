@@ -23,7 +23,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  const job=flow.jobs.find(value=>value.id===presented);
  const stopCamera=useCallback(()=>{generation.current++;stream.current?.getTracks().forEach(track=>track.stop());stream.current=null;if(video.current)video.current.srcObject=null;setOpening(false);setLive(false);setCameraReady(false);},[]);
  useEffect(()=>{if(!active){stopCamera();setPrinting(false);}},[active,stopCamera]);
- useEffect(()=>{const hide=()=>{if(document.hidden){stopCamera();setPrinting(false);}};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stopCamera);return()=>{document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stopCamera);stopCamera();};},[stopCamera]);
+ useEffect(()=>{const hide=()=>{if(document.hidden){stopCamera();setPrinting(false);}};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stopCamera);window.addEventListener('hashchange',stopCamera);return()=>{document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stopCamera);window.removeEventListener('hashchange',stopCamera);stopCamera();};},[stopCamera]);
  useEffect(()=>{if(live&&video.current&&stream.current){video.current.srcObject=stream.current;void video.current.play().catch(()=>{stopCamera();notify('相机预览无法播放，请重试或导入照片。');});}},[live,notify,stopCamera]);
  useEffect(()=>{if(!printing)return;const timer=setTimeout(()=>setPrinting(false),700);return()=>clearTimeout(timer);},[printing]);
  async function accept(blob:Blob){const id=flow.add(new Uint8Array(await blob.arrayBuffer()));setPresented(id);}
