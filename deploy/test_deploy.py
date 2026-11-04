@@ -59,6 +59,12 @@ class DeploymentTests(unittest.TestCase):
         self.assertEqual(protected_routes(candidate), protected_routes(SITE))
         legacy = SITE.replace(OLD_ROOT, str(ROOT / 'current')).replace('    location / { return 404; }', web_block().replace('location = /piclex-web ', 'location = /web ').replace('return 308 /piclex-web/;', 'return 308 /web/;').replace('location ^~ /piclex-web/', 'location ^~ /web/') + '    location / { return 404; }')
         self.assertEqual(patch_site(legacy), candidate)
+        # Existing deployments have the exact same protected block without MP3.
+        previous = candidate.replace('            audio/mpeg mp3;\n', '')
+        self.assertEqual(patch_site(previous), candidate)
+        self.assertEqual(protected_routes(previous), protected_routes(candidate))
+        with self.assertRaises(ValueError):
+            patch_site(previous.replace('autoindex off;', 'autoindex on;'))
 
     def test_rejects_unknown_homepage(self):
         with self.assertRaises(ValueError):

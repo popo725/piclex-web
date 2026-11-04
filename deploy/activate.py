@@ -81,7 +81,9 @@ def patch_site(current):
             raise ValueError('Malformed Web route markers')
         start, stop = candidate.index(BEGIN), candidate.index(END) + len(END)
         legacy = web_block().replace('location = /piclex-web ', 'location = /web ').replace('return 308 /piclex-web/;', 'return 308 /web/;').replace('location ^~ /piclex-web/', 'location ^~ /web/')
-        if candidate[start:stop] not in [web_block(), legacy]:
+        known_blocks = [web_block(), legacy]
+        known_blocks += [block.replace('            audio/mpeg mp3;\n', '') for block in known_blocks]
+        if candidate[start:stop] not in known_blocks:
             raise ValueError('Existing Web routes differ; review before applying')
         candidate = candidate[:start] + web_block() + candidate[stop:]
     else:
