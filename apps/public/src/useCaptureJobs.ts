@@ -18,12 +18,15 @@ export function useCaptureJobs(save:(bytes:Uint8Array,id:string)=>Promise<string
   if(requests.current.has(id))return;
   const controller=new AbortController();requests.current.set(id,controller);
   patch(id,{phase:'queued',message:'',retrySave:!recognize});
+  // Persist immediately, including photos waiting behind an earlier request.
+  const snapshot=current.current.find(value=>value.id===id)!;
+  const prepared=saveCaptureDraft(snapshot).then(()=>null,error=>error as Error);
   chain.current=chain.current.then(async()=>{
    let job=current.current.find(value=>value.id===id);if(!job)return;
    let retrySave=!recognize;
    try{
     if(controller.signal.aborted)throw Error('已取消等待，照片已保留。');
-    await saveCaptureDraft(job);
+    const prepareError=await prepared;if(prepareError)throw prepareError;
     if(recognize){
      patch(id,{phase:'recognizing'});let timedOut=false;
      const timer=setTimeout(()=>{timedOut=true;controller.abort();},60000);
