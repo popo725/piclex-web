@@ -39,6 +39,7 @@ def web_block(root=None):
             image/jpeg jpg jpeg;
             image/png png;
             image/svg+xml svg;
+            audio/mpeg mp3;
             text/plain txt;
         }}
         default_type application/octet-stream;
