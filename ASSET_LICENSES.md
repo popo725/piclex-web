@@ -29,3 +29,7 @@ Web 复用摄影学英语 App 的 `local-web/src/lab` 游戏引擎、角色／�
 `icons/tab-*.png` 来自 App 的 `PracticeEntryIcon.swift` 原绘制与动画；其余界面符号由 App 所用 UIKit/SF Symbols 渲染，不将 Apple 的系统符号重新授权为项目原创 MIT 美术。来源和摘要保存在 `docs/native-icons.json`。
 
 - 经典英语歌曲公开卡组来自 https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json ，快照固定v4、8张卡片、52句及52段MP3。公开可访问不代表MIT授权；歌词、原音频及图片权利由原来源保留，不属于代码许可。
+
+## 快门声音
+
+`audio/minolta-shutter.wav` 原样复用 PicLex `ShutterSoundMinolta.dataset/minolta-shutter.wav`，与 App 默认快门音字节一致；素材沿用原项目权利，不另行声称为 MIT 代码。

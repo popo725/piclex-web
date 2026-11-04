@@ -111,7 +111,7 @@ export function reduceSentence(prompt,session,mode,action){
   if(action.type==='pause')return {...session,pending:null};
   if(['select','remove','move'].includes(action.type)&&mode!=='chunks'||['input','guided','retry'].includes(action.type)&&mode!=='free')return session;
   const next=structuredClone(session),stats=next.statistics[mode];
-  if(action.type==='play'){stats.plays++;stats.lowestRate=Math.min(stats.lowestRate??action.rate,action.rate);return next;}
+  if(action.type==='play'){if(next.outcomes[mode])next.pending=null;stats.plays++;stats.lowestRate=Math.min(stats.lowestRate??action.rate,action.rate);return next;}
   if(next.outcomes[mode])return session;
   let evaluate=false;
   if(action.type==='select'&&next.chunks.some(c=>c.id===action.id)&&!next.selected.includes(action.id)){next.selected.push(action.id);delete next.checks.chunks;evaluate=next.selected.length===next.chunks.length;}

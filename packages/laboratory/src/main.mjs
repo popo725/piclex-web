@@ -622,7 +622,10 @@ function draw(){
   for(const s of game.particles){ctx.globalAlpha=Math.min(1,s.life*3);ctx.fillStyle=s.color;ctx.fillRect(s.x,s.y,3,3);}ctx.globalAlpha=1;
   for(const number of game.damageNumbers)drawDamageNumber(ctx,number);
 }
-void loadArtwork(draw);
+void loadArtwork(draw,(loaded,total)=>window.PICLEX_LAB_LOAD?.('loading','正在加载游戏素材…',loaded,total)).then(results=>{
+  if(results.every(Boolean))window.PICLEX_LAB_LOAD?.('ready','游戏已就绪');
+  else window.PICLEX_LAB_LOAD?.('error','部分游戏素材加载失败，请检查网络后重试。');
+}).catch(()=>window.PICLEX_LAB_LOAD?.('error','游戏素材加载失败，请重新加载。'));
 function tick(time){
   const dt=last?(time-last)/1000:0;last=time;
   if(!document.hidden){

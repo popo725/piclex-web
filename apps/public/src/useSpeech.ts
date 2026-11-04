@@ -7,14 +7,14 @@ export function useSpeech(notify:(s:string)=>void){
  const [progress]=useState(createPlaybackProgress);
  const clearMedia=useCallback(()=>{
   const current=media.current;media.current=null;
-  if(current){current.onended=null;current.onerror=null;current.ontimeupdate=null;current.onplaying=null;current.onwaiting=null;current.onstalled=null;current.pause();current.removeAttribute('src');current.load();}
+  if(current){current.onended=null;current.onerror=null;current.ontimeupdate=null;current.onplaying=null;current.onwaiting=null;current.onstalled=null;current.onloadedmetadata=null;current.pause();current.removeAttribute('src');current.load();}
   if(blob.current){URL.revokeObjectURL(blob.current);blob.current='';}
  },[]);
  const stop=useCallback(()=>{
   generation.current++;clearTimeout(timer.current);clearMedia();window.speechSynthesis?.cancel();
   setPlaying(false);setPreparing(false);setPosition(-1);progress.update(0);
  },[clearMedia,progress]);
- const play=useCallback((texts:string[],rate=1,onEnd?:()=>void,offset=0,clip?:AudioClip)=>{
+ const play=useCallback((texts:string[],rate=1,onEnd?:()=>void,offset=0,clip?:AudioClip,startFraction=0)=>{
   stop();const id=generation.current,queue=texts.filter(t=>t.trim());
   const valid=()=>id===generation.current&&!document.hidden;
   // TTS supplies character boundaries, not a duration. Queue progress is weighted
@@ -46,6 +46,7 @@ export function useSpeech(notify:(s:string)=>void){
      const time=()=>{if(media.current===player&&valid())update(i,Number.isFinite(player.duration)&&player.duration>0?player.currentTime/player.duration:0,!Number.isFinite(player.duration)||player.duration<=0);};
      player.onplaying=()=>{if(media.current===player){started();time();}};
      player.onwaiting=player.onstalled=()=>{if(valid()&&media.current===player)setPreparing(true);};
+     player.onloadedmetadata=()=>{if(!valid()||media.current!==player)return;if(Number.isFinite(player.duration)&&player.duration>0)player.currentTime=player.duration*Math.min(.999,Math.max(0,startFraction));time();};
      player.ontimeupdate=time;player.onerror=failed;
      player.onended=()=>{if(!valid()||media.current!==player)return;clearMedia();ended();};
      void player.play().catch(failed);

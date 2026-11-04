@@ -73,3 +73,13 @@ test('quick/full conversion never invents typed letters, and glow counts only th
  assert.equal(completionProgress('ice cream','ice c'),4/8);
  assert.equal(completionProgress('apple','axp'),1/5);
 });
+
+import {accumulateReading} from '../packages/practice/src/reading.mjs';
+test('speaking retains earlier matched positions without crediting repeated partials twice',()=>{
+ let result=accumulateReading('I am still in bed.','I am still');assert.equal(result.passed,false);assert.equal(result.matched.length,3);
+ result=accumulateReading('I am still in bed.','in bed',result.matched);assert.equal(result.passed,true);
+ const once=accumulateReading('go go','go');assert.equal(once.matched.length,1);assert.equal(accumulateReading('go go','go',once.matched).passed,false);assert.equal(accumulateReading('go go','go go',once.matched).passed,true);
+});
+test('speaking can finish the final sentence and restart in the same module without grading spelling',()=>{
+ let s=act(newStudy(deck),'module',{value:'speaking'});for(let i=0;i<deck.words.length;i++)s=act(s,'speakingNext');assert.equal(s.index,deck.words.length);assert.equal(s.module,'speaking');assert.ok(Object.values(s.words).every(d=>!d.result));s=act(s,'restart');assert.equal(s.index,0);assert.equal(s.module,'speaking');
+});

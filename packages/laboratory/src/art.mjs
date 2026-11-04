@@ -1,7 +1,7 @@
 // Original bitmap assets generated with Codex image_gen; prompts live beside the images.
 export const artwork = {};
-export function loadArtwork(redraw) {
-  return Promise.all([
+export function loadArtwork(redraw,progress=()=>{}) {
+  const assets=[
     ['achievementIcons','./assets/generated-v208/achievements.png'],
     ['classIcons','./assets/generated-v208/classes.png'],
     ['hero','./assets/hero.png'],
@@ -17,12 +17,15 @@ export function loadArtwork(redraw) {
     ['blobSheet','./assets/sprites/blob/spritesheet.png'],
     ['runnerSheet','./assets/sprites/runner/spritesheet.png'],
     ['tankSheet','./assets/sprites/tank/spritesheet.png'],
-  ].map(([name, path]) => new Promise(resolve => {
-    const image = new Image();
-    image.onload = () => { artwork[name] = image; redraw(); resolve(true); };
-    image.onerror = () => resolve(false);
-    image.src = path;
+  ];
+  let loaded=0;progress(0,assets.length);
+  return Promise.all(assets.map(([name,path])=>new Promise(resolve=>{
+    const image=new Image();let settled=false;
+    const finish=success=>{if(settled)return;settled=true;clearTimeout(timer);image.onload=image.onerror=null;if(success){artwork[name]=image;redraw();}progress(++loaded,assets.length);resolve(success);};
+    const timer=setTimeout(()=>finish(false),45000);
+    image.onload=()=>finish(true);image.onerror=()=>finish(false);image.src=path;
   })));
+
 }
 const indices = {pea:0,fork:1,scatter:2,damage:3,health:4,speed:5,armor:6,magnet:7,haste:8,regen:9};
 const weaponIds=['smg','knife','stick','fist','slingshot','laser','crossbow','lightning_shiv','shredder','minigun','ghost_axe','ghost_flint'];

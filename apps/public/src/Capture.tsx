@@ -1,3 +1,4 @@
+import {prepareShutterSound,playShutterSound} from './shutter-sound';
 import RecognitionHalo from './RecognitionHalo';
 import PolaroidPrint from './PolaroidPrint';
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
@@ -26,7 +27,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  const stopCamera=useCallback(()=>{generation.current++;stream.current?.getTracks().forEach(track=>track.stop());stream.current=null;if(video.current)video.current.srcObject=null;setOpening(false);setLive(false);setCameraReady(false);},[]);
  useEffect(()=>{if(!active){stopCamera();setPrinting(false);}},[active,stopCamera]);
  useEffect(()=>{const hide=()=>{if(document.hidden){stopCamera();setPrinting(false);}};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',stopCamera);window.addEventListener('hashchange',stopCamera);return()=>{document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',stopCamera);window.removeEventListener('hashchange',stopCamera);stopCamera();};},[stopCamera]);
- useEffect(()=>{if(live&&video.current&&stream.current){video.current.srcObject=stream.current;void video.current.play().catch(()=>{stopCamera();notify('相机预览无法播放，请重试或导入照片。');});}},[live,notify,stopCamera]);
+ useEffect(()=>{if(live&&video.current&&stream.current){prepareShutterSound();video.current.srcObject=stream.current;void video.current.play().catch(()=>{stopCamera();notify('相机预览无法播放，请重试或导入照片。');});}},[live,notify,stopCamera]);
  async function accept(blob:Blob){const id=flow.add(new Uint8Array(await blob.arrayBuffer()));setPresented(id);}
  async function choose(file?:File){
   if(!file)return;stopCamera();setPreparing(true);
@@ -35,7 +36,10 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
   }catch(e){notify((e as Error).message);}finally{setPreparing(false);if(picker.current)picker.current.value='';}
  }
  async function camera(){
-  if(live){if(!cameraReady||!video.current)return;setPreparing(true);setPrinting(true);try{const canvas=imageCanvas(video.current.videoWidth,video.current.videoHeight);canvas.getContext('2d')!.drawImage(video.current,0,0,canvas.width,canvas.height);const blob=await jpeg(canvas);stopCamera();await accept(blob);}catch(e){setPrinting(false);notify((e as Error).message);}finally{setPreparing(false);}return;}
+  if(live){if(!cameraReady||!video.current)return;setPreparing(true);setPrinting(true);try{const source=video.current,frame=source.getBoundingClientRect(),ratio=frame.width/frame.height;
+   const sw=Math.min(source.videoWidth,source.videoHeight*ratio),sh=sw/ratio;
+   const canvas=imageCanvas(sw,sh);canvas.getContext('2d')!.drawImage(source,(source.videoWidth-sw)/2,(source.videoHeight-sh)/2,sw,sh,0,0,canvas.width,canvas.height);
+   playShutterSound();const blob=await jpeg(canvas);stopCamera();await accept(blob);}catch(e){setPrinting(false);notify((e as Error).message);}finally{setPreparing(false);}return;}
   if(!navigator.mediaDevices?.getUserMedia){notify('当前浏览器无法打开相机，请使用 HTTPS 页面或导入照片。');return;}
   const token=++generation.current;setOpening(true);
   try{const media=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1600}},audio:false});
@@ -57,7 +61,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
   {pending.length>0&&<div className="capture-recent" aria-label="本次拍摄的卡片">{pending.map((value,index)=><button key={value.id} className="native-button" onClick={()=>{stopCamera();flow.consume(value.id);setPresented(value.id);}}>照片 {index+1} · {busy(value)?'正在生成':value.phase==='review'?'已保存':'待重试'}</button>)}</div>}
-  {printing&&active&&<PolaroidPrint image={job?.image} finished={()=>setPrinting(false)}/>}
+  {printing&&active&&<PolaroidPrint close={resume} image={job?.image} finished={()=>setPrinting(false)}/>}
  </main>;
 }
 

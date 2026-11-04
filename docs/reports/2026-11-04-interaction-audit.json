@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-04",
+  "unitPassed": 195,
+  "deploymentPassed": 8,
+  "browserCases": 139,
+  "browserPassedAfterFixtureRepair": 137,
+  "existingPlatformSkips": 2,
+  "localFullRun": {
+    "passed": 135,
+    "failed": 2,
+    "skipped": 2
+  },
+  "failure": "WebKit replaced test mediaDevices object before click; production permission handling unchanged",
+  "recheck": {
+    "webkitCameraPassed": 2,
+    "pixelChecks": [
+      "landscape source",
+      "portrait source",
+      "four corners",
+      "center",
+      "saved dimensions"
+    ],
+    "audio": "real HTMLAudioElement playing event, muted in automated test"
+  },
+  "nativeShutterSHA256": "c7ffe1ffb064940c7f28a0339f91e992a13a9b0f6949aeaafb2d45819fee75e8",
+  "deviceActions": []
+}
