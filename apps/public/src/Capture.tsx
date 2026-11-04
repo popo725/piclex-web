@@ -112,7 +112,7 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
  function saveEdit(){stopCountdown();edit(title,labels);setEditing(false);}
  function interact(){if(seconds!==null)stopCountdown();}
  const currentLabel=selected===null?null:job.labels[selected];
- return <section className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
+ return <section inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
   <div ref={card} style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}
