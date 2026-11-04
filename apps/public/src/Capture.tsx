@@ -53,7 +53,6 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
     {(opening||live)&&<button className="camera-close native-button" onClick={stopCamera}>关闭相机</button>}
    </div>
    <div className="capture-controls"><button className="camera-accessory" aria-label="导入照片" onClick={()=>picker.current?.click()} disabled={!flow.ready||preparing}><Icon name="photo"/></button><button className="shutter" aria-label={live?'拍下这张照片':'拍摄照片'} onClick={()=>void camera()} disabled={!flow.ready||preparing||opening||(live&&!cameraReady)}><span/></button><button className="camera-accessory" aria-label="开始练习" onClick={()=>learn()}><Icon name="tab-learn"/></button></div>
-   <p className="capture-upload-hint">拍摄或导入后，自动上传并生成英语卡片</p>
    {preparing&&<p className="capture-status" role="status">正在准备照片…</p>}
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>

@@ -11,7 +11,7 @@ async function cancelCountdown(page:Page){await expect(page.getByRole('button',{
 async function savedCount(page:Page){return page.evaluate(async()=>new Promise<number>((resolve,reject)=>{const r=indexedDB.open('piclex-web-v1');r.onsuccess=()=>{const db=r.result,t=db.transaction('decks','readonly'),q=t.objectStore('decks').count();t.oncomplete=()=>{resolve(q.result);db.close();};};r.onerror=reject;}));}
 test.beforeEach(async({page})=>{await page.route(`${api}analyze`,route=>response(route,{labels:[label],quote:{chinese:'生活中的小小发现。',english:'Little discoveries in everyday life.',source:''},quota}));});
 test('camera starts automatic recognition, retains a full photo and releases tracks on capture and tab exit',async({page},info)=>{
- await page.goto('/piclex-web/#/capture');await expect(page.getByText('首次使用会请求相机权限',{exact:true})).toBeVisible();await expect(page.getByText('拍摄或导入后，自动上传并生成英语卡片',{exact:true})).toBeVisible();await page.getByRole('button',{name:'打开相机',exact:true}).click();
+ await page.goto('/piclex-web/#/capture');await expect(page.getByText('首次使用会请求相机权限',{exact:true})).toBeVisible();await expect(page.getByText('拍摄或导入后，自动上传并生成英语卡片',{exact:true})).toHaveCount(0);await page.getByRole('button',{name:'打开相机',exact:true}).click();
  const video=page.getByLabel('相机实时预览');await expect(video).toBeVisible();await expect(page.getByRole('button',{name:'拍下这张照片'})).toBeEnabled();await video.evaluate((element:HTMLVideoElement)=>(window as any).__captureTrack=(element.srcObject as MediaStream).getVideoTracks()[0]);
  await page.getByRole('button',{name:'拍下这张照片'}).click();await expect(page.getByLabel('正在出片',{exact:true})).toBeVisible();
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toHaveCount(0);
