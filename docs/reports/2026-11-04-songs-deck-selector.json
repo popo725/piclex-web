@@ -1,0 +1,846 @@
+{
+  "date": "2026-11-04",
+  "sourceRevision": "2af2e5558244ade89d3074fc743b8c8b790cd402",
+  "mirrorRelease": "2af2e5558244-6417c62e7960",
+  "ciRun": 41781775439,
+  "unitPassed": 193,
+  "deploymentPassed": 8,
+  "browserPassed": 88,
+  "browserSkipped": 2,
+  "isolatedFiles": 518,
+  "songPhotos": 8,
+  "songOccurrences": 52,
+  "songClips": 52,
+  "resources": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "60db67600bcbc7734485b4af51d45b5af7a64d56e53767c47b2d6276090dfcbd",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/credits.html",
+      "bytes": 3938,
+      "sha256": "bdb35eafee973cbfeb592568a84e925b5e85c40e7d630587aa0a9c04c8b663c2",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622",
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-Dn4-L7ta.js",
+      "bytes": 337119,
+      "sha256": "fca91141d767b5360b76834f43d3fa90716d69ee707e7497f3a0ada9c4d72c7d",
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/assets/main-DnCu6Cmy.css",
+      "bytes": 55449,
+      "sha256": "97f8e6696bab9a7e27b64fd9953c7b93138184311d2dc6dcdee0bf9cb646da08",
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/catalog.json",
+      "bytes": 8453,
+      "sha256": "816d9ca6b88c66956b7922a7dff0d5120ea4bdbf29c4875b4e037bd1388a48f7",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/source.json",
+      "bytes": 8945,
+      "sha256": "a09495278168ea8beb167c1ff25eeeb35982ccf9dc7d44050a5264122c3874d3",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/deck.json",
+      "bytes": 34884,
+      "sha256": "cef5579d4855c06bc765eb4c38ca09dca0c1baa2ba7ab9518e4894056d448195",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/deck.piclexdeck",
+      "bytes": 4985185,
+      "sha256": "092fe83de3492f3aefbc76f01c540ce96f6001b3ee2905e4ff2903b86c26bf52",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/cover.jpg",
+      "bytes": 120924,
+      "sha256": "135a2d8481e9d0b33ff689207e121ac12bc4419619deecb849ff4c6ee38ef8c7",
+      "contentType": "image/jpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/41c488e03b80ef50b1c417fd791862f308eea85b46164a5b7c0860c980f85457.mp3",
+      "bytes": 20941,
+      "sha256": "41c488e03b80ef50b1c417fd791862f308eea85b46164a5b7c0860c980f85457",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/390b9ca5b1fc5c83ae4e15b25e69ee82f0c64084b49f7d93d64334f46701c5af.mp3",
+      "bytes": 21150,
+      "sha256": "390b9ca5b1fc5c83ae4e15b25e69ee82f0c64084b49f7d93d64334f46701c5af",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/e612450b0e685c97980fbfeb7ccfda0ae9948914cda4529ffe45108d1394c766.mp3",
+      "bytes": 20941,
+      "sha256": "e612450b0e685c97980fbfeb7ccfda0ae9948914cda4529ffe45108d1394c766",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/10cf99d70bba41800c2319e658e783b9f6641b958a1d46d5293262ebdf100be8.mp3",
+      "bytes": 16135,
+      "sha256": "10cf99d70bba41800c2319e658e783b9f6641b958a1d46d5293262ebdf100be8",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/63b2c5b683a24d0a444305394b4044ab45b5fe66184ae07f5aab105db6b2c0a2.mp3",
+      "bytes": 24285,
+      "sha256": "63b2c5b683a24d0a444305394b4044ab45b5fe66184ae07f5aab105db6b2c0a2",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/672dace93d92d7debdefac9eb5d9300b8418bce3f942dc6611bd434d24565a84.mp3",
+      "bytes": 20941,
+      "sha256": "672dace93d92d7debdefac9eb5d9300b8418bce3f942dc6611bd434d24565a84",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/9d5b445ea8d4c7f152938ca3ef9736ec652becf71b263087be661a7c5ffef1cb.mp3",
+      "bytes": 20941,
+      "sha256": "9d5b445ea8d4c7f152938ca3ef9736ec652becf71b263087be661a7c5ffef1cb",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/bffeb8924920cc1fc60a2e959acb741136c329a062befa89bb4391ae05053eb3.mp3",
+      "bytes": 20315,
+      "sha256": "bffeb8924920cc1fc60a2e959acb741136c329a062befa89bb4391ae05053eb3",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/57853f5ec9e55de67c2bd0fe943ea1acd307e1da50e6e725ab44fbd81018f486.mp3",
+      "bytes": 21568,
+      "sha256": "57853f5ec9e55de67c2bd0fe943ea1acd307e1da50e6e725ab44fbd81018f486",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2567c3e6f1ee748811126c49297a4e52987d5327f58ca15756b197d4193ab543.mp3",
+      "bytes": 24076,
+      "sha256": "2567c3e6f1ee748811126c49297a4e52987d5327f58ca15756b197d4193ab543",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/48ff6f317231ade9f24e5aab2a65dffa30bd4bfb879c04c3a89fc86504fe3a64.mp3",
+      "bytes": 17598,
+      "sha256": "48ff6f317231ade9f24e5aab2a65dffa30bd4bfb879c04c3a89fc86504fe3a64",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/35fff3f5d2feb3f022e927bf0fafeaa9e368e0f4744eeee71e6038fd2e15b493.mp3",
+      "bytes": 23867,
+      "sha256": "35fff3f5d2feb3f022e927bf0fafeaa9e368e0f4744eeee71e6038fd2e15b493",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/943cf1509b1307d16c1de018fce10c25f73f2ef86c1802ab793b9180cb6e5ea1.mp3",
+      "bytes": 19270,
+      "sha256": "943cf1509b1307d16c1de018fce10c25f73f2ef86c1802ab793b9180cb6e5ea1",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8d9199899a4a661d00237de9cf2d04a641a1686188cba72d5ebc499417351e19.mp3",
+      "bytes": 20733,
+      "sha256": "8d9199899a4a661d00237de9cf2d04a641a1686188cba72d5ebc499417351e19",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/051f029e2578e967e1e308f5712029f0b6373749071eb9a3f1a099880d8983d6.mp3",
+      "bytes": 21359,
+      "sha256": "051f029e2578e967e1e308f5712029f0b6373749071eb9a3f1a099880d8983d6",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/724e0422ab0f0cf085b3972c8b938b922d41dfca3aedfce9eaeff62329790425.mp3",
+      "bytes": 15508,
+      "sha256": "724e0422ab0f0cf085b3972c8b938b922d41dfca3aedfce9eaeff62329790425",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/eb5a768338c87879b19b67fa170474124b82811d0203b74ee174d6a7a29de632.mp3",
+      "bytes": 20733,
+      "sha256": "eb5a768338c87879b19b67fa170474124b82811d0203b74ee174d6a7a29de632",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/d31166db42b46a85ee1b6878b6736cd0bd7e3ec829041321ec2d9d0f17bebc6d.mp3",
+      "bytes": 40795,
+      "sha256": "d31166db42b46a85ee1b6878b6736cd0bd7e3ec829041321ec2d9d0f17bebc6d",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/14edb2704c338f576ff9a9a4623c674481d042810a86f68737109c2167d2749c.mp3",
+      "bytes": 22822,
+      "sha256": "14edb2704c338f576ff9a9a4623c674481d042810a86f68737109c2167d2749c",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/c5f5616ba3e386d33d1110554be6aa2f0002ca5381eaa4ffab5faea24425fe3a.mp3",
+      "bytes": 26375,
+      "sha256": "c5f5616ba3e386d33d1110554be6aa2f0002ca5381eaa4ffab5faea24425fe3a",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/35e079215f160f1cdf5a90d2dc8496a1f493b8e177aa1af8878426f1431190de.mp3",
+      "bytes": 20733,
+      "sha256": "35e079215f160f1cdf5a90d2dc8496a1f493b8e177aa1af8878426f1431190de",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/3ef533bfef606142841d106e76b1782d351652882c81448e3d00220cce022edd.mp3",
+      "bytes": 20315,
+      "sha256": "3ef533bfef606142841d106e76b1782d351652882c81448e3d00220cce022edd",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a8e9061f040d5d362482278c9171756000fd37218f15e235f6c654299288face.mp3",
+      "bytes": 20106,
+      "sha256": "a8e9061f040d5d362482278c9171756000fd37218f15e235f6c654299288face",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/edb31911dc5e926975d0f8ef0bb9d8e7e73987384c4b4c9b0665f8fc1f3aea0d.mp3",
+      "bytes": 21986,
+      "sha256": "edb31911dc5e926975d0f8ef0bb9d8e7e73987384c4b4c9b0665f8fc1f3aea0d",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/10977f821d9e9c541da0a124d25518fb92732b2a94fa1efe35f459184ba660fe.mp3",
+      "bytes": 20315,
+      "sha256": "10977f821d9e9c541da0a124d25518fb92732b2a94fa1efe35f459184ba660fe",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/7098d0baf0ed182cecd36c6fe21f4b8489f63b73ea616bfb96b80a80822a8169.mp3",
+      "bytes": 20941,
+      "sha256": "7098d0baf0ed182cecd36c6fe21f4b8489f63b73ea616bfb96b80a80822a8169",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8563cb3d7eee52ecc93fd54f0d1c1ee5e554e25d3741977579f93461eda34c1c.mp3",
+      "bytes": 20315,
+      "sha256": "8563cb3d7eee52ecc93fd54f0d1c1ee5e554e25d3741977579f93461eda34c1c",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/068490f1d15803631cb7232ba928f506831b38d21c4fcb78b8bde6f0630f2898.mp3",
+      "bytes": 22404,
+      "sha256": "068490f1d15803631cb7232ba928f506831b38d21c4fcb78b8bde6f0630f2898",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/81fb06bea328208305a8d3095743de58609046b5072351eb4b1091caa6d3dbe4.mp3",
+      "bytes": 20733,
+      "sha256": "81fb06bea328208305a8d3095743de58609046b5072351eb4b1091caa6d3dbe4",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/4d59cce7ab9ed9c9444ab9168276d63a4db704a60e1f727b2c898da0cdd2df94.mp3",
+      "bytes": 21777,
+      "sha256": "4d59cce7ab9ed9c9444ab9168276d63a4db704a60e1f727b2c898da0cdd2df94",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a43f3950ffaf10ba83df1f693703edd469bc2c9d40c8154f00d1f75c535e5dd3.mp3",
+      "bytes": 15299,
+      "sha256": "a43f3950ffaf10ba83df1f693703edd469bc2c9d40c8154f00d1f75c535e5dd3",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/421ca90786be67ae36240b6262eae3b1180d292a2e2c8f1ca8826dc64df7f912.mp3",
+      "bytes": 20315,
+      "sha256": "421ca90786be67ae36240b6262eae3b1180d292a2e2c8f1ca8826dc64df7f912",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/de10f72289260d4a4d10bb79e1f902769c9971651daea98b24cb8305a7241212.mp3",
+      "bytes": 40795,
+      "sha256": "de10f72289260d4a4d10bb79e1f902769c9971651daea98b24cb8305a7241212",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/599470ea2008d2ce7756e98069c8df22c010266368145e8583c3f5df9e0f3616.mp3",
+      "bytes": 39750,
+      "sha256": "599470ea2008d2ce7756e98069c8df22c010266368145e8583c3f5df9e0f3616",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/85653564084d165f9d1bd8e63517d91ab3db4d9aceb874b19f0e2db01bdd3a99.mp3",
+      "bytes": 40168,
+      "sha256": "85653564084d165f9d1bd8e63517d91ab3db4d9aceb874b19f0e2db01bdd3a99",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/69521c66b39b4baa79b0e8581a50c238e1a5edd326d093af6dd775b4736a254f.mp3",
+      "bytes": 25748,
+      "sha256": "69521c66b39b4baa79b0e8581a50c238e1a5edd326d093af6dd775b4736a254f",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2b971a5961c22f90590b68c9ec8685f638cb50b6ad438ce67c12858b967c9722.mp3",
+      "bytes": 19897,
+      "sha256": "2b971a5961c22f90590b68c9ec8685f638cb50b6ad438ce67c12858b967c9722",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b37587df3b88cc7a41312aa50df69dcf0396a150e2b05f5181741e0c190bd3ce.mp3",
+      "bytes": 21777,
+      "sha256": "b37587df3b88cc7a41312aa50df69dcf0396a150e2b05f5181741e0c190bd3ce",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/da683c20b7c4683d388bdd61b73e98710716fb1021a42b52b244ebe220d4997b.mp3",
+      "bytes": 19897,
+      "sha256": "da683c20b7c4683d388bdd61b73e98710716fb1021a42b52b244ebe220d4997b",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f10b487600aea91bd4c9aa1a175015f4cda7b15f1744fd7e5f787a564e8b66af.mp3",
+      "bytes": 20733,
+      "sha256": "f10b487600aea91bd4c9aa1a175015f4cda7b15f1744fd7e5f787a564e8b66af",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8bc564af0c74de15e0eb2f7c208b437b5771201f4b2ce843ac3349b0bee9e459.mp3",
+      "bytes": 20524,
+      "sha256": "8bc564af0c74de15e0eb2f7c208b437b5771201f4b2ce843ac3349b0bee9e459",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/026ddc6b491933319c2f8a3fd83d3c1439be7b39d272d046d03bc390981bb407.mp3",
+      "bytes": 20733,
+      "sha256": "026ddc6b491933319c2f8a3fd83d3c1439be7b39d272d046d03bc390981bb407",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f460faeb41ba0a34f122679c3975e6dabc3b6b4147d446f5b329b299d51e73e6.mp3",
+      "bytes": 20524,
+      "sha256": "f460faeb41ba0a34f122679c3975e6dabc3b6b4147d446f5b329b299d51e73e6",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/7195e6138693dc17390566b5eb95b4077d9be096b0a2b846fe4ad3736f2a1aa2.mp3",
+      "bytes": 22195,
+      "sha256": "7195e6138693dc17390566b5eb95b4077d9be096b0a2b846fe4ad3736f2a1aa2",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2107aefb393b675c24f3beb09ad17091f975d7bdf02f4f4f6bbe68276b9fa5dd.mp3",
+      "bytes": 21359,
+      "sha256": "2107aefb393b675c24f3beb09ad17091f975d7bdf02f4f4f6bbe68276b9fa5dd",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b5f60956a03912ee8b22ddbb2792d9d5effa76cc5dbe2b097563e585e9c46c96.mp3",
+      "bytes": 21150,
+      "sha256": "b5f60956a03912ee8b22ddbb2792d9d5effa76cc5dbe2b097563e585e9c46c96",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/80f6e9a43c0390548cfc68010bf9980c2fc1e76a47a388076c417d5ddc716e58.mp3",
+      "bytes": 15508,
+      "sha256": "80f6e9a43c0390548cfc68010bf9980c2fc1e76a47a388076c417d5ddc716e58",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/c5d778503ad644c790b87b40e27f6f03aa51d99e37d3fac4e5d1faded5850459.mp3",
+      "bytes": 20733,
+      "sha256": "c5d778503ad644c790b87b40e27f6f03aa51d99e37d3fac4e5d1faded5850459",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b3949e22f4ca57b52339451c56e34ce46a6a443c8aef9487bca63e2af1f1c6d6.mp3",
+      "bytes": 40377,
+      "sha256": "b3949e22f4ca57b52339451c56e34ce46a6a443c8aef9487bca63e2af1f1c6d6",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a593a89a63f9799da2b3a62eb5032a2f985f61656b67502858cbac762dd5b2b4.mp3",
+      "bytes": 39750,
+      "sha256": "a593a89a63f9799da2b3a62eb5032a2f985f61656b67502858cbac762dd5b2b4",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/34d40360c2ed4a6b97d5f83c1efe3876e044f0a939d80990c6be3c6425d2e31e.mp3",
+      "bytes": 40795,
+      "sha256": "34d40360c2ed4a6b97d5f83c1efe3876e044f0a939d80990c6be3c6425d2e31e",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f4d3eaceade027810be2e419a06592c5306b59e5d6182661b73967a11c999507.mp3",
+      "bytes": 11328,
+      "sha256": "f4d3eaceade027810be2e419a06592c5306b59e5d6182661b73967a11c999507",
+      "contentType": "audio/mpeg"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/index.html",
+      "bytes": 1452,
+      "sha256": "60db67600bcbc7734485b4af51d45b5af7a64d56e53767c47b2d6276090dfcbd",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/credits.html",
+      "bytes": 3938,
+      "sha256": "bdb35eafee973cbfeb592568a84e925b5e85c40e7d630587aa0a9c04c8b663c2",
+      "contentType": "text/html"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture.png",
+      "bytes": 2991,
+      "sha256": "a12b547d3ad1c7c4ca7f1a48bf3804f1fbd43a047eba3e1ce7144c5bbbac4280",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-capture-frames.png",
+      "bytes": 88519,
+      "sha256": "e2557ee49e98608aa3fc1e10347ce985015059559f9f05f866b00ca6efed9901",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn.png",
+      "bytes": 3966,
+      "sha256": "2390722ced64b6fdb3187de6d6bebc28914d0a70d8956c2a629a68535d893f46",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-learn-frames.png",
+      "bytes": 12928,
+      "sha256": "b2a357c8c2e8a92bc50337750f000a90a93fbcd71f439c7c634ca4a3ec0f8f61",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings.png",
+      "bytes": 4313,
+      "sha256": "4f1fbec4958dc79cfdca321d8a8c50f84e908dd06a4d6f2d2a33f51d4154b932",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/icons/tab-settings-frames.png",
+      "bytes": 26579,
+      "sha256": "3c5e6489ca535eba36fe0739de5f65197429fd00c8314f265bfca18db576e84b",
+      "contentType": "image/png"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-BVOpoi2g.js",
+      "bytes": 2805124,
+      "sha256": "3a0194bd2506293b8b2aeb17488df593ed5dd2257d4c5ea13882e80895a20622",
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-Dn4-L7ta.js",
+      "bytes": 337119,
+      "sha256": "fca91141d767b5360b76834f43d3fa90716d69ee707e7497f3a0ada9c4d72c7d",
+      "contentType": "application/javascript"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-DnCu6Cmy.css",
+      "bytes": 55449,
+      "sha256": "97f8e6696bab9a7e27b64fd9953c7b93138184311d2dc6dcdee0bf9cb646da08",
+      "contentType": "text/css"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/catalog.json",
+      "bytes": 8453,
+      "sha256": "816d9ca6b88c66956b7922a7dff0d5120ea4bdbf29c4875b4e037bd1388a48f7",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/source.json",
+      "bytes": 8945,
+      "sha256": "a09495278168ea8beb167c1ff25eeeb35982ccf9dc7d44050a5264122c3874d3",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/deck.json",
+      "bytes": 34884,
+      "sha256": "cef5579d4855c06bc765eb4c38ca09dca0c1baa2ba7ab9518e4894056d448195",
+      "contentType": "application/json"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/deck.piclexdeck",
+      "bytes": 4985185,
+      "sha256": "092fe83de3492f3aefbc76f01c540ce96f6001b3ee2905e4ff2903b86c26bf52",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/cover.jpg",
+      "bytes": 120924,
+      "sha256": "135a2d8481e9d0b33ff689207e121ac12bc4419619deecb849ff4c6ee38ef8c7",
+      "contentType": "image/jpeg"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/41c488e03b80ef50b1c417fd791862f308eea85b46164a5b7c0860c980f85457.mp3",
+      "bytes": 20941,
+      "sha256": "41c488e03b80ef50b1c417fd791862f308eea85b46164a5b7c0860c980f85457",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/390b9ca5b1fc5c83ae4e15b25e69ee82f0c64084b49f7d93d64334f46701c5af.mp3",
+      "bytes": 21150,
+      "sha256": "390b9ca5b1fc5c83ae4e15b25e69ee82f0c64084b49f7d93d64334f46701c5af",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/e612450b0e685c97980fbfeb7ccfda0ae9948914cda4529ffe45108d1394c766.mp3",
+      "bytes": 20941,
+      "sha256": "e612450b0e685c97980fbfeb7ccfda0ae9948914cda4529ffe45108d1394c766",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/10cf99d70bba41800c2319e658e783b9f6641b958a1d46d5293262ebdf100be8.mp3",
+      "bytes": 16135,
+      "sha256": "10cf99d70bba41800c2319e658e783b9f6641b958a1d46d5293262ebdf100be8",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/63b2c5b683a24d0a444305394b4044ab45b5fe66184ae07f5aab105db6b2c0a2.mp3",
+      "bytes": 24285,
+      "sha256": "63b2c5b683a24d0a444305394b4044ab45b5fe66184ae07f5aab105db6b2c0a2",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/672dace93d92d7debdefac9eb5d9300b8418bce3f942dc6611bd434d24565a84.mp3",
+      "bytes": 20941,
+      "sha256": "672dace93d92d7debdefac9eb5d9300b8418bce3f942dc6611bd434d24565a84",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/9d5b445ea8d4c7f152938ca3ef9736ec652becf71b263087be661a7c5ffef1cb.mp3",
+      "bytes": 20941,
+      "sha256": "9d5b445ea8d4c7f152938ca3ef9736ec652becf71b263087be661a7c5ffef1cb",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/bffeb8924920cc1fc60a2e959acb741136c329a062befa89bb4391ae05053eb3.mp3",
+      "bytes": 20315,
+      "sha256": "bffeb8924920cc1fc60a2e959acb741136c329a062befa89bb4391ae05053eb3",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/57853f5ec9e55de67c2bd0fe943ea1acd307e1da50e6e725ab44fbd81018f486.mp3",
+      "bytes": 21568,
+      "sha256": "57853f5ec9e55de67c2bd0fe943ea1acd307e1da50e6e725ab44fbd81018f486",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2567c3e6f1ee748811126c49297a4e52987d5327f58ca15756b197d4193ab543.mp3",
+      "bytes": 24076,
+      "sha256": "2567c3e6f1ee748811126c49297a4e52987d5327f58ca15756b197d4193ab543",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/48ff6f317231ade9f24e5aab2a65dffa30bd4bfb879c04c3a89fc86504fe3a64.mp3",
+      "bytes": 17598,
+      "sha256": "48ff6f317231ade9f24e5aab2a65dffa30bd4bfb879c04c3a89fc86504fe3a64",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/35fff3f5d2feb3f022e927bf0fafeaa9e368e0f4744eeee71e6038fd2e15b493.mp3",
+      "bytes": 23867,
+      "sha256": "35fff3f5d2feb3f022e927bf0fafeaa9e368e0f4744eeee71e6038fd2e15b493",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/943cf1509b1307d16c1de018fce10c25f73f2ef86c1802ab793b9180cb6e5ea1.mp3",
+      "bytes": 19270,
+      "sha256": "943cf1509b1307d16c1de018fce10c25f73f2ef86c1802ab793b9180cb6e5ea1",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8d9199899a4a661d00237de9cf2d04a641a1686188cba72d5ebc499417351e19.mp3",
+      "bytes": 20733,
+      "sha256": "8d9199899a4a661d00237de9cf2d04a641a1686188cba72d5ebc499417351e19",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/051f029e2578e967e1e308f5712029f0b6373749071eb9a3f1a099880d8983d6.mp3",
+      "bytes": 21359,
+      "sha256": "051f029e2578e967e1e308f5712029f0b6373749071eb9a3f1a099880d8983d6",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/724e0422ab0f0cf085b3972c8b938b922d41dfca3aedfce9eaeff62329790425.mp3",
+      "bytes": 15508,
+      "sha256": "724e0422ab0f0cf085b3972c8b938b922d41dfca3aedfce9eaeff62329790425",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/eb5a768338c87879b19b67fa170474124b82811d0203b74ee174d6a7a29de632.mp3",
+      "bytes": 20733,
+      "sha256": "eb5a768338c87879b19b67fa170474124b82811d0203b74ee174d6a7a29de632",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/d31166db42b46a85ee1b6878b6736cd0bd7e3ec829041321ec2d9d0f17bebc6d.mp3",
+      "bytes": 40795,
+      "sha256": "d31166db42b46a85ee1b6878b6736cd0bd7e3ec829041321ec2d9d0f17bebc6d",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/14edb2704c338f576ff9a9a4623c674481d042810a86f68737109c2167d2749c.mp3",
+      "bytes": 22822,
+      "sha256": "14edb2704c338f576ff9a9a4623c674481d042810a86f68737109c2167d2749c",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/c5f5616ba3e386d33d1110554be6aa2f0002ca5381eaa4ffab5faea24425fe3a.mp3",
+      "bytes": 26375,
+      "sha256": "c5f5616ba3e386d33d1110554be6aa2f0002ca5381eaa4ffab5faea24425fe3a",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/35e079215f160f1cdf5a90d2dc8496a1f493b8e177aa1af8878426f1431190de.mp3",
+      "bytes": 20733,
+      "sha256": "35e079215f160f1cdf5a90d2dc8496a1f493b8e177aa1af8878426f1431190de",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/3ef533bfef606142841d106e76b1782d351652882c81448e3d00220cce022edd.mp3",
+      "bytes": 20315,
+      "sha256": "3ef533bfef606142841d106e76b1782d351652882c81448e3d00220cce022edd",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a8e9061f040d5d362482278c9171756000fd37218f15e235f6c654299288face.mp3",
+      "bytes": 20106,
+      "sha256": "a8e9061f040d5d362482278c9171756000fd37218f15e235f6c654299288face",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/edb31911dc5e926975d0f8ef0bb9d8e7e73987384c4b4c9b0665f8fc1f3aea0d.mp3",
+      "bytes": 21986,
+      "sha256": "edb31911dc5e926975d0f8ef0bb9d8e7e73987384c4b4c9b0665f8fc1f3aea0d",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/10977f821d9e9c541da0a124d25518fb92732b2a94fa1efe35f459184ba660fe.mp3",
+      "bytes": 20315,
+      "sha256": "10977f821d9e9c541da0a124d25518fb92732b2a94fa1efe35f459184ba660fe",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/7098d0baf0ed182cecd36c6fe21f4b8489f63b73ea616bfb96b80a80822a8169.mp3",
+      "bytes": 20941,
+      "sha256": "7098d0baf0ed182cecd36c6fe21f4b8489f63b73ea616bfb96b80a80822a8169",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8563cb3d7eee52ecc93fd54f0d1c1ee5e554e25d3741977579f93461eda34c1c.mp3",
+      "bytes": 20315,
+      "sha256": "8563cb3d7eee52ecc93fd54f0d1c1ee5e554e25d3741977579f93461eda34c1c",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/068490f1d15803631cb7232ba928f506831b38d21c4fcb78b8bde6f0630f2898.mp3",
+      "bytes": 22404,
+      "sha256": "068490f1d15803631cb7232ba928f506831b38d21c4fcb78b8bde6f0630f2898",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/81fb06bea328208305a8d3095743de58609046b5072351eb4b1091caa6d3dbe4.mp3",
+      "bytes": 20733,
+      "sha256": "81fb06bea328208305a8d3095743de58609046b5072351eb4b1091caa6d3dbe4",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/4d59cce7ab9ed9c9444ab9168276d63a4db704a60e1f727b2c898da0cdd2df94.mp3",
+      "bytes": 21777,
+      "sha256": "4d59cce7ab9ed9c9444ab9168276d63a4db704a60e1f727b2c898da0cdd2df94",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a43f3950ffaf10ba83df1f693703edd469bc2c9d40c8154f00d1f75c535e5dd3.mp3",
+      "bytes": 15299,
+      "sha256": "a43f3950ffaf10ba83df1f693703edd469bc2c9d40c8154f00d1f75c535e5dd3",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/421ca90786be67ae36240b6262eae3b1180d292a2e2c8f1ca8826dc64df7f912.mp3",
+      "bytes": 20315,
+      "sha256": "421ca90786be67ae36240b6262eae3b1180d292a2e2c8f1ca8826dc64df7f912",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/de10f72289260d4a4d10bb79e1f902769c9971651daea98b24cb8305a7241212.mp3",
+      "bytes": 40795,
+      "sha256": "de10f72289260d4a4d10bb79e1f902769c9971651daea98b24cb8305a7241212",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/599470ea2008d2ce7756e98069c8df22c010266368145e8583c3f5df9e0f3616.mp3",
+      "bytes": 39750,
+      "sha256": "599470ea2008d2ce7756e98069c8df22c010266368145e8583c3f5df9e0f3616",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/85653564084d165f9d1bd8e63517d91ab3db4d9aceb874b19f0e2db01bdd3a99.mp3",
+      "bytes": 40168,
+      "sha256": "85653564084d165f9d1bd8e63517d91ab3db4d9aceb874b19f0e2db01bdd3a99",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/69521c66b39b4baa79b0e8581a50c238e1a5edd326d093af6dd775b4736a254f.mp3",
+      "bytes": 25748,
+      "sha256": "69521c66b39b4baa79b0e8581a50c238e1a5edd326d093af6dd775b4736a254f",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2b971a5961c22f90590b68c9ec8685f638cb50b6ad438ce67c12858b967c9722.mp3",
+      "bytes": 19897,
+      "sha256": "2b971a5961c22f90590b68c9ec8685f638cb50b6ad438ce67c12858b967c9722",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b37587df3b88cc7a41312aa50df69dcf0396a150e2b05f5181741e0c190bd3ce.mp3",
+      "bytes": 21777,
+      "sha256": "b37587df3b88cc7a41312aa50df69dcf0396a150e2b05f5181741e0c190bd3ce",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/da683c20b7c4683d388bdd61b73e98710716fb1021a42b52b244ebe220d4997b.mp3",
+      "bytes": 19897,
+      "sha256": "da683c20b7c4683d388bdd61b73e98710716fb1021a42b52b244ebe220d4997b",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f10b487600aea91bd4c9aa1a175015f4cda7b15f1744fd7e5f787a564e8b66af.mp3",
+      "bytes": 20733,
+      "sha256": "f10b487600aea91bd4c9aa1a175015f4cda7b15f1744fd7e5f787a564e8b66af",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/8bc564af0c74de15e0eb2f7c208b437b5771201f4b2ce843ac3349b0bee9e459.mp3",
+      "bytes": 20524,
+      "sha256": "8bc564af0c74de15e0eb2f7c208b437b5771201f4b2ce843ac3349b0bee9e459",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/026ddc6b491933319c2f8a3fd83d3c1439be7b39d272d046d03bc390981bb407.mp3",
+      "bytes": 20733,
+      "sha256": "026ddc6b491933319c2f8a3fd83d3c1439be7b39d272d046d03bc390981bb407",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f460faeb41ba0a34f122679c3975e6dabc3b6b4147d446f5b329b299d51e73e6.mp3",
+      "bytes": 20524,
+      "sha256": "f460faeb41ba0a34f122679c3975e6dabc3b6b4147d446f5b329b299d51e73e6",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/7195e6138693dc17390566b5eb95b4077d9be096b0a2b846fe4ad3736f2a1aa2.mp3",
+      "bytes": 22195,
+      "sha256": "7195e6138693dc17390566b5eb95b4077d9be096b0a2b846fe4ad3736f2a1aa2",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/2107aefb393b675c24f3beb09ad17091f975d7bdf02f4f4f6bbe68276b9fa5dd.mp3",
+      "bytes": 21359,
+      "sha256": "2107aefb393b675c24f3beb09ad17091f975d7bdf02f4f4f6bbe68276b9fa5dd",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b5f60956a03912ee8b22ddbb2792d9d5effa76cc5dbe2b097563e585e9c46c96.mp3",
+      "bytes": 21150,
+      "sha256": "b5f60956a03912ee8b22ddbb2792d9d5effa76cc5dbe2b097563e585e9c46c96",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/80f6e9a43c0390548cfc68010bf9980c2fc1e76a47a388076c417d5ddc716e58.mp3",
+      "bytes": 15508,
+      "sha256": "80f6e9a43c0390548cfc68010bf9980c2fc1e76a47a388076c417d5ddc716e58",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/c5d778503ad644c790b87b40e27f6f03aa51d99e37d3fac4e5d1faded5850459.mp3",
+      "bytes": 20733,
+      "sha256": "c5d778503ad644c790b87b40e27f6f03aa51d99e37d3fac4e5d1faded5850459",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/b3949e22f4ca57b52339451c56e34ce46a6a443c8aef9487bca63e2af1f1c6d6.mp3",
+      "bytes": 40377,
+      "sha256": "b3949e22f4ca57b52339451c56e34ce46a6a443c8aef9487bca63e2af1f1c6d6",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/a593a89a63f9799da2b3a62eb5032a2f985f61656b67502858cbac762dd5b2b4.mp3",
+      "bytes": 39750,
+      "sha256": "a593a89a63f9799da2b3a62eb5032a2f985f61656b67502858cbac762dd5b2b4",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/34d40360c2ed4a6b97d5f83c1efe3876e044f0a939d80990c6be3c6425d2e31e.mp3",
+      "bytes": 40795,
+      "sha256": "34d40360c2ed4a6b97d5f83c1efe3876e044f0a939d80990c6be3c6425d2e31e",
+      "contentType": "audio/mp3"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v4-092fe83de3492f3a/audio/f4d3eaceade027810be2e419a06592c5306b59e5d6182661b73967a11c999507.mp3",
+      "bytes": 11328,
+      "sha256": "f4d3eaceade027810be2e419a06592c5306b59e5d6182661b73967a11c999507",
+      "contentType": "audio/mp3"
+    }
+  ],
+  "limits": "Touch-browser emulation and desktop verification; no manual real-iPhone/Safari validation or mainland network speed measurement. Original source interjection boundaries have not been manually calibrated.",
+  "deploymentHelperRevision": "94d9a9c6ada659702e56a4971a1af013ea692477",
+  "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "apiHealth": "ok",
+  "pagesMP3Type": "audio/mp3",
+  "mirrorMP3Type": "audio/mpeg",
+  "featureSourceRevision": "04e2d01105d9309837bd6b95a8576516003af8c1",
+  "featureMirrorRelease": "04e2d01105d9-a89de396995a",
+  "currentReleaseCI": 41781775439,
+  "helperCI": 41780537707,
+  "rollbackBackup": "/etc/nginx/piclex-web-backup-n5g063in",
+  "liveUI": "Domestic select switched directly to another public deck and restored its prior word position; original clips started and completed on both origins. Newer parallel camera update includes these features.",
+  "featureCI": 41780208975,
+  "cleanup": "Task Vite 18120 stopped; shared task dist/dist-mirror, isolated worktree, temporary tests/screenshots and unused 006637 candidate removed. Public content cache and production/rollback releases retained."
+}
