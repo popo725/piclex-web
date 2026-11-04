@@ -6,7 +6,7 @@ for(const kind of ['portrait','landscape'])test(`listening preserves the full ${
  test.setTimeout(90000);
  if(kind==='portrait')await page.goto('/piclex-web/#/deck/'+card.id);
  else{
-  await page.goto('/piclex-web/#/learn');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
+  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
   await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  }
  await page.getByRole('tab',{name:'练听力',exact:true}).click();

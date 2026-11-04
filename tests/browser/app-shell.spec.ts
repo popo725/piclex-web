@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import path from 'node:path';
 const fixture=path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck');
-async function importCafe(page:any){await page.goto('/piclex-web/#/learn');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();}
+async function importCafe(page:any){await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();}
 test('three App tabs keep the current deck and draft; earned experience survives reload without duplication',async({page})=>{
  await page.goto('/piclex-web/');const tabs=page.getByRole('navigation',{name:'底部导航'});await expect(tabs.getByRole('button')).toHaveText(['拍摄','学习','设置']);await expect(page.getByRole('main',{name:'拍摄',exact:true})).toBeVisible();
  await importCafe(page);const input=page.getByRole('textbox',{name:'输入英文'});await input.fill('cro');await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(input).toHaveValue('cro');await input.fill('croissant');await expect(page.getByRole('heading',{name:'勺子',exact:true})).toBeVisible();
@@ -36,7 +36,7 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const sections=page.locator('.settings-section');const a=await sections.nth(0).boundingBox(),b=await sections.nth(1).boundingBox();if(width>=960)expect(b!.x-a!.x).toBeGreaterThan(100);else expect(Math.abs(b!.x-a!.x)).toBeLessThan(1);
   await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByRole('button',{name:'拍摄照片',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  await page.goto('/piclex-web/#/learn');await expect(page.locator('.deck-card')).toHaveCount(5);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
+  await page.goto('/piclex-web/#/decks');await expect(page.locator('.deck-card')).toHaveCount(5);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
   await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toBeVisible();
   const action=await page.getByRole('button',{name:/^不认识/}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.getByRole('button',{name:'当前卡组，学习设置'}).click();const dialog=page.getByRole('dialog');await expect(dialog).toBeVisible();const rect=await dialog.boundingBox();expect(rect!.x).toBeGreaterThanOrEqual(0);expect(rect!.x+rect!.width).toBeLessThanOrEqual(width);await page.getByRole('button',{name:'关闭',exact:true}).click();

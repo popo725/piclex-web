@@ -73,7 +73,7 @@ function Reading({word,active,audio,rate,notify,saved,next,reward}:{word:Word;ac
   <button className="native-button" onClick={()=>{stop();next();}}>下一句</button>
  </section>;
 }
-export default function NativePractice({deck,notify,exit,download,share}:{deck:PracticeDeck;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void}){
+export default function NativePractice({deck,spellingRequest=0,notify,exit,download,share}:{deck:PracticeDeck;spellingRequest?:number;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void}){
  const desktopKeyboard=useDesktopKeyboard();
  const [photoState,setPhotoState]=useState<'loading'|'ready'|'error'>('loading'),[photoRetry,setPhotoRetry]=useState(0);
  const xp=useExperience(),[effect,setEffect]=useState(()=>readPreference('piclex-web.particle-effect')||'socialCode');
@@ -81,7 +81,7 @@ export default function NativePractice({deck,notify,exit,download,share}:{deck:P
  const [typingSound,setTypingSound]=useState(()=>readPreference('piclex-web.typing-sound')==='true');
  const storageKey=`piclex-web.study.v2.${deck.fingerprint}`;
  // The model validates untrusted saved state and migrates the first public release's progress.
- const [state,setState]=useState<any>(()=>restoreStudyFromStorage(deck,readJSON));
+ const [state,setState]=useState<any>(()=>{const restored=restoreStudyFromStorage(deck,readJSON);return spellingRequest?reduceStudy(deck,restored,{type:'module',value:'spelling',question:studyKey(restored)}):restored;});
  const key=studyKey(state),input=useRef<HTMLInputElement>(null),warned=useRef(false),[panel,setPanel]=useState<'gallery'|'settings'|null>(null);
  const [visible,setVisible]=useState(!document.hidden),[composing,setComposing]=useState(false),[imeWarning,setImeWarning]=useState(false);
  const [repeat,setRepeat]=useState(()=>readPreference('piclex-web.listening.repeat')||'five'),[onePhoto,setOnePhoto]=useState(()=>readPreference('piclex-web.listening.single-photo')==='true');
@@ -124,6 +124,8 @@ export default function NativePractice({deck,notify,exit,download,share}:{deck:P
   if(!isWord&&!isSentence)return;const timer=setTimeout(()=>dispatch({type:isWord?'next':'sentenceNext'}),isWord?300:matchMedia('(prefers-reduced-motion: reduce)').matches?450:1000);return()=>clearTimeout(timer);
  },[key,active,state.pending,sentence?.pending]);
  const openPanel=(value:'gallery'|'settings')=>{setListenRun(false);audio.stop();dispatch({type:'pause'});setPanel(value);};
+ // An explicit Learning entry opens spelling without discarding any saved drafts.
+ useLayoutEffect(()=>{if(!spellingRequest)return;setListenRun(false);audio.stop();setPanel(null);setState((current:any)=>reduceStudy(deck,current,{type:'module',value:'spelling',question:studyKey(current)}));},[spellingRequest]);
  const selectModule=(value:string)=>{setListenRun(false);audio.stop();flushSync(()=>dispatch({type:'module',value}));focusAnswer();};
  const setMode=(value:string)=>{setListenRun(false);setPass(0);audio.stop();flushSync(()=>dispatch({type:'mode',value}));focusAnswer();};
  const setDifficulty=(value:string)=>{setComposing(false);setImeWarning(false);flushSync(()=>dispatch({type:'preference',name:'difficulty',value}));focusAnswer();};

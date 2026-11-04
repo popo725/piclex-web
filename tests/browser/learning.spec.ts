@@ -8,7 +8,7 @@ const words=['croissant','spoon','fork','plate','lemon','table'];
 test('a visitor can complete a scene, resume after refresh, and restart without a phone',async({page},testInfo)=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  const phoneRequests:string[]=[];page.on('request',r=>{if(new URL(r.url()).pathname.startsWith('/api/'))phoneRequests.push(r.url())});
- await page.goto('/piclex-web/#/learn');await expect(page.getByRole('heading',{name:'今天，想学哪套卡组？'})).toBeVisible();
+ await page.goto('/piclex-web/#/decks');await expect(page.getByRole('heading',{name:'今天，想学哪套卡组？'})).toBeVisible();
  await page.screenshot({path:`test-results/home-${testInfo.project.name}.png`,fullPage:true});
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();
@@ -28,7 +28,7 @@ test('a visitor can complete a scene, resume after refresh, and restart without 
  expect(phoneRequests).toEqual([]);expect(errors).toEqual([]);
 });
 test('local archives survive refresh; duplicate and invalid imports preserve previous progress',async({page})=>{
- await page.goto('/piclex-web/#/learn');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
+ await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();
  const chooser=page.getByLabel('选择照片卡组文件');
  await chooser.setInputFiles(path.resolve('tests/fixtures/demo/decks/travel.piclexdeck'));
  await expect(page.getByRole('heading',{name:'护照',exact:true})).toBeVisible();
@@ -54,7 +54,7 @@ test('direct links, reveal, dark theme and unknown decks have usable states',asy
 
 test('public catalog reuses existing content and practice never downloads a whole archive',async({page})=>{
  const requests:string[]=[];page.on('request',request=>requests.push(new URL(request.url()).pathname));
- await page.goto('/piclex-web/#/learn');
+ await page.goto('/piclex-web/#/decks');
  await expect(page.locator('.deck-card')).toHaveCount(5);
  await expect(page.getByRole('heading',{name:'Basic English 850 场景卡片',exact:true})).toBeVisible();
  await expect(page.getByRole('heading',{name:'新概念英语第二册',exact:true})).toBeVisible();
