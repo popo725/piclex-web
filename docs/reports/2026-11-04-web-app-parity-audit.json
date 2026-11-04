@@ -112,23 +112,39 @@
       ],
       "controlsAboveNavigation": true
     },
-    "linuxTimingChecksAfterFix": 24
+    "linuxTimingChecksAfterFix": 24,
+    "finalCI": {
+      "result": "success",
+      "unitTestsPassed": 200,
+      "deploymentTestsPassed": 8,
+      "browserTestsPassed": 193,
+      "browserTestsSkipped": 2,
+      "browserTestsFailed": 0
+    }
   },
   "deployment": {
     "primary": "https://piclex.v2fy.com/piclex-web/",
     "release": "6fda4efa201b-4c7ea1353a0a",
     "sourceRevision": "6fda4efa201bfa3843de7313aeb8b93ae6a28d6d",
     "previousRelease": "390ab5efce94-0b7255c1c08d",
-    "status": "primary_active",
+    "status": "both_sites_active",
     "filesVerified": 659,
     "nginxConfigUnchanged": true,
     "publicChecks": "HTML after removal of one observed Cloudflare beacon; all JS/CSS/WebP assets, source/catalog/Cherry hashes and health endpoint verified",
     "browserSmoke": "passed",
-    "pages": "pending CI timing fixes"
+    "pages": "https://zhaoolee.com/piclex-web/",
+    "pagesSourceRevision": "9902f99661424a642cacd8c9e4f453366e9570c9",
+    "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41853079539",
+    "pagesBrowserSmoke": "passed"
   },
   "nativeShutterSHA256": {
     "minolta-shutter.wav": "c7ffe1ffb064940c7f28a0339f91e992a13a9b0f6949aeaafb2d45819fee75e8",
     "kodak-shutter.wav": "6dced3bf9dacf0d525bf19d9ce14f3473e10c86243742fb5263d50fd6d184675",
     "brownie-shutter.wav": "458c69b284a872f494d811444dc138e8dda347747a8e947ef0ee3e462502eecf"
+  },
+  "cleanup": {
+    "local": "Removed 26 task-owned temporary result/script/build paths; remaining smoke outputs removed after final verification",
+    "server": "Removed only superseded inactive f7ece55893a7-3ac806acee06; live 6fda4efa201b-4c7ea1353a0a and rollback 390ab5efce94-0b7255c1c08d retained",
+    "shared": "18126 preview, main dist/dependencies and content cache retained for user and concurrent work"
   }
 }
