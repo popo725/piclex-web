@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-04",
+  "cause": [
+    "free dictation omitted virtualKeyboardOnly",
+    "whole practice scrolled behind navigation",
+    "mobile tests expected no dictation keyboard"
+  ],
+  "validation": {
+    "unit": 193,
+    "deploy": 8,
+    "browser": {
+      "passed": 92,
+      "platformSkipped": 2
+    },
+    "finalLayoutAudio": {
+      "passed": 16,
+      "platformSkipped": 2
+    },
+    "viewports": [
+      [
+        390,
+        668
+      ],
+      [
+        393,
+        640
+      ],
+      [
+        320,
+        568
+      ],
+      [
+        390,
+        430
+      ],
+      [
+        844,
+        390
+      ],
+      [
+        390,
+        844
+      ]
+    ]
+  },
+  "realIPhoneVerified": false,
+  "production": "pending"
+}

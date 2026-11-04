@@ -13,9 +13,10 @@ test('native camera paper and practice metrics keep complete content at wide, na
   await page.goto('/piclex-web/#/deck/'+card.id);await page.getByRole('tab',{name:'拼单词',exact:true}).click();
   await expect(page.locator('.focus-image')).toBeVisible();
   const photo=(await page.locator('.photo-browse').boundingBox())!,hint=(await page.locator('.native-hint').boundingBox())!,example=(await page.locator('.native-example').boundingBox())!,answer=(await page.locator('.native-answer').boundingBox())!;
-  expect(photo.height).toBeGreaterThanOrEqual(220);expect(photo.height).toBeLessThanOrEqual(330);
+  expect(photo.height).toBeGreaterThanOrEqual(info.project.name==='mobile'?140:220);expect(photo.height).toBeLessThanOrEqual(330);
   expect(hint.height).toBe(48);expect(example.height).toBe(44);expect(answer.height).toBe(50);
-  expect(hint.y).toBeGreaterThanOrEqual(photo.y+photo.height-.5);expect(example.y).toBeGreaterThanOrEqual(hint.y+hint.height-.5);expect(answer.y).toBeGreaterThanOrEqual(example.y+example.height-.5);
+  expect(hint.y).toBeGreaterThanOrEqual(photo.y+photo.height-.5);expect(example.y).toBeGreaterThanOrEqual(hint.y+hint.height-.5);const body=(await page.locator('.native-body').boundingBox())!;expect(answer.y).toBeGreaterThanOrEqual(body.y+body.height-.5);
+  await page.locator('.native-example').scrollIntoViewIfNeeded();const visibleExample=(await page.locator('.native-example').boundingBox())!;expect(visibleExample.y+visibleExample.height).toBeLessThanOrEqual(answer.y+.5);
   await expect.poll(()=>page.locator('.native-practice').evaluate(e=>e.style.getPropertyValue('--photo-background'))).not.toBe('');
   await page.getByRole('button',{name:'不认识',exact:true}).scrollIntoViewIfNeeded();
   const action=(await page.getByRole('button',{name:'不认识',exact:true}).boundingBox())!,tabs=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;

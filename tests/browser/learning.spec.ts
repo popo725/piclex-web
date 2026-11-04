@@ -1,3 +1,4 @@
+import {fillEnglish} from './helpers/spelling';
 import {fillSpelling} from './helpers/spelling';
 import { test, expect } from '@playwright/test';
 import path from 'node:path';
@@ -80,7 +81,7 @@ test('native modules preserve independent sentence drafts, shuffle order and pho
  const bank=page.getByLabel('待选词块');const selected=page.getByLabel('已选词块');
  const bankOrder=await bank.getByRole('button').allTextContents();
  await bank.getByRole('button',{name:'I',exact:true}).click();
- await mode.selectOption('free');await page.getByRole('textbox',{name:'听写句子'}).fill('I am');
+ await mode.selectOption('free');await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'I am');
  await mode.selectOption('chunks');await expect(selected).toContainText('I');
  await page.getByRole('button',{name:'选择照片',exact:true}).click();
  await page.getByRole('button',{name:'照片 2',exact:true}).click();
@@ -111,11 +112,11 @@ test('sentence fill checks automatically; failed order can be corrected and assi
  await expect(page.getByRole('status')).toContainText('听写正确');
  // Switching immediately cancels this successful chunk attempt's delayed advance.
  await page.getByRole('button',{name:'挑战自由听写'}).click();
- await page.getByRole('textbox',{name:'听写句子'}).fill('I wrong');await page.getByRole('button',{name:'检查答案'}).click();
+ await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'I wrong');await page.getByRole('button',{name:'检查答案'}).click();
  await expect(page.getByRole('status')).toContainText('再听一次');
  await page.getByRole('button',{name:'显示答案',exact:true}).click();await expect(page.locator('.standard-answer')).toContainText('I am still in bed.');
  await page.getByRole('button',{name:'重新拼写',exact:true}).click();await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue('');
- await page.getByRole('textbox',{name:'听写句子'}).fill('i am still in bed');
+ await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'i am still in bed');
  await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue(''); // auto-advance to next sentence
  await page.getByRole('button',{name:'当前卡组，学习设置'}).click();await expect(page.getByText('本轮进度 2 / 850',{exact:true})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();
  await page.getByRole('tab',{name:'拼单词'}).click();await expect(page.locator('.answer-feedback')).toHaveText('');
@@ -126,7 +127,7 @@ test('guided dictation, listening controls, compact height and reduced-motion re
  await page.getByRole('combobox',{name:'句子练习模式'}).selectOption('free');
  await page.getByRole('combobox',{name:'听写难度'}).selectOption('easy');
  await expect(page.getByRole('textbox',{name:/第 \d+ 个单词/})).toHaveCount(5);
- await page.getByRole('textbox',{name:'第 2 个单词，2 个字母',exact:true}).fill('am');
+ await fillEnglish(page.getByRole('textbox',{name:'第 2 个单词，2 个字母',exact:true}),'am');
  await page.getByRole('combobox',{name:'听写难度'}).selectOption('medium');
  await expect(page.getByRole('textbox',{name:'第 2 个单词',exact:true})).toHaveValue('am');
  await page.getByRole('combobox',{name:'句子练习模式'}).selectOption('listening');

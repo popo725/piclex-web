@@ -1,3 +1,4 @@
+import {fillEnglish} from './helpers/spelling';
 import {test,expect} from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,27 +18,27 @@ for(const kind of ['portrait','landscape'])test(`listening preserves the full ${
    const a=img.getBoundingClientRect(),b=img.parentElement!.getBoundingClientRect();
    return img.naturalWidth>0&&Math.abs(a.width/a.height-img.naturalWidth/img.naturalHeight)<.01&&a.left>=b.left-1&&a.top>=b.top-1&&a.right<=b.right+1&&a.bottom<=b.bottom+1;
   })).toBe(true);
-  expect((await page.locator('.photo-browse').boundingBox())!.height).toBeGreaterThanOrEqual(219);
+  expect((await page.locator('.photo-browse').boundingBox())!.height).toBeGreaterThanOrEqual(info.project.name==='mobile'?139:219);
  };
  for(const size of [{width:1280,height:720},{width:1440,height:1000},{width:390,height:844}]){
   await page.setViewportSize(size);await mode.selectOption('free');
   for(const difficulty of ['hard','easy','medium']){await page.getByLabel('听写难度').selectOption(difficulty);await contained();}
   await page.getByLabel('听写难度').selectOption('hard');
   const xp=(await page.locator('.learning-experience b').boundingBox())!,title=(await page.locator('.practice-deck-target').boundingBox())!;expect(xp.y+xp.height).toBeLessThanOrEqual(title.y+.5);
-  if(info.project.name==='desktop'){
+  {
    await expect(keyboard).toBeVisible();
    await keyboard.scrollIntoViewIfNeeded();
    const k=(await keyboard.boundingBox())!,tabs=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;
    expect(k.y+k.height).toBeLessThanOrEqual(tabs.y+1);
    expect((await keyboard.getByRole('button',{name:'按键 Q',exact:true}).boundingBox())!.height).toBeGreaterThanOrEqual(26);
-  }else await expect(keyboard).toHaveCount(0);
+  }
   if(kind==='portrait'&&size.width===(info.project.name==='desktop'?1280:390))await page.screenshot({path:`test-results/listening-photo-${info.project.name}.png`});
   for(const next of ['chunks','listening']){await mode.selectOption(next);await contained();await expect(keyboard).toHaveCount(0);}
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  }
  await page.setViewportSize({width:390,height:430});await mode.selectOption('free');await page.getByLabel('听写难度').selectOption('hard');await contained();
- expect(await page.locator('.native-practice').evaluate(el=>el.scrollHeight>el.clientHeight)).toBe(true);
- await page.getByRole('textbox',{name:'听写句子',exact:true}).fill('wrong');
+ expect(await page.locator('.native-body').evaluate(el=>el.scrollHeight>el.clientHeight)).toBe(true);
+ await fillEnglish(page.getByRole('textbox',{name:'听写句子',exact:true}),'wrong');
  await page.getByRole('button',{name:'检查答案',exact:true}).click();await expect(page.getByText('再听一次，试着修改答案',{exact:true})).toBeVisible();
  if(info.project.name==='desktop'){await keyboard.getByRole('button',{name:'退格',exact:true}).click();await expect(page.getByRole('textbox',{name:'听写句子',exact:true})).toHaveValue('wron');}
 });
