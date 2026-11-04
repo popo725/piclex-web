@@ -18,6 +18,11 @@ test('desktop preserves full photograph and fits answer, rate and keyboard witho
    expect(geometry.image.top).toBeGreaterThanOrEqual(geometry.photo.top-.5);expect(geometry.image.bottom).toBeLessThanOrEqual(geometry.photo.bottom+.5);expect(geometry.image.left).toBeGreaterThanOrEqual(geometry.photo.left-.5);expect(geometry.image.right).toBeLessThanOrEqual(geometry.photo.right+.5);
    expect(geometry.keyboard.bottom).toBeLessThanOrEqual(geometry.tabs.top);expect(geometry.rate.bottom).toBeLessThanOrEqual(geometry.keyboard.top);expect(geometry.available).toBeGreaterThan(geometry.text);
    await page.getByLabel('播放速度',{exact:true}).selectOption('1.15');await expect(page.getByLabel('播放速度',{exact:true})).toHaveValue('1.15');await page.getByLabel('播放速度',{exact:true}).selectOption('1');
+   if(mode==='spelling'){
+    await page.getByRole('textbox',{name:'输入英文',exact:true}).fill('z');await expect(page.locator('.answer-feedback')).toContainText('请删除错误字母');
+    await expect.poll(()=>page.locator('.native-practice').evaluate(n=>n.scrollHeight-n.clientHeight)).toBeLessThanOrEqual(1);
+    await page.getByRole('button',{name:'退格',exact:true}).click();
+   }
   }
  }
 });
