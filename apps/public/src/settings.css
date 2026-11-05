@@ -46,7 +46,13 @@ body[data-page=settings] #root{padding-bottom:0}
 .theme-swatch>.theme-name{font-size:16px;font-weight:400;min-width:0;overflow-wrap:anywhere}
 .theme-swatch>.theme-check{font-size:18px;margin-left:auto;min-width:18px}
 
-/* Deck library shares its canvas with raised, borderless cards. */
-.native-settings-detail:has(.settings-segmented) .settings-deck-list{display:grid;gap:18px;padding:6px 0 12px}
-.native-settings-detail:has(.settings-segmented) .settings-deck-item{border:0;padding:12px;border-radius:12px;background:var(--surface);box-shadow:-3px -3px 5px var(--deck-highlight),3px 3px 5px var(--deck-shade)}
-.native-settings-detail:has(.settings-segmented) .settings-deck-item:active{box-shadow:inset 2px 2px 4px var(--deck-shade),inset -2px -2px 4px var(--deck-highlight)}
+/* Match the native two-column cover cards; export rows remain a separate list. */
+.native-settings-detail:has(.settings-segmented) .settings-detail-content{padding-inline:0}
+.settings-deck-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px 16px;padding:6px 0 12px}
+.settings-deck-card{display:flex;flex-direction:column;align-items:stretch;min-width:0;gap:0;border:0;padding:0;border-radius:12px;background:var(--surface);box-shadow:-3px -3px 5px var(--deck-highlight),3px 3px 5px var(--deck-shade)}
+.settings-deck-card:active{box-shadow:inset 2px 2px 4px var(--deck-shade),inset -2px -2px 4px var(--deck-highlight)}
+.settings-deck-card>img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+.settings-deck-card>span.settings-deck-meta{display:flex;flex-direction:column;flex:none;width:100%;height:112px;padding:12px;gap:5px}
+.settings-deck-card strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere;font-size:13px;line-height:1.35;font-weight:600}
+.settings-deck-card .settings-deck-counts{display:flex;justify-content:space-between;gap:6px;margin-top:auto;font-size:clamp(8px,2.4vw,10px);font-weight:500;line-height:1.4;white-space:nowrap}
+.settings-deck-counts>span:last-child{margin-left:auto}
