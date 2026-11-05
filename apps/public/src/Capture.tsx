@@ -29,7 +29,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  usePageViewport(active,'capture');
  const picker=useRef<HTMLInputElement>(null),video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|null>(null),generation=useRef(0);
  const [opening,setOpening]=useState(false),[live,setLive]=useState(false),[cameraReady,setCameraReady]=useState(false),[preparing,setPreparing]=useState(false);
- const flow=useCaptureJobs(save,notify),[presented,setPresented]=useState<string|null>(null),[printing,setPrinting]=useState(false);
+ const flow=useCaptureJobs(save,notify),[presented,setPresented]=useState<string|null>(null),[printing,setPrinting]=useState<false|'printing'|'landed'>(false);
  const job=flow.jobs.find(value=>value.id===presented);
  const stopCamera=useCallback(()=>{generation.current++;stream.current?.getTracks().forEach(track=>track.stop());stream.current=null;if(video.current)video.current.srcObject=null;setOpening(false);setLive(false);setCameraReady(false);},[]);
  useEffect(()=>{if(!active){stopCamera();setPrinting(false);}},[active,stopCamera]);
@@ -39,11 +39,11 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  async function choose(file?:File){
   if(!file)return;stopCamera();setPreparing(true);
   try{if(!file.type.startsWith('image/')||file.size>20*1024*1024)throw Error('请选择 20 MB 以内的照片。');
-   const image=await createImageBitmap(file);try{const canvas=imageCanvas(image.width,image.height);canvas.getContext('2d')!.drawImage(image,0,0,canvas.width,canvas.height);await accept(await jpeg(canvas));setPrinting(readPreference('piclex-web.import-animation')!=='false');}finally{image.close();}
+   const image=await createImageBitmap(file);try{const canvas=imageCanvas(image.width,image.height);canvas.getContext('2d')!.drawImage(image,0,0,canvas.width,canvas.height);await accept(await jpeg(canvas));setPrinting(readPreference('piclex-web.import-animation')!=='false'?'printing':false);}finally{image.close();}
   }catch(e){notify((e as Error).message);}finally{setPreparing(false);if(picker.current)picker.current.value='';}
  }
  async function camera(){
-  if(live){if(!cameraReady||!video.current)return;setPreparing(true);setPrinting(true);try{const source=video.current,frame=source.getBoundingClientRect(),ratio=frame.width/frame.height;
+  if(live){if(!cameraReady||!video.current)return;setPreparing(true);setPrinting('printing');try{const source=video.current,frame=source.getBoundingClientRect(),ratio=frame.width/frame.height;
    const sw=Math.min(source.videoWidth,source.videoHeight*ratio),sh=sw/ratio;
    const canvas=imageCanvas(sw,sh);canvas.getContext('2d')!.drawImage(source,(source.videoWidth-sw)/2,(source.videoHeight-sh)/2,sw,sh,0,0,canvas.width,canvas.height);
    playShutterSound();const blob=await jpeg(canvas);stopCamera();await accept(blob);}catch(e){setPrinting(false);notify((e as Error).message);}finally{setPreparing(false);}return;}
@@ -57,7 +57,7 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
  function resume(){if(job)flow.consume(job.id);setPresented(null);setPrinting(false);}
  const pending=flow.jobs.filter(value=>value.id!==presented);
  return <main className={`capture-page ${job?'capture-result-page':''}`} aria-label="拍摄">
-  {job?<CaptureReview key={job.id} job={job} active={active} settled={!printing} consume={()=>flow.consume(job.id)} retry={()=>flow.retry(job)} cancel={()=>flow.cancel(job.id)} edit={(title,labels)=>flow.edit(job.id,title,labels,job.quote)} start={()=>{if(job.deckID){flow.consume(job.id);setPresented(null);learn(job.deckID);}}} resume={resume}/>:<div className="capture-viewfinder">
+  {job?<CaptureReview key={job.id} job={job} active={active} settled={!printing} visible={printing!=='printing'} consume={()=>flow.consume(job.id)} retry={()=>flow.retry(job)} cancel={()=>flow.cancel(job.id)} edit={(title,labels)=>flow.edit(job.id,title,labels,job.quote)} start={()=>{if(job.deckID){flow.consume(job.id);setPresented(null);learn(job.deckID);}}} resume={resume}/>:<div className="capture-viewfinder">
    <div className="camera-paper"><div className="camera-aperture">
     {live?<video ref={video} autoPlay muted playsInline aria-label="相机实时预览" onLoadedData={()=>setCameraReady(true)}/>:<button className={`camera-empty ${active?"is-active":""}`} aria-label="打开相机" onClick={()=>void camera()} disabled={!flow.ready||preparing||opening}><span className="camera-aurora" aria-hidden="true"><FlowingSand src={goldSand} active={active}/></span><span className="camera-start-hint"><Icon name="camera"/><span>{opening?'请在浏览器中允许相机权限':'点击开启相机'}</span></span></button>}
     <span className="camera-corners" aria-hidden="true"/></div>
@@ -68,11 +68,11 @@ export default function Capture({active,save,learn,notify}:{active:boolean;save:
   </div>}
   <input hidden type="file" ref={picker} accept="image/*" aria-label="导入照片制卡" onChange={e=>void choose(e.target.files?.[0])}/>
   {pending.length>0&&<div className="capture-recent" aria-label="本次拍摄的卡片">{pending.map((value,index)=><button key={value.id} className="native-button" onClick={()=>{stopCamera();flow.consume(value.id);setPresented(value.id);}}>照片 {index+1} · {busy(value)?'正在生成':value.phase==='review'?'已保存':'待重试'}</button>)}</div>}
-  {printing&&active&&<PolaroidPrint close={resume} image={job?.image} finished={()=>setPrinting(false)}/>}
+  {printing&&active&&<PolaroidPrint close={resume} image={job?.image} reveal={()=>setPrinting('landed')} finished={()=>setPrinting(false)}/>}
  </main>;
 }
 
-function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resume}:{job:CaptureJob;active:boolean;settled:boolean;consume:()=>void;retry:()=>void;cancel:()=>void;edit:(title:string,labels:PhotoLabel[])=>void;start:()=>void;resume:()=>void}){
+function CaptureReview({job,active,settled,visible,consume,retry,cancel,edit,start,resume}:{job:CaptureJob;active:boolean;settled:boolean;visible:boolean;consume:()=>void;retry:()=>void;cancel:()=>void;edit:(title:string,labels:PhotoLabel[])=>void;start:()=>void;resume:()=>void}){
  const [preview,setPreview]=useState(''),[loaded,setLoaded]=useState(false),[seconds,setSeconds]=useState<number|null>(null),[editing,setEditing]=useState(false),[title,setTitle]=useState(job.title),[labels,setLabels]=useState<PhotoLabel[]>(job.labels.length?job.labels:[blank()]),[selected,setSelected]=useState<number|null>(null);
  const countdown=useRef<ReturnType<typeof setInterval>|null>(null),consumed=useRef(!job.autoPractice),latest=useRef({start,consume,active});latest.current={start,consume,active};
  const [aspect,setAspect]=useState(1.333);
@@ -129,7 +129,7 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
   measure();return()=>{cancelAnimationFrame(frame);observer.disconnect();};
  },[editing,finishing,seconds===null,selected,job.labels]);
  const currentLabel=selected===null?null:job.labels[selected];
- return <section ref={review} inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
+ return <section ref={review} data-print-hidden={!visible} inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
   <div ref={card} style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}

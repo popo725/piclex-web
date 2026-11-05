@@ -4,8 +4,9 @@ import {useEffect,useRef} from 'react';
 // highlight rim, eight-second colour circulation and perimeter sampling.
 const palette=[[.12,.76,1],[.26,.34,1],[.66,.30,1],[1,.28,.67],[1,.47,.34],[1,.76,.42],[.67,.57,1]];
 const epoch=performance.now();
-// CSS filters also work in WebKit, where Canvas 2D filters are unavailable.
-// Give each layer room outside the photo so blur precedes the final photo clip.
+// Bake each diffuse mask into the bitmap using Canvas shadows, supported by
+// iOS Safari as well as desktop browsers. Neither Canvas filter nor a separate
+// CSS-filter compositor layer is required. Blur before the final photo clip.
 const layers=[
  {inset:0,amplitude:2.5,phase:0,width:40,blur:12,opacity:.30},
  {inset:0,amplitude:5.5,phase:.4,width:17,blur:4.5,opacity:.78},
@@ -38,7 +39,7 @@ export default function RecognitionHalo({active}:{active:boolean}){
   const canvases=[...element.querySelectorAll('canvas')];
   const contexts=canvases.map(canvas=>canvas.getContext('2d'));
   if(contexts.some(context=>!context))return;
-  const motion=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,width=0,height=0,padding=0;
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,width=0,height=0,padding=0,dpr=1;
   const draw=()=>{
    frame=0;if(!active||document.hidden||!width||!height)return;
    const time=motion.matches?0:(performance.now()-epoch)/1000,scale=Math.min(1.2,Math.min(width,height)/340);
@@ -50,17 +51,25 @@ export default function RecognitionHalo({active}:{active:boolean}){
     let path:Path2D;
     if(index===4){path=new Path2D();path.rect(.6*scale,.6*scale,width-1.2*scale,height-1.2*scale);}
     else path=wave(width,height,layer.inset,layer.amplitude,layer.phase,scale,time);
-    context.strokeStyle=gradient;context.lineWidth=layer.width*scale;context.lineCap='round';context.lineJoin='round';context.globalAlpha=layer.opacity;context.stroke(path);
+    // Move the hard stroke outside the bitmap; only its soft shadow lands here.
+    // shadowBlur/offset use device pixels and ignore the canvas transform.
+    const offset=2*(width+2*padding);
+    context.save();context.translate(-offset,0);
+    context.shadowColor='#000';context.shadowBlur=2*layer.blur*scale*dpr;context.shadowOffsetX=offset*dpr;
+    context.strokeStyle='#000';context.lineWidth=layer.width*scale;context.lineCap='round';context.lineJoin='round';context.stroke(path);context.restore();
+    // Tint the blurred alpha mask without reintroducing an unblurred colour rim.
+    context.save();context.globalCompositeOperation='source-in';context.globalAlpha=layer.opacity;context.fillStyle=gradient;
+    context.fillRect(-padding,-padding,width+2*padding,height+2*padding);context.restore();
    });
    if(!motion.matches)frame=requestAnimationFrame(draw);
   };
   const refresh=()=>{cancelAnimationFrame(frame);frame=0;draw();};
   const resize=new ResizeObserver(()=>{
    const rect=element.getBoundingClientRect();width=rect.width;height=rect.height;
-   const dpr=Math.min(2,devicePixelRatio||1),scale=Math.min(1.2,Math.min(width,height)/340);padding=Math.ceil(64*scale);
+   dpr=Math.min(2,devicePixelRatio||1);const scale=Math.min(1.2,Math.min(width,height)/340);padding=Math.ceil(64*scale);
    canvases.forEach((canvas,index)=>{
     canvas.width=Math.ceil((width+2*padding)*dpr);canvas.height=Math.ceil((height+2*padding)*dpr);
-    Object.assign(canvas.style,{left:`${-padding}px`,top:`${-padding}px`,width:`${width+2*padding}px`,height:`${height+2*padding}px`,filter:`blur(${layers[index].blur*scale}px)`});
+    Object.assign(canvas.style,{left:`${-padding}px`,top:`${-padding}px`,width:`${width+2*padding}px`,height:`${height+2*padding}px`});
     contexts[index]!.setTransform(dpr,0,0,dpr,padding*dpr,padding*dpr);
    });refresh();
   });resize.observe(element);

@@ -1,0 +1,282 @@
+{
+  "status": "locally_verified_pending_release",
+  "nativeReference": "Unmodified RecognitionGlowFrame SwiftUI drawing rendered on macOS; no iOS simulator or device used. 300x400 pt at t=0, 2x; grey background. Web screenshot fractional origin adds 2 physical rows.",
+  "nativeDifference": "After aligning the 2px capture origin, per-channel mean absolute RGB differences are 0.37 / 0.32 / 0.63 out of 255; macOS source-render comparison, not a true iPhone screenshot.",
+  "unitTests": 230,
+  "deployTests": 8,
+  "visualCases": [
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "shape": "portrait",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "shape": "landscape",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "shape": "portrait",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        }
+      ]
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "shape": "landscape",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "shape": "portrait",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "shape": "landscape",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "shape": "portrait",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        },
+        {
+          "filter": "none",
+          "width": 729,
+          "height": 994
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "shape": "landscape",
+      "errors": [],
+      "metrics": [
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        },
+        {
+          "filter": "none",
+          "width": 788,
+          "height": 556
+        }
+      ]
+    }
+  ],
+  "browserTests": "19 cases: 16 initial pass; 3 learning cases retried after adding ignored public library index to isolated preview. See final release record.",
+  "animation": "Both engines checked 0, 180, 360, 600 and 719 ms of 720 ms flight: destination hidden and inert. After landing, paper and destination edges differ <1.1 CSS px. Close mid-flight passes.",
+  "blur": "Every bitmap has a measured multilevel alpha falloff with CSS filters explicitly disabled. Reduced motion remains static and normal motion resumes.",
+  "files": {
+    "apps/public/src/Capture.tsx": "9859251d9ff4fae20502792cb10e764a69837fb4e11cf03cd37bd6047e8caf07",
+    "apps/public/src/PolaroidPrint.tsx": "216723d80832a3528130aecf6fcebab4190e341b27d8b800fa785af5369b874a",
+    "apps/public/src/RecognitionHalo.tsx": "693212ec75e45602377ae4bd50b900a683ce55025204f9fafaac9bc7879bfc3e",
+    "apps/public/src/capture.css": "a5b6b02e8523b4bf1775adf4c6841ed2371401a5c0ebb8a2da3e2de6d282bd8f"
+  }
+}

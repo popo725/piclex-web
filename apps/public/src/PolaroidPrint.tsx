@@ -2,8 +2,8 @@ import {useEffect,useLayoutEffect,useRef,useState,type CSSProperties} from 'reac
 
 // PolaroidCaptureOverlay.swift: stationary mouth, rigid sheet, two feed speeds,
 // release, development and a .72-second whole-paper handoff to the real preview.
-export default function PolaroidPrint({image,finished,close}:{image?:Uint8Array;finished:()=>void;close:()=>void}){
- const root=useRef<HTMLDivElement>(null),latest=useRef(finished);latest.current=finished;
+export default function PolaroidPrint({image,finished,reveal,close}:{image?:Uint8Array;reveal:()=>void;finished:()=>void;close:()=>void}){
+ const root=useRef<HTMLDivElement>(null),latest=useRef({finished,reveal});latest.current={finished,reveal};
  const [url,setURL]=useState(''),[ratio,setRatio]=useState(.75),[loaded,setLoaded]=useState(false);
  const opening=useRef<Promise<unknown>>(Promise.resolve());
  useLayoutEffect(()=>{
@@ -56,11 +56,16 @@ export default function PolaroidPrint({image,finished,close}:{image?:Uint8Array;
      await animate(paper,[{transform:'translateY(24px) rotate(1.2deg)',height:`${height}px`},{transform:`translate(${x}px,${y}px) scale(${scale}) rotate(0deg)`,height:`${destination.height/scale}px`}],720,'cubic-bezier(.32,0,.2,1)');
     }
    }
-   await animate(element,[{opacity:1},{opacity:0}],160);if(!disposed)latest.current();
+   // Reveal only once the flight has finished, then fade the stationary copy.
+   // Two frames allow React to paint the destination beneath the opaque sheet.
+   latest.current.reveal();
+   await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+   if(disposed)return;
+   await animate(element,[{opacity:1},{opacity:0}],160);if(!disposed)latest.current.finished();
   };
-  void run().catch(()=>{if(!disposed)latest.current();});
-  const reduce=()=>{if(motion.matches)latest.current();};motion.addEventListener('change',reduce);
+  void run().catch(()=>{if(!disposed)latest.current.finished();});
+  const reduce=()=>{if(motion.matches)latest.current.finished();};motion.addEventListener('change',reduce);
   return()=>{disposed=true;animations.forEach(a=>a.cancel());motion.removeEventListener('change',reduce);};
  },[loaded,ratio]);
- return <div ref={root} className="capture-printing" aria-label="正在出片" style={{'--print-ratio':ratio} as CSSProperties}><div className="print-slot print-slot-rear"/><div className="print-window"><div className="print-paper">{url&&<img src={url} alt="" onError={()=>latest.current()} onLoad={e=>{setRatio(e.currentTarget.naturalWidth/e.currentTarget.naturalHeight);setLoaded(true);}}/>}</div></div><div className="print-slot print-slot-front"><i/></div>{loaded&&<button className="print-close" onClick={close}>关闭</button>}</div>;
+ return <div ref={root} className="capture-printing" aria-label="正在出片" style={{'--print-ratio':ratio} as CSSProperties}><div className="print-slot print-slot-rear"/><div className="print-window"><div className="print-paper">{url&&<img src={url} alt="" onError={()=>latest.current.finished()} onLoad={e=>{setRatio(e.currentTarget.naturalWidth/e.currentTarget.naturalHeight);setLoaded(true);}}/>}</div></div><div className="print-slot print-slot-front"><i/></div>{loaded&&<button className="print-close" onClick={close}>关闭</button>}</div>;
 }

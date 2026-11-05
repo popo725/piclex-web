@@ -21,6 +21,8 @@ body[data-page=capture] #root{padding-bottom:calc(var(--app-tab-height) + env(sa
 body[data-page=capture]:has(.capture-result-page){background:color-mix(in srgb,var(--surface),black 50%)}
 .capture-page.capture-result-page{max-width:none;display:flex;flex-direction:column;justify-content:center;padding:12px 20px}
 .capture-review{width:min(100%,500px,calc(max(280px,var(--page-vh,100dvh) - var(--app-tab-height) - 160px)*var(--capture-paper-aspect)));max-width:500px;margin:auto}
+/* Keep destination geometry measurable while the single printed sheet lands. */
+.capture-review[data-print-hidden=true]{visibility:hidden}
 .capture-card{position:relative;padding:5%;background:white;border:0;border-radius:7px;box-shadow:0 3px 12px #0002}
 .capture-annotated-photo{position:relative;width:100%;max-width:100%;margin:auto;overflow:hidden}
 .capture-annotated-photo>img{display:block;width:100%;height:auto;object-fit:contain}
