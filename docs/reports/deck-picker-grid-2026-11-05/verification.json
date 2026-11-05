@@ -1,0 +1,930 @@
+[
+  {
+    "browser": "chrome",
+    "colorScheme": "light",
+    "width": 320,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.8889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.8889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 15.625,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "colorScheme": "light",
+    "width": 390,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12.6108,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "colorScheme": "light",
+    "width": 1440,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "colorScheme": "dark",
+    "width": 320,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.8889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.8889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 15.625,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "colorScheme": "dark",
+    "width": 390,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12.6108,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "colorScheme": "dark",
+    "width": 1440,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "chrome",
+    "longTitle": {
+      "font": "12px",
+      "clipped": true,
+      "height": 24
+    }
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "light",
+    "width": 320,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.888889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.986014,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 15.748032,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "light",
+    "width": 390,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12.673267,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "light",
+    "width": 1440,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "dark",
+    "width": 320,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.888889,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 13.986014,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 15.748032,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "dark",
+    "width": 390,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 12.673267,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "colorScheme": "dark",
+    "width": 1440,
+    "columns": 2,
+    "aligned": true,
+    "thirdBelow": true,
+    "fits": true,
+    "titles": [
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      },
+      {
+        "height": 24,
+        "font": 16,
+        "nowrap": "nowrap",
+        "overflow": "ellipsis"
+      }
+    ],
+    "images": [
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      },
+      {
+        "fit": "contain",
+        "loaded": true
+      }
+    ],
+    "counts": false,
+    "selected": 1,
+    "marks": 1
+  },
+  {
+    "browser": "webkit",
+    "longTitle": {
+      "font": "12px",
+      "clipped": true,
+      "height": 24
+    }
+  }
+]
