@@ -1,0 +1,42 @@
+{
+  "current": "/home/hermes/piclex-web/releases/7b23b0cda47a-78a26912e964",
+  "previous": "/home/hermes/piclex-web/releases/86283d9a3b53-b8860bb8ef0a",
+  "releaseID": "7b23b0cda47a-78a26912e964",
+  "sourceRevision": "7b23b0cda47a8e60b68567560bbf5a3b4d44362f",
+  "filesVerified": 661,
+  "originHTTPSVerified": [
+    "piclex-web/assets/main-BGsxTQqn.css",
+    "piclex-web/assets/main-ZqoKTMOA.js",
+    "piclex-web/index.html",
+    "piclex-web/library/catalog.json",
+    "piclex-web/source.json"
+  ],
+  "configurationUnchanged": true,
+  "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "preservedNonBuildFiles": 648,
+  "publicHTTPSVerified": [
+    "piclex-web/index.html",
+    "piclex-web/assets/main-BGsxTQqn.css",
+    "piclex-web/assets/main-ZqoKTMOA.js"
+  ],
+  "validation": {
+    "unitTests": 221,
+    "deploymentTests": 8,
+    "frozenRegression": 17,
+    "localVisualChecks": 8,
+    "liveVisualChecks": 8,
+    "finalWebKitScreenshots": 2
+  },
+  "githubPages": {
+    "run": 41964932720,
+    "lastObservedStatus": "pending"
+  },
+  "notes": [
+    "Full source is descendant of latest live focus/ambience release; only RecognitionHalo.tsx and capture.css differ in product code.",
+    "Initial local full regression lacked ignored public indexes; passed after using candidate production indexes.",
+    "Isolated server check used current repository tooling, since shared server checker had stale MIME configuration.",
+    "Final screenshot wait uses visible viewport size, not navigation edge (which has intentional spacing).",
+    "Recognition calls used mock test responses, not user photos or quota."
+  ],
+  "cleanup": "Task preview stopped; temporary source/build, browser results, scripts and upload tools removed; production/current/rollback preserved."
+}
