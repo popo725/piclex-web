@@ -44,5 +44,13 @@
     "Shared files were unlinked in the candidate before replacing build content; old release resources and configuration remained untouched.",
     "Public Python request received 403; curl and real HTTPS Chrome/WebKit verification passed."
   ],
-  "cleanup": "Task-owned frozen source, DerivedData, temporary signed App/dSYMs, web builds, browser results and remote upload tools removed; retained production/current/rollback releases, shared package caches, source/tests and lightweight evidence."
+  "cleanup": "Task-owned frozen source, DerivedData, temporary signed App/dSYMs, web builds, browser results and remote upload tools removed; retained production/current/rollback releases, shared package caches, source/tests and lightweight evidence.",
+  "latestWebVerification": {
+    "current": "/home/hermes/piclex-web/releases/9b8ddb4d23eb-5cd1d8bcb136",
+    "sourceRevision": "9b8ddb4d23ebfab186f668601e3d171a00082660",
+    "releaseID": "9b8ddb4d23eb-5cd1d8bcb136",
+    "containsFocusFix": true,
+    "focusAndPracticeSourceUnchanged": true,
+    "liveBrowserTestsPassed": 4
+  }
 }
