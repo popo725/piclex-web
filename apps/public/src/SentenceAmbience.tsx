@@ -3,7 +3,7 @@ import {readPreference,writePreference} from './storage';
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
 const choices=[['off','关闭'],['cafe','咖啡厅'],['piano','轻柔钢琴']];
 export default function useSentenceAmbience({active,speaking}:{active:boolean;speaking:boolean}){
- const [selection,setSelection]=useState(()=>{const saved=readPreference('piclex-web.sentence-ambience');return choices.some(([id])=>id===saved)?saved!:'piano';});
+ const [selection,setSelection]=useState(()=>{const saved=readPreference('piclex-web.sentence-ambience');return choices.some(([id])=>id===saved)?saved!:'cafe';});
  const [volume,setVolume]=useState(()=>{const saved=readPreference('piclex-web.sentence-ambience-volume');return saved!==null&&Number.isFinite(Number(saved))?Math.min(1,Math.max(0,Number(saved))):.28;});
  const [authorized,setAuthorized]=useState(false),[failed,setFailed]=useState(false),[revision,retry]=useState(0);
  const player=useRef<HTMLAudioElement|null>(null),menu=useRef<HTMLDetailsElement>(null),gain=useRef(0);

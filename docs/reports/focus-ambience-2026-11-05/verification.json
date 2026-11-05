@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-05",
+  "status": "local validation passed; deployment pending",
+  "changes": [
+    "Render gradient in the ring pseudo-element instead of rotating a separately sized child; parent and gradient resize together.",
+    "Use cafe for unset/invalid background sound preference; preserve explicit selections.",
+    "Expose the App background sound control in spelling as well as listening."
+  ],
+  "evidence": {
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "unitTests": 221,
+    "browserTests": 10,
+    "pixelChecks": 32,
+    "pixelEdgesPerCheck": 4,
+    "engines": [
+      "Chrome",
+      "WebKit"
+    ],
+    "oldRendererRegression": "During 200x180 to 30x30 transition the old child shrinks before the mask; all four edge samples disappear.",
+    "audioSHA256": {
+      "cafe": "61d14ef55e168e3630b1d17dc46e3d1b0acd4936621ded89fc57092356414e3d",
+      "piano": "72e3c203e9d805229d79a12ebd4f0b59a183389e352252906037c861a2d4bb99"
+    },
+    "audioComparison": "Public HTTPS, web repository and native App files match byte-for-byte; no asset replacement required."
+  },
+  "limits": [
+    "Mac WebKit validation; no iPhone Safari manual acceptance.",
+    "Browsers preserve prior explicit piano/off choices."
+  ]
+}
