@@ -1,0 +1,51 @@
+{
+  "current": "/home/hermes/piclex-web/releases/eb14001a8c75-8c737fda530c",
+  "revision": "eb14001a8c75a8671ca16cdbdefe0847637c8b89",
+  "releaseID": "eb14001a8c75-8c737fda530c",
+  "filesVerified": 661,
+  "originHTTPSVerified": [
+    "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+    "piclex-web/assets/experience-store-Dfhfdtsw.js",
+    "piclex-web/assets/lab-cV5RY7I5.js",
+    "piclex-web/assets/lab-r_hvwpDT.css",
+    "piclex-web/assets/main-BdWWQS7w.css",
+    "piclex-web/assets/main-DBb_kAnE.js",
+    "piclex-web/assets/main-DqtawjM9.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/subscribe-CgjdP79_.css",
+    "piclex-web/assets/subscribe-HvvHd9oy.js",
+    "piclex-web/index.html",
+    "piclex-web/library/catalog.json",
+    "piclex-web/source.json"
+  ],
+  "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "preservedContentFiles": 545,
+  "configurationUnchanged": true,
+  "fixRevision": "dd2ec0d8dc5f35fca64806922da8913dd279dd47",
+  "initialProductionRevision": "dc702689bac84ac2db238792dcd9197e6471f068",
+  "fixIncludedInProductionHistory": true,
+  "activationByThisTask": false,
+  "activationDecision": "Concurrent successor release already included this fix and newer AI/deck changes; preserved successor and verified it on real HTTPS.",
+  "validation": {
+    "typecheck": "passed",
+    "viteBuild": "passed",
+    "deployTests": 8,
+    "localBrowserChecks": 10,
+    "liveBrowserChecks": 10,
+    "browserEngines": [
+      "Chrome",
+      "WebKit"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "minimumTextContrast": 4.5,
+    "loadedIconScreenshotsReviewed": true
+  },
+  "githubPages": {
+    "lastObservedRun": 41961649945,
+    "lastObservedStatus": "pending"
+  },
+  "cleanup": "Temporary local frozen source, build, preview, scripts and remote upload stage removed; production/current/rollback releases and shared dependencies preserved."
+}

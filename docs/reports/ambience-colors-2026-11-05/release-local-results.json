@@ -1,0 +1,351 @@
+{
+  "base": "http://127.0.0.1:18137/piclex-web/",
+  "checks": [
+    {
+      "browser": "chrome",
+      "theme": "light",
+      "photo": {
+        "bg": "rgb(41, 37, 34)",
+        "ink": "rgb(245, 243, 238)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(241, 241, 241)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(233, 233, 233)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "surface": "rgb(241, 241, 241)",
+          "elevated": "rgb(233, 233, 233)"
+        }
+      },
+      "menuContrast": 17.207353378076174
+    },
+    {
+      "browser": "chrome",
+      "theme": "light",
+      "photo": {
+        "bg": "rgb(238, 227, 208)",
+        "ink": "rgb(31, 27, 22)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(241, 241, 241)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(233, 233, 233)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "surface": "rgb(241, 241, 241)",
+          "elevated": "rgb(233, 233, 233)"
+        }
+      },
+      "menuContrast": 17.207353378076174
+    },
+    {
+      "browser": "chrome",
+      "theme": "dark",
+      "photo": {
+        "bg": "rgb(41, 37, 34)",
+        "ink": "rgb(245, 243, 238)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(11, 11, 11)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(19, 19, 19)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "surface": "rgb(11, 11, 11)",
+          "elevated": "rgb(19, 19, 19)"
+        }
+      },
+      "menuContrast": 16.812211302327768
+    },
+    {
+      "browser": "chrome",
+      "theme": "dark",
+      "photo": {
+        "bg": "rgb(238, 227, 208)",
+        "ink": "rgb(31, 27, 22)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(11, 11, 11)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(19, 19, 19)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "tap": "rgba(51, 181, 229, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "surface": "rgb(11, 11, 11)",
+          "elevated": "rgb(19, 19, 19)"
+        }
+      },
+      "menuContrast": 16.812211302327768
+    },
+    {
+      "browser": "chrome",
+      "interaction": "selection, volume persistence, escape/focus, 320px containment passed",
+      "pageErrors": []
+    },
+    {
+      "browser": "webkit",
+      "theme": "light",
+      "photo": {
+        "bg": "rgb(41, 37, 34)",
+        "ink": "rgb(245, 243, 238)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(241, 241, 241)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(233, 233, 233)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "surface": "rgb(241, 241, 241)",
+          "elevated": "rgb(233, 233, 233)"
+        }
+      },
+      "menuContrast": 17.207353378076174
+    },
+    {
+      "browser": "webkit",
+      "theme": "light",
+      "photo": {
+        "bg": "rgb(238, 227, 208)",
+        "ink": "rgb(31, 27, 22)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(241, 241, 241)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(233, 233, 233)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(13, 13, 13)",
+          "bg": "rgb(252, 252, 252)",
+          "surface": "rgb(241, 241, 241)",
+          "elevated": "rgb(233, 233, 233)"
+        }
+      },
+      "menuContrast": 17.207353378076174
+    },
+    {
+      "browser": "webkit",
+      "theme": "dark",
+      "photo": {
+        "bg": "rgb(41, 37, 34)",
+        "ink": "rgb(245, 243, 238)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(245, 243, 238)",
+          "bg": "rgb(41, 37, 34)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(11, 11, 11)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(19, 19, 19)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "surface": "rgb(11, 11, 11)",
+          "elevated": "rgb(19, 19, 19)"
+        }
+      },
+      "menuContrast": 16.812211302327768
+    },
+    {
+      "browser": "webkit",
+      "theme": "dark",
+      "photo": {
+        "bg": "rgb(238, 227, 208)",
+        "ink": "rgb(31, 27, 22)"
+      },
+      "colors": {
+        "trigger": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "bar": {
+          "ink": "rgb(31, 27, 22)",
+          "bg": "rgb(238, 227, 208)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "menu": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(11, 11, 11)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "selected": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(19, 19, 19)",
+          "tap": "rgba(0, 0, 0, 0)"
+        },
+        "volume": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "tap": "rgba(0, 0, 0, 0.4)"
+        },
+        "theme": {
+          "ink": "rgb(237, 237, 237)",
+          "bg": "rgb(0, 0, 0)",
+          "surface": "rgb(11, 11, 11)",
+          "elevated": "rgb(19, 19, 19)"
+        }
+      },
+      "menuContrast": 16.812211302327768
+    },
+    {
+      "browser": "webkit",
+      "interaction": "selection, volume persistence, escape/focus, 320px containment passed",
+      "pageErrors": []
+    }
+  ]
+}
