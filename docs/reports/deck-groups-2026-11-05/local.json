@@ -1,0 +1,272 @@
+{
+  "base": "http://127.0.0.1:4188/piclex-web/",
+  "layoutChecks": [
+    {
+      "engine": "chromium",
+      "theme": "light",
+      "width": 320,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "theme": "light",
+      "width": 390,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "theme": "light",
+      "width": 1440,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "theme": "dark",
+      "width": 320,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "theme": "dark",
+      "width": 390,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "chromium",
+      "theme": "dark",
+      "width": 1440,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "width": 320,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "width": 390,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "width": 1440,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "width": 320,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "width": 390,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "width": 1440,
+      "groups": [
+        {
+          "title": "我的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        },
+        {
+          "title": "订阅的卡组",
+          "columns": 2,
+          "sameRow": true,
+          "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+          "border": "0px"
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "behaviorContexts": 4,
+  "emptyAndOwnOnlyContexts": 2,
+  "passed": true
+}

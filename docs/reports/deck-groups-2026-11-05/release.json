@@ -1,0 +1,43 @@
+{
+  "previous": "/home/hermes/piclex-web/releases/23ca9b2236ad-e6a34145f727",
+  "revision": "eb14001a8c75a8671ca16cdbdefe0847637c8b89",
+  "configurationSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "releaseID": "eb14001a8c75-8c737fda530c",
+  "target": "/home/hermes/piclex-web/releases/eb14001a8c75-8c737fda530c",
+  "files": 661,
+  "preservedContentFiles": 545,
+  "originHTTPSVerified": [
+    "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+    "piclex-web/assets/experience-store-Dfhfdtsw.js",
+    "piclex-web/assets/lab-cV5RY7I5.js",
+    "piclex-web/assets/lab-r_hvwpDT.css",
+    "piclex-web/assets/main-BdWWQS7w.css",
+    "piclex-web/assets/main-DBb_kAnE.js",
+    "piclex-web/assets/main-DqtawjM9.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/subscribe-CgjdP79_.css",
+    "piclex-web/assets/subscribe-HvvHd9oy.js",
+    "piclex-web/credits.html",
+    "piclex-web/index.html",
+    "piclex-web/lab/index.html",
+    "piclex-web/library/catalog.json",
+    "piclex-web/source.json",
+    "piclex-web/subscribe/index.html"
+  ],
+  "configurationUnchanged": true,
+  "atUTC": "2026-11-05T03:29:02.647346+00:00",
+  "verification": {
+    "typecheck": "passed",
+    "viteBuild": "passed",
+    "deployUnitTests": 8,
+    "localLayoutChecks": 12,
+    "liveLayoutChecks": 12,
+    "localBehaviorContexts": 4,
+    "liveBehaviorContexts": 4,
+    "localEmptyAndOwnOnlyContexts": 2,
+    "liveEmptyAndOwnOnlyContexts": 2,
+    "pageErrors": 0,
+    "githubPagesRun": 41961649945,
+    "githubPagesLastObserved": "pending"
+  }
+}
