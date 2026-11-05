@@ -1,6 +1,6 @@
 {
   "date": "2026-11-05",
-  "status": "local validation passed; deployment pending",
+  "status": "deployed and verified on public HTTPS",
   "changes": [
     "Render gradient in the ring pseudo-element instead of rotating a separately sized child; parent and gradient resize together.",
     "Use cafe for unset/invalid background sound preference; preserve explicit selections.",
@@ -27,5 +27,18 @@
   "limits": [
     "Mac WebKit validation; no iPhone Safari manual acceptance.",
     "Browsers preserve prior explicit piano/off choices."
-  ]
+  ],
+  "release": {
+    "releaseID": "86283d9a3b53-b8860bb8ef0a",
+    "sourceRevision": "86283d9a3b5388f1f39f174d4f2f97dce86d6c11",
+    "previous": "eb14001a8c75-8c737fda530c",
+    "verifiedFiles": 661,
+    "preservedNonBuildFiles": 648,
+    "preservedLibraryAndSourceFiles": 545,
+    "configurationUnchanged": true,
+    "liveBrowserTests": 4,
+    "frozenBrowserTests": 10
+  },
+  "deploymentNote": "Old server validation helper rejected its existing audio MIME rule before activation. Current repository helper passed isolated validation; initial pre-activation browser failures were against the old release. Final public HTTPS run passed all 4 checks.",
+  "cleanup": "Task preview stopped; temporary builds, upload archive and browser outputs removed after retaining evidence. Current and previous production releases retained."
 }
