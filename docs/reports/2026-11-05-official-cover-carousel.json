@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-05",
+  "change": "Intrinsic official portrait covers with horizontal snap and selection feedback",
+  "deployment": {
+    "releaseID": "1fca0136a974-0d1573ee8012",
+    "sourceRevision": "1fca0136a9743d5c1d07b0785fcf0bade93364e7",
+    "previous": "/home/hermes/piclex-web/releases/ace3f6227463-c65d21ef21f8",
+    "filesVerified": 661,
+    "preservedPublicContent": 544,
+    "configurationUnchanged": true,
+    "originHTTPSAssetsVerified": true,
+    "preservedPublicContentIncludingSource": 545
+  },
+  "productionBrowserChecks": [
+    {
+      "engine": "chromium",
+      "theme": "light",
+      "covers": [
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        }
+      ],
+      "snaps": [
+        170,
+        340,
+        170
+      ],
+      "hapticCalls": 3,
+      "gridNaturalRatio": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "chromium",
+      "theme": "dark",
+      "covers": [
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        }
+      ],
+      "snaps": [
+        170,
+        340,
+        170
+      ],
+      "hapticCalls": 3,
+      "gridNaturalRatio": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "covers": [
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        }
+      ],
+      "snaps": [
+        170,
+        340,
+        170
+      ],
+      "hapticCalls": 3,
+      "gridNaturalRatio": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "covers": [
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        },
+        {
+          "width": 156,
+          "height": 234,
+          "naturalWidth": 1024,
+          "naturalHeight": 1536,
+          "radius": "0px"
+        }
+      ],
+      "snaps": [
+        170,
+        340,
+        170
+      ],
+      "hapticCalls": 3,
+      "gridNaturalRatio": true,
+      "pageErrors": []
+    }
+  ],
+  "haptics": "API calls verified with stub; physical vibration depends on browser support",
+  "cleanup": "Task-owned source/build/upload/check outputs removed; formal current and rollback kept"
+}
