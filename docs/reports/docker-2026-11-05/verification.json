@@ -26,5 +26,17 @@
     "non-root read-only runtime and healthy healthcheck",
     "Chrome desktop and Mac WebKit mobile viewport: offline deck image, three study modes, persisted spelling draft"
   ],
-  "publication": "pending GitHub Actions validation of final commit"
+  "publication": {
+    "registry": "docker.io/zhaoolee/piclex-web",
+    "initialCommit": "d8ded2f4738dc3fe25040d394e14ee7e16618ad6",
+    "initialActionsRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41985458938",
+    "verifiedCommit": "ce0220b1e64802050121e3c4bdaec69e39ae0127",
+    "verifiedActionsRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41985983976",
+    "digest": "sha256:5df968837f76614c0d1f78531c1721f6ca19988a919485511fed3e61f2777b5d",
+    "status": "success",
+    "anonymousManifestAndPull": true,
+    "pulledImageRuntimeRequests": 406,
+    "officialBuildLocation": "GitHub Actions only"
+  },
+  "cleanup": "Removed all three task test containers, two local build image tags, isolated sources and temporary screenshots/scripts; kept the published latest image cache and shared Docker dependencies."
 }

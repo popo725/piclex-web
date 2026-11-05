@@ -63,6 +63,8 @@ docker run --rm -p 127.0.0.1:18120:8080 piclex-web:local
 
 ## 自动发布
 
+正式镜像固定由 GitHub Actions 构建并推送；开发机只做本地验证。
+
 在 GitHub 仓库 Settings → Secrets and variables → Actions 配置：
 
 - `DOCKERHUB_USERNAME`：Docker Hub 用户名（本仓库为 `zhaoolee`）。
