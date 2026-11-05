@@ -1,0 +1,30 @@
+{
+  "currentBefore": "/home/hermes/piclex-web/releases/9b8ddb4d23eb-5cd1d8bcb136",
+  "configSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "installed": {
+    "release_lifecycle.py": "7fec3272cdadc23d625e50dedebba644b955e5ec3f86aebad9661630bb572062",
+    "check-mirror.py": "1faef9aabc91185c5bb4adff68c470193d1f94f2dc60f801ed556e149601808d",
+    "activate.py": "7c384c2132446cb3e960e8ce1b6626e86465e0f9620d8c6aeee5e1168c8be65c"
+  },
+  "syntheticOldRelease": "f0321936b5aa-3ec77589e46f",
+  "cleanup": {
+    "current": "9b8ddb4d23eb-5cd1d8bcb136",
+    "deleted": [
+      "f0321936b5aa-3ec77589e46f"
+    ],
+    "skipped": [],
+    "remaining": [
+      "9b8ddb4d23eb-5cd1d8bcb136"
+    ],
+    "freeBytesBefore": 31623114752,
+    "freeBytesAfter": 31623458816,
+    "completedAt": 1793857813.1268883
+  },
+  "localUnitTests": 27,
+  "linuxUnitTests": 27,
+  "originAndPublicHTTPS": "Passed by installed finalize-current gate before cleanup",
+  "currentUnchanged": true,
+  "configurationUnchanged": true,
+  "liveWebsiteNotSwitched": true,
+  "cleanupOfTaskArtifacts": "Server staging scripts/previous-tool copies and local temporary test files removed; installed tools and compact reports retained."
+}
