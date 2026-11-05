@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-05",
+  "sourceRevision": "31c972cbb31fa9e1dc31beb735d306272ee3e0c9",
+  "releaseID": "31c972cbb31f-3918abb1ba0d",
+  "oldURL": "https://apps.apple.com/app/id6808490052",
+  "oldChromeDestination": "https://apps.apple.com/cn/iphone/today",
+  "fixedURL": "https://apps.apple.com/cn/app/id6808490052",
+  "verifiedChromeTitle": "摄影学英语 App - App Store",
+  "productionClickVerified": true,
+  "buildPassed": true,
+  "browserRegressionPassed": 3,
+  "serverFilesVerified": 661,
+  "nonBuildFilesPreserved": 648,
+  "serverOnlyCurrentRetained": true
+}
