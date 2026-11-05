@@ -11,7 +11,9 @@
     "browserSkipped": 1,
     "skipReason": "WebKit redirect interception unsupported; Chromium redirect protections tested",
     "deploymentPassed": 8,
-    "typecheckAndBuild": "passed"
+    "typecheckAndBuild": "passed",
+    "finalBackupBrowserPassed": 32,
+    "finalBackupBrowserSkipped": 1
   },
   "nativeZIPLibrary": {
     "name": "ZIPFoundation",
@@ -23,5 +25,13 @@
     "Full 20 GiB transfer not exercised; 20 GiB + 1 byte boundary rejected in browser tests",
     "No physical iPhone or user WebDAV service acceptance performed"
   ],
-  "largeTransfers": "running"
+  "largeTransfers": {
+    "chromium": "5 GiB passed: App-format restore, upload/readback, native ZIP validation, duplicate restore, 1285 photos/files retained",
+    "webkit": "5 GiB upload/readback/native ZIP passed; duplicate restore retrying after storage estimate fix"
+  },
+  "storageEstimateFix": {
+    "evidence": "WebKit estimate remained unchanged after removing >10 GiB of unreferenced synthetic files; preflight falsely rejected recovery",
+    "handling": "Actual OPFS writes enforce quota; estimate no longer blocks valid backups",
+    "reference": "https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/estimate"
+  }
 }

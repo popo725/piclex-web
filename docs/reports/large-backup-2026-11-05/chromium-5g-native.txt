@@ -1,0 +1,14 @@
+Checking entry 0, size 4178361
+Checking entry 200, size 4178361
+Checking entry 400, size 4178361
+Checking entry 600, size 4178361
+Checking entry 800, size 4178361
+Checking entry 1000, size 4178361
+Checking entry 1200, size 4178361
+Checking entry 1400, size 4178361
+Checking entry 1600, size 4178361
+Checking entry 1800, size 4178361
+Checking entry 2000, size 4178361
+Checking entry 2200, size 4178361
+Checking entry 2400, size 4178361
+ZIPFoundation 0.9.20: verified 2571 entries, 5370304387 expanded bytes, all CRC32 and sizes correct

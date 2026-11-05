@@ -24,7 +24,6 @@ export async function hashBlob(value,{signal,onProgress=(_done,_total)=>{}}={}){
  const result=hex(hash.digest());digests.set(blob,result);return result;
 }
 export async function bytesOf(value,limit){checkSize(byteSize(value),limit);return value instanceof Uint8Array?value:new Uint8Array(await value.arrayBuffer());}
-export async function availableSpace(required){const estimate=await navigator.storage?.estimate?.();if(estimate?.quota&&estimate.quota-(estimate.usage||0)<required)throw storageError(new DOMException('Insufficient space','QuotaExceededError'));}
 /** Each operation owns a private OPFS directory. No data directory is ever removed. */
 export class BackupJob {
  static async create(signal,onProgress=(_progress)=>{}){
@@ -46,7 +45,10 @@ export class BackupJob {
   return {writable,finish:async()=>{const file=await handle.getFile();digests.set(file,hex(hash.digest()));references.set(file,{job:this,reference:{directory:this.name,file:name}});return file;}};
  }
  async receive(stream,limit,total=0){
-  if(total)checkSize(total,limit);if(total)await availableSpace(total);const sink=await this.writer(limit);let done=0;
+  if(total)checkSize(total,limit);
+  // Storage estimates may be padded or stale. The actual disk writer enforces
+  // quota; a conservative estimate must not reject a valid large backup.
+  const sink=await this.writer(limit);let done=0;
   const progress=new TransformStream({transform:(chunk,controller)=>{done+=chunk.byteLength;this.onProgress({done,total});controller.enqueue(chunk);}});
   await stream.pipeThrough(progress).pipeTo(sink.writable,{signal:this.signal});return sink.finish();
  }
