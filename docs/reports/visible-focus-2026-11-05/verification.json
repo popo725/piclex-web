@@ -14,7 +14,7 @@
     "nativeReleaseBuild": "passed, generic iOS Release, CODE_SIGNING_ALLOWED=NO",
     "nativeReleaseExecutableBytes": 115253936
   },
-  "deployment": "not deployed or installed",
+  "deployment": "Web deployed c63d6a27db13-1209c1207294; App Release 1.0.21 (359) installed in place and launched.",
   "notes": "Existing unrelated working changes retained; no simulator or user data operations.",
   "cleanup": "Removed only task-owned temporary builds, browser results, Swift cache, routing files and helper scripts; kept source, tests, screenshots and verification record."
 }

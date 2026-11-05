@@ -1,0 +1,48 @@
+{
+  "current": "/home/hermes/piclex-web/releases/c63d6a27db13-1209c1207294",
+  "previous": "/home/hermes/piclex-web/releases/12c0dde8b0fc-378ac872e6ef",
+  "releaseID": "c63d6a27db13-1209c1207294",
+  "sourceRevision": "c63d6a27db13ba5f939600c111640273b3f27b0b",
+  "filesVerified": 661,
+  "preservedNonBuildFiles": 648,
+  "configurationUnchanged": true,
+  "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "originHTTPSVerified": [
+    "piclex-web/index.html",
+    "piclex-web/lab/index.html",
+    "piclex-web/subscribe/index.html",
+    "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+    "piclex-web/assets/experience-store-Cf0PUDr3.js",
+    "piclex-web/assets/lab-C8Nqr4Kh.js",
+    "piclex-web/assets/lab-r_hvwpDT.css",
+    "piclex-web/assets/main-BGsxTQqn.css",
+    "piclex-web/assets/main-BeaQdbo2.js",
+    "piclex-web/assets/main-Dd5u6t2U.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/subscribe-CgjdP79_.css",
+    "piclex-web/assets/subscribe-HvvHd9oy.js",
+    "piclex-web/source.json",
+    "piclex-web/library/catalog.json"
+  ],
+  "publicHTTPSVerified": [
+    "piclex-web/index.html",
+    "piclex-web/assets/main-BeaQdbo2.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/experience-store-Cf0PUDr3.js",
+    "piclex-web/assets/main-BGsxTQqn.css"
+  ],
+  "validation": {
+    "unitTests": 230,
+    "deploymentTests": 8,
+    "frozenBrowserTests": 12,
+    "liveBrowserTests": 4,
+    "typeScript": "passed",
+    "productionBuild": "passed"
+  },
+  "notes": [
+    "Initial candidate copy failed for lack of server disk space before activation; removed only the failed task candidate and safely reused unchanged immutable files with hard links.",
+    "Shared files were unlinked in the candidate before replacing build content; old release resources and configuration remained untouched.",
+    "Public Python request received 403; curl and real HTTPS Chrome/WebKit verification passed."
+  ],
+  "cleanup": "Task-owned frozen source, DerivedData, temporary signed App/dSYMs, web builds, browser results and remote upload tools removed; retained production/current/rollback releases, shared package caches, source/tests and lightweight evidence."
+}
