@@ -1,3 +1,4 @@
+import {backupState} from './backup-store';
 import {parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
 import {useAppearancePalette} from './appearance';
 import Settings from './Settings';
@@ -28,11 +29,14 @@ type Card = { id: string; title: string; description: string; count: number; cov
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
 const appStore = 'https://apps.apple.com/app/id6808490052';
 const cache = new Map<string, Deck>();
+let deletedPhotoIDs=new Set<string>();
 function route() { return parseLearningURL(location.hash)?.id||''; }
 function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
 function browseDecks(){location.hash='/decks';}
 function screen(){const path=location.hash.slice(1);return path==='/settings/lab'?'lab':path.startsWith('/settings/level')?'level':path.startsWith('/settings')?'settings':path.startsWith('/deck/')||path.startsWith('/decks')||path.startsWith('/learn')?'learn':'capture';}
 function materialize(id: string, parsed: Parsed, bytes: Uint8Array, aliases: string[] = []): Deck {
+  const visible=parsed.photos.map((p,i)=>({p,i})).filter(({p})=>!deletedPhotoIDs.has(p.id.toLowerCase())),indices=new Map(visible.map(({i},index)=>[i,index]));
+  parsed={...parsed,photos:visible.map(({p})=>p),words:parsed.words.filter(w=>indices.has(w.imageIndex)).map(w=>({...w,imageIndex:indices.get(w.imageIndex)!}))};
   const covers = Object.fromEntries(Object.entries(parsed.covers).map(([role, image]) => [role, URL.createObjectURL(new Blob([image.bytes as BlobPart], { type: image.mime }))]));
   const deck = { ...parsed, id, bytes, covers, fingerprint: parsed.learningFingerprint, legacyFingerprints: [...new Set([...aliases, parsed.fingerprint])], images: parsed.photos.map(p => URL.createObjectURL(new Blob([p.bytes as BlobPart], { type: p.mime }))) };
   const previous = cache.get(id);
@@ -75,6 +79,7 @@ function App() {
     let cancelled = false;
     (async () => {
       try {
+        deletedPhotoIDs=new Set((await backupState()).photos.filter(p=>p.meta.deletedAt!=null).map(p=>p.id));
         const response = await fetch(asset('library/catalog.json')); if (!response.ok) throw new Error('公开卡组暂时无法加载，请刷新重试。');
         const builtin: Card[] = parsePublicCatalog(await response.json());
         const imported: Card[] = [];
@@ -83,6 +88,7 @@ function App() {
             try {
               const bytes = new Uint8Array(stored.bytes); const parsed = await parseArchive(bytes);
               let d = cache.get(stored.id); if (!d) d = materialize(stored.id, parsed, bytes, stored.progressAliases);
+              if(!d.words.length)continue;
               imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, fingerprint:parsed.fingerprint, local: true });
             } catch { if (!cancelled) setNotice('有一份本地卡组暂时无法读取，原文件仍保存在浏览器中。'); }
           }

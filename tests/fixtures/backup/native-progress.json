@@ -1,0 +1,51 @@
+{
+  "appVersion" : "fixture",
+  "content" : {
+    "events" : [
+      {
+        "completedAt" : 1700000000000,
+        "correct" : true,
+        "finalCorrect" : true,
+        "id" : "11111111-1111-4111-8111-111111111111",
+        "levelCreditAt" : 1700000000000,
+        "logJSON" : "eyJyYXRpbmciOjMsInJldmlldyI6NzIxNjkyODAwLCJlbGFwc2VkRGF5cyI6MCwibGFzdEVsYXBzZWREYXlzIjowLCJzY2hlZHVsZWREYXlzIjoxLCJsZWFybmluZ1N0ZXBzIjowfQ==",
+        "mode" : "traditional",
+        "reviewedAt" : 1700000000000,
+        "statisticsVersion" : 1,
+        "wordKey" : "camera"
+      }
+    ],
+    "memories" : [
+
+    ],
+    "progress" : [
+      {
+        "attempts" : 3,
+        "correctAnswers" : 2,
+        "lastPracticedAt" : 1700000000000,
+        "misspelledIndices" : [
+          2
+        ],
+        "nextReviewAt" : 1700086400000,
+        "streak" : 1,
+        "wordKey" : "camera"
+      }
+    ],
+    "readingEvents" : [
+      {
+        "completedAt" : 1700000000000,
+        "experience" : 4,
+        "id" : "22222222-2222-4222-8222-222222222222",
+        "wordCount" : 10
+      }
+    ]
+  },
+  "contentSHA256" : "774df0ed3e60cf25308e1a861edc98a8fe20157708819f5b45f4799dfb9c2845",
+  "eventCount" : 1,
+  "exportedAt" : 1700000000000,
+  "exporterVersion" : "1.0.0",
+  "formatIdentifier" : "com.zhaoolee.piclex.progress-archive",
+  "formatVersion" : 1,
+  "memoryCount" : 0,
+  "progressCount" : 1
+}

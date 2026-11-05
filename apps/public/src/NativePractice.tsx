@@ -1,3 +1,4 @@
+import {recordPortableStudy,portableHistory} from './backup-store';
 import {applyLearningURL,learningHash,parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
 import usePageViewport from './usePageViewport';
 import useSentenceAmbience from './SentenceAmbience';
@@ -171,13 +172,16 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  useEffect(()=>{if(!active||state.module!=='listening'||!sentence||sentence.outcomes[state.mode]!=='correct')return;const stamp=`${key}:${state.mode}`;if(sentenceEffects.current.has(stamp))return;sentenceEffects.current.add(stamp);if(sentence.pending!==state.mode)return;const sources=[...document.querySelectorAll('.selected-chunk,.free-dictation,.guided-input')].map(n=>n.getBoundingClientRect());emitExperience(sources,true,true,particleEffect);},[key,state.mode,sentence?.outcomes,state.module,active]);
  useEffect(()=>{if(!active)clearExperienceEffects();},[active]);
  useEffect(()=>{
-  for(const w of deck.words){const d=state.words[w.id];if(d?.result==='correct'||d?.result==='reviewed')award({id:`spell:${deck.fingerprint}:${state.round}:${w.id}`,kind:'spelling',result:d.result});}
+  for(const w of deck.words){const d=state.words[w.id];if(d?.result==='correct'||d?.result==='reviewed')award({id:`spell:${deck.fingerprint}:${state.round}:${w.id}`,kind:'spelling',result:d.result,wordKey:w.occurrenceID?.trim()?'occurrence:'+w.occurrenceID.trim():w.english.toLowerCase().trim()});}
   for(const p of prompts){const d=state.sentences[p.key];for(const mode of ['chunks','free'])if(d?.outcomes[mode]==='correct')award({id:`dictation:${deck.fingerprint}:${state.round}:${p.key}:${mode}`,kind:'dictation',mode,correct:true,wordCount:writtenWords(p.sentence).length});}
  },[state.words,state.sentences,state.round]);
  const act=(action:Action)=>{if(action.type==='retry')audio.stop();dispatch({type:'sentence',action});if(action.type==='giveUp'&&prompt)audio.play([prompt.sentence],state.rate,undefined,0,promptAudio);};
  const revealWord=()=>{if(!active||!word||draft.result)return;revealAudio.current=word.id;dispatch({type:'reveal'});};
  // Create a stable shuffled bank once, even before the first chip is selected.
  useEffect(()=>{if(prompt&&!state.sentences[prompt.key])setState((s:any)=>({...s,sentences:{...s.sentences,[prompt.key]:newSentence(prompt)}}));},[prompt?.key]);
+ useEffect(()=>{let cancelled=false;const initial=state.history;portableHistory(deck).then(history=>{if(!cancelled)setState((s:any)=>({...s,history:{...s.history,...Object.fromEntries(Object.entries(history).filter(([id])=>s.history[id]===initial[id]))}}));}).catch(e=>notify(e.message));return()=>{cancelled=true;};},[deck.fingerprint]);
+ const portablePrevious=useRef({words:state.words,round:state.round});
+ useEffect(()=>{const previous=portablePrevious.current;portablePrevious.current={words:state.words,round:state.round};const words=Object.fromEntries(Object.entries(state.words).filter(([id,d]:[string,any])=>d.result&&(previous.round!==state.round||previous.words[id]?.result!==d.result)));if(Object.keys(words).length)void recordPortableStudy(deck,{...state,words}).catch(e=>notify(e.message));},[state.words,state.round]);
  useEffect(()=>{if(!writePreference(storageKey,JSON.stringify(state))&&!warned.current){warned.current=true;notify('浏览器无法保存进度；关闭页面后可能无法恢复。');}},[state]);
  useEffect(()=>{
   const visibility=()=>{setVisible(!document.hidden);if(document.hidden){pauseListeningRef.current();setState((s:any)=>reduceStudy(deck,s,{type:'pause',question:studyKey(s)}));}};

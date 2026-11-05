@@ -1,10 +1,10 @@
 const databaseName = 'piclex-web-v1';
 export type StoredDeck = { id: string; bytes: ArrayBuffer; title: string; addedAt: number; progressAliases?: string[] };
-function database(): Promise<IDBDatabase> {
+export function database(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(databaseName, 1);
-    request.onupgradeneeded = () => request.result.createObjectStore('decks', { keyPath: 'id' });
-    request.onsuccess = () => resolve(request.result);
+    const request = indexedDB.open(databaseName, 2);
+    request.onupgradeneeded = () => {for(const name of ['decks','backupPhotos'])if(!request.result.objectStoreNames.contains(name))request.result.createObjectStore(name,{keyPath:'id'});if(!request.result.objectStoreNames.contains('backupMeta'))request.result.createObjectStore('backupMeta');};
+    request.onsuccess = () => {request.result.onversionchange=()=>request.result.close();resolve(request.result);};
     request.onerror = () => reject(new Error('浏览器无法保存卡组，请检查存储权限。'));
     request.onblocked = () => reject(new Error('请关闭其他 摄影学英语 页面后重试。'));
   });
