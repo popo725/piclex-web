@@ -11,7 +11,8 @@
       "WebKit 390x844"
     ],
     "narrow_screen": 320,
-    "provider_requests": "mocked; no real credentials used"
+    "provider_requests": "mocked; no real credentials used",
+    "real_custom_provider": "DeepSeek deepseek-flash: real production UI configuration, HTTP 200, 10 labels, 1 saved deck, 0 official analysis requests; see real-custom-provider.json"
   },
   "limitations": [
     "Web local model not implemented",

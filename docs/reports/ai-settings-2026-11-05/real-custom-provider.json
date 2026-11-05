@@ -1,0 +1,34 @@
+{
+  "date": "2026-11-05",
+  "site": "https://piclex.v2fy.com/piclex-web/",
+  "provider": "https://api.deepseek.com",
+  "model": "deepseek-flash",
+  "mocked": false,
+  "stages": [
+    "reload"
+  ],
+  "officialRequests": 0,
+  "customRequests": 1,
+  "configurationPersisted": true,
+  "keyMasked": true,
+  "providerStatus": 200,
+  "elapsedMs": 20964,
+  "labels": [
+    "croissant",
+    "egg",
+    "glass",
+    "fork",
+    "spoon",
+    "pine cone",
+    "wooden plate",
+    "hand",
+    "tag",
+    "wooden table"
+  ],
+  "labelCount": 10,
+  "savedDecks": 1,
+  "success": true,
+  "credentialHandling": "Read existing local workbench configuration in memory; no key logged or exported; isolated browser AI settings cleared and context closed after test.",
+  "testPhoto": "Public repository fixture tests/fixtures/demo/images/cafe.jpg",
+  "scope": "Real production Chrome end-to-end via custom provider UI; no response interception, browser security bypass, proxy, or official fallback."
+}
