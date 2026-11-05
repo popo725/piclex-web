@@ -51,6 +51,16 @@
 
 进度与导入内容保存在当前浏览器，不跨浏览器或 App 自动同步。AI 制卡会将照片发送给所选服务；自带 Key 保存在浏览器且未加密。相机和语音功能依赖浏览器支持与授权。
 
+## Docker 一键启动
+
+```sh
+docker run -d --name piclex-web \
+  --restart unless-stopped -p 127.0.0.1:18120:8080 \
+  zhaoolee/piclex-web:latest
+```
+
+打开 <http://127.0.0.1:18120>。照片和进度保存在浏览器；自托管 AI 制卡需配置自己的模型。[Compose、HTTPS 与更新说明](docs/docker.md)。
+
 ## 本地运行
 
 需要 Node.js 22.12+。

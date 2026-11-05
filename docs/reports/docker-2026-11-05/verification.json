@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-05",
+  "localBuildSource": "6271d2d5da98b224cac19ac9a63c22912789b49c",
+  "architectures": [
+    "linux/arm64",
+    "linux/amd64"
+  ],
+  "amd64Execution": "emulated on ARM64 Colima; first request preceded readiness, rerun passed",
+  "requestsPerArchitecture": 406,
+  "decks": 6,
+  "photos": 360,
+  "words": 2042,
+  "imageBytes": {
+    "arm64": 342404623,
+    "amd64": 342497248
+  },
+  "checks": [
+    "Compose config",
+    "Dockerfile build check",
+    "root and base path redirects",
+    "JS/CSS content type and cache policy",
+    "missing assets return 404",
+    "all bundled photos reachable",
+    "deck metadata SHA256 and package size",
+    "audio byte ranges",
+    "non-root read-only runtime and healthy healthcheck",
+    "Chrome desktop and Mac WebKit mobile viewport: offline deck image, three study modes, persisted spelling draft"
+  ],
+  "publication": "pending GitHub Actions validation of final commit"
+}
