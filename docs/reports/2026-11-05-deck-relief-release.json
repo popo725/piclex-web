@@ -1,0 +1,127 @@
+{
+  "date": "2026-11-05",
+  "change": "Borderless relief deck filters and cards",
+  "activation": {
+    "previous": "/home/hermes/piclex-web/releases/12df20a276f8-be9c803ed51b",
+    "sourceRevision": "5d47b8df3ab623b4df0c4d6be76df7b306e2ba4b",
+    "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+    "release": "/home/hermes/piclex-web/releases/5d47b8df3ab6-c984fbd0bac1",
+    "releaseID": "5d47b8df3ab6-c984fbd0bac1",
+    "filesVerified": 661,
+    "preservedContentFiles": 545,
+    "originHTTPSVerified": [
+      "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+      "piclex-web/assets/experience-store-BaMgA33l.js",
+      "piclex-web/assets/lab-pMlgwsrx.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-C3W22hts.css",
+      "piclex-web/assets/main-VBFzjers.js",
+      "piclex-web/assets/main-_Eul92ti.js",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-HvvHd9oy.js",
+      "piclex-web/credits.html",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/library/catalog.json",
+      "piclex-web/source.json",
+      "piclex-web/subscribe/index.html"
+    ],
+    "atUTC": "2026-11-05T02:31:24.676368+00:00",
+    "configurationUnchanged": true
+  },
+  "localBrowserChecks": [
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    }
+  ],
+  "productionBrowserChecks": [
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "borderless": true,
+      "relief": true,
+      "selection": true,
+      "focus": true,
+      "deckOpen": true,
+      "carousel": true,
+      "pageErrors": []
+    }
+  ],
+  "deployTestsPassed": 8,
+  "githubPages": "41955482654 pending at last check; primary production site verified"
+}
