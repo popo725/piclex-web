@@ -1,0 +1,35 @@
+{
+  "sourceRevision": "ace3f6227463d8de258cd574b96ae8c7d6ba4935",
+  "releaseID": "ace3f6227463-c65d21ef21f8",
+  "previousReleaseID": "1ff7923e470a-1e7645b8d6ca",
+  "url": "https://piclex.v2fy.com/piclex-web/",
+  "releaseFilesVerified": 661,
+  "httpsAssetsVerified": 25,
+  "contentFilesBytePreserved": 545,
+  "nginxConfigurationChanged": false,
+  "unitTestsPassed": 221,
+  "localBackupBrowserTests": {
+    "passed": 23,
+    "skipped": 1
+  },
+  "relatedRegressionTestsPassed": 21,
+  "latestBaselineSettingsTestsPassed": 12,
+  "liveHTTPSBrowserTests": {
+    "passed": 15,
+    "skipped": 1
+  },
+  "skipReason": "Playwright WebKit does not support fulfilling redirect responses; Chrome redirect and fetch policy unit tests pass.",
+  "nativeMacValidation": "Production progress codec and FSRS domain validator; production photo DTO, annotations, ImageIO and SHA256 passed for actual local and live browser exports.",
+  "nativeSourceSHA256": {
+    "PicLex/Models/ProgressArchive.swift": "e6493bcc45aab0039c8324b3d6774aa020cb0605be4b32cdf91c45a5734efc38",
+    "PicLex/Features/Settings/UserLevel.swift": "372dfbb23a8a348e40d12d10c06e7a72515bc75dc647f44ddad2d0849cb6ec42",
+    "PicLex/Services/ProgressArchiveService.swift": "df399e59cffaf4f7d86474787533398029ed1ea3ce41dd2c1b19abd4ec8d34e6",
+    "PicLex/Services/PhotoArchive.swift": "8d900b408888a4562c7837c3c2116e2dd35e8882e68c48117f022adf00cd3508",
+    "PicLex/Models/PhotoCard.swift": "ada6c862788b37378ea2cff823dc91a7089e855b2ea087dcd6aa29d42e5d45df",
+    "PicLex/Models/ContextVocabulary.swift": "314db7d01081f6b18d134655f639b80a53518e7f3b217b876983be6458b908fa"
+  },
+  "fsrsRevision": "4fbaf20184d62f82a9f44f343337c61a2c5483e9",
+  "realUserWebDAVTested": false,
+  "physicalDeviceTested": false,
+  "simulatorStarted": false
+}
