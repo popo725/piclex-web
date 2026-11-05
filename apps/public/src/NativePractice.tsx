@@ -232,7 +232,15 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
   return audio.stop;
  },[listenRun,active,playback,prompt?.key,pass,repeat,state.rate,seek,seekRevision,onePhoto]);
  useEffect(()=>{const keyboard=(e:KeyboardEvent)=>{
-  if(e.defaultPrevented||!active||composing||e.isComposing||e.keyCode===229||e.repeat||e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;
+  const hardwareKey=/^Key[A-Z]$/.test(e.code)&&(e.key==='Process'||e.key==='Unidentified'||e.keyCode===229)?(e.shiftKey?e.code.slice(3):e.code.slice(3).toLowerCase()):e.key;
+  if(e.defaultPrevented||!active||composing||e.isComposing||(e.keyCode===229&&hardwareKey===e.key)||e.metaKey||e.ctrlKey||e.altKey)return;
+  const target=e.target instanceof HTMLElement?e.target:null;
+  // Replay and hint buttons may keep focus after a click. Resume typing without
+  // capturing other fields, dialogs, browser shortcuts, or button activation keys.
+  if(state.module==='spelling'&&!draft.result&&target&&!target.closest('input,textarea,select,[contenteditable=true],[role=dialog]')&&(target===document.body||target===document.documentElement||target.id==='main-content'||!!target.closest('.native-practice'))&&(/^[a-z]$/i.test(hardwareKey)||hardwareKey==='Backspace'||hardwareKey==='Delete')){
+   e.preventDefault();focusAnswer();virtualPress(hardwareKey);return;
+  }
+  if(e.repeat||e.shiftKey)return;
   if(e.target!==input.current&&e.target!==document.body&&e.target!==document.documentElement)return;
   if(state.module==='spelling'){if(e.key===' '){e.preventDefault();replay();}if(e.key==='Escape'&&!draft.result){e.preventDefault();revealWord();}if(e.key==='Enter'&&draft.result){e.preventDefault();dispatch({type:'next'});}}
  };window.addEventListener('keydown',keyboard);return()=>window.removeEventListener('keydown',keyboard);});

@@ -1,0 +1,35 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config feedback-check.config.ts tests/browser/spelling-feedback.spec.ts tests/browser/playback-parity.spec.ts tests/browser/touch-spelling.spec.ts tests/browser/keyboard-viewport.spec.ts
+[WebServer] npm notice run piclex-web@0.1.0 preview
+[WebServer] npm notice run vite preview --host 127.0.0.1 --port 18120 --port 18148
+
+Running 25 tests using 2 workers
+
+  ✓   2 [desktop] › tests/browser/keyboard-viewport.spec.ts:43:1 › hard dictation accepts hardware editing and English paste while remaining keyboard protected (3.0s)
+  ✓   3 [desktop] › tests/browser/playback-parity.spec.ts:19:1 › App replay button keeps its geometry and fills in place across sentence, word, replay and rate change (1.9s)
+  ✓   4 [desktop] › tests/browser/playback-parity.spec.ts:44:1 › errors, mode changes and leaving the page clear progress and reject old callbacks (1.2s)
+  ✓   5 [desktop] › tests/browser/playback-parity.spec.ts:56:1 › speech without boundary events shows activity without a made-up percentage and respects reduced motion (1.3s)
+  ✓   6 [desktop] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (1.7s)
+  ✓   7 [desktop] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (1.6s)
+  ✓   8 [desktop] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (1.4s)
+  ✓   1 [desktop] › tests/browser/keyboard-viewport.spec.ts:12:1 › every keyboard row stays clickable with browser chrome, short screens and mode changes (12.2s)
+  -   9 [desktop] › tests/browser/touch-spelling.spec.ts:4:1 › touch spelling keeps the OS keyboard disabled through taps, next word and navigation
+  ✓  11 [mobile] › tests/browser/keyboard-viewport.spec.ts:43:1 › hard dictation accepts hardware editing and English paste while remaining keyboard protected (2.8s)
+  ✓  12 [mobile] › tests/browser/playback-parity.spec.ts:19:1 › App replay button keeps its geometry and fills in place across sentence, word, replay and rate change (2.5s)
+  ✓  13 [mobile] › tests/browser/playback-parity.spec.ts:44:1 › errors, mode changes and leaving the page clear progress and reject old callbacks (1.6s)
+  ✓  14 [mobile] › tests/browser/playback-parity.spec.ts:56:1 › speech without boundary events shows activity without a made-up percentage and respects reduced motion (1.4s)
+  ✓  15 [mobile] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (1.5s)
+  ✓  10 [mobile] › tests/browser/keyboard-viewport.spec.ts:12:1 › every keyboard row stays clickable with browser chrome, short screens and mode changes (12.4s)
+  ✓  16 [mobile] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (1.6s)
+  ✓  17 [mobile] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (1.9s)
+  ✓  18 [mobile] › tests/browser/touch-spelling.spec.ts:4:1 › touch spelling keeps the OS keyboard disabled through taps, next word and navigation (4.0s)
+  ✓  19 [mobile-webkit] › tests/browser/playback-parity.spec.ts:19:1 › App replay button keeps its geometry and fills in place across sentence, word, replay and rate change (2.3s)
+  ✓  20 [mobile-webkit] › tests/browser/playback-parity.spec.ts:56:1 › speech without boundary events shows activity without a made-up percentage and respects reduced motion (1.2s)
+  ✓  21 [mobile-webkit] › tests/browser/playback-parity.spec.ts:44:1 › errors, mode changes and leaving the page clear progress and reject old callbacks (1.7s)
+  ✓  22 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (1.9s)
+  ✓  23 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (1.8s)
+  ✓  24 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (1.9s)
+  ✓  25 [mobile-webkit] › tests/browser/touch-spelling.spec.ts:4:1 › touch spelling keeps the OS keyboard disabled through taps, next word and navigation (3.0s)
+
+  1 skipped
+  24 passed (42.6s)

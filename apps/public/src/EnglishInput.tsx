@@ -15,7 +15,13 @@ const EnglishInput=forwardRef<Field,Props>(function EnglishInput({value,onValue,
   onCompositionEnd:(event:React.CompositionEvent<Field>)=>{const text=event.currentTarget.value;composing.current=false;pendingCommit.current=text;setDraft(null);onComposing?.(false);if(needsEnglish(text)){onWarning(true);return;}onValue(text,false);},
   onChange:(event:React.ChangeEvent<Field>)=>{const text=event.currentTarget.value;if(composing.current||(event.nativeEvent as InputEvent).isComposing){setDraft(text);onWarning(true);return;}if(pendingCommit.current!==null&&(pendingCommit.current===text||value===text)){pendingCommit.current=null;return;}pendingCommit.current=null;setDraft(null);accept(text,true);},
   onPaste:(event:ClipboardEvent<Field>)=>{if(needsEnglish(event.clipboardData.getData('text'))){event.preventDefault();onWarning(true);return;}onWarning(false);if(readOnly){event.preventDefault();return;}onPaste?.(event);if(virtualKeyboardOnly&&!event.defaultPrevented){event.preventDefault();const field=event.currentTarget,text=event.clipboardData.getData('text');const next=value.slice(0,field.selectionStart??value.length)+text+value.slice(field.selectionEnd??value.length);accept(rest.maxLength?next.slice(0,rest.maxLength):next,true);}},
-  onKeyDown:(event:KeyboardEvent<Field>)=>{if(composing.current||event.nativeEvent.isComposing||event.keyCode===229){onWarning(true);event.stopPropagation();return;}if(virtualKeyboardOnly&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
+  onKeyDown:(event:KeyboardEvent<Field>)=>{
+   // Protected fields never open an IME editor. Some hardware layouts still report
+   // Process/229; recover only an unambiguous physical Latin key, never IME text.
+   if(virtualKeyboardOnly&&!readOnly&&!composing.current&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&/^Key[A-Z]$/.test(event.code)&&(event.key==='Process'||event.key==='Unidentified'||event.keyCode===229)){
+    event.preventDefault();event.stopPropagation();onWarning(false);onVirtualKey?.(event.shiftKey?event.code.slice(3):event.code.slice(3).toLowerCase());return;
+   }
+   if(composing.current||event.nativeEvent.isComposing||event.keyCode===229){onWarning(true);event.stopPropagation();return;}if(virtualKeyboardOnly&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
    event.preventDefault();const field=event.currentTarget,start=field.selectionStart??0,end=field.selectionEnd??start;
    const backward=field.selectionDirection==='backward',anchor=backward?end:start,caret=backward?start:end;
    const cursor=event.key==='Home'?0:event.key==='End'?value.length:event.key==='ArrowLeft'?Math.max(0,event.shiftKey?caret-1:start-(start===end?1:0)):Math.min(value.length,event.shiftKey?caret+1:end+(start===end?1:0));
