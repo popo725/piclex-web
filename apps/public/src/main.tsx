@@ -2,7 +2,7 @@ import {parseLearningURL} from '../../../packages/practice/src/learning-url.mjs'
 import {useAppearancePalette} from './appearance';
 import Settings from './Settings';
 import GlassTabs from './GlassTabs';
-import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
+import {NativeIcon as Icon,scheduleUIAssetWarmup} from '../../../packages/learning-ui/src/NativeIcon';
 import Capture from './Capture';
 import Laboratory from './Laboratory';
 import {ExperienceMeter,LevelPage,useExperience} from './Experience';
@@ -50,6 +50,7 @@ function downloadDeck(deck: Deck) {
 }
 
 function App() {
+  useEffect(()=>{scheduleUIAssetWarmup();},[]);
   const [showLibrary,setShowLibrary]=useState(()=>location.hash==='#/decks');
   const [spellingEntry,setSpellingEntry]=useState({id:'',sequence:0});
   const [page,setPage]=useState(screen),[labDeck,setLabDeck]=useState<Deck|null>(null),[gameBusy,setGameBusy]=useState(false);
