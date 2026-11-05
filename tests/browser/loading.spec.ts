@@ -5,15 +5,18 @@ const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.jso
 const payload=fs.readFileSync('apps/public/public/'+card.payload),deck=JSON.parse(payload.toString());
 const photo=fs.readFileSync('apps/public/public/'+deck.photos[0].path);
 test('all bottom icon assets start loading before any tap and delayed atlases retain square static icons',async({page})=>{
- const requested:string[]=[];let unlock!:()=>void;const gate=new Promise<void>(resolve=>unlock=resolve);
+ const requested:string[]=[],loadedFrames=new Set<string>();let unlock!:()=>void;const gate=new Promise<void>(resolve=>unlock=resolve);
  page.on('request',r=>{if(/\/icons\/tab-/.test(r.url()))requested.push(r.url());});
+ page.on('requestfinished',r=>{if(r.resourceType()==='image'&&/\/icons\/tab-.*-frames\.png$/.test(r.url()))loadedFrames.add(r.url());});
  await page.route('**/icons/tab-*-frames.png',async route=>{await gate;await route.continue();});
  await page.goto('/piclex-web/#/capture',{waitUntil:'domcontentloaded'});
  await expect.poll(()=>new Set(requested.map(url=>new URL(url).pathname)).size).toBe(6);
  const tabs=page.getByRole('navigation',{name:'底部导航'});
  await tabs.getByRole('button',{name:'设置',exact:true}).click();await expect(tabs.locator('.native-tab-motion')).toHaveCount(0);
  for(const icon of await tabs.locator('.native-tab-icon').all()){const rect=await icon.boundingBox();expect(rect!.width).toBeGreaterThan(18);expect(rect!.height).toBe(rect!.width);}
- unlock();await page.waitForLoadState('networkidle');const before=requested.length;
+ // networkidle can occur before requestIdleCallback starts the background warmup.
+ // Wait for the three actual image fetches (not just HTML fetch preloads).
+ unlock();await expect.poll(()=>loadedFrames.size,{timeout:15000}).toBe(3);await page.waitForLoadState('networkidle');const before=requested.length;
  for(const name of ['学习','拍摄','设置'])await tabs.getByRole('button',{name,exact:true}).click();
  await expect(tabs.locator('.native-tab-motion')).toHaveCount(0,{timeout:3000});expect(requested.length).toBe(before);
 });
