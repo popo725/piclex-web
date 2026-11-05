@@ -14,9 +14,10 @@ body[data-page=settings] #root{padding-bottom:0}
 .native-settings-home .settings-row,.native-settings-detail .settings-row{min-height:58px;padding:12px 0;gap:12px;font-size:16px;line-height:1.4;background:none;border-radius:0}
 .settings-row .settings-value{margin-left:auto;color:var(--muted);font-size:14px;text-align:right}
 .settings-official{margin:12px 0 4px}.settings-official header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.settings-official h2{margin:0;font-size:17px;font-weight:600}.settings-official header button{font-size:14px;display:flex;align-items:center;gap:10px;min-height:36px}
-.settings-official-carousel{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:4px 0 8px;scroll-snap-type:x proximity}
-.settings-official-carousel>button{padding:0;border:0;background:none;box-shadow:none;display:flex;flex-direction:column;align-items:stretch;width:156px;flex:none;scroll-snap-align:start;gap:7px;text-align:center;font-size:11px;color:var(--muted)}
-.settings-official-carousel img{display:block;border:0;box-shadow:none;width:156px;height:207px;object-fit:cover;border-radius:9px}
+.settings-official-carousel{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:4px 0 8px;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;position:relative}
+.settings-official-carousel>button{padding:0;border:0;background:none;box-shadow:none;display:flex;flex-direction:column;align-items:stretch;width:156px;flex:none;scroll-snap-align:start;scroll-snap-stop:always;border-radius:0;gap:7px;text-align:center;font-size:11px;color:var(--muted)}
+.settings-official-carousel::after{content:"";flex:0 0 max(0px,calc(100% - 170px))}
+.settings-official-carousel img{display:block;border:0;box-shadow:none;width:100%;height:auto;object-fit:contain;border-radius:0}
 .settings-page.native-settings-detail{max-width:620px;padding:0 16px 24px;min-height:calc(100dvh - var(--app-tab-height));display:block}
 .settings-detail-header{position:sticky;top:0;background:var(--bg);z-index:2;height:60px;display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
 .settings-detail-header button{height:44px;display:grid;place-items:center}.settings-detail-header h1{font-size:18px;text-align:center;margin:0;font-weight:600}
@@ -52,6 +53,7 @@ body[data-page=settings] #root{padding-bottom:0}
 .settings-deck-card{display:flex;flex-direction:column;align-items:stretch;min-width:0;gap:0;border:0;padding:0;border-radius:12px;background:var(--surface);box-shadow:-3px -3px 5px var(--deck-highlight),3px 3px 5px var(--deck-shade)}
 .settings-deck-card:active{box-shadow:inset 2px 2px 4px var(--deck-shade),inset -2px -2px 4px var(--deck-highlight)}
 .settings-deck-card>img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+.settings-deck-card[data-official=true]>img{aspect-ratio:auto;object-fit:contain;border-radius:0}
 .settings-deck-card>span.settings-deck-meta{display:flex;flex-direction:column;flex:none;width:100%;height:112px;padding:12px;gap:5px}
 .settings-deck-card strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere;font-size:13px;line-height:1.35;font-weight:600}
 .settings-deck-card .settings-deck-counts{display:flex;justify-content:space-between;gap:6px;margin-top:auto;font-size:clamp(8px,2.4vw,10px);font-weight:500;line-height:1.4;white-space:nowrap}
