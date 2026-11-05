@@ -1,0 +1,193 @@
+{
+  "base": "https://piclex.v2fy.com",
+  "results": [
+    {
+      "browser": "chrome",
+      "colorScheme": "light",
+      "dimensions": [
+        {
+          "width": 320,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 390,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 844,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 1440,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        }
+      ],
+      "switchAndRefresh": true
+    },
+    {
+      "browser": "chrome",
+      "colorScheme": "dark",
+      "dimensions": [
+        {
+          "width": 320,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 390,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 844,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 1440,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        }
+      ],
+      "switchAndRefresh": true
+    },
+    {
+      "browser": "webkit",
+      "colorScheme": "light",
+      "dimensions": [
+        {
+          "width": 320,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 390,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 844,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 1440,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        }
+      ],
+      "switchAndRefresh": true
+    },
+    {
+      "browser": "webkit",
+      "colorScheme": "dark",
+      "dimensions": [
+        {
+          "width": 320,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 390,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 844,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        },
+        {
+          "width": 1440,
+          "columns": 2,
+          "firstRow": true,
+          "noOverflow": true,
+          "noCounts": true,
+          "selected": 1,
+          "titles": true,
+          "covers": true
+        }
+      ],
+      "switchAndRefresh": true
+    }
+  ]
+}

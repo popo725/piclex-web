@@ -1,11 +1,11 @@
 {
-  "releaseID": "fd5db3b85c06-80ba9e814785",
-  "sourceRevision": "fd5db3b85c066b718303abf5e887badf0ceb1621",
+  "releaseID": "ce0220b1e648-be52ef1e6010",
+  "sourceRevision": "ce0220b1e64802050121e3c4bdaec69e39ae0127",
   "previous": "9b8ddb4d23eb-5cd1d8bcb136",
   "files": 661,
   "preserved": 648,
-  "status": "candidate-ready-awaiting-cleanup-approval",
-  "deployed": false,
+  "status": "live-verified",
+  "deployed": true,
   "unitTests": 230,
   "deployTests": 27,
   "browserRegressionPassed": 12,
@@ -203,7 +203,213 @@
     ]
   },
   "serverValidation": "661 SHA256 files and isolated Nginx passed",
-  "serverCandidate": "/home/hermes/piclex-web/incoming/grid-fd5db3b85c06/candidate",
-  "approval": "Automatic review rejected deploy plus prune, including retry with prior-thread direct user authorization; current-chat explicit confirmation requested",
-  "cleanup": "Local preview stopped, frozen source and browser temporary output removed; local frozen release and server candidate kept pending approval"
+  "approval": "Current-chat user explicitly approved cleanup after successful validation on 2026-11-05; previous approval block resolved",
+  "cleanup": "Only current release remains; obsolete task candidate/upload tools removed; local temporary release and verification files removed after preserving these reports",
+  "implementationRevision": "fd5db3b85c066b718303abf5e887badf0ceb1621",
+  "candidateSuperseded": "fd5db3b85c06-80ba9e814785",
+  "deployment": "Concurrent ce0220b release already contains the unchanged deck picker implementation; retained the newer release and verified live instead of overwriting it",
+  "liveVerification": {
+    "base": "https://piclex.v2fy.com",
+    "results": [
+      {
+        "browser": "chrome",
+        "colorScheme": "light",
+        "dimensions": [
+          {
+            "width": 320,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 390,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 844,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 1440,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          }
+        ],
+        "switchAndRefresh": true
+      },
+      {
+        "browser": "chrome",
+        "colorScheme": "dark",
+        "dimensions": [
+          {
+            "width": 320,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 390,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 844,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 1440,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          }
+        ],
+        "switchAndRefresh": true
+      },
+      {
+        "browser": "webkit",
+        "colorScheme": "light",
+        "dimensions": [
+          {
+            "width": 320,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 390,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 844,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 1440,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          }
+        ],
+        "switchAndRefresh": true
+      },
+      {
+        "browser": "webkit",
+        "colorScheme": "dark",
+        "dimensions": [
+          {
+            "width": 320,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 390,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 844,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          },
+          {
+            "width": 1440,
+            "columns": 2,
+            "firstRow": true,
+            "noOverflow": true,
+            "noCounts": true,
+            "selected": 1,
+            "titles": true,
+            "covers": true
+          }
+        ],
+        "switchAndRefresh": true
+      }
+    ]
+  },
+  "releaseCleanup": {
+    "current": "ce0220b1e648-be52ef1e6010",
+    "deleted": [],
+    "skipped": [],
+    "remaining": [
+      "ce0220b1e648-be52ef1e6010"
+    ],
+    "freeBytesBefore": 35412566016,
+    "freeBytesAfter": 35412566016,
+    "completedAt": 1793865128.2896965
+  }
 }
