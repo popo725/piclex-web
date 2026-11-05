@@ -168,7 +168,7 @@ body[data-practice=true] .toast button{pointer-events:auto}
 :root:not([data-theme=dark]) .native-practice :is(.native-button,.native-primary,.native-back,.practice-library,.playback-rate select,.chunk):active{opacity:1;color:#666;box-shadow:inset 2px 2px 6px var(--practice-shade),inset -2px -2px 6px var(--practice-light)}
 :root:not([data-theme=dark]) .native-practice .native-answer{box-shadow:inset 2px 2px 6px var(--practice-shade),inset -2px -2px 6px var(--practice-light)}
 :root:not([data-theme=dark]) .native-practice .native-answer.wrong{border-color:#c64444}
-:root:not([data-theme=dark]) .native-practice :is(.native-hint,.sentence-toolbar){background:var(--practice-face);color:var(--ink)}
+/* Keep photo background and ink paired in both themes, matching App PhotoCardPalette. */
 :root:not([data-theme=dark]) .native-practice :is(.virtual-keyboard,.chunk-answer,.guided-input,.dictation-input){background:var(--practice-face)}
 .native-practice .native-card{outline:.5px solid color-mix(in srgb,var(--ink) 35%,transparent);outline-offset:-.5px}
 .native-practice button:disabled{opacity:.45}
