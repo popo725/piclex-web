@@ -1,0 +1,62 @@
+[
+  {
+    "asset": "tab-capture.png",
+    "time": "2026-11-05T07:55:22.546Z",
+    "fromStylesheet": false,
+    "transfer": 3309
+  },
+  {
+    "asset": "tab-learn.png",
+    "time": "2026-11-05T07:55:22.547Z",
+    "fromStylesheet": false,
+    "transfer": 4284
+  },
+  {
+    "asset": "tab-settings.png",
+    "time": "2026-11-05T07:55:22.547Z",
+    "fromStylesheet": false,
+    "transfer": 4631
+  },
+  {
+    "asset": "tab-learn-frames.png",
+    "time": "2026-11-05T07:55:22.547Z",
+    "fromStylesheet": false,
+    "transfer": 13248
+  },
+  {
+    "asset": "tab-settings-frames.png",
+    "time": "2026-11-05T07:55:22.547Z",
+    "fromStylesheet": false,
+    "transfer": 26899
+  },
+  {
+    "asset": "tab-capture-frames.png",
+    "time": "2026-11-05T07:55:22.547Z",
+    "fromStylesheet": false,
+    "transfer": 88839
+  },
+  {
+    "asset": "tab-capture-frames.png",
+    "time": "2026-11-05T07:55:23.725Z",
+    "fromStylesheet": false,
+    "transfer": 88839
+  },
+  {
+    "asset": "tab-learn-frames.png",
+    "time": "2026-11-05T07:55:23.733Z",
+    "fromStylesheet": false,
+    "transfer": 13248
+  },
+  {
+    "asset": "tab-settings-frames.png",
+    "time": "2026-11-05T07:55:23.750Z",
+    "fromStylesheet": false,
+    "transfer": 26899
+  },
+  {
+    "asset": "tab-learn-frames.png",
+    "time": "2026-11-05T07:55:24.365Z",
+    "fromStylesheet": true,
+    "transfer": 13248
+  }
+]

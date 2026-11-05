@@ -1,0 +1,113 @@
+{
+  "sourceRevision": "ce0220b1e64802050121e3c4bdaec69e39ae0127",
+  "releaseID": "ce0220b1e648-be52ef1e6010",
+  "changes": [
+    "Automatic English voice selection prefers normal speech and avoids novelty voices; explicit voice choice remains unchanged.",
+    "Published baseline includes spelling-page ambience control.",
+    "Repair stale UI assertions, render waits, pixel-density sampling, and Linux WebKit launch options blocking Pages."
+  ],
+  "verification": {
+    "unitTests": 236,
+    "deploymentTests": 27,
+    "typeScript": "passed",
+    "viteBuild": "passed",
+    "initialBrowserRegression": 93,
+    "finalCommitBrowserRegression": {
+      "passed": 53,
+      "preexistingWebKitRedirectMockSkip": 1
+    },
+    "productionContentBrowserRegression": 21,
+    "piclexHTTPS": {
+      "passedInitially": 8,
+      "networkTimeout": 1,
+      "failedCasePassedAfterNetworkWait": 1,
+      "realInstalledInventoryChecked": true,
+      "latestReleaseLivePassed": 9
+    },
+    "pages": {
+      "conclusion": "success",
+      "browserPassed": 310,
+      "preexistingSkips": 4,
+      "livePassed": 9,
+      "projects": [
+        "desktop Chrome",
+        "mobile Chrome",
+        "mobile WebKit"
+      ]
+    },
+    "firstLinuxRun": {
+      "passed": 307,
+      "preexistingSkips": 4,
+      "failed": 1,
+      "reason": "Icon cache assertion ran with Playwright routing enabled, which disables HTTP cache; waiting-only attempt was insufficient. Final fix separates delayed-image and real-cache checks."
+    },
+    "iconWarmupRepeatedChecks": 10,
+    "latestBaselineBrowserTests": 18,
+    "iconCacheRootCause": {
+      "reproducedOnLinux": 3,
+      "explanation": "Playwright request interception disables HTTP caching. Split delayed-image fallback and normal-cache checks; Resource Timing confirms no new PNG bytes on navigation.",
+      "linuxRepeatedChecksPassed": 10,
+      "macRepeatedChecksPassed": 12,
+      "secondLinuxRun": {
+        "passed": 307,
+        "preexistingSkips": 4,
+        "failedCacheCheck": 1
+      }
+    },
+    "actualInstalledVoiceOnCurrentMirror": {
+      "name": "Samantha",
+      "pitch": 1,
+      "rate": 1,
+      "method": "Real system voice inventory and actual utterance selection; speech output intercepted for silent identity verification."
+    },
+    "actualInstalledVoiceOnPages": {
+      "name": "Samantha",
+      "pitch": 1,
+      "rate": 1,
+      "projects": [
+        "desktop",
+        "mobile",
+        "mobile-webkit"
+      ],
+      "method": "Real system inventory and actual utterance selection; speech output intercepted for silent verification."
+    }
+  },
+  "content": {
+    "unchangedPublicFiles": 648,
+    "manifestFiles": 661,
+    "previousRelease": "9b8ddb4d23eb-5cd1d8bcb136",
+    "preservedCurrentSongDeckVersion": 8
+  },
+  "deployment": {
+    "piclex": "activated; origin/public HTTPS and health verified; previous release automatically pruned",
+    "githubRun": "https://github.com/zhaoolee/piclex-web/actions/runs/41994079968",
+    "currentMirror": {
+      "releaseID": "4f2528af27b7-d73455433dbe",
+      "sourceRevision": "4f2528af27b7ae6c81f7f01dd821c5f77a3df2c1",
+      "includesSpeechFix": true,
+      "additionalConcurrentChange": "Spelling focus and feedback fixes; latest mirror live regression 9 passed."
+    },
+    "assets": {
+      "https://zhaoolee.com": [
+        "/piclex-web/assets/main-CXFNM7Lx.js"
+      ],
+      "https://piclex.v2fy.com": [
+        "/piclex-web/assets/main-DNPIIujk.js",
+        "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092"
+      ],
+      "built": [
+        "/piclex-web/assets/main-CXFNM7Lx.js"
+      ]
+    },
+    "pages": "success; public entry script matches tested 1c9b9ec build"
+  },
+  "limitations": [
+    "Voice identity and neutral pitch were verified; subjective listening quality remains for user listening feedback.",
+    "No iOS simulator or device data operations."
+  ],
+  "cleanup": {
+    "server": "Verified only current 4f2528af27b7-d73455433dbe release remains",
+    "local": "Owned isolated build, packages, browser results and logs removed after retaining compact evidence; shared dependencies preserved."
+  },
+  "pagesRevision": "1c9b9ec208862cf8495374e34bb25a8e4f5aba2f"
+}

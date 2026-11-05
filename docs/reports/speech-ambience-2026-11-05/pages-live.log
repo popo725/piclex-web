@@ -1,0 +1,17 @@
+
+Running 9 tests using 2 workers
+
+ACTUAL_VOICE {"project":"desktop","selected":{"name":"Samantha","pitch":1,"rate":1}}
+  ✓  2 [desktop] › tests/browser/live-voice-inventory.spec.ts:2:1 › real installed voice inventory selects a normal voice at neutral pitch (5.6s)
+  ✓  1 [desktop] › tests/browser/focus-ambience.spec.ts:8:1 › default cafe is controllable in spelling; choice survives modules and reload, pauses on exit (8.6s)
+  ✓  3 [desktop] › tests/browser/speech-voice.spec.ts:2:1 › automatic speech avoids Albert, manual choice persists, and normal pitch is retained (2.6s)
+ACTUAL_VOICE {"project":"mobile","selected":{"name":"Samantha","pitch":1,"rate":1}}
+  ✓  5 [mobile] › tests/browser/live-voice-inventory.spec.ts:2:1 › real installed voice inventory selects a normal voice at neutral pitch (4.4s)
+  ✓  4 [mobile] › tests/browser/focus-ambience.spec.ts:8:1 › default cafe is controllable in spelling; choice survives modules and reload, pauses on exit (5.3s)
+  ✓  6 [mobile] › tests/browser/speech-voice.spec.ts:2:1 › automatic speech avoids Albert, manual choice persists, and normal pitch is retained (1.7s)
+ACTUAL_VOICE {"project":"mobile-webkit","selected":{"name":"Samantha","pitch":1,"rate":1}}
+  ✓  8 [mobile-webkit] › tests/browser/live-voice-inventory.spec.ts:2:1 › real installed voice inventory selects a normal voice at neutral pitch (1.8s)
+  ✓  9 [mobile-webkit] › tests/browser/speech-voice.spec.ts:2:1 › automatic speech avoids Albert, manual choice persists, and normal pitch is retained (2.9s)
+  ✓  7 [mobile-webkit] › tests/browser/focus-ambience.spec.ts:8:1 › default cafe is controllable in spelling; choice survives modules and reload, pauses on exit (5.8s)
+
+  9 passed (27.0s)
