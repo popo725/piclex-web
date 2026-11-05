@@ -1,0 +1,17 @@
+{
+  "localValidation": {
+    "unitPassed": 209,
+    "layoutPlaybackPassed": 55,
+    "finalRepeatedCaptureAudioPassed": 30,
+    "build": "passed"
+  },
+  "previousCI": {
+    "run": 41947782058,
+    "passed": 228,
+    "failed": 1,
+    "skipped": 2,
+    "failure": "Original audio clock advancing while UI remained preparing; now covered by deterministic lost-playing-event regression"
+  },
+  "deviceScope": "Mac Chrome and WebKit; mobile viewport/text inflation emulation, no physical device or iOS simulator",
+  "release": "pending"
+}

@@ -47,13 +47,19 @@ export function useSpeech(notify:(s:string)=>void){
      if(!source){fail('这张卡片的原音频暂时无法播放。');return;}
      const player=new Audio(source);media.current=player;player.playbackRate=rate;player.preservesPitch=true;
      const failed=()=>{if(media.current===player)fail('原音频播放失败，请检查网络并再次点击播放。');};
-     const time=()=>{if(media.current===player&&valid())update(i,Number.isFinite(player.duration)&&player.duration>0?player.currentTime/player.duration:0,!Number.isFinite(player.duration)||player.duration<=0);};
+     let observedTime=0;
+     const time=()=>{if(media.current!==player||!valid())return;
+      // Some media backends omit/reorder playing after a seek. A moving decoded
+      // media clock is also evidence of playback; metadata/seek alone is not.
+      if(player.currentTime>observedTime&&!player.paused&&!player.seeking&&player.readyState>=2)started();
+      observedTime=player.currentTime;update(i,Number.isFinite(player.duration)&&player.duration>0?player.currentTime/player.duration:0,!Number.isFinite(player.duration)||player.duration<=0);
+     };
      player.onplaying=()=>{if(media.current===player){started();time();}};
-     player.onwaiting=player.onstalled=()=>{if(valid()&&media.current===player)setPreparing(true);};
+     player.onwaiting=player.onstalled=()=>{if(valid()&&media.current===player&&player.readyState<3)setPreparing(true);};
      player.onloadedmetadata=()=>{if(!valid()||media.current!==player)return;if(Number.isFinite(player.duration)&&player.duration>0)player.currentTime=player.duration*Math.min(.999,Math.max(0,startFraction));time();};
      player.ontimeupdate=time;player.onerror=failed;
      player.onended=()=>{if(!valid()||media.current!==player)return;clearMedia();ended();};
-     void player.play().catch(failed);
+     void player.play().then(()=>{if(media.current===player&&current()&&!player.paused)started();}).catch(failed);
     }catch{fail('这张卡片的原音频暂时无法播放。');}
     return;
    }

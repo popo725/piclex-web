@@ -33,5 +33,41 @@
     "finalWordSentenceLocatorRegression": 28
   },
   "physicalDevice": "Not run; Mac Chrome and WebKit coverage only. No simulator started.",
-  "release": "pending; existing production library and source bytes must remain unchanged"
+  "release": {
+    "sourceRevision": "ba331465cd646cf0cea4dfd754208abeadbec059",
+    "releaseID": "ba331465cd64-577e22bcf739",
+    "manifestFiles": 661,
+    "changedFiles": 3,
+    "preservedContentFiles": 545,
+    "httpsAssetsChecked": 24,
+    "nginxConfigUnchanged": true,
+    "previousRelease": "adde7ae98418-6726c41aa99b",
+    "liveBrowsers": [
+      {
+        "browser": "chrome",
+        "url": "https://piclex.v2fy.com/piclex-web/#/deck/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f?module=listening&photo=2&word=6a00ed50-3ceb-441e-979b-ea7752cdea33%3A1&mode=listening&sentence=1",
+        "restoredSentence": "The room is bright during the day.",
+        "viewport": {
+          "header": true,
+          "nav": true,
+          "joined": true
+        },
+        "errors": []
+      },
+      {
+        "browser": "webkit",
+        "url": "https://piclex.v2fy.com/piclex-web/#/deck/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f?module=listening&photo=2&word=6a00ed50-3ceb-441e-979b-ea7752cdea33%3A1&mode=listening&sentence=1",
+        "restoredSentence": "The room is bright during the day.",
+        "viewport": {
+          "header": true,
+          "nav": true,
+          "joined": true
+        },
+        "errors": []
+      }
+    ],
+    "githubRun": 41947782058,
+    "githubStatus": "in progress"
+  },
+  "cleanup": "Task-owned isolated checkout, dependencies, build/test outputs, upload overlay, helper scripts and remote staging removed. Formal current/rollback releases and repository evidence retained."
 }

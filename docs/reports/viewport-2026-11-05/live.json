@@ -1,0 +1,24 @@
+[
+  {
+    "browser": "chrome",
+    "url": "https://piclex.v2fy.com/piclex-web/#/deck/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f?module=listening&photo=2&word=6a00ed50-3ceb-441e-979b-ea7752cdea33%3A1&mode=listening&sentence=1",
+    "restoredSentence": "The room is bright during the day.",
+    "viewport": {
+      "header": true,
+      "nav": true,
+      "joined": true
+    },
+    "errors": []
+  },
+  {
+    "browser": "webkit",
+    "url": "https://piclex.v2fy.com/piclex-web/#/deck/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f?module=listening&photo=2&word=6a00ed50-3ceb-441e-979b-ea7752cdea33%3A1&mode=listening&sentence=1",
+    "restoredSentence": "The room is bright during the day.",
+    "viewport": {
+      "header": true,
+      "nav": true,
+      "joined": true
+    },
+    "errors": []
+  }
+]

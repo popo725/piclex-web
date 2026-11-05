@@ -1,3 +1,4 @@
+import usePageViewport from './usePageViewport';
 import {readPreference} from './storage';
 import FlowingSand from './FlowingSand';
 import goldSand from './assets/camera-soft-dunes.webp';
@@ -7,7 +8,7 @@ import PhotoAnnotations from './PhotoAnnotations';
 import RecognitionHalo from './RecognitionHalo';
 import PolaroidPrint from './PolaroidPrint';
 import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
-import {useCallback,useEffect,useRef,useState,type CSSProperties} from 'react';
+import {useCallback,useEffect,useLayoutEffect,useRef,useState,type CSSProperties} from 'react';
 import type {PhotoLabel} from './capture-api';
 import {useCaptureJobs,type CaptureJob} from './useCaptureJobs';
 import {usePhotoPalette} from './usePhotoPalette';
@@ -25,6 +26,7 @@ function imageCanvas(width:number,height:number){
  canvas.width=Math.max(1,Math.round(width*scale));canvas.height=Math.max(1,Math.round(height*scale));return canvas;
 }
 export default function Capture({active,save,learn,notify}:{active:boolean;save:(bytes:Uint8Array,id:string)=>Promise<string>;learn:(id?:string)=>void;notify:(s:string)=>void}){
+ usePageViewport(active,'capture');
  const picker=useRef<HTMLInputElement>(null),video=useRef<HTMLVideoElement>(null),stream=useRef<MediaStream|null>(null),generation=useRef(0);
  const [opening,setOpening]=useState(false),[live,setLive]=useState(false),[cameraReady,setCameraReady]=useState(false),[preparing,setPreparing]=useState(false);
  const flow=useCaptureJobs(save,notify),[presented,setPresented]=useState<string|null>(null),[printing,setPrinting]=useState(false);
@@ -111,8 +113,23 @@ function CaptureReview({job,active,settled,consume,retry,cancel,edit,start,resum
  function openEditor(){stopCountdown();setTitle(job.title);setLabels(job.labels.length?job.labels:[blank()]);setEditing(true);}
  function saveEdit(){stopCountdown();edit(title,labels);setEditing(false);}
  function interact(){if(seconds!==null)stopCountdown();}
+ const review=useRef<HTMLElement>(null);
+ useLayoutEffect(()=>{
+  const root=review.current,viewport=document.getElementById('main-content');if(!root||!viewport)return;
+  const page=root.parentElement!;let frame=0;
+  const outer=(node:HTMLElement)=>{const s=getComputedStyle(node);if(s.display==='none'||s.position==='fixed'||s.position==='absolute')return 0;return node.getBoundingClientRect().height+parseFloat(s.marginTop||'0')+parseFloat(s.marginBottom||'0');};
+  const measure=()=>{
+   const style=getComputedStyle(page),controls=root.querySelector<HTMLElement>('.capture-review-control-slot')!,tools=root.querySelector<HTMLElement>('.capture-card-tools');
+   const siblings=[...page.children].filter(n=>n!==root).reduce((sum,n)=>sum+outer(n as HTMLElement),0);
+   const budget=Math.max(180,viewport.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-outer(controls)-(tools?outer(tools):0)-siblings);
+   if(Math.abs(parseFloat(root.style.getPropertyValue('--capture-card-budget'))-budget)>.5||!root.style.getPropertyValue('--capture-card-budget'))root.style.setProperty('--capture-card-budget',`${budget}px`);
+  };
+  const schedule=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(measure);};
+  const observer=new ResizeObserver(schedule);for(const node of [viewport,page,...root.querySelectorAll('.capture-review-control-slot,.capture-card-tools')])observer.observe(node);
+  measure();return()=>{cancelAnimationFrame(frame);observer.disconnect();};
+ },[editing,finishing,seconds===null,selected,job.labels]);
  const currentLabel=selected===null?null:job.labels[selected];
- return <section inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
+ return <section ref={review} inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
   <div ref={card} style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}

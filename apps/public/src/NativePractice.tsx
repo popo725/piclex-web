@@ -1,5 +1,5 @@
 import {applyLearningURL,learningHash,parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
-import usePracticeViewport from './usePracticeViewport';
+import usePageViewport from './usePageViewport';
 import useSentenceAmbience from './SentenceAmbience';
 import {listeningPlaylist,listeningNeighbor,repeatModes} from '../../../packages/practice/src/listening.mjs';
 import Dialog from './Dialog';
@@ -118,7 +118,7 @@ function Reading({word,active,audio,rate,notify,saved,next,reward,continuation}:
  </section>;
 }
 export default function NativePractice({deck,deckChoices,selectDeck,spellingRequest=0,notify,exit,download,share,installedDecks,saveDownloaded}:{deck:PracticeDeck;deckChoices:{id:string;title:string;cover:string;photoCount?:number}[];selectDeck:(id:string)=>void;spellingRequest?:number;notify:(s:string)=>void;exit:()=>void;download:()=>void;share:()=>void;installedDecks:{id:string;fingerprint?:string}[];saveDownloaded:(bytes:Uint8Array,signal:AbortSignal)=>Promise<void>}){
- usePracticeViewport();
+ usePageViewport();
  const desktopKeyboard=useDesktopKeyboard();
  const [photoState,setPhotoState]=useState<'loading'|'ready'|'error'>('loading'),[photoRetry,setPhotoRetry]=useState(0);
  const xp=useExperience(),[effect]=useState(()=>readPreference('piclex-web.particle-effect')||'socialCode');

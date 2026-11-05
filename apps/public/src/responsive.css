@@ -22,7 +22,7 @@
 .deck-caption h3,.hero-photo-label strong{overflow-wrap:anywhere}
 .check-row{gap:12px;min-width:0}
 .check-row>select{max-width:60%;min-width:0}
-.learning-dialog{max-height:calc(min(var(--practice-vh,100dvh),100dvh) - 24px);max-width:calc(100vw - 24px);overscroll-behavior:contain}
+.learning-dialog{max-height:calc(min(var(--page-vh,100dvh),100dvh) - 24px);max-width:calc(100vw - 24px);overscroll-behavior:contain}
 .dialog-body{min-width:0}
 body[data-page=lab] .laboratory-page{height:calc(100dvh - var(--app-tab-height) - env(safe-area-inset-bottom,0px))}
 @media(min-width:960px){
