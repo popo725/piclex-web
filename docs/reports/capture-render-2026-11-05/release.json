@@ -1,0 +1,36 @@
+{
+  "previous": "/home/hermes/piclex-web/releases/c63d6a27db13-1209c1207294",
+  "current": "/home/hermes/piclex-web/releases/9b8ddb4d23eb-5cd1d8bcb136",
+  "releaseID": "9b8ddb4d23eb-5cd1d8bcb136",
+  "sourceRevision": "9b8ddb4d23ebfab186f668601e3d171a00082660",
+  "filesVerified": 663,
+  "preservedNonBuildFiles": 648,
+  "configSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "originHTTPSVerified": [
+    "piclex-web/index.html",
+    "piclex-web/source.json",
+    "piclex-web/library/catalog.json",
+    "piclex-web/assets/main-GCXTULdH.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/experience-store-Cf0PUDr3.js",
+    "piclex-web/assets/main-yy5vcElC.css"
+  ],
+  "configurationUnchanged": true,
+  "health": {
+    "status": "ok",
+    "configured": true,
+    "enabled": true
+  },
+  "deduplicatedPublicFiles": 660,
+  "releasedDuplicateBytes": 323996422,
+  "liveBrowserTests": 6,
+  "unitTests": 230,
+  "deployTests": 8,
+  "frozenBrowserTests": 19,
+  "visualCases": 8,
+  "githubPages": {
+    "run": 41973805473,
+    "lastObservedStatus": "pending"
+  },
+  "diskIncident": "Duplicated static files in the release exhausted remaining disk during publication. Replaced 660 byte-verified immutable copies with hard links to prior release, freeing 323996422 bytes; loopback and origin HTTPS health recovered to 200. About 117 MiB remained before removing 2.1 MiB task upload. No other releases or user data removed."
+}
