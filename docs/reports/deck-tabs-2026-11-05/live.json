@@ -1,0 +1,173 @@
+{
+  "base": "https://piclex.v2fy.com/piclex-web/",
+  "results": [
+    {
+      "engine": "chromium",
+      "scheme": "light",
+      "width": 320,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "chromium",
+      "scheme": "light",
+      "width": 390,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": true
+    },
+    {
+      "engine": "chromium",
+      "scheme": "light",
+      "width": 1440,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "chromium",
+      "scheme": "dark",
+      "width": 320,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "chromium",
+      "scheme": "dark",
+      "width": 390,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": true
+    },
+    {
+      "engine": "chromium",
+      "scheme": "dark",
+      "width": 1440,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "webkit",
+      "scheme": "light",
+      "width": 320,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "webkit",
+      "scheme": "light",
+      "width": 390,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": true
+    },
+    {
+      "engine": "webkit",
+      "scheme": "light",
+      "width": 1440,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.95) -3px -3px 5px 0px, rgba(0, 0, 0, 0.14) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "webkit",
+      "scheme": "dark",
+      "width": 320,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    },
+    {
+      "engine": "webkit",
+      "scheme": "dark",
+      "width": 390,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": true
+    },
+    {
+      "engine": "webkit",
+      "scheme": "dark",
+      "width": 1440,
+      "styles": {
+        "columns": 2,
+        "sameRow": true,
+        "shadow": "rgba(255, 255, 255, 0.07) -3px -3px 5px 0px, rgba(0, 0, 0, 0.8) 3px 3px 5px 0px",
+        "border": "0px",
+        "overflow": false
+      },
+      "passed": true,
+      "entryAndImportChecked": false
+    }
+  ]
+}
