@@ -6,9 +6,9 @@ const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.jso
 const song=catalog.find((c:any)=>c.id==='0a1ff2e2-3db0-4bb1-889a-b27b62798cbe'),payload=JSON.parse(fs.readFileSync('apps/public/public/'+song.payload,'utf8'));
 test('learning settings switches public and personal decks directly and restores each draft',async({page},info)=>{
  await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组',exact:true})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
- await fillSpelling(page,'cr');const localID=decodeURIComponent(page.url().split('/deck/')[1]);
+ await fillSpelling(page,'cr');const localID=decodeURIComponent(page.url().split('/deck/')[1].split('?')[0]);
  await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();const picker=page.getByRole('group',{name:'切换卡组',exact:true});await expect(picker.locator(`[data-deck-id="${localID}"]`)).toHaveAttribute('aria-pressed','true');await expect(picker.getByRole('button')).toHaveCount(7);await page.screenshot({path:info.outputPath('deck-picker.png')});
- await picker.getByRole('button',{name:song.title,exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page).toHaveURL(new RegExp('/deck/'+song.id+'$'));await expect(page.getByRole('heading',{name:payload.words[0].chinese,exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'虚拟键盘'}).getByRole('button')).toHaveCount(27);
+ await picker.getByRole('button',{name:song.title,exact:true}).click();await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page).toHaveURL(new RegExp('/deck/'+song.id+'(?:\\?|$)'));await expect(page.getByRole('heading',{name:payload.words[0].chinese,exact:true})).toBeVisible();await expect(page.getByRole('region',{name:'虚拟键盘'}).getByRole('button')).toHaveCount(27);
  const prefix=payload.words[0].english.slice(0,1);await fillSpelling(page,prefix);
  await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();await picker.locator(`[data-deck-id="${localID}"]`).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toHaveValue('cr');
  await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();await picker.getByRole('button',{name:song.title,exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toHaveValue(prefix);await page.reload();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toHaveValue(prefix);
@@ -23,7 +23,7 @@ test('song clips decode, respect rate, precede word TTS and stop on mode or deck
  await page.getByLabel('播放速度',{exact:true}).selectOption('1.15');await expect.poll(()=>page.evaluate(()=>(window as any).__played.at(-1)?.rate)).toBe(1.15);
  await page.getByRole('tab',{name:'练听力',exact:true}).click();expect(await page.evaluate(()=>(window as any).__media.every((a:HTMLAudioElement)=>a.paused&&!a.getAttribute('src')))).toBe(true);
  await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');await page.getByRole('button',{name:'播放句子',exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as any).__played.length)).toBeGreaterThanOrEqual(3);
- await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();await page.getByRole('group',{name:'切换卡组',exact:true}).getByRole('button',{name:catalog[0].title,exact:true}).click();await expect(page).toHaveURL(new RegExp('/deck/'+catalog[0].id+'$'));expect(await page.evaluate(()=>(window as any).__media.every((a:HTMLAudioElement)=>a.paused&&!a.getAttribute('src')))).toBe(true);
+ await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();await page.getByRole('group',{name:'切换卡组',exact:true}).getByRole('button',{name:catalog[0].title,exact:true}).click();await expect(page).toHaveURL(new RegExp('/deck/'+catalog[0].id+'(?:\\?|$)'));expect(await page.evaluate(()=>(window as any).__media.every((a:HTMLAudioElement)=>a.paused&&!a.getAttribute('src')))).toBe(true);
 });
 
 test('original listening audio seeks by time and resumes from its paused position',async({page})=>{

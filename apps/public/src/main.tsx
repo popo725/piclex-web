@@ -1,3 +1,4 @@
+import {parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
 import {useAppearancePalette} from './appearance';
 import Settings from './Settings';
 import GlassTabs from './GlassTabs';
@@ -28,7 +29,7 @@ const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, locatio
 const appStore = 'https://apps.apple.com/app/id6808490052';
 const repository = 'https://github.com/zhaoolee/piclex-web';
 const cache = new Map<string, Deck>();
-function route() { try { return decodeURIComponent(location.hash.match(/^#\/deck\/(.+)$/)?.[1] || ''); } catch { return ''; } }
+function route() { return parseLearningURL(location.hash)?.id||''; }
 function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
 function browseDecks(){location.hash='/decks';}
 function screen(){const path=location.hash.slice(1);return path==='/settings/lab'?'lab':path.startsWith('/settings/level')?'level':path.startsWith('/settings')?'settings':path.startsWith('/deck/')||path.startsWith('/decks')||path.startsWith('/learn')?'learn':'capture';}

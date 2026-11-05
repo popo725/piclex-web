@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-05",
+  "scope": [
+    "iPhone browser visual viewport ownership",
+    "shareable module/photo/word/sentence URLs"
+  ],
+  "rootCauses": [
+    "Layout and visual viewport coordinates were mixed between content and bottom tabs.",
+    "React autoFocus and answer-container focus did not prevent browser scroll."
+  ],
+  "fixes": [
+    "A single fixed practice root follows visual viewport resize and scroll offsets; dialogs and tabs use the same visible bounds.",
+    "Compact controls follow visible height; zoom stays enabled and leaving practice restores page scrolling.",
+    "Hash parameters locate public content with stable word identity, photo fallback and independent shared-sentence identity.",
+    "URL navigation preserves local drafts and never imports answers, grades, experience or auto-play.",
+    "Completion links retain local completion without claiming that recipients completed it."
+  ],
+  "validation": {
+    "build": "TypeScript and Vite passed",
+    "unit": 209,
+    "deploy": 8,
+    "fullBrowserInitial": {
+      "passed": 224,
+      "failed": 5,
+      "skipped": 2
+    },
+    "resolvedFailures": [
+      "Completion refresh fell back to the final item: fixed.",
+      "Three old restored-answer tests changed localStorage while retaining an explicit destination: now exercise legacy URL restore."
+    ],
+    "relatedBrowserAfterFix": 63,
+    "newViewportAndURLChecksAcrossThreeBrowsers": 12,
+    "finalWordSentenceLocatorRegression": 28
+  },
+  "physicalDevice": "Not run; Mac Chrome and WebKit coverage only. No simulator started.",
+  "release": "pending; existing production library and source bytes must remain unchanged"
+}

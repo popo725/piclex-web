@@ -1,9 +1,10 @@
 /* Native sources: PracticeScreenLayout, PracticeProgressBattery, PracticeView.answerArea.
    One column at every width. Desktop budgets use measured controls; exceptionally short viewports scroll without squashing the photograph. */
-body[data-practice=true]{overflow:hidden}
+html[data-practice=true],body[data-practice=true]{height:100%;overflow:hidden;overscroll-behavior:none}
 body[data-practice=true] .site-header{display:none}
-body[data-practice=true] #root{padding-bottom:0}
-.native-practice{--photo-height:330px;--preferred-photo:330px;position:relative;width:100%;max-width:460px;margin:auto;height:calc(min(var(--practice-vh,100dvh),100dvh) - var(--app-tab-height) - env(safe-area-inset-bottom,0px));padding:8px 16px;display:flex;flex-direction:column;gap:4px;overflow:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
+body[data-practice=true] #root{position:fixed;top:var(--practice-vtop,0px);left:var(--practice-vleft,0px);width:var(--practice-vwidth,100%);height:var(--practice-vh,100dvh);padding:0;overflow:hidden}
+body[data-practice=true] .app-tabs{position:absolute}
+.native-practice{--photo-height:330px;--preferred-photo:330px;position:relative;width:100%;max-width:460px;margin:auto;height:calc(var(--practice-vh,100dvh) - var(--app-tab-height) - env(safe-area-inset-bottom,0px));padding:8px 16px;display:flex;flex-direction:column;gap:4px;overflow:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
 .native-practice[data-example=false]{--preferred-photo:270px}
 .native-header{display:flex;align-items:center;gap:8px;flex:none;height:52px;margin-bottom:2px;padding:0}
 .native-header .native-back{display:grid;place-items:center;width:44px;min-width:44px;height:50px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0}
@@ -129,7 +130,7 @@ body[data-practice=true] #root{padding-bottom:0}
 }
 
 /* Status notices must not sit over the answer keyboard. */
-body[data-practice=true] .toast{top:8px;bottom:auto;pointer-events:none}
+body[data-practice=true] .toast{position:absolute;top:8px;bottom:auto;pointer-events:none}
 body[data-practice=true] .toast button{pointer-events:auto}
 /* Landscape touch screens put the scrollable prompt beside the input dock. */
 @media(pointer:coarse) and (min-width:601px) and (max-height:450px){
@@ -226,3 +227,17 @@ body[data-practice=true] .toast button{pointer-events:auto}
 .practice-deck-option img{width:48px;height:64px;object-fit:cover;border-radius:5px;flex:none}.deck-selection-mark{font-size:22px;width:22px;flex:none;text-align:center}
 .practice-deck-option[aria-pressed=true]{background:var(--elevated)}.practice-deck-option:active{opacity:.7}
 .gallery-tools{display:flex;justify-content:flex-end;gap:10px}.gallery-tools button{width:44px;padding:8px}
+
+/* Use the visible area even when browser chrome leaves the layout viewport tall. */
+html[data-practice-compact=true] .native-practice{padding-block:4px;gap:3px}
+html[data-practice-compact=true] .native-header,html[data-practice-compact=true] .native-header .native-back,html[data-practice-compact=true] .practice-progress-battery,html[data-practice-compact=true] .practice-library{height:44px}
+html[data-practice-compact=true] .practice-deck-lane{height:20px}
+html[data-practice-compact=true] .module-tabs,html[data-practice-compact=true] .module-tabs>button{height:36px;min-height:36px}
+html[data-practice-compact=true] .native-answer-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 6px}
+html[data-practice-compact=true] .native-answer-footer>.answer-feedback,html[data-practice-compact=true] .native-answer-footer>.native-answer{grid-column:1/-1}
+html[data-practice-compact=true] .native-answer-footer>.native-primary{min-width:70px;padding-inline:10px;font-size:14px}
+html[data-practice-compact=true] .native-playback>.native-button{font-size:12px;gap:4px;padding-inline:6px}
+html[data-practice-compact=true] .sentence-footer .sentence-actions{gap:4px}
+html[data-practice-compact=true] .sentence-footer .sentence-actions>button{font-size:13px;padding-inline:7px}
+html[data-practice-compact=true] .sentence-footer:has(.listening-status){display:flex}
+body[data-practice=true] .learning-dialog{position:fixed;inset:auto;top:calc(var(--practice-vtop,0px) + var(--practice-vh,100dvh)/2);left:calc(var(--practice-vleft,0px) + var(--practice-vwidth,100vw)/2);transform:translate(-50%,-50%);margin:0;max-height:calc(var(--practice-vh,100dvh) - 24px)}
