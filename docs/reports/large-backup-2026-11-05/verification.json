@@ -6,7 +6,7 @@
     "progressJSONBytes": 67108864
   },
   "tests": {
-    "unitPassed": 226,
+    "unitPassed": 227,
     "browserPassed": 53,
     "browserSkipped": 1,
     "skipReason": "WebKit redirect interception unsupported; Chromium redirect protections tested",

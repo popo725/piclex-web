@@ -40,7 +40,7 @@ export async function writePhotos(photos,title='我的照片',now=Date.now(),{jo
  return writeZIP(entries(),{job,zip64});
 }
 // The backup path never expands an entire archive into an ArrayBuffer.
-export async function packComplete(files,name,options={}){return writeZIP(Object.entries(files).map(([key,value])=>[name+'/'+key,value]),{...options,limit:MAX_COMPLETE_BYTES,expandedLimit:MAX_COMPLETE_BYTES,jsonLimit:MAX_PROGRESS_BYTES});}
+export async function packComplete(files,name,options={}){for(const [file,limit]of [['photos.piclexdeck',MAX_BACKUP_BYTES],['learning-progress.json',MAX_PROGRESS_BYTES],['backup.json',MAX_MANIFEST_BYTES]]){if(!files[file])fail();checkSize(asBlob(files[file]).size,limit);}return writeZIP(Object.entries(files).map(([key,value])=>[name+'/'+key,value]),{...options,limit:MAX_COMPLETE_BYTES,expandedLimit:MAX_COMPLETE_BYTES});}
 /** @returns {Promise<Record<string,Blob>>} */
 export async function unpackComplete(value,{job}={}){
  const {files,reader}=await openZIP(value,{signal:job?.signal,limit:MAX_COMPLETE_BYTES,expandedLimit:MAX_COMPLETE_BYTES,jsonLimit:MAX_PROGRESS_BYTES});
