@@ -179,15 +179,19 @@ body[data-practice=true] .toast button{pointer-events:auto}
 .sentence-toolbar>select{max-width:calc(100% - 52px);min-height:44px;font-weight:500}
 .sentence-toolbar>select[aria-label="听写难度"]{max-width:41%;font-size:12px;margin-left:0}
 .sentence-ambience{position:relative;flex:none;margin-left:auto}
-.sentence-ambience summary{display:grid;place-items:center;width:44px;height:44px;cursor:pointer;list-style:none;border-radius:12px;touch-action:manipulation}
+/* The trigger belongs to the photo palette; the popup belongs to the app theme. */
+.sentence-ambience summary{-webkit-tap-highlight-color:transparent;background:var(--photo-background,#fff);color:var(--photo-ink,#000);display:grid;place-items:center;width:44px;height:44px;cursor:pointer;list-style:none;border-radius:12px;touch-action:manipulation}
 .sentence-ambience summary::-webkit-details-marker{display:none}
 .sentence-ambience summary svg{width:21px;height:21px}
 .sentence-ambience summary:focus-visible{outline:2px solid currentColor;outline-offset:-2px}
 .ambience-menu{position:fixed;z-index:120;right:auto;top:0;width:190px;max-height:calc(100dvh - 24px);overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);box-shadow:0 6px 22px #0002;padding:8px;font-size:14px}
 .ambience-menu strong{display:block;padding:8px}
-.ambience-menu button,.ambience-menu label{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:8px;border-radius:6px;gap:10px}
-.ambience-menu button[aria-pressed=true]{background:var(--elevated)}
+.ambience-menu button,.ambience-menu label{color:var(--ink);display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;padding:8px;border-radius:6px;gap:10px}
+.ambience-menu button{background:transparent}
+.ambience-menu button[aria-pressed=true],.ambience-menu button:hover{background:var(--elevated)}
+.ambience-menu :is(button,select):focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
 .ambience-menu select{min-height:36px;max-width:100px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:4px;font:inherit}
+.ambience-menu option{background:var(--bg);color:var(--ink)}
 .native-practice[data-mode=listening] .sentence-content{padding:12px 2px 6px;gap:6px}
 .listening-sentence{font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.5;margin:0}
 .sentence-content>.muted{font-size:14px;line-height:1.5;margin:0}

@@ -1,0 +1,458 @@
+[
+  {
+    "browser": "chrome",
+    "theme": "light",
+    "photo": {
+      "bg": "rgb(41, 37, 34)",
+      "ink": "rgb(245, 243, 238)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)"
+      },
+      "trigger": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "toolbar": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "menu": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(241, 241, 241)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "row": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "selected": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "volume": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "option": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "theme": {
+        "ink": "rgb(13, 13, 13)",
+        "surface": "rgb(241, 241, 241)",
+        "bg": "rgb(252, 252, 252)",
+        "elevated": "rgb(233, 233, 233)"
+      }
+    },
+    "contrast": 17.207353378076174
+  },
+  {
+    "browser": "chrome",
+    "theme": "light",
+    "photo": {
+      "bg": "rgb(238, 227, 208)",
+      "ink": "rgb(31, 27, 22)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)"
+      },
+      "trigger": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "toolbar": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "menu": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(241, 241, 241)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "row": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "selected": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "volume": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "option": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "theme": {
+        "ink": "rgb(13, 13, 13)",
+        "surface": "rgb(241, 241, 241)",
+        "bg": "rgb(252, 252, 252)",
+        "elevated": "rgb(233, 233, 233)"
+      }
+    },
+    "contrast": 17.207353378076174
+  },
+  {
+    "browser": "chrome",
+    "theme": "dark",
+    "photo": {
+      "bg": "rgb(41, 37, 34)",
+      "ink": "rgb(245, 243, 238)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)"
+      },
+      "trigger": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "toolbar": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "menu": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(11, 11, 11)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "row": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "selected": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "volume": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "option": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "theme": {
+        "ink": "rgb(237, 237, 237)",
+        "surface": "rgb(11, 11, 11)",
+        "bg": "rgb(0, 0, 0)",
+        "elevated": "rgb(19, 19, 19)"
+      }
+    },
+    "contrast": 16.812211302327768
+  },
+  {
+    "browser": "chrome",
+    "theme": "dark",
+    "photo": {
+      "bg": "rgb(238, 227, 208)",
+      "ink": "rgb(31, 27, 22)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)"
+      },
+      "trigger": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "toolbar": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "menu": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(11, 11, 11)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "row": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "selected": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "volume": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "option": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "theme": {
+        "ink": "rgb(237, 237, 237)",
+        "surface": "rgb(11, 11, 11)",
+        "bg": "rgb(0, 0, 0)",
+        "elevated": "rgb(19, 19, 19)"
+      }
+    },
+    "contrast": 16.812211302327768
+  },
+  {
+    "browser": "chrome",
+    "interactions": "selection, volume, escape/focus, module close, narrow/wide bounds, live theme and custom theme passed"
+  },
+  {
+    "browser": "webkit",
+    "theme": "light",
+    "photo": {
+      "bg": "rgb(41, 37, 34)",
+      "ink": "rgb(245, 243, 238)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)"
+      },
+      "trigger": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "toolbar": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "menu": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(241, 241, 241)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "row": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "selected": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "volume": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "option": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "theme": {
+        "ink": "rgb(13, 13, 13)",
+        "surface": "rgb(241, 241, 241)",
+        "bg": "rgb(252, 252, 252)",
+        "elevated": "rgb(233, 233, 233)"
+      }
+    },
+    "contrast": 17.207353378076174
+  },
+  {
+    "browser": "webkit",
+    "theme": "light",
+    "photo": {
+      "bg": "rgb(238, 227, 208)",
+      "ink": "rgb(31, 27, 22)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)"
+      },
+      "trigger": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "toolbar": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "menu": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(241, 241, 241)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "row": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "selected": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(233, 233, 233)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "volume": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "option": {
+        "ink": "rgb(13, 13, 13)",
+        "bg": "rgb(252, 252, 252)",
+        "outline": "rgb(13, 13, 13)"
+      },
+      "theme": {
+        "ink": "rgb(13, 13, 13)",
+        "surface": "rgb(241, 241, 241)",
+        "bg": "rgb(252, 252, 252)",
+        "elevated": "rgb(233, 233, 233)"
+      }
+    },
+    "contrast": 17.207353378076174
+  },
+  {
+    "browser": "webkit",
+    "theme": "dark",
+    "photo": {
+      "bg": "rgb(41, 37, 34)",
+      "ink": "rgb(245, 243, 238)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)"
+      },
+      "trigger": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "toolbar": {
+        "ink": "rgb(245, 243, 238)",
+        "bg": "rgb(41, 37, 34)",
+        "outline": "rgb(245, 243, 238)"
+      },
+      "menu": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(11, 11, 11)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "row": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "selected": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "volume": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "option": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "theme": {
+        "ink": "rgb(237, 237, 237)",
+        "surface": "rgb(11, 11, 11)",
+        "bg": "rgb(0, 0, 0)",
+        "elevated": "rgb(19, 19, 19)"
+      }
+    },
+    "contrast": 16.812211302327768
+  },
+  {
+    "browser": "webkit",
+    "theme": "dark",
+    "photo": {
+      "bg": "rgb(238, 227, 208)",
+      "ink": "rgb(31, 27, 22)"
+    },
+    "colors": {
+      "photo": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)"
+      },
+      "trigger": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "toolbar": {
+        "ink": "rgb(31, 27, 22)",
+        "bg": "rgb(238, 227, 208)",
+        "outline": "rgb(31, 27, 22)"
+      },
+      "menu": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(11, 11, 11)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "row": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "selected": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(19, 19, 19)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "volume": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "option": {
+        "ink": "rgb(237, 237, 237)",
+        "bg": "rgb(0, 0, 0)",
+        "outline": "rgb(237, 237, 237)"
+      },
+      "theme": {
+        "ink": "rgb(237, 237, 237)",
+        "surface": "rgb(11, 11, 11)",
+        "bg": "rgb(0, 0, 0)",
+        "elevated": "rgb(19, 19, 19)"
+      }
+    },
+    "contrast": 16.812211302327768
+  },
+  {
+    "browser": "webkit",
+    "interactions": "selection, volume, escape/focus, module close, narrow/wide bounds, live theme and custom theme passed"
+  }
+]
