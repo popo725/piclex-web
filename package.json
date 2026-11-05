@@ -19,6 +19,8 @@
     "content:build": "node scripts/build-public-content.mjs"
   },
   "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "@zip.js/zip.js": "2.24.0",
     "fflate": "0.8.2",
     "qrcode": "1.5.4",
     "react": "19.2.8",

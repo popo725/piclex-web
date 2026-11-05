@@ -1,0 +1,19 @@
+import https from 'node:https';import fs from 'node:fs';import path from 'node:path';import {pipeline} from 'node:stream/promises';import {Transform} from 'node:stream';
+export async function startWebDAV(root,certificate,options={}){
+ const requests=[],stats={received:0,sent:0,failPut:false,slow:false};
+ const server=https.createServer({key:fs.readFileSync(certificate+'.key'),cert:fs.readFileSync(certificate+'.crt')},async(req,res)=>{
+  const origin=req.headers.origin||'*';res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Access-Control-Allow-Methods','OPTIONS, PROPFIND, GET, HEAD, MKCOL, PUT, MOVE, DELETE');res.setHeader('Access-Control-Allow-Headers','Authorization, Content-Type, Depth, Destination, Overwrite, If-None-Match');res.setHeader('Access-Control-Expose-Headers','Content-Length');
+  const reply=(status,body='')=>{res.statusCode=status;res.end(body);};if(req.method==='OPTIONS')return reply(204);
+  if(req.headers.authorization!=='Basic '+Buffer.from(options.auth||'fixture:fixture').toString('base64'))return reply(401);
+  const pathname=new URL(req.url,'https://localhost').pathname;if(!pathname.startsWith('/dav/'))return reply(404);const relative=decodeURIComponent(pathname.slice(5)),file=path.resolve(root,relative);if(!file.startsWith(path.resolve(root)+path.sep)&&file!==path.resolve(root))return reply(403);
+  requests.push({method:req.method,path:pathname});
+  try{
+   if(req.method==='PROPFIND'){if(!fs.existsSync(file))return reply(404);const names=[pathname];if(req.headers.depth!=='0')for(const name of fs.readdirSync(file))names.push(pathname.replace(/\/$/,'')+'/'+name+(fs.statSync(path.join(file,name)).isDirectory()?'/':''));return reply(207,'<d:multistatus xmlns:d="DAV:">'+names.map(p=>`<d:response><d:href>${p}</d:href><d:propstat><d:prop><d:resourcetype>${p.endsWith('/')?'<d:collection/>':''}</d:resourcetype></d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response>`).join('')+'</d:multistatus>');}
+   if(req.method==='MKCOL'){if(fs.existsSync(file))return reply(405);fs.mkdirSync(file);return reply(201);}
+   if(req.method==='PUT'){if(stats.failPut)return reply(507);if(fs.existsSync(file))return reply(412);await pipeline(req,new Transform({transform(chunk,encoding,done){stats.received+=chunk.length;if(stats.slowPut)setTimeout(()=>done(null,chunk),300);else done(null,chunk);}}),fs.createWriteStream(file,{flags:'wx'}));return reply(201);}
+   if(req.method==='GET'||req.method==='HEAD'){const info=fs.statSync(file);if(req.method==='GET'&&stats.corruptReadback&&!pathname.includes('PicLex-Backup-20261105-native'))return reply(200,'corrupted');res.setHeader('Content-Length',stats.oversize&&req.method==='GET'&&file.endsWith('.piclexdeck')?20*1024**3+1:info.size);if(req.method==='HEAD')return reply(200);await pipeline(fs.createReadStream(file,{highWaterMark:256*1024}),new Transform({transform(chunk,encoding,done){stats.sent+=chunk.length;if(stats.slow)setTimeout(()=>done(null,chunk),300);else done(null,chunk);}}),res);return;}
+   if(req.method==='MOVE'){const targetURL=new URL(req.headers.destination),target=path.resolve(root,decodeURIComponent(targetURL.pathname.slice(5)));if(!target.startsWith(path.resolve(root)+path.sep)||fs.existsSync(target)||req.headers.overwrite!=='F')return reply(412);fs.renameSync(file,target);return reply(201);}
+   if(req.method==='DELETE'){if(!path.basename(file).startsWith('.complete-uploading-'))return reply(403);fs.rmSync(file,{recursive:true,force:true});return reply(204);}return reply(405);
+  }catch(e){if(!res.destroyed&&!res.headersSent)reply(e.code==='ENOENT'?404:500);}
+ });await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));return {url:`https://127.0.0.1:${server.address().port}/dav/`,requests,stats,close:()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);})};
+}

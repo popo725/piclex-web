@@ -29,3 +29,7 @@ export async function saveDeck(deck: StoredDeck) {
 }
 export function readPreference(key: string) { try { return localStorage.getItem(key); } catch { return null; } }
 export function writePreference(key: string, value: string) { try { localStorage.setItem(key, value); return true; } catch { return false; } }
+
+export async function storedDeckIDs():Promise<string[]>{const db=await database();try{return await new Promise((resolve,reject)=>{const r=db.transaction('decks','readonly').objectStore('decks').getAllKeys();r.onsuccess=()=>resolve(r.result as string[]);r.onerror=()=>reject(r.error);});}finally{db.close();}}
+export async function loadStoredDeck(id:string):Promise<StoredDeck|undefined>{const db=await database();try{return await new Promise((resolve,reject)=>{const r=db.transaction('decks','readonly').objectStore('decks').get(id);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}}
+export async function* iterateStoredDecks(){for(const id of await storedDeckIDs()){const value=await loadStoredDeck(id);if(value)yield value;}}

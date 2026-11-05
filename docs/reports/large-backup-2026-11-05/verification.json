@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-05",
+  "limits": {
+    "photoArchiveBytes": 21474836480,
+    "expandedPhotoBytes": 21474836480,
+    "progressJSONBytes": 67108864
+  },
+  "tests": {
+    "unitPassed": 226,
+    "browserPassed": 53,
+    "browserSkipped": 1,
+    "skipReason": "WebKit redirect interception unsupported; Chromium redirect protections tested",
+    "deploymentPassed": 8,
+    "typecheckAndBuild": "passed"
+  },
+  "nativeZIPLibrary": {
+    "name": "ZIPFoundation",
+    "version": "0.9.20",
+    "revision": "22787ffb59de99e5dc1fbfe80b19c97a904ad48d"
+  },
+  "scope": "Synthetic photos and isolated local HTTPS WebDAV; no user data, device installs or simulator",
+  "limitations": [
+    "Full 20 GiB transfer not exercised; 20 GiB + 1 byte boundary rejected in browser tests",
+    "No physical iPhone or user WebDAV service acceptance performed"
+  ],
+  "largeTransfers": "running"
+}

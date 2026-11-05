@@ -1,0 +1,8 @@
+Restored previous release and configuration; reloading.
+.Restored previous release and configuration; reloading.
+......Verified 3 files: aaaaaaaaaaaa-bbbbbbbbbbbb
+.
+----------------------------------------------------------------------
+Ran 8 tests in 0.009s
+
+OK

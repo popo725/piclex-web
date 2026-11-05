@@ -2,9 +2,9 @@ import {strToU8,strFromU8} from 'fflate';
 import {backupState,collectPhotos,mergeBackup,type BackupPhoto} from './backup-store';
 import {encodeProgress,decodeProgress,mergeProgress,emptyProgress,stableID,spellingEvent,practiceWordKey} from '../../../packages/backup/src/progress.mjs';
 import {readPhotos,writePhotos} from '../../../packages/backup/src/photos.mjs';
-import {sha256} from '../../../packages/deck-format/src/archive.mjs';
+import {hashBlob,bytesOf,MAX_MANIFEST_BYTES,MAX_PROGRESS_BYTES} from '../../../packages/backup/src/streaming.mjs';
 import {experienceEvents,mergeBackupExperience} from '../../../packages/practice/src/experience-store.mjs';
-export type CompleteFiles=Record<string,Uint8Array>;
+export type CompleteFiles=Record<string,Blob|Uint8Array>;
 async function experienceContent(photos:BackupPhoto[],existing:any){
  const rows=(await experienceEvents() as any[]).sort((a,b)=>a.at-b.at),content:any=emptyProgress(),words=new Map<string,any>(),drafts=new Map<string,any>(),histories=new Map<string,any>();
  content.readingEvents=[];content.laboratoryExperienceEvents=[];
@@ -28,14 +28,14 @@ async function experienceContent(photos:BackupPhoto[],existing:any){
   if(e.kind==='laboratory'){let action=e.action,tier=e.tier;if(!action){action=e.credit<0?'spend':e.credit===1?'word':'wave';tier=action==='spend'?[12,18,26,36].indexOf(-e.credit)+1:action==='wave'?(e.credit-2)*5+1:0;}content.laboratoryExperienceEvents.push({id,occurredAt:at,amount:e.credit,action,tier});}
  }content.progress=[...progress.values()];return content;
 }
-export async function createComplete(){
- const [photos,state]=await Promise.all([collectPhotos(),backupState()]);const experience=await experienceContent(photos,state.content);const content=mergeProgress(state.content,experience),progress=await encodeProgress(content),photoBytes=await writePhotos(photos),now=new Date();
+export async function createComplete(job?:any){
+ const [photos,state]=await Promise.all([collectPhotos(),backupState(false)]);const experience=await experienceContent(photos,state.content);const content=mergeProgress(state.content,experience),progress=await encodeProgress(content),photoBytes=await writePhotos(photos,'我的照片',Date.now(),{job}),now=new Date();
  const recordCount=Object.values(content).reduce((n:number,a:any)=>n+a.length,0);
- const manifest={format:'com.zhaoolee.piclex.complete-backup',version:1,createdAt:now.toISOString(),photos:'photos.piclexdeck',learningProgress:'learning-progress.json',photoCount:photos.length,progressRecordCount:recordCount,photosSHA256:await sha256(photoBytes),progressSHA256:progress.contentSHA256};
+ const manifest={format:'com.zhaoolee.piclex.complete-backup',version:1,createdAt:now.toISOString(),photos:'photos.piclexdeck',learningProgress:'learning-progress.json',photoCount:photos.length,progressRecordCount:recordCount,photosSHA256:await hashBlob(photoBytes,{signal:job?.signal}),progressSHA256:progress.contentSHA256};
  return {name:'PicLex-Backup-'+now.toISOString().replace(/[-:.]/g,'').replace('Z','')+'-'+crypto.randomUUID().slice(0,8),files:{'backup.json':strToU8(JSON.stringify(manifest)),'photos.piclexdeck':photoBytes,'learning-progress.json':strToU8(JSON.stringify(progress))},photoCount:photos.length,recordCount};
 }
-export async function validateComplete(files:CompleteFiles){let manifest;try{manifest=JSON.parse(strFromU8(files['backup.json']));}catch{throw Error('备份清单损坏。');}if(manifest.format!=='com.zhaoolee.piclex.complete-backup'||manifest.version!==1||manifest.photos!=='photos.piclexdeck'||manifest.learningProgress!=='learning-progress.json')throw Error('请选择 App 或 Web 创建的完整备份。');
- const [photos,content]=await Promise.all([readPhotos(files['photos.piclexdeck']),decodeProgress(files['learning-progress.json'])]);const progress=await encodeProgress(content);if(photos.length!==manifest.photoCount||await sha256(files['photos.piclexdeck'])!==manifest.photosSHA256||progress.contentSHA256!==manifest.progressSHA256)throw Error('备份内容与清单不一致，未恢复任何数据。');return {photos,content};
+export async function validateComplete(files:CompleteFiles,job?:any){let manifest;try{manifest=JSON.parse(strFromU8(await bytesOf(files['backup.json'],MAX_MANIFEST_BYTES)));}catch{throw Error('备份清单损坏。');}if(manifest.format!=='com.zhaoolee.piclex.complete-backup'||manifest.version!==1||manifest.photos!=='photos.piclexdeck'||manifest.learningProgress!=='learning-progress.json')throw Error('请选择 App 或 Web 创建的完整备份。');
+ const content=await decodeProgress(await bytesOf(files['learning-progress.json'],MAX_PROGRESS_BYTES)),photos=await readPhotos(files['photos.piclexdeck'],{job});const progress=await encodeProgress(content);if(photos.length!==manifest.photoCount||await hashBlob(files['photos.piclexdeck'],{signal:job?.signal})!==manifest.photosSHA256||progress.contentSHA256!==manifest.progressSHA256)throw Error('备份内容与清单不一致，未恢复任何数据。');return {photos,content};
 }
 async function restoreExperience(content:any){const existing=await experienceEvents() as any[],ids=new Map(await Promise.all(existing.map(async e=>[e.portableID||await stableID(e.id),e.id] as const))),incoming:any[]=[];
  const add=(r:any,kind:string,credit:number,at:number)=>incoming.push({id:ids.get(r.id)||'native:'+r.id,portableID:r.id,kind,credit,at,nativeRecord:true});
@@ -44,4 +44,4 @@ async function restoreExperience(content:any){const existing=await experienceEve
  for(const r of content.laboratoryExperienceEvents||[])add(r,r.action.startsWith('dictation.')?'dictation':'laboratory',r.amount,r.occurredAt);
  await mergeBackupExperience(incoming);
 }
-export async function restoreComplete(checked:{photos:BackupPhoto[];content:any}){const legacy=await experienceContent(await collectPhotos(),(await backupState()).content);const result=await mergeBackup(checked.photos,mergeProgress(legacy,checked.content));const state=await backupState();await restoreExperience(state.content);return result;}
+export async function restoreComplete(checked:{photos:BackupPhoto[];content:any}){const legacy=await experienceContent(await collectPhotos(),(await backupState(false)).content);const result=await mergeBackup(checked.photos,mergeProgress(legacy,checked.content));const state=await backupState(false);await restoreExperience(state.content);return result;}

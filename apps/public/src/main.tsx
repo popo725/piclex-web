@@ -1,4 +1,7 @@
-import {backupState} from './backup-store';
+import {backupPhotoDeck,thumbnail} from './backup-photo-deck';
+import {writePhotos} from '../../../packages/backup/src/photos.mjs';
+import {BackupJob,asBlob} from '../../../packages/backup/src/streaming.mjs';
+import {backupState,type BackupPhoto} from './backup-store';
 import {parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
 import {useAppearancePalette} from './appearance';
 import Settings from './Settings';
@@ -12,7 +15,7 @@ import { createRoot } from 'react-dom/client';
 import { parsePublicCatalog, parsePublicDeck } from '../../../packages/deck-format/src/public.mjs';
 import { parseArchive, MAX_PACKAGE_BYTES } from '../../../packages/deck-format/src/archive.mjs';
 import { speak, stopSpeaking } from '../../../packages/learning-ui/src/speech';
-import { readPreference, writePreference, saveDeck, storedDecks } from './storage';
+import { readPreference, writePreference, saveDeck, iterateStoredDecks, loadStoredDeck } from './storage';
 import './style.css';
 import NativePractice from './NativePractice';
 import LoadProgress,{type DownloadProgress} from '../../../packages/learning-ui/src/LoadProgress';
@@ -24,11 +27,12 @@ import './glass-tabs.css';
 import './settings.css';
 
 type Parsed = Awaited<ReturnType<typeof parseArchive>>;
-type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; bytes?: Uint8Array; downloadURL?: string };
+type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; backupPhoto?:BackupPhoto; bytes?: Uint8Array; downloadURL?: string };
 type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; subscribed?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
 const appStore = 'https://apps.apple.com/app/id6808490052';
 const cache = new Map<string, Deck>();
+const backupPhotos=new Map<string,BackupPhoto>();
 let deletedPhotoIDs=new Set<string>();
 function route() { return parseLearningURL(location.hash)?.id||''; }
 function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
@@ -43,15 +47,18 @@ function materialize(id: string, parsed: Parsed, bytes: Uint8Array, aliases: str
   if (previous?.bytes) for (const url of [...previous.images, ...Object.values(previous.covers || {})]) URL.revokeObjectURL(url);
   cache.set(id, deck); return deck;
 }
-function download(bytes: Uint8Array, title: string) {
+function download(bytes: Uint8Array|Blob, title: string) {
   const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: 'application/zip' }));
   const anchor = document.createElement('a'); anchor.href = url; anchor.download = title.replace(/[\\/:*?"<>|]/g, '-') + '.piclexdeck'; anchor.click();
   setTimeout(() => URL.revokeObjectURL(url), 30000);
 }
-function downloadDeck(deck: Deck) {
+async function downloadDeck(deck: Deck) {
+  if(deck.backupPhoto){const job=await BackupJob.create(undefined);try{const output=await writePhotos([deck.backupPhoto],deck.title,Date.now(),{job});download(output,deck.title);job.retainDownload(output);}finally{await job.close();}return;}
   if (deck.bytes) { download(deck.bytes, deck.title); return; }
   if (deck.downloadURL) { const anchor = document.createElement('a'); anchor.href = deck.downloadURL; anchor.download = deck.title + '.piclexdeck'; anchor.click(); }
 }
+
+async function localDeck(id:string){if(cache.has(id))return cache.get(id)!;const photo=backupPhotos.get(id);if(photo)return await backupPhotoDeck(photo) as Deck;const stored=await loadStoredDeck(id);if(!stored)throw Error('照片卡组不存在。');const bytes=new Uint8Array(stored.bytes);return materialize(id,await parseArchive(bytes),bytes,stored.progressAliases);}
 
 function App() {
   useEffect(()=>{scheduleUIAssetWarmup();},[]);
@@ -79,20 +86,22 @@ function App() {
     let cancelled = false;
     (async () => {
       try {
-        deletedPhotoIDs=new Set((await backupState()).photos.filter(p=>p.meta.deletedAt!=null).map(p=>p.id));
+        const restoredPhotos=(await backupState()).photos;deletedPhotoIDs=new Set(restoredPhotos.filter(p=>p.meta.deletedAt!=null).map(p=>p.id));
         const response = await fetch(asset('library/catalog.json')); if (!response.ok) throw new Error('公开卡组暂时无法加载，请刷新重试。');
         const builtin: Card[] = parsePublicCatalog(await response.json());
-        const imported: Card[] = [];
+        const imported: Card[] = [];const represented=new Set<string>();
         try {
-          for (const stored of await storedDecks()) {
+          for await (const stored of iterateStoredDecks()) {
             try {
               const bytes = new Uint8Array(stored.bytes); const parsed = await parseArchive(bytes);
-              let d = cache.get(stored.id); if (!d) d = materialize(stored.id, parsed, bytes, stored.progressAliases);
-              if(!d.words.length)continue;
-              imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, fingerprint:parsed.fingerprint, local: true, subscribed: stored.subscribed });
+              for(const p of parsed.photos)represented.add(p.id.toLowerCase());
+              const visible=parsed.photos.filter(p=>!deletedPhotoIDs.has(p.id.toLowerCase()));if(!visible.length)continue;
+              const cover=URL.createObjectURL(await thumbnail(new Blob([visible[0].bytes as BlobPart],{type:visible[0].mime})));
+              imported.push({id:stored.id,title:parsed.title,count:parsed.words.filter(w=>!deletedPhotoIDs.has(parsed.photos[w.imageIndex].id.toLowerCase())).length,photoCount:visible.length,description:'你自己的照片与词汇',cover,fingerprint:parsed.fingerprint,local:true,subscribed:stored.subscribed});
             } catch { if (!cancelled) setNotice('有一份本地卡组暂时无法读取，原文件仍保存在浏览器中。'); }
           }
         } catch { if (!cancelled) setNotice('浏览器未开放卡组存储，仍可体验公开卡组。'); }
+        for(const photo of restoredPhotos)if(!represented.has(photo.id)&&photo.meta.deletedAt==null&&photo.meta.labels.length){const id='local-backup-'+photo.id;backupPhotos.set(id,photo);imported.push({id,title:photo.title,count:photo.meta.labels.length,photoCount:1,description:'你自己的照片与词汇',cover:URL.createObjectURL(asBlob(photo.image)),local:true});}
         if (!cancelled) { setCards(current=>[...builtin,...imported,...current.filter(card=>card.local&&!imported.some(item=>item.id===card.id))]); setReady(true); setLoading(false); }
       } catch (e) { if (!cancelled) { setError((e as Error).message); setLoading(false); } }
     })(); return () => { cancelled = true; };
@@ -106,6 +115,7 @@ function App() {
     const controller = new AbortController(); setLoading(true); setDeck(null);setDeckProgress(null);
     (async () => {
       try {
+        if(card.local){const value=await localDeck(selected);if(!controller.signal.aborted){cache.set(selected,value);setDeck(value);setLoading(false);}return;}
         const {bytes}=await downloadBytes(asset(card.payload!),{signal:controller.signal,maxBytes:8*1024*1024,onProgress:progress=>{if(!controller.signal.aborted)setDeckProgress(progress);}}); const parsed = await parsePublicDeck(bytes, card);
         if (!controller.signal.aborted) {
           const value: Deck = { id: selected, title: parsed.title, fingerprint: parsed.learningFingerprint || parsed.fingerprint, legacyFingerprints: card.progressAliases, words: parsed.words, images: parsed.photos.map((photo: { path: string }) => asset(photo.path)), downloadURL: asset(card.package!) };
@@ -152,7 +162,7 @@ function App() {
     setCards(current=>current.some(item=>item.id===id)?current.map(item=>item.id===id?card:item):[...current,card]);
     return id;
   }
-  async function openGame(){if(gameBusy||!ready)return;setGameBusy(true);try{const card=cards.find(c=>c.id===gameDeckID)||cards[0];if(!card)throw Error('请先选择或导入一份卡组。');let value=cache.get(card.id);if(!value){const response=await fetch(asset(card.payload!));if(!response.ok)throw Error('卡组加载失败，请重试。');const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};cache.set(card.id,value);}setLabDeck(value);location.hash='/settings/lab';}catch(e){setNotice((e as Error).message);location.hash='/settings';}finally{setGameBusy(false);}}
+  async function openGame(){if(gameBusy||!ready)return;setGameBusy(true);try{const card=cards.find(c=>c.id===gameDeckID)||cards[0];if(!card)throw Error('请先选择或导入一份卡组。');let value=cache.get(card.id);if(!value&&card.local)value=await localDeck(card.id);if(!value){const response=await fetch(asset(card.payload!));if(!response.ok)throw Error('卡组加载失败，请重试。');const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};cache.set(card.id,value);}setLabDeck(value);location.hash='/settings/lab';}catch(e){setNotice((e as Error).message);location.hash='/settings';}finally{setGameBusy(false);}}
   useEffect(()=>{if(page==='lab'&&ready&&!labDeck)void openGame();},[page,ready]);
   async function saveDownloaded(bytes:Uint8Array,signal:AbortSignal){
     const parsed=await parseArchive(bytes);signal.throwIfAborted();
@@ -163,14 +173,14 @@ function App() {
     setCards(current=>[...current.filter(c=>c.id!==id),{id,title:value.title,count:value.words.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,fingerprint:parsed.fingerprint,local:true,subscribed:true}]);
     if(!signal.aborted)setNotice('卡组已下载，可在当前卡组菜单中选择。');
   }
-  const settings=<Settings cards={cards} ready={ready} error={error} theme={theme} setTheme={setTheme} importFile={()=>file.current?.click()} exportDeck={id=>{const value=cache.get(id);if(value)downloadDeck(value);}} openDeck={go} openGame={()=>void openGame()} gameBusy={gameBusy} gameDeckID={gameDeckID} setGameDeckID={id=>{setGameDeckID(id);setLabDeck(null);}} notify={setNotice}/>;
+  const settings=<Settings cards={cards} ready={ready} error={error} theme={theme} setTheme={setTheme} importFile={()=>file.current?.click()} exportDeck={id=>{void (async()=>downloadDeck(cache.get(id)||await localDeck(id)))().catch(e=>setNotice(e.message));}} openDeck={go} openGame={()=>void openGame()} gameBusy={gameBusy} gameDeckID={gameDeckID} setGameDeckID={id=>{setGameDeckID(id);setLabDeck(null);}} notify={setNotice}/>;
   const featured = cards.find(card => !card.local);
   const cover = (card: Card, role: "landscape" | "portrait") => { const path = card.covers?.[role] || card.covers?.landscape || card.covers?.portrait || card.cover; return card.local ? path : asset(path); };
   return <><a className="skip-link" href="#main-content">跳到内容</a>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={startLearning} notify={setNotice}/></div>
-    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings/laboratory';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => downloadDeck(deck)} share={async () => {
-          if (selected.startsWith('local-')) { downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings/laboratory';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => void downloadDeck(deck).catch(e=>setNotice(e.message))} share={async () => {
+          if (selected.startsWith('local-')) { await downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : !showLibrary ? <main className="empty-state">{!ready?<LoadProgress label="正在准备学习" progress={null}/>:<><h1>还没有可用卡组</h1><button className="primary" onClick={()=>file.current?.click()}>导入卡组文件</button></>}</main> : <main className="home">
       <section className="hero"><div className="hero-copy"><p className="eyebrow">EVERYDAY SCENES. EVERYDAY ENGLISH.</p><h1>把眼前的生活，<br/><span>变成英语。</span></h1><p className="hero-description">从一张照片开始。看见场景，听见发音，<br className="desktop-break"/>亲手拼出那个词，让记忆有画面。</p><button className="primary" disabled={!featured} onClick={() => featured && go(featured.id)}>开始练习 <Icon name="arrow"/></button><p className="hero-note">免费体验 · 无需登录 · 进度保存在浏览器</p></div><button className="hero-photo" disabled={!featured} onClick={() => featured && go(featured.id)} aria-label={featured ? `开始${featured.title}卡组` : "正在加载公开卡组"}>{featured && <><img src={cover(featured, "landscape")} alt={featured.title}/><span className="hero-photo-label"><span>{featured.photoCount} 个场景 · {featured.count} 个词</span><strong>{featured.title} <Icon name="arrow"/></strong></span></>}</button></section>
