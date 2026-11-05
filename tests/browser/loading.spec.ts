@@ -16,9 +16,27 @@ test('all bottom icon assets start loading before any tap and delayed atlases re
  for(const icon of await tabs.locator('.native-tab-icon').all()){const rect=await icon.boundingBox();expect(rect!.width).toBeGreaterThan(18);expect(rect!.height).toBe(rect!.width);}
  // networkidle can occur before requestIdleCallback starts the background warmup.
  // Wait for the three actual image fetches (not just HTML fetch preloads).
- unlock();await expect.poll(()=>loadedFrames.size,{timeout:15000}).toBe(3);await page.waitForLoadState('networkidle');const before=requested.length;
+ unlock();await expect.poll(()=>loadedFrames.size,{timeout:15000}).toBe(3);await page.waitForLoadState('networkidle');
  for(const name of ['学习','拍摄','设置'])await tabs.getByRole('button',{name,exact:true}).click();
- await expect(tabs.locator('.native-tab-motion')).toHaveCount(0,{timeout:3000});expect(requested.length).toBe(before);
+ await expect(tabs.locator('.native-tab-motion')).toHaveCount(0,{timeout:3000});
+});
+// Playwright routing disables HTTP caching, so the delayed-image test above
+// cannot also validate cache reuse. Exercise the normal browser cache separately.
+test('warmed bottom icons reuse image bytes when navigating without request interception',async({page})=>{
+ const loadedFrames=new Set<string>();
+ page.on('requestfinished',r=>{if(r.resourceType()==='image'&&/\/icons\/tab-.*-frames\.png$/.test(r.url()))loadedFrames.add(r.url());});
+ await page.goto('/piclex-web/#/capture');
+ await expect.poll(()=>loadedFrames.size,{timeout:15000}).toBe(3);
+ await page.waitForLoadState('networkidle');
+ const resources=()=>page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>/\/icons\/tab-/.test(e.name)).map(e=>({name:e.name,transferSize:(e as PerformanceResourceTiming).transferSize})));
+ const before=await resources();expect(new Set(before.map(e=>e.name)).size).toBe(6);
+ const tabs=page.getByRole('navigation',{name:'底部导航'});
+ for(const name of ['学习','拍摄','设置'])await tabs.getByRole('button',{name,exact:true}).click();
+ await expect(tabs.locator('.native-tab-motion')).toHaveCount(0,{timeout:3000});await page.waitForLoadState('networkidle');
+ // A memory/disk hit transfers zero bytes; conditional validation can report
+ // the Resource Timing header allowance (300 bytes), but must not redownload PNG data.
+ const subsequent=(await resources()).slice(before.length);
+ for(const entry of subsequent){expect(before.some(e=>e.name===entry.name)).toBe(true);expect(entry.transferSize).toBeLessThanOrEqual(300);}
 });
 test('deck and photo downloads display actual intermediate progress, then clear after decoding',async({page},testInfo)=>{
  let releaseDeck!:()=>void,releasePhoto!:()=>void;
