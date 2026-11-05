@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-05",
+  "scope": "App, local web and standalone public web focus highlight",
+  "behavior": "All four edges are inset 4 points/pixels within visible photo. Minimum 30-point border is applied before clamping. Photo focus layout and stored boxes unchanged. Relative CSS coordinates also bound resize transitions.",
+  "checks": {
+    "standaloneFocusTests": 11,
+    "localWebFocusTests": 9,
+    "geometryCombinationsPerWebImplementation": 96,
+    "nativeProductionHelperBoundsChecks": 48,
+    "browserTests": 4,
+    "browserMatrix": "Chrome/WebKit x light/dark, 390x844, 390x640, 320x568, 390x430, 844x390; includes animation frames and reduced motion",
+    "webTypeScript": "passed both",
+    "webViteBuild": "passed",
+    "nativeReleaseBuild": "passed, generic iOS Release, CODE_SIGNING_ALLOWED=NO",
+    "nativeReleaseExecutableBytes": 115253936
+  },
+  "deployment": "not deployed or installed",
+  "notes": "Existing unrelated working changes retained; no simulator or user data operations.",
+  "cleanup": "Removed only task-owned temporary builds, browser results, Swift cache, routing files and helper scripts; kept source, tests, screenshots and verification record."
+}

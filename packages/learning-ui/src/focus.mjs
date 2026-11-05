@@ -50,3 +50,34 @@ export function focusLayout(image, viewport, focus, fit = 'focus') {
            width: source.width * scale, height: source.height * scale },
   };
 }
+
+// Fit the rendered border to the visible photo area, without changing its zoom.
+// Apply the minimum size here, before clamping, rather than in CSS/the view.
+export function visibleFocusBox(rect, viewport) {
+  if (!rect || !viewport || ![rect.x, rect.y, rect.width, rect.height, viewport.width, viewport.height].every(Number.isFinite)
+      || rect.width <= 0 || rect.height <= 0 || viewport.width <= 8 || viewport.height <= 8) return null;
+  const inset = 4;
+  const left = Math.max(0, rect.x), top = Math.max(0, rect.y);
+  const right = Math.min(viewport.width, rect.x + rect.width);
+  const bottom = Math.min(viewport.height, rect.y + rect.height);
+  if (right <= left || bottom <= top) return null;
+  const width = Math.min(viewport.width - inset * 2, Math.max(30, right - left));
+  const height = Math.min(viewport.height - inset * 2, Math.max(30, bottom - top));
+  return {
+    x: Math.max(inset, Math.min(viewport.width - inset - width, (left + right - width) / 2)),
+    y: Math.max(inset, Math.min(viewport.height - inset - height, (top + bottom - height) / 2)),
+    width, height,
+  };
+}
+
+// Relative coordinates keep every intermediate animation frame inside a resizing
+// viewport, even before ResizeObserver delivers the next measured dimensions.
+export function visibleFocusStyle(rect, viewport) {
+  const width = viewport.width - 8, height = viewport.height - 8;
+  return {
+    left: `calc(4px + (100% - 8px) * ${(rect.x + rect.width / 2 - 4) / width})`,
+    top: `calc(4px + (100% - 8px) * ${(rect.y + rect.height / 2 - 4) / height})`,
+    width: `calc((100% - 8px) * ${rect.width / width})`,
+    height: `calc((100% - 8px) * ${rect.height / height})`,
+  };
+}
