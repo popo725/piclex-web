@@ -27,11 +27,50 @@
   ],
   "largeTransfers": {
     "chromium": "5 GiB passed: App-format restore, upload/readback, native ZIP validation, duplicate restore, 1285 photos/files retained",
-    "webkit": "5 GiB upload/readback/native ZIP passed; duplicate restore retrying after storage estimate fix"
+    "webkit": "5 GiB passed after storage-estimate fix: same Web-generated archive restored again, 1285 references/files retained"
   },
   "storageEstimateFix": {
     "evidence": "WebKit estimate remained unchanged after removing >10 GiB of unreferenced synthetic files; preflight falsely rejected recovery",
     "handling": "Actual OPFS writes enforce quota; estimate no longer blocks valid backups",
     "reference": "https://developer.mozilla.org/en-US/docs/Web/API/StorageManager/estimate"
+  },
+  "largeTestMethod": "Real local HTTPS WebDAV and OPFS, synthetic JPEG photos; stress driver activates DOM buttons, separate three-browser regressions exercise native pointer input. WebKit second restore was retried after false preflight rejection, using corrected runtime and the same uploaded archive.",
+  "production": {
+    "sourceRevision": "12c0dde8b0fc0571d9d7cca661dbe68462e2796c",
+    "releaseID": "12c0dde8b0fc-378ac872e6ef",
+    "previousReleaseID": "7b23b0cda47a-78a26912e964",
+    "releaseFilesVerified": 661,
+    "httpsAssetsVerified": 25,
+    "contentFilesBytePreserved": 545,
+    "nginxConfigurationChanged": false,
+    "url": "https://piclex.v2fy.com/piclex-web/"
+  },
+  "productionLocalRestore": [
+    {
+      "browser": "chromium",
+      "archiveBytes": 137926307,
+      "photoCount": 33,
+      "levelExperience": 5,
+      "practiceReadable": true,
+      "elapsedMS": 9180,
+      "pageErrors": []
+    },
+    {
+      "browser": "webkit",
+      "archiveBytes": 137926307,
+      "photoCount": 33,
+      "levelExperience": 5,
+      "practiceReadable": true,
+      "elapsedMS": 4783,
+      "pageErrors": []
+    }
+  ],
+  "cleanup": {
+    "temporaryArtifactsRemoved": 108,
+    "temporaryArtifactsRemaining": 0,
+    "ownedPreviewServersStopped": 2,
+    "serverUploadStageRemoved": true,
+    "formalReleasesPreserved": true,
+    "otherWorkingChangesPreserved": true
   }
 }

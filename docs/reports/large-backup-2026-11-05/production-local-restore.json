@@ -1,0 +1,20 @@
+[
+  {
+    "browser": "chromium",
+    "archiveBytes": 137926307,
+    "photoCount": 33,
+    "levelExperience": 5,
+    "practiceReadable": true,
+    "elapsedMS": 9180,
+    "pageErrors": []
+  },
+  {
+    "browser": "webkit",
+    "archiveBytes": 137926307,
+    "photoCount": 33,
+    "levelExperience": 5,
+    "practiceReadable": true,
+    "elapsedMS": 4783,
+    "pageErrors": []
+  }
+]

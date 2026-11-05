@@ -1,0 +1,34 @@
+{
+  "mib": 5120,
+  "fixture": {
+    "count": 1285,
+    "imageBytes": 4178361,
+    "imageSHA256": "931ecd97cf0801a909992cb422d87ea02ad8ec096da6a7b0b2fa88e9833d884d",
+    "archiveBytes": 5370770309,
+    "firstID": "55555555-5555-4555-8555-000000000000"
+  },
+  "result": {
+    "photoCount": 1285,
+    "imageSHA256": "931ecd97cf0801a909992cb422d87ea02ad8ec096da6a7b0b2fa88e9833d884d",
+    "zip64": true,
+    "archiveBytes": 5370959007
+  },
+  "records": {
+    "count": 1285,
+    "referenced": 1285,
+    "files": 1285
+  },
+  "observations": [
+    {
+      "phase": "restore",
+      "ms": 122224
+    },
+    {
+      "phase": "upload-and-readback",
+      "ms": 166178
+    }
+  ],
+  "received": 5370960390,
+  "sent": 21483652189,
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.6 Safari/605.1.15"
+}

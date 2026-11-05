@@ -1,0 +1,72 @@
+[
+  {
+    "port": 19791,
+    "jobs": 26,
+    "bytes": 551577358
+  },
+  {
+    "port": 19792,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19793,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19794,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19795,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19796,
+    "jobs": 1,
+    "bytes": 5369193885
+  },
+  {
+    "port": 19797,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19798,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19799,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19800,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19801,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19802,
+    "jobs": 0,
+    "bytes": 0
+  },
+  {
+    "port": 19803,
+    "jobs": 1,
+    "bytes": 5369193885
+  },
+  {
+    "port": 19804,
+    "jobs": 19,
+    "bytes": 25165
+  }
+]
