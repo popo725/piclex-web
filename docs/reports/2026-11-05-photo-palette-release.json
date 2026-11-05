@@ -1,0 +1,137 @@
+{
+  "date": "2026-11-05",
+  "change": "Photo-derived hint and toolbar colors in both themes",
+  "activation": {
+    "releaseID": "bd360633e41d-ef8e76760e97",
+    "sourceRevision": "bd360633e41dfb1bd651bd66aad0e893b5987ba5",
+    "previous": "/home/hermes/piclex-web/releases/7f54b8b0b2c9-d9dbed6301a0",
+    "nginxSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+    "filesVerified": 661,
+    "preservedContentFiles": 545,
+    "originHTTPSVerified": [
+      "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+      "piclex-web/assets/experience-store-BaMgA33l.js",
+      "piclex-web/assets/lab-pMlgwsrx.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-D8TTrTI1.css",
+      "piclex-web/assets/main-Dy8847Ww.js",
+      "piclex-web/assets/main-_Eul92ti.js",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-HvvHd9oy.js",
+      "piclex-web/credits.html",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/library/catalog.json",
+      "piclex-web/source.json",
+      "piclex-web/subscribe/index.html"
+    ],
+    "atUTC": "2026-11-05T02:17:59.987776+00:00"
+  },
+  "localBrowserChecksPassed": 6,
+  "deployTestsPassed": 8,
+  "productionChecks": [
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "spelling": {
+        "background": "rgb(27 32 27)",
+        "ink": "rgb(209 193 168)",
+        "values": [
+          "rgb(27, 32, 27)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)"
+        ]
+      },
+      "listening": {
+        "background": "rgb(27 32 27)",
+        "ink": "rgb(209 193 168)",
+        "values": [
+          "rgb(27, 32, 27)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)"
+        ]
+      },
+      "contrast": 9.380744374167152,
+      "pageErrors": []
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "spelling": {
+        "background": "rgb(27 32 27)",
+        "ink": "rgb(209 193 168)",
+        "values": [
+          "rgb(27, 32, 27)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)"
+        ]
+      },
+      "listening": {
+        "background": "rgb(27 32 27)",
+        "ink": "rgb(209 193 168)",
+        "values": [
+          "rgb(27, 32, 27)",
+          "rgb(209, 193, 168)",
+          "rgb(209, 193, 168)"
+        ]
+      },
+      "contrast": 9.380744374167152,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "spelling": {
+        "background": "rgb(27 31 27)",
+        "ink": "rgb(226 213 193)",
+        "values": [
+          "rgb(27, 31, 27)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)"
+        ]
+      },
+      "listening": {
+        "background": "rgb(27 31 27)",
+        "ink": "rgb(226 213 193)",
+        "values": [
+          "rgb(27, 31, 27)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)"
+        ]
+      },
+      "contrast": 11.539440930164407,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "spelling": {
+        "background": "rgb(27 31 27)",
+        "ink": "rgb(226 213 193)",
+        "values": [
+          "rgb(27, 31, 27)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)"
+        ]
+      },
+      "listening": {
+        "background": "rgb(27 31 27)",
+        "ink": "rgb(226 213 193)",
+        "values": [
+          "rgb(27, 31, 27)",
+          "rgb(226, 213, 193)",
+          "rgb(226, 213, 193)"
+        ]
+      },
+      "contrast": 11.539440930164407,
+      "pageErrors": []
+    }
+  ],
+  "githubPages": "Latest descendant run 41954466390 pending; primary production site verified",
+  "cleanup": "Task-owned frozen source, build products, temporary App/dSYMs, browser artifacts and remote staging removed; formal archives/current/rollback releases retained"
+}
