@@ -66,17 +66,80 @@
   },
   "product_code_changed": false,
   "hosted_validation": {
-    "status": "pending follow-up",
-    "first_fix_commit": "ecbdcc35a6a0c0df72c2f1feb58b7c155d0e3356",
-    "run": 42002851095,
-    "result": {
-      "passed": 321,
-      "skipped": 4,
-      "failed": 1
-    },
-    "failure": "mobile-webkit spelling geometry light; earlier reload and keyboard fixes passed"
+    "status": "success",
+    "commit": "060fc494333fa87c628b5f509876a23262a11da3",
+    "run": 42005985171,
+    "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42005985171",
+    "build": "success",
+    "deploy": "success",
+    "unit_passed": 236,
+    "deployment_tests_passed": 27,
+    "browser_passed": 322,
+    "browser_skipped_existing": 4,
+    "browser_failed": 0,
+    "docker_run": 42005985324,
+    "docker_result": "success",
+    "docker_url": "https://github.com/zhaoolee/piclex-web/actions/runs/42005985324"
   },
   "cleanup": {
-    "status": "pending hosted verification"
-  }
+    "status": "complete",
+    "removed": [
+      "task-only Linux container",
+      "temporary source snapshots and builds",
+      "downloaded test artifacts and traces",
+      "task-only public cache copy",
+      "temporary browser outputs and watch logs"
+    ],
+    "preserved": [
+      "shared dependencies and public download cache",
+      "existing Docker images and services",
+      "all unrelated uncommitted work",
+      "user app and photo data"
+    ]
+  },
+  "hosted_attempts": [
+    {
+      "status": "pending follow-up",
+      "first_fix_commit": "ecbdcc35a6a0c0df72c2f1feb58b7c155d0e3356",
+      "run": 42002851095,
+      "result": {
+        "passed": 321,
+        "skipped": 4,
+        "failed": 1
+      },
+      "failure": "mobile-webkit spelling geometry light; earlier reload and keyboard fixes passed"
+    }
+  ],
+  "pages_verification": [
+    {
+      "url": "https://zhaoolee.com/piclex-web/",
+      "status": 200,
+      "sha256": "6d937d1bea87e0b5ac4b886a47b09ad0436fbf2ad739ee2e60ecd361b5c6b619"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "status": 200,
+      "bytes": 6764,
+      "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-BgA7or3o.css",
+      "status": 200,
+      "bytes": 94244,
+      "sha256": "5704763671f8327b8b90509300fe931f61c5140f67ce9628784c50686f536db2"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/main-DNPIIujk.js",
+      "status": 200,
+      "bytes": 634762,
+      "sha256": "f5b7400e05789b2a9c5845a33a7dfbf700e47ca60be32a081c4db2e86372ec75"
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "status": 200,
+      "bytes": 711,
+      "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+    }
+  ],
+  "code_pushes_this_recovery": 2
 }
