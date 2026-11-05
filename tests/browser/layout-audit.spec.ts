@@ -7,6 +7,15 @@ async function open(page:Page){
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();await page.getByRole('button',{name:'关闭提示',exact:true}).click();
 }
+async function photoColors(page:Page,selector:string){
+ await expect.poll(()=>page.locator('.native-practice').evaluate(e=>e.style.getPropertyValue('--photo-background'))).not.toBe('');
+ const palette=await page.locator('.native-practice').evaluate(e=>({background:e.style.getPropertyValue('--photo-background'),ink:e.style.getPropertyValue('--photo-ink')}));
+ const normalized=(value:string)=>`rgb(${value.match(/\d+/g)!.join(', ')})`;
+ await expect(page.locator(selector)).toHaveCSS('background-color',normalized(palette.background));
+ for(const node of await page.locator(`${selector}, ${selector} h1, ${selector} small, ${selector}>select`).all())await expect(node).toHaveCSS('color',normalized(palette.ink));
+ const luminance=(value:string)=>value.match(/\d+/g)!.map(Number).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);
+ const a=luminance(palette.background),b=luminance(palette.ink);expect((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toBeGreaterThanOrEqual(4.5);
+}
 async function speech(page:Page){await page.evaluate(()=>{const w=window as any;w.__utterances=[];Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{speak:(u:any)=>w.__utterances.push(u),cancel(){},getVoices:()=>[]}});});}
 async function listen(page:Page){await page.getByRole('tab',{name:'练听力',exact:true}).click();await page.getByLabel('句子练习模式',{exact:true}).selectOption('listening');}
 async function end(page:Page){await page.evaluate(()=>{const u=(window as any).__utterances.at(-1);u.onstart?.();u.onend?.();});}
@@ -19,13 +28,13 @@ async function geometry(page:Page){
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 }
 for(const theme of ['light','dark'])test(`native listening controls and speaking dock fit all viewports in ${theme}`,async({page},info)=>{
- test.setTimeout(90000);await page.emulateMedia({colorScheme:theme as 'light'|'dark'});await open(page);await speech(page);
+ test.setTimeout(90000);await page.emulateMedia({colorScheme:theme as 'light'|'dark'});await open(page);await photoColors(page,'.native-hint');await speech(page);
  await page.evaluate(()=>{(window as any).SpeechRecognition=class{start(){}abort(){}};});
  for(const [width,height] of [[390,844],[320,568],[844,390],[1440,1000]]){
   await page.setViewportSize({width,height});await listen(page);await geometry(page);
   await expect(page.getByText('每张照片只听一句',{exact:true})).toHaveCount(0);await expect(page.getByLabel('循环方式')).toHaveValue('once');
   const summary=page.locator('.sentence-ambience summary');await summary.scrollIntoViewIfNeeded();await summary.click();await expect(page.getByRole('button',{name:'咖啡厅',exact:true})).toBeVisible();await page.getByLabel('背景声音量').selectOption('0.15');await page.getByRole('button',{name:'轻柔钢琴',exact:true}).click();await summary.click();await page.getByRole('button',{name:'关闭',exact:true}).click();
-  const toolbar=page.locator('.sentence-toolbar');if(theme==='light'){await expect(toolbar).toHaveCSS('background-color','rgb(232, 232, 232)');await expect(page.locator('.listening-transport button').first()).not.toHaveCSS('box-shadow','none');}
+  await photoColors(page,'.sentence-toolbar');if(theme==='light')await expect(page.locator('.listening-transport button').first()).not.toHaveCSS('box-shadow','none');
   await page.screenshot({path:info.outputPath(`listening-${theme}-${width}x${height}.png`)});
   await page.getByRole('tab',{name:'练口语',exact:true}).click();await expect(page.locator('.native-hint')).toHaveCount(0);
   const next=page.locator('.reading-next');await next.scrollIntoViewIfNeeded();const rect=(await next.boundingBox())!,nav=(await page.getByRole('navigation',{name:'底部导航'}).boundingBox())!;expect(rect.y+rect.height).toBeLessThanOrEqual(nav.y+1);
