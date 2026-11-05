@@ -1,3 +1,4 @@
+import {readAISettings} from './ai-settings';
 import {resolveCardLabels} from '../../../packages/deck-format/src/card-appearance.mjs';
 import {useEffect,useRef,useState} from 'react';
 import {createPhotoDeck} from '../../../packages/deck-format/src/create.mjs';
@@ -17,7 +18,7 @@ export function useCaptureJobs(save:(bytes:Uint8Array,id:string)=>Promise<string
  },[]);
  function run(id:string,recognize:boolean){
   if(requests.current.has(id))return;
-  const controller=new AbortController();requests.current.set(id,controller);
+  const controller=new AbortController(),settings=readAISettings();requests.current.set(id,controller);
   patch(id,{phase:'queued',message:'',retrySave:!recognize});
   // Persist immediately, including photos waiting behind an earlier request.
   const snapshot=current.current.find(value=>value.id===id)!;
@@ -32,7 +33,7 @@ export function useCaptureJobs(save:(bytes:Uint8Array,id:string)=>Promise<string
      patch(id,{phase:'recognizing'});let timedOut=false;
      const timer=setTimeout(()=>{timedOut=true;controller.abort();},60000);
      try{
-      const result=await analyzePhoto(job.image,controller.signal);
+      const result=await analyzePhoto(job.image,controller.signal,settings);
       if(controller.signal.aborted)throw Error('已取消等待，照片已保留。');
       job={...job,labels:resolveCardLabels(result.labels),quote:result.quote};retrySave=true;
       patch(id,{labels:job.labels,quote:job.quote,retrySave:true});

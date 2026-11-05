@@ -1,3 +1,5 @@
+import {readAISettings,type AISettings} from './ai-settings';
+import {analyzeCustomPhoto} from './custom-ai';
 export type Quota = {daily_limit:number; used:number; remaining:number; resets_at:number};
 export type PhotoLabel = {backgroundColor?:string;textColor?:string;paletteColorIsFixed?:boolean;suggestedBubblePosition?:{x:number;y:number};english:string; chinese:string; example:string; exampleChinese:string; phoneticUS?:string; phoneticUK?:string; partOfSpeech?:string; relation?:string; sceneConnection?:string; association?:string; collocation?:string; bbox?:number[]|null; anchor?:number[]|null};
 export type PhotoQuote = {chinese:string;english:string;source:string}|null;
@@ -20,7 +22,8 @@ async function request(path:string,body:BodyInit,signal:AbortSignal){
 export async function readCaptureQuota(signal:AbortSignal):Promise<Quota>{
  return (await request('quota',new URLSearchParams({client_id:browserIdentity()}),signal)).quota;
 }
-export async function analyzePhoto(photo:Uint8Array,signal:AbortSignal):Promise<{labels:PhotoLabel[];quote:PhotoQuote;quota:Quota}>{
+export async function analyzePhoto(photo:Uint8Array,signal:AbortSignal,settings:AISettings=readAISettings()):Promise<{labels:PhotoLabel[];quote:PhotoQuote;quota:Quota|null}>{
+ if(settings.mode!=='official')return analyzeCustomPhoto(photo,signal,settings);
  const body=new FormData();body.append('metadata',JSON.stringify({client_id:browserIdentity()}));
  body.append('image',new Blob([photo.slice().buffer],{type:'image/jpeg'}),'photo.jpg');
  const data=await request('analyze',body,signal);
