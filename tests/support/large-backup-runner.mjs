@@ -12,7 +12,7 @@ execFileSync('python3',['tests/support/make-large-backup.py',path.join(root,'Pic
 const fixture=JSON.parse(fs.readFileSync(path.join(root,'PicLex/fixture.json'),'utf8'));fs.unlinkSync(path.join(root,'PicLex/fixture.json'));
 execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',cert+'.key','-out',cert+'.crt','-subj','/CN=127.0.0.1','-addext','subjectAltName=IP:127.0.0.1','-days','1'],{stdio:'ignore'});
 const remote=await startWebDAV(root,cert);
-const context=await (browserName==='webkit'?webkit:chromium).launchPersistentContext(profile,{...(browserName==='chromium'?{channel:'chrome'}:{}),headless:true,args:['--mute-audio'],ignoreHTTPSErrors:true,viewport:{width:390,height:844}});
+const context=await (browserName==='webkit'?webkit:chromium).launchPersistentContext(profile,{...(browserName==='chromium'?{channel:'chrome'}:{}),headless:true,args:browserName==='chromium'||process.platform==='darwin'?['--mute-audio']:[],ignoreHTTPSErrors:true,viewport:{width:390,height:844}});
 const page=await context.newPage(),errors=[],observations=[];page.on('pageerror',e=>errors.push(e.message));
 // This is a data/transport stress test. Native mouse/touch activation is covered
 // separately by webdav-backup.spec.ts; use DOM button activation here so input

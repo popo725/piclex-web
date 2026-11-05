@@ -10,7 +10,7 @@ test('first learning visit opens the first official deck in spelling without a c
 });
 test('learning tab and capture start choose a deck while explicit library remains available',async({page})=>{
  await page.goto('/piclex-web/#/capture');const tabs=page.getByRole('navigation',{name:'底部导航'});await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();await expect(page.locator('.home')).toHaveCount(0);
- await page.getByRole('button',{name:'下载第三方卡组',exact:true}).click();await expect(page.getByRole('textbox',{name:'粘贴卡组 URL'})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();await tabs.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:'照片卡组',exact:true}).click();await expect(page.locator('.settings-deck-item')).toHaveCount(6);
+ await page.getByRole('button',{name:'下载第三方卡组',exact:true}).click();await expect(page.getByRole('textbox',{name:'粘贴卡组 URL'})).toBeVisible();await page.getByRole('button',{name:'关闭',exact:true}).click();await tabs.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('button',{name:'照片卡组',exact:true}).click();await expect(page.locator('.settings-deck-item')).toHaveCount(catalog.filter((c:any)=>c.sourceURL!=='https://piclex.v2fy.com/decks/source.json').length);await expect(page.locator('.settings-deck-item[data-official=true]')).toHaveCount(0);
  await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await tabs.getByRole('button',{name:'学习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
 });
 test('remembered local deck opens spelling without losing spelling or listening drafts',async({page})=>{

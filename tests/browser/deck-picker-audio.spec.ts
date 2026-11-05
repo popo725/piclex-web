@@ -41,8 +41,9 @@ test('advancing original audio clears preparation even when playing notification
  await page.addInitScript(()=>{const Original=window.Audio,w=window as any;w.__advancing=[];w.Audio=class extends Original{constructor(src?:string){super(src);this.muted=true;if(!src?.endsWith('.mp3'))return;w.__advancing.push(this);this.addEventListener('playing',e=>e.stopImmediatePropagation(),true);const play=this.play.bind(this);this.play=()=>play().then(()=>new Promise<void>(()=>{}));}};});
  await page.goto('/piclex-web/#/deck/'+song.id+'?module=listening&mode=listening&photo=1');await page.getByLabel('循环方式').selectOption('single');await page.getByRole('button',{name:'播放',exact:true}).click();
  await expect(page.getByRole('button',{name:'暂停',exact:true})).toBeVisible();
- await expect.poll(()=>page.evaluate(()=>{const a=(window as any).__advancing.at(-1);return a?.currentTime>0&&a?.readyState>=3;})).toBe(true);
- await page.evaluate(()=>(window as any).__advancing.at(-1).dispatchEvent(new Event('stalled')));await expect(page.getByRole('button',{name:'暂停',exact:true})).toBeVisible();
+ await expect.poll(()=>page.evaluate(()=>{const a=(window as any).__advancing.at(-1);return a?.currentTime>0&&a?.readyState>=2&&!a?.paused&&!a?.seeking;})).toBe(true);
+ // Explicitly test a buffered stall; Linux WebKit may report only CURRENT_DATA during normal playback.
+ await page.evaluate(()=>{const a=(window as any).__advancing.at(-1);Object.defineProperty(a,'readyState',{configurable:true,value:3});a.dispatchEvent(new Event('stalled'));delete a.readyState;});await expect(page.getByRole('button',{name:'暂停',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'暂停',exact:true}).click();const slider=page.getByRole('slider',{name:'句子播放位置'});await slider.fill('500');await page.getByRole('button',{name:'播放',exact:true}).click();await expect(page.getByRole('button',{name:'暂停',exact:true})).toBeVisible();
  await expect.poll(()=>page.evaluate(()=>{const a=(window as any).__advancing.at(-1);return a?.currentTime/a?.duration||0;})).toBeGreaterThanOrEqual(.5);
  await page.getByRole('button',{name:'暂停',exact:true}).click();expect(Number(await slider.inputValue())).toBeGreaterThanOrEqual(500);

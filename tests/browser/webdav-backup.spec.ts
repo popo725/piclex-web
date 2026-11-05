@@ -2,7 +2,7 @@ import {test as baseTest,expect,webkit,type Page} from '@playwright/test';
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {startWebDAV} from '../support/webdav-server.mjs';import {createHash} from 'node:crypto';
 import {createPhotoDeck} from '../../packages/deck-format/src/create.mjs';
 import {decodeProgress} from '../../packages/backup/src/progress.mjs';
-const test=baseTest.extend({context:async({context,browserName},use,info)=>{if(browserName!=='webkit'){await use(context);return;}const profile=info.outputPath('webkit-profile'),persistent=await webkit.launchPersistentContext(profile,{headless:true,ignoreHTTPSErrors:true,args:['--mute-audio'],viewport:{width:390,height:844},isMobile:true,hasTouch:true});try{await use(persistent);}finally{await persistent.close();fs.rmSync(profile,{recursive:true,force:true});}}});
+const test=baseTest.extend({context:async({context,browserName},use,info)=>{if(browserName!=='webkit'){await use(context);return;}const profile=info.outputPath('webkit-profile'),persistent=await webkit.launchPersistentContext(profile,{headless:true,ignoreHTTPSErrors:true,args:process.platform==='darwin'?['--mute-audio']:[],viewport:{width:390,height:844},isMobile:true,hasTouch:true});try{await use(persistent);}finally{await persistent.close();fs.rmSync(profile,{recursive:true,force:true});}}});
 test.use({ignoreHTTPSErrors:true});
 test.describe.configure({mode:'default'});
 let testStarted=0;test.beforeEach(()=>{testStarted=Date.now();});

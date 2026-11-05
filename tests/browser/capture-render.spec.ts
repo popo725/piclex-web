@@ -1,18 +1,20 @@
 import {test,expect} from '@playwright/test';
 import path from 'node:path';
+// Compare alpha ramps at a fixed physical pixel density across CI browsers.
+test.use({deviceScaleFactor:2});
 const photo=path.resolve('tests/fixtures/demo/images/cafe.jpg');
 test.beforeEach(async({page})=>{
  await page.route('https://piclex.v2fy.com/v1/web/analyze',()=>{});
 });
 test('diffuse colour is baked into every layer even with CSS filters disabled',async({page},info)=>{
- await page.emulateMedia({reducedMotion:'reduce'});
+ await page.setViewportSize({width:390,height:844});await page.emulateMedia({reducedMotion:'reduce'});
  await page.addInitScript(()=>localStorage.setItem('piclex-web.import-animation','false'));
  await page.goto('/piclex-web/#/capture');
  await expect(page.getByRole('button',{name:'导入照片',exact:true})).toBeEnabled();
  await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(photo);
  await expect(page.locator('.recognition-halo')).toBeVisible();
  await page.addStyleTag({content:'.recognition-halo canvas{filter:none!important;-webkit-filter:none!important}'});
- await expect.poll(()=>page.locator('.recognition-halo canvas').first().evaluate((n:HTMLCanvasElement)=>n.width)).toBeGreaterThan(10);
+ await expect.poll(()=>page.locator('.recognition-halo canvas').evaluateAll((nodes:HTMLCanvasElement[])=>nodes.length===5&&nodes.every(n=>n.width>10&&Number.isFinite(parseFloat(n.style.width))&&Number.isFinite(parseFloat(n.style.top))))).toBe(true);
  const profiles=await page.locator('.recognition-halo canvas').evaluateAll((nodes:HTMLCanvasElement[])=>nodes.map(n=>{
   const dpr=n.width/parseFloat(n.style.width),pad=-parseFloat(n.style.top)*dpr,x=Math.floor(n.width/2);
   const data=n.getContext('2d')!.getImageData(x,Math.round(pad),1,Math.min(80,n.height-Math.round(pad))).data;
