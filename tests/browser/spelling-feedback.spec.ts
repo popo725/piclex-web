@@ -22,11 +22,16 @@ test('hardware input survives replay focus, protected IME keys, and keeps dialog
 for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays below glyphs and unknown playback remains a moving segment: ${colorScheme}`,async({page},info)=>{
  await page.emulateMedia({colorScheme});await open(page);const field=page.getByRole('textbox',{name:'输入英文',exact:true});
  await field.pressSequentially('croissa');
- const geometry=await page.evaluate(()=>{
-  const glyphs=[...document.querySelectorAll('.letter-glyph')].map(e=>e.getBoundingClientRect());
-  return [...document.querySelectorAll<SVGPathElement>('.spelling-glow path')].map(p=>({top:p.getBoundingClientRect().top,glyphBottom:Math.max(...glyphs.map(r=>r.bottom)),filter:getComputedStyle(p).filter}));
- });
- for(const g of geometry){expect(g.top).toBeGreaterThanOrEqual(g.glyphBottom);expect(g.filter).toBe('none');}
+ // ResizeObserver updates the SVG viewBox after layout; typing can finish first.
+ // Wait for the rendered result while keeping the exact geometry assertions.
+ await expect(async()=>{
+  const geometry=await page.evaluate(()=>{
+   const glyphs=[...document.querySelectorAll('.letter-glyph')].map(e=>e.getBoundingClientRect());
+   return [...document.querySelectorAll<SVGPathElement>('.spelling-glow path')].map(p=>({top:p.getBoundingClientRect().top,glyphBottom:Math.max(...glyphs.map(r=>r.bottom)),filter:getComputedStyle(p).filter}));
+  });
+  expect(geometry).toHaveLength(2);
+  for(const g of geometry){expect(g.top).toBeGreaterThanOrEqual(g.glyphBottom);expect(g.filter).toBe('none');}
+ }).toPass({timeout:5000});
  await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());
  const bar=page.getByRole('progressbar',{name:'播放进度'});await expect(bar).toHaveAttribute('aria-valuetext','正在播放');expect(await bar.getAttribute('aria-valuenow')).toBeNull();
  const segment=page.locator('.playback-activity');expect((await segment.boundingBox())!.width).toBeLessThan((await bar.boundingBox())!.width*.35);

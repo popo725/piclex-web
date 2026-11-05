@@ -5,11 +5,13 @@
   "new_failure_run": 41996607077,
   "root_causes": [
     "Photo recycle/restore test treated the transient empty reload document as a completed action, then navigated before the page was ready.",
-    "A keyboard audio test combined input, three dictation difficulties, settings navigation and reload within one 30-second total test budget."
+    "A keyboard audio test combined input, three dictation difficulties, settings navigation and reload within one 30-second total test budget.",
+    "The spelling layout assertion sampled SVG geometry before asynchronous ResizeObserver viewBox updates completed."
   ],
   "fixes": [
     "Wait for DOMContentLoaded plus the intended heading and empty-state text after each photo state change. Preserve photo count and practice checks.",
-    "Split keyboard sound interaction and mute persistence into independent tests; retain assertions, native clicks/taps, 30-second timeout, zero retries and existing skips."
+    "Split keyboard sound interaction and mute persistence into independent tests; retain assertions, native clicks/taps, 30-second timeout, zero retries and existing skips.",
+    "Wait up to the normal 5-second assertion window for the same exact geometry and filter checks; require both SVG paths."
   ],
   "reproduction": {
     "linux_webkit_original": {
@@ -23,6 +25,18 @@
       "passed": 24
     },
     "mac_keyboard_tests": {
+      "passed": 12
+    },
+    "linux_layout_original": {
+      "failed": 1,
+      "passed": 11,
+      "expected_glyph_bottom": 504.234375,
+      "received_path_top": 419
+    },
+    "linux_layout_fixed": {
+      "passed": 36
+    },
+    "mac_layout_fixed": {
       "passed": 12
     }
   },
@@ -52,7 +66,15 @@
   },
   "product_code_changed": false,
   "hosted_validation": {
-    "status": "pending"
+    "status": "pending follow-up",
+    "first_fix_commit": "ecbdcc35a6a0c0df72c2f1feb58b7c155d0e3356",
+    "run": 42002851095,
+    "result": {
+      "passed": 321,
+      "skipped": 4,
+      "failed": 1
+    },
+    "failure": "mobile-webkit spelling geometry light; earlier reload and keyboard fixes passed"
   },
   "cleanup": {
     "status": "pending hosted verification"
