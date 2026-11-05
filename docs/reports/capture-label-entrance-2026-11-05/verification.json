@@ -39,13 +39,296 @@
       "singleCompleteRun": true
     }
   },
-  "productionContentIndexHashes": {
-    "source.json": "3bd35f6e48e83947e3126e87b54fb7ba42cb39668ba651d98bb20a592f67f669",
-    "library/catalog.json": "df320676e48ba85be9b0dd664aad07ff0b8f52df9a49a9cae1ed2180aab7c156"
-  },
   "scope": {
     "simulatorsStarted": false,
     "userDataModified": false,
     "parallelUncommittedChangesIncluded": false
+  },
+  "preflightContentIndexHashes": {
+    "source.json": "3bd35f6e48e83947e3126e87b54fb7ba42cb39668ba651d98bb20a592f67f669",
+    "library/catalog.json": "df320676e48ba85be9b0dd664aad07ff0b8f52df9a49a9cae1ed2180aab7c156"
+  },
+  "release": {
+    "previous": "/home/hermes/piclex-web/releases/4f2528af27b7-abf5298d59d6",
+    "current": "/home/hermes/piclex-web/releases/ccdb27f4fe49-c51a28a0b082",
+    "sourceRevision": "ccdb27f4fe490ac866bd332a7e77d36b057d3a43",
+    "releaseID": "ccdb27f4fe49-c51a28a0b082",
+    "preservedNonBuildFiles": 1048,
+    "filesVerified": 1061,
+    "remainingReleases": [
+      "ccdb27f4fe49-c51a28a0b082"
+    ],
+    "configurationSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+    "publicIndexHashes": {
+      "source.json": "03d8c50bdf5e50670686596994a8d62408ec69db8707f4f5a881a7778093dce8",
+      "library/catalog.json": "1c097a4718f65c2e2b66afeebc793c792f069ed0459a16db81a5c54b2e30ee64"
+    },
+    "cleanup": {
+      "current": "ccdb27f4fe49-c51a28a0b082",
+      "deleted": [
+        "4f2528af27b7-abf5298d59d6",
+        "4f2528af27b7-d73455433dbe"
+      ],
+      "skipped": [],
+      "remaining": [
+        "ccdb27f4fe49-c51a28a0b082"
+      ],
+      "freeBytesBefore": 35497242624,
+      "freeBytesAfter": 35501846528,
+      "completedAt": 1793876529.299601
+    },
+    "parallelContentUpdatePreserved": true
+  },
+  "liveBrowser": {
+    "stats": {
+      "startTime": "2026-11-05T11:03:12.813Z",
+      "duration": 82501.538,
+      "expected": 9,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "name": "early recognition keeps every label hidden through landing and reveals once in native order",
+        "project": "desktop",
+        "status": "passed",
+        "durationMs": 12055,
+        "framesSampled": 170,
+        "firstVisibleAtMs": [
+          9243.5,
+          9460.200000047684,
+          9676.900000095367
+        ],
+        "firstVisibleGapsMs": [
+          216.7,
+          216.7
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion false)",
+        "project": "desktop",
+        "status": "passed",
+        "durationMs": 9745,
+        "framesSampled": 113,
+        "firstVisibleAtMs": [
+          7457.5,
+          7690.899999856949,
+          7907.599999904633
+        ],
+        "firstVisibleGapsMs": [
+          233.4,
+          216.7
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion true)",
+        "project": "desktop",
+        "status": "passed",
+        "durationMs": 10224,
+        "framesSampled": 115,
+        "firstVisibleAtMs": [
+          7906.799999952316,
+          8122.799999952316,
+          8356.200000047684
+        ],
+        "firstVisibleGapsMs": [
+          216.0,
+          233.4
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "early recognition keeps every label hidden through landing and reveals once in native order",
+        "project": "mobile",
+        "status": "passed",
+        "durationMs": 9121,
+        "framesSampled": 170,
+        "firstVisibleAtMs": [
+          6473.799999952316,
+          6690.5,
+          6923.900000095367
+        ],
+        "firstVisibleGapsMs": [
+          216.7,
+          233.4
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion false)",
+        "project": "mobile",
+        "status": "passed",
+        "durationMs": 8674,
+        "framesSampled": 113,
+        "firstVisibleAtMs": [
+          6490.700000047684,
+          6707,
+          6923.599999904633
+        ],
+        "firstVisibleGapsMs": [
+          216.3,
+          216.6
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion true)",
+        "project": "mobile",
+        "status": "passed",
+        "durationMs": 4949,
+        "framesSampled": 113,
+        "firstVisibleAtMs": [
+          2773.7000000476837,
+          2988.7000000476837,
+          3206
+        ],
+        "firstVisibleGapsMs": [
+          215.0,
+          217.3
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "early recognition keeps every label hidden through landing and reveals once in native order",
+        "project": "mobile-webkit",
+        "status": "passed",
+        "durationMs": 9553,
+        "framesSampled": 165,
+        "firstVisibleAtMs": [
+          6792,
+          7025,
+          7241
+        ],
+        "firstVisibleGapsMs": [
+          233,
+          216
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion false)",
+        "project": "mobile-webkit",
+        "status": "passed",
+        "durationMs": 9891,
+        "framesSampled": 114,
+        "firstVisibleAtMs": [
+          7703,
+          7932,
+          8151
+        ],
+        "firstVisibleGapsMs": [
+          229,
+          219
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "name": "late recognition preserves stagger and connector travel (reduced motion true)",
+        "project": "mobile-webkit",
+        "status": "passed",
+        "durationMs": 4150,
+        "framesSampled": 114,
+        "firstVisibleAtMs": [
+          1981,
+          2213,
+          2434
+        ],
+        "firstVisibleGapsMs": [
+          232,
+          221
+        ],
+        "opacityRegressions": 0,
+        "labelsBeforePrintFinished": false,
+        "finalOpacity": [
+          1,
+          1,
+          1
+        ]
+      }
+    ]
+  },
+  "github": {
+    "commit": "ccdb27f4fe490ac866bd332a7e77d36b057d3a43",
+    "remoteConfirmed": true,
+    "docker": {
+      "run": 42015064008,
+      "status": "success",
+      "digest": "sha256:a5df7d510003dab4ec83952db86d222f6f3409832bcf0d447003b635c1944e2c",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42015064008"
+    },
+    "pages": {
+      "run": 42015064006,
+      "status": "success",
+      "build": "success",
+      "deploy": "success",
+      "browserPassed": 331,
+      "browserSkipped": 4,
+      "liveBrowserPassed": 3,
+      "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42015064006"
+    }
+  },
+  "sourceRevision": "ccdb27f4fe490ac866bd332a7e77d36b057d3a43",
+  "cleanup": {
+    "dedicatedLinuxContainerRemoved": true,
+    "serverUploadRemoved": true,
+    "localTemporarySourceBuildTestsAndLogsRemoved": true,
+    "previewPortReleased": true,
+    "serverOnlyCurrentRetained": true,
+    "sharedRuntimeCachesPreserved": true
   }
 }
