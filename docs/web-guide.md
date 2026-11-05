@@ -83,6 +83,8 @@ packages/subscription/    订阅分享封面工具
 
 ## 发布与第三方卡组
 
+发布前验证、失败处理和避免重复推送的要求见 [CI 与发布检查](ci-release.md)。
+
 `dist/` 可部署到 GitHub Pages 或其他静态托管。两个公开入口统一使用 `/piclex-web/` 和 hash 路由；GitHub Actions 负责校验、构建、浏览器回归及 Pages 发布。独立域名的验收与回滚见 [部署说明](../deploy/README.md)。Fork 后请检查内容来源、使用范围和产品链接。
 
 [公开来源清单](https://piclex.v2fy.com/piclex-web/source.json)采用 `com.piclex.deck-source` v1；公开构建不包含付费卡组。

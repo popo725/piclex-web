@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-05",
+  "baseline": "5c58ca6",
+  "prior_green_run": 41994079968,
+  "new_failure_run": 41996607077,
+  "root_causes": [
+    "Photo recycle/restore test treated the transient empty reload document as a completed action, then navigated before the page was ready.",
+    "A keyboard audio test combined input, three dictation difficulties, settings navigation and reload within one 30-second total test budget."
+  ],
+  "fixes": [
+    "Wait for DOMContentLoaded plus the intended heading and empty-state text after each photo state change. Preserve photo count and practice checks.",
+    "Split keyboard sound interaction and mute persistence into independent tests; retain assertions, native clicks/taps, 30-second timeout, zero retries and existing skips."
+  ],
+  "reproduction": {
+    "linux_webkit_original": {
+      "failed": 5,
+      "passed": 7
+    },
+    "linux_webkit_fixed": {
+      "passed": 12
+    },
+    "mac_photo_tests": {
+      "passed": 24
+    },
+    "mac_keyboard_tests": {
+      "passed": 12
+    }
+  },
+  "preflight": {
+    "platform": "isolated Ubuntu ARM64, Node 24.13.0, Playwright 1.63.0, Chromium 153 and WebKit 26.6",
+    "unit_passed": 236,
+    "deploy_passed": 27,
+    "fixture_integrity": "passed",
+    "content_integrity": "passed",
+    "production_build": "passed",
+    "initial_browser_run": {
+      "passed": 317,
+      "skipped": 4,
+      "failed": 2,
+      "failures": [
+        "Missing hard-coded Chrome executable path in local container",
+        "Combined keyboard scenario exceeded total test timeout"
+      ]
+    },
+    "followup": {
+      "entire_interaction_file_repeated_twice_passed": 36,
+      "large_backup_passed": 1,
+      "large_backup_mib": 128,
+      "photos": 33
+    },
+    "note": "Local browser cases completed across full run and targeted follow-up; hosted full workflow still pending. Container Chrome-compatible path points to installed Chrome for Testing; hosted CI uses Google Chrome."
+  },
+  "product_code_changed": false,
+  "hosted_validation": {
+    "status": "pending"
+  },
+  "cleanup": {
+    "status": "pending hosted verification"
+  }
+}
