@@ -1,0 +1,45 @@
+{
+  "revision": "23ca9b2236adefa833e726ee2431574356767236",
+  "releaseID": "23ca9b2236ad-e6a34145f727",
+  "previous": "dc702689bac8-7ba29adc055c",
+  "files": 663,
+  "preservedFiles": 649,
+  "originHTTPSVerified": [
+    "piclex-web/index.html",
+    "piclex-web/credits.html",
+    "piclex-web/lab/index.html",
+    "piclex-web/subscribe/index.html",
+    "piclex-web/assets/main-DUR94sD9.css",
+    "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+    "piclex-web/assets/lab-r_hvwpDT.css",
+    "piclex-web/assets/main-BekrkkzC.js",
+    "piclex-web/assets/main-DBb_kAnE.js",
+    "piclex-web/assets/experience-store-Dfhfdtsw.js",
+    "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+    "piclex-web/assets/subscribe-HvvHd9oy.js",
+    "piclex-web/assets/lab-cV5RY7I5.js",
+    "piclex-web/assets/subscribe-CgjdP79_.css"
+  ],
+  "configurationUnchanged": true,
+  "atUTC": "2026-11-05T03:27:34.086991+00:00",
+  "verification": {
+    "unitTests": 221,
+    "deployTests": 8,
+    "frozenBrowserTests": 46,
+    "liveBrowserTests": 16,
+    "liveSkippedDuplicatePaidRequests": 2,
+    "realOfficialQuota": "passed in Chrome desktop/mobile and WebKit",
+    "realOfficialRecognition": "public cafe fixture returned labels and saved a local deck",
+    "customProvider": "request routing, key, model, image, response and error UI verified with intercepted provider responses; no real custom key supplied",
+    "publicMainSHA256": "9c2d69c804c3df83f864f84a7f61d16880591c2cd2d546834527d72d24e82629"
+  },
+  "github": {
+    "sourceCommit": "23ca9b2236adefa833e726ee2431574356767236",
+    "pushedAndVerified": true,
+    "ciRun": 41961432922,
+    "ciStatus": "superseded by subsequent main commits containing this change",
+    "latestObservedRun": 41961649945,
+    "latestObservedStatus": "pending"
+  },
+  "cleanup": "Task temporary local build, browser outputs and server upload directory removed after verification; release and prior rollback retained; shared artifacts untouched."
+}
