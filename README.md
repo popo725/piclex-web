@@ -61,18 +61,6 @@ docker run -d --name piclex-web \
 
 打开 <http://127.0.0.1:18120>。照片和进度保存在浏览器；自托管 AI 制卡需配置自己的模型。[Compose、HTTPS 与更新说明](docs/docker.md)。
 
-## 本地运行
-
-需要 Node.js 22.12+。
-
-```sh
-npm ci
-npm run content:build
-npm run dev
-```
-
-默认访问 <http://127.0.0.1:18120/piclex-web/>；`npm run build` 生成静态站点。
-
 [使用与开发说明](docs/web-guide.md) · [发布自己的卡组](docs/publishing-decks.md) · [部署说明](deploy/README.md) · [二维码分享封面](docs/subscription-qr/README.md)
 
 代码使用 [MIT](LICENSE)；卡组内容按原来源授权，详见[素材说明](ASSET_LICENSES.md)。
