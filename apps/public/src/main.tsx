@@ -27,7 +27,6 @@ type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints
 type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
 const appStore = 'https://apps.apple.com/app/id6808490052';
-const repository = 'https://github.com/zhaoolee/piclex-web';
 const cache = new Map<string, Deck>();
 function route() { return parseLearningURL(location.hash)?.id||''; }
 function go(id = '') { location.hash = id ? `/deck/${encodeURIComponent(id)}` : '/learn'; }
@@ -65,7 +64,6 @@ function App() {
   const [systemDark,setSystemDark]=useState(()=>matchMedia('(prefers-color-scheme: dark)').matches);
   const dark=theme==='dark'||theme==='system'&&systemDark;
   useAppearancePalette(dark);
-  function setDark(value:boolean){setTheme(value?'dark':'light');}
   useEffect(()=>{const media=matchMedia('(prefers-color-scheme: dark)');const update=()=>setSystemDark(media.matches);media.addEventListener('change',update);return()=>media.removeEventListener('change',update);},[]);
   const file = useRef<HTMLInputElement>(null);
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; writePreference('piclex-web.theme',theme); }, [dark,theme]);
@@ -160,7 +158,7 @@ function App() {
   const settings=<Settings cards={cards} ready={ready} error={error} theme={theme} setTheme={setTheme} importFile={()=>file.current?.click()} exportDeck={id=>{const value=cache.get(id);if(value)downloadDeck(value);}} openDeck={go} openGame={()=>void openGame()} gameBusy={gameBusy} gameDeckID={gameDeckID} setGameDeckID={id=>{setGameDeckID(id);setLabDeck(null);}} notify={setNotice}/>;
   const featured = cards.find(card => !card.local);
   const cover = (card: Card, role: "landscape" | "portrait") => { const path = card.covers?.[role] || card.covers?.landscape || card.covers?.portrait || card.cover; return card.local ? path : asset(path); };
-  return <><a className="skip-link" href="#main-content">跳到内容</a><header className="site-header"><a className="brand" href="#/capture" aria-label="摄影学英语 首页"><span className="brand-mark"><img src={asset("brand/app-icon.png")} alt=""/></span><strong>摄影学英语</strong></a><nav aria-label="主导航"><a className="nav-github" href={repository} target="_blank" rel="noreferrer">GitHub ↗</a><button className="icon-button" aria-label={dark ? '切换浅色外观' : '切换深色外观'} onClick={() => setDark(!dark)}><Icon name={dark ? 'sun' : 'moon'}/></button><a className="header-app" href={appStore} target="_blank" rel="noreferrer" aria-label="在 App Store 下载摄影学英语" title="在 App Store 下载"><img src={asset("brand/app-store-badge.svg")} alt="Download on the App Store"/></a></nav></header>
+  return <><a className="skip-link" href="#main-content">跳到内容</a>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={startLearning} notify={setNotice}/></div>
     {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings/laboratory';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => downloadDeck(deck)} share={async () => {
