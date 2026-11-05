@@ -4,6 +4,7 @@ test('necessary icons warm in background and are reused on navigation',async({pa
  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
  await page.goto('/piclex-web/#/capture');
  await page.waitForFunction(()=>new Set(performance.getEntriesByType('resource').filter(e=>e.name.includes('/icons/')).map(e=>e.name)).size===25);
+ await page.waitForLoadState('networkidle');
  const count=()=>page.evaluate(()=>performance.getEntriesByType('resource').filter(e=>e.name.includes('/icons/')).length);
  // Allow final image decoding and first-paint mask reuse to settle.
  let previous=-1,stable=0;

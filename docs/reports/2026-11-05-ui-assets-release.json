@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-05",
+  "activation": {
+    "previous": "/home/hermes/piclex-web/releases/5d47b8df3ab6-c984fbd0bac1",
+    "release": "/home/hermes/piclex-web/releases/c331b35fb4b4-a8e70ec2c57f",
+    "releaseID": "c331b35fb4b4-a8e70ec2c57f",
+    "sourceRevision": "c331b35fb4b4ef293eb98642917860e2b3baa677",
+    "filesVerified": 662,
+    "preservedContentFiles": 545
+  },
+  "origin": {
+    "release": "c331b35fb4b4-a8e70ec2c57f",
+    "originHTTPSVerified": [
+      "piclex-web/icons/arrow.png",
+      "piclex-web/icons/back.png",
+      "piclex-web/icons/camera.png",
+      "piclex-web/icons/check.png",
+      "piclex-web/icons/close.png",
+      "piclex-web/icons/external.png",
+      "piclex-web/icons/forward.png",
+      "piclex-web/icons/headphones.png",
+      "piclex-web/icons/keycap.png",
+      "piclex-web/icons/microphone.png",
+      "piclex-web/icons/moon.png",
+      "piclex-web/icons/pause.png",
+      "piclex-web/icons/peek.png",
+      "piclex-web/icons/photo.png",
+      "piclex-web/icons/share.png",
+      "piclex-web/icons/sound.png",
+      "piclex-web/icons/stop.png",
+      "piclex-web/icons/sun.png",
+      "piclex-web/icons/tab-capture-frames.png",
+      "piclex-web/icons/tab-capture.png",
+      "piclex-web/icons/tab-learn-frames.png",
+      "piclex-web/icons/tab-learn.png",
+      "piclex-web/icons/tab-settings-frames.png",
+      "piclex-web/icons/tab-settings.png",
+      "piclex-web/icons/upload.png",
+      "piclex-web/index.html",
+      "piclex-web/assets/main-Dps44E6_.js",
+      "piclex-web/source.json"
+    ]
+  },
+  "productionBrowserChecks": [
+    {
+      "engine": "chrome",
+      "theme": "light",
+      "uniqueIcons": 25,
+      "requestsBefore": 28,
+      "requestsAfter": 28,
+      "backgroundAfterLoad": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "chrome",
+      "theme": "dark",
+      "uniqueIcons": 25,
+      "requestsBefore": 28,
+      "requestsAfter": 28,
+      "backgroundAfterLoad": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "light",
+      "uniqueIcons": 25,
+      "requestsBefore": 28,
+      "requestsAfter": 28,
+      "backgroundAfterLoad": true,
+      "pageErrors": []
+    },
+    {
+      "engine": "webkit",
+      "theme": "dark",
+      "uniqueIcons": 25,
+      "requestsBefore": 28,
+      "requestsAfter": 28,
+      "backgroundAfterLoad": true,
+      "pageErrors": []
+    }
+  ],
+  "nginxConfigurationUnchanged": true,
+  "rollback": "sudo python3 -B /home/hermes/piclex-web/deploy/activate.py --rollback /etc/nginx/piclex-web-backup-qjwp0rrr --apply",
+  "githubPages": "41958007568 pending at last check",
+  "verificationNote": "Initial WebKit dark sample had 27 to 28 timing records before background settled. Isolated retry passed; full four-case rerun explicitly waited for networkidle and all stayed at 28. No product changes made during verification."
+}
