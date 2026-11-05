@@ -2,7 +2,7 @@
 
 **把眼前的生活，变成英语。** 拍照制卡，用照片练拼写、听力和口语。打开浏览器即可开始，无需登录。
 
-[在线体验](https://piclex.v2fy.com/piclex-web/) · [GitHub Pages 镜像](https://zhaoolee.com/piclex-web/) · [iPhone App](https://apps.apple.com/app/id6808490052)
+[在线体验](https://piclex.v2fy.com/piclex-web/) · [GitHub Pages 镜像](https://zhaoolee.com/piclex-web/) · [iPhone App](https://apps.apple.com/cn/app/id6808490052)
 
 ## 一张照片，就是一页英语
 

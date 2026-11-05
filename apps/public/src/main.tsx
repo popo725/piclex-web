@@ -30,7 +30,7 @@ type Parsed = Awaited<ReturnType<typeof parseArchive>>;
 type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; backupPhoto?:BackupPhoto; bytes?: Uint8Array; downloadURL?: string };
 type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; subscribed?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
-const appStore = 'https://apps.apple.com/app/id6808490052';
+const appStore = 'https://apps.apple.com/cn/app/id6808490052';
 const cache = new Map<string, Deck>();
 const backupPhotos=new Map<string,BackupPhoto>();
 let deletedPhotoIDs=new Set<string>();
