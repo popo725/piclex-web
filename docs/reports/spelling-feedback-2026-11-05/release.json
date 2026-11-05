@@ -1,0 +1,13 @@
+{
+  "sourceRevision": "4f2528af27b7ae6c81f7f01dd821c5f77a3df2c1",
+  "releaseID": "4f2528af27b7-d73455433dbe",
+  "filesVerified": 661,
+  "nonBuildFilesPreserved": 648,
+  "localBrowserPassed": 24,
+  "localBrowserSkipped": 1,
+  "livePassed": 9,
+  "liveInitialNavigationTimeouts": 1,
+  "liveTimedOutCaseRecheckPassed": true,
+  "serverOnlyCurrentRetained": true,
+  "userBrowserDataUntouched": true
+}

@@ -1,0 +1,52 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config feedback-live.config.ts tests/browser/spelling-feedback.spec.ts
+
+Running 9 tests using 2 workers
+
+  ✓  2 [desktop] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (26.7s)
+  ✓  3 [desktop] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (22.1s)
+  ✘  1 [desktop] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (30.2s)
+  ✓  4 [mobile] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (9.7s)
+  ✓  5 [mobile] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (5.4s)
+  ✓  6 [mobile] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (8.0s)
+  ✓  8 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (5.2s)
+  ✓  7 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: light (5.9s)
+  ✓  9 [mobile-webkit] › tests/browser/spelling-feedback.spec.ts:22:52 › spelling progress stays below glyphs and unknown playback remains a moving segment: dark (6.0s)
+
+
+  1) [desktop] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.goto: Test timeout of 30000ms exceeded.
+    Call log:
+      - navigating to "https://piclex.v2fy.com/piclex-web/#/decks", waiting until "load"
+
+
+      2 | import path from 'node:path';
+      3 | async function open(page:any){
+    > 4 |  await page.goto('/piclex-web/#/decks');
+        |             ^
+      5 |  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
+      6 |  await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
+      7 |  await page.evaluate(()=>Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{speak:(u:any)=>{(window as any).__feedbackSpeech=u;},cancel:()=>{},getVoices:()=>[]}}));
+        at open (/private/tmp/piclex-spelling-feedback-20261105/tests/browser/spelling-feedback.spec.ts:4:13)
+        at /private/tmp/piclex-spelling-feedback-20261105/tests/browser/spelling-feedback.spec.ts:10:8
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    live-test-results/spelling-feedback-hardware-9e34a--and-keeps-dialogs-isolated-desktop/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: live-test-results/spelling-feedback-hardware-9e34a--and-keeps-dialogs-isolated-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    live-test-results/spelling-feedback-hardware-9e34a--and-keeps-dialogs-isolated-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace live-test-results/spelling-feedback-hardware-9e34a--and-keeps-dialogs-isolated-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated
+  8 passed (1.4m)

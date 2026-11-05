@@ -1,0 +1,8 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config feedback-live.config.ts tests/browser/spelling-feedback.spec.ts --project desktop -g hardware input --output desktop-live-recheck
+
+Running 1 test using 1 worker
+
+  ✓  1 [desktop] › tests/browser/spelling-feedback.spec.ts:9:1 › hardware input survives replay focus, protected IME keys, and keeps dialogs isolated (6.5s)
+
+  1 passed (9.6s)

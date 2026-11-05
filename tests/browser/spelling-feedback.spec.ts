@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import path from 'node:path';
 async function open(page:any){
- await page.goto('/piclex-web/#/decks');
+ await page.goto('/piclex-web/#/decks',{waitUntil:'domcontentloaded'});
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
  await page.evaluate(()=>Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{speak:(u:any)=>{(window as any).__feedbackSpeech=u;},cancel:()=>{},getVoices:()=>[]}}));
