@@ -13,5 +13,23 @@
     "failure": "Original audio clock advancing while UI remained preparing; now covered by deterministic lost-playing-event regression"
   },
   "deviceScope": "Mac Chrome and WebKit; mobile viewport/text inflation emulation, no physical device or iOS simulator",
-  "release": "pending"
+  "release": "7f54b8b0b2c9-d9dbed6301a0",
+  "sourceRevision": "7f54b8b0b2c93a64aefe87afb4717a262950d295",
+  "deployment": {
+    "verifiedFiles": 661,
+    "httpsAssets": 25,
+    "contentFilesPreserved": 545,
+    "configurationUnchanged": true
+  },
+  "liveValidation": {
+    "captureViewportAudioPassed": 10,
+    "sameDeckRestorePassed": 2,
+    "freshBrowserSharePassed": 2,
+    "initialFailures": "One 30s navigation timeout and two 5s assertions during deck download; same assertions passed with live-network timeout budgets"
+  },
+  "githubCI": {
+    "run": 41951885927,
+    "status": "in_progress"
+  },
+  "cleanup": "Own temporary browser/build/overlay and CI artifact files removed; shared dependencies, source and formal releases preserved"
 }
