@@ -5,7 +5,7 @@ async function open(page:Page){
  await page.clock.install();await page.emulateMedia({reducedMotion:'reduce'});
  await page.addInitScript(()=>{localStorage.setItem('piclex-web.import-animation','false');document.documentElement.style.setProperty('text-size-adjust','160%');document.documentElement.style.setProperty('-webkit-text-size-adjust','160%');});
  await page.route('https://piclex.v2fy.com/v1/web/analyze',route=>route.fulfill({headers:{'Access-Control-Allow-Origin':'*'},json:{labels,quota:{daily_limit:10,used:1,remaining:9}}}));
- await page.goto('/piclex-web/#/capture');await expect(page.getByRole('button',{name:'导入照片',exact:true})).toBeEnabled();await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(path.resolve('tests/fixtures/covers/portrait.jpg'));await page.clock.runFor(1000);
+ await page.goto('/piclex-web/#/capture');await expect(page.getByRole('button',{name:'导入照片',exact:true})).toBeEnabled();await page.clock.pauseAt(await page.evaluate(()=>Date.now()+1000));await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(path.resolve('tests/fixtures/covers/portrait.jpg'));await expect(page.locator('.capture-annotation')).toHaveCount(labels.length);await page.clock.runFor(2500);
  await expect(page.getByRole('button',{name:/秒后进入拼写，点击取消/})).toBeVisible({timeout:15000});await page.getByRole('button',{name:/秒后进入拼写，点击取消/}).click();await page.clock.resume();
 }
 async function fit(page:Page){

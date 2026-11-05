@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-05",
+  "baseline": "bcc23e621e551132104bb8ad7baf47c8d903ccf4",
+  "nativeReference": {
+    "state": "PicLex/Shared/StoredCardImageView.swift:313",
+    "deferAndStagger": "PicLex/Features/Capture/CaptureStore.swift:686",
+    "durationMs": 1000,
+    "staggerMs": 220,
+    "opacity": "linear",
+    "movement": "smoothstep; visible object anchors only",
+    "reducedMotion": "staggered opacity, stationary labels"
+  },
+  "fixes": [
+    "Hide labels before the first paint and until the print handoff completes.",
+    "Maintain one timeline through layout and tab visibility changes.",
+    "Retain last nonzero scale while the capture page is hidden.",
+    "Move connector start points with each bubble; scene associations fade in place.",
+    "Start practice countdown only after every label completes."
+  ],
+  "originalReproduction": {
+    "case": "early recognition at print handoff",
+    "expectedOpacity": 0,
+    "observedOpacity": 1,
+    "newRegressionFailsOldCode": true
+  },
+  "validation": {
+    "macRender": 18,
+    "linuxRender": 18,
+    "macCaptureFlows": 22,
+    "macMobileFit": 3,
+    "macCardSurface": 3,
+    "linuxUnit": 236,
+    "linuxDeploy": 27,
+    "linuxFull": {
+      "passed": 331,
+      "skipped": 4,
+      "failed": 0,
+      "total": 335,
+      "singleCompleteRun": true
+    }
+  },
+  "productionContentIndexHashes": {
+    "source.json": "3bd35f6e48e83947e3126e87b54fb7ba42cb39668ba651d98bb20a592f67f669",
+    "library/catalog.json": "df320676e48ba85be9b0dd664aad07ff0b8f52df9a49a9cae1ed2180aab7c156"
+  },
+  "scope": {
+    "simulatorsStarted": false,
+    "userDataModified": false,
+    "parallelUncommittedChangesIncluded": false
+  }
+}

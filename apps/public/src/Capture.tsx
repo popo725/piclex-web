@@ -76,26 +76,10 @@ function CaptureReview({job,active,settled,visible,consume,retry,cancel,edit,sta
  const [preview,setPreview]=useState(''),[loaded,setLoaded]=useState(false),[seconds,setSeconds]=useState<number|null>(null),[editing,setEditing]=useState(false),[title,setTitle]=useState(job.title),[labels,setLabels]=useState<PhotoLabel[]>(job.labels.length?job.labels:[blank()]),[selected,setSelected]=useState<number|null>(null);
  const countdown=useRef<ReturnType<typeof setInterval>|null>(null),consumed=useRef(!job.autoPractice),latest=useRef({start,consume,active});latest.current={start,consume,active};
  const [aspect,setAspect]=useState(1.333);
- const processing=busy(job),card=useRef<HTMLDivElement>(null);
+ const processing=busy(job);
  const [readyLabels,setReadyLabels]=useState<PhotoLabel[]|null>(null);
  const labelsReady=!job.labels.length||readyLabels===job.labels;
  const finishing=processing||job.phase==='review'&&!labelsReady;
- useEffect(()=>{
-  if(!job.labels.length){setReadyLabels(job.labels);return;}
-  if(!settled||!loaded){setReadyLabels(null);return;}
-  if(!active||document.hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){setReadyLabels(job.labels);return;}
-  setReadyLabels(null);let disposed=false;
-  // Labels render at the native 1000px reference size, then scale as a whole.
-  const scale=1;
-  const animations=[...card.current!.querySelectorAll<HTMLElement>('.capture-annotation')].flatMap((node,index)=>{
-   const dx=Number(node.style.getPropertyValue('--label-entrance-x'))*scale,dy=Number(node.style.getPropertyValue('--label-entrance-y'))*scale;
-   const frames=Array.from({length:21},(_,i)=>{const p=i/20,eased=p*p*(3-2*p);return {offset:p,transform:`translate(${dx*(1-eased)}px,${dy*(1-eased)}px)`};});
-   const options={duration:1000,delay:index*220,easing:'linear',fill:'both' as FillMode};
-   return [node.animate([{opacity:0},{opacity:1}],options),node.querySelector('.capture-photo-label')!.animate(frames,options)];
-  });
-  void Promise.all(animations.map(a=>a.finished)).then(()=>{if(!disposed)setReadyLabels(job.labels);}).catch(()=>{});
-  return()=>{disposed=true;animations.forEach(a=>a.cancel());};
- },[job.labels,settled,loaded,active]);
  const palette=usePhotoPalette(preview);
  const stopCountdown=useCallback(()=>{if(countdown.current)clearInterval(countdown.current);countdown.current=null;setSeconds(null);consumed.current=true;latest.current.consume();},[]);
  useEffect(()=>{const url=URL.createObjectURL(new Blob([job.image.slice().buffer],{type:'image/jpeg'}));setPreview(url);return()=>URL.revokeObjectURL(url);},[job.image]);
@@ -130,11 +114,11 @@ function CaptureReview({job,active,settled,visible,consume,retry,cancel,edit,sta
  },[editing,finishing,seconds===null,selected,job.labels]);
  const currentLabel=selected===null?null:job.labels[selected];
  return <section ref={review} data-print-hidden={!visible} inert={!settled} className="capture-review" style={{'--capture-photo-aspect':aspect,'--capture-paper-aspect':1/(.9/aspect+.406)} as CSSProperties} aria-label="照片卡片预览" onPointerDownCapture={interact} onKeyDownCapture={interact} onWheelCapture={interact}>
-  <div ref={card} style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
+  <div style={palette.style} className={`capture-card ${finishing?'is-processing':''}`}>
    <div className="capture-annotated-photo">
     {preview&&<img src={preview} alt="拍摄后的照片卡片" onLoad={event=>{setAspect(event.currentTarget.naturalWidth/event.currentTarget.naturalHeight);setLoaded(true);}}/>}
     {finishing&&<RecognitionHalo active={active&&settled}/>}
-    <PhotoAnnotations labels={job.labels} aspect={aspect} selected={selected} select={index=>setSelected(selected===index?null:index)}/>
+    <PhotoAnnotations labels={job.labels} aspect={aspect} enabled={settled&&loaded} active={active} onComplete={()=>setReadyLabels(job.labels)} selected={selected} select={index=>setSelected(selected===index?null:index)}/>
    </div>
    <div className="capture-poster-footer">
     <div className="capture-poster-brand"><img src={`${import.meta.env.BASE_URL}brand/card-logo.png`} alt=""/><span>摄影<br/>学英语</span></div>
