@@ -49,6 +49,8 @@ body[data-page=settings] #root{padding-bottom:0}
 
 /* Match the native two-column cover cards; export rows remain a separate list. */
 .native-settings-detail:has(.settings-segmented) .settings-detail-content{padding-inline:0}
+.settings-deck-section+.settings-deck-section{margin-top:24px}
+.settings-deck-section>h2{font-size:18px;font-weight:600;line-height:1.4;margin:12px 4px 16px;color:var(--ink)}
 .settings-deck-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px 16px;padding:6px 0 12px}
 .settings-deck-card{display:flex;flex-direction:column;align-items:stretch;min-width:0;gap:0;border:0;padding:0;border-radius:12px;background:var(--surface);box-shadow:-3px -3px 5px var(--deck-highlight),3px 3px 5px var(--deck-shade)}
 .settings-deck-card:active{box-shadow:inset 2px 2px 4px var(--deck-shade),inset -2px -2px 4px var(--deck-highlight)}

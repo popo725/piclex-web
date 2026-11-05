@@ -25,7 +25,7 @@ import './settings.css';
 
 type Parsed = Awaited<ReturnType<typeof parseArchive>>;
 type Deck = { id: string; title: string; fingerprint: string; legacyFingerprints?: string[]; covers?: Partial<Record<"landscape" | "portrait", string>>; words: Parsed["words"]; images: string[]; bytes?: Uint8Array; downloadURL?: string };
-type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
+type Card = { id: string; title: string; description: string; count: number; cover: string; covers?: Partial<Record<"landscape" | "portrait", string>>; progressAliases?: string[]; package?: string; local?: boolean; subscribed?: boolean; sourceURL?:string; credit?: string; source?: string; payload?: string; payloadSHA256?: string; fingerprint?: string; photoCount?: number; preview?: { english: string; chinese: string } };
 const asset = (path: string) => new URL(import.meta.env.BASE_URL + path, location.href).href;
 const appStore = 'https://apps.apple.com/app/id6808490052';
 const cache = new Map<string, Deck>();
@@ -89,7 +89,7 @@ function App() {
               const bytes = new Uint8Array(stored.bytes); const parsed = await parseArchive(bytes);
               let d = cache.get(stored.id); if (!d) d = materialize(stored.id, parsed, bytes, stored.progressAliases);
               if(!d.words.length)continue;
-              imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, fingerprint:parsed.fingerprint, local: true });
+              imported.push({ id: stored.id, title: d.title, count: d.words.length, description: '你自己的照片与词汇', cover: d.images[0], covers: d.covers, fingerprint:parsed.fingerprint, local: true, subscribed: stored.subscribed });
             } catch { if (!cancelled) setNotice('有一份本地卡组暂时无法读取，原文件仍保存在浏览器中。'); }
           }
         } catch { if (!cancelled) setNotice('浏览器未开放卡组存储，仍可体验公开卡组。'); }
@@ -135,9 +135,10 @@ function App() {
       const existing = [...cache.values()].find(d => d.bytes && d.fingerprint === parsed.learningFingerprint);
       const id = existing?.id || `local-${parsed.learningFingerprint}`;
       const progressAliases = existing?.legacyFingerprints || [];
-      await saveDeck({ id, title: parsed.title, bytes: buffer, progressAliases, addedAt: Date.now() });
+      const subscribed=cards.find(card=>card.id===id)?.subscribed;
+      await saveDeck({ id, title: parsed.title, bytes: buffer, progressAliases, addedAt: Date.now(), subscribed });
       const value = materialize(id, parsed, bytes, progressAliases);
-      const card: Card = { id, title: value.title, count: value.words.length, description: '你自己的照片与词汇', cover: value.images[0], covers: value.covers, fingerprint:parsed.fingerprint, local: true };
+      const card: Card = { id, title: value.title, count: value.words.length, description: '你自己的照片与词汇', cover: value.images[0], covers: value.covers, fingerprint:parsed.fingerprint, local: true, subscribed };
       setCards(current => current.some(c => c.id === id) ? current.map(c => c.id === id ? card : c) : [...current, card]);
       setNotice('卡组已保存到当前浏览器。'); go(id);
     } catch (e) { setNotice((e as Error).message); }
@@ -157,9 +158,9 @@ function App() {
     const parsed=await parseArchive(bytes);signal.throwIfAborted();
     if([...cache.values()].some(d=>d.fingerprint===parsed.learningFingerprint)||cards.some(c=>c.fingerprint===parsed.fingerprint)){setNotice('卡组已下载。');return;}
     const id=`local-${parsed.learningFingerprint}`;
-    await saveDeck({id,title:parsed.title,bytes:bytes.slice().buffer,addedAt:Date.now()});
+    await saveDeck({id,title:parsed.title,bytes:bytes.slice().buffer,addedAt:Date.now(),subscribed:true});
     const value=materialize(id,parsed,bytes);
-    setCards(current=>[...current.filter(c=>c.id!==id),{id,title:value.title,count:value.words.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,fingerprint:parsed.fingerprint,local:true}]);
+    setCards(current=>[...current.filter(c=>c.id!==id),{id,title:value.title,count:value.words.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,fingerprint:parsed.fingerprint,local:true,subscribed:true}]);
     if(!signal.aborted)setNotice('卡组已下载，可在当前卡组菜单中选择。');
   }
   const settings=<Settings cards={cards} ready={ready} error={error} theme={theme} setTheme={setTheme} importFile={()=>file.current?.click()} exportDeck={id=>{const value=cache.get(id);if(value)downloadDeck(value);}} openDeck={go} openGame={()=>void openGame()} gameBusy={gameBusy} gameDeckID={gameDeckID} setGameDeckID={id=>{setGameDeckID(id);setLabDeck(null);}} notify={setNotice}/>;

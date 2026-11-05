@@ -1,5 +1,5 @@
 const databaseName = 'piclex-web-v1';
-export type StoredDeck = { id: string; bytes: ArrayBuffer; title: string; addedAt: number; progressAliases?: string[] };
+export type StoredDeck = { id: string; bytes: ArrayBuffer; title: string; addedAt: number; progressAliases?: string[]; subscribed?: boolean };
 export function database(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(databaseName, 2);
