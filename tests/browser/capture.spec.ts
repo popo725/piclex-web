@@ -67,7 +67,7 @@ test('native recognition halo and fixed poster footer survive completion before 
  await expect(page.getByRole('status').filter({hasText:'识别中'})).toBeVisible();
  await expect(page.locator('.recognition-halo')).toBeVisible();await expect(page.locator('.capture-scan,.capture-spinner')).toHaveCount(0);
  const before=(await page.locator('.capture-card').boundingBox())!;
- const pixels=()=>page.locator('.recognition-halo').evaluate((node:HTMLCanvasElement)=>{const data=node.getContext('2d')!.getImageData(0,0,node.width,node.height).data;let visible=0;for(let i=3;i<data.length;i+=4)if(data[i]>8)visible++;return visible;});
+ const pixels=()=>page.locator('.recognition-halo canvas').first().evaluate((node:HTMLCanvasElement)=>{const data=node.getContext('2d')!.getImageData(0,0,node.width,node.height).data;let visible=0;for(let i=3;i<data.length;i+=4)if(data[i]>8)visible++;return visible;});
  await expect.poll(pixels).toBeGreaterThan(100);
  finish();await expect(page.locator('.capture-photo-label')).toHaveCount(2);
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toHaveCount(0);
@@ -81,8 +81,8 @@ test('reduced motion keeps the recognition frame static and still saves the card
  await page.emulateMedia({reducedMotion:'reduce'});
  let finish!:()=>void;const blocked=new Promise<void>(resolve=>finish=resolve);await page.route(`${api}analyze`,async route=>{await blocked;await response(route,{labels:[label],quote:null,quota});});
  await page.goto('/piclex-web/#/capture');await importPhoto(page);await expect(page.locator('.recognition-halo')).toBeVisible();
- await expect.poll(()=>page.locator('.recognition-halo').evaluate((n:HTMLCanvasElement)=>n.width)).toBeGreaterThan(10);
- const first=await page.locator('.recognition-halo').evaluate((n:HTMLCanvasElement)=>n.toDataURL());await page.waitForTimeout(100);
- expect(await page.locator('.recognition-halo').evaluate((n:HTMLCanvasElement)=>n.toDataURL())).toBe(first);
+ await expect.poll(()=>page.locator('.recognition-halo canvas').first().evaluate((n:HTMLCanvasElement)=>n.width)).toBeGreaterThan(10);
+ const first=await page.locator('.recognition-halo canvas').first().evaluate((n:HTMLCanvasElement)=>n.toDataURL());await page.waitForTimeout(100);
+ expect(await page.locator('.recognition-halo canvas').first().evaluate((n:HTMLCanvasElement)=>n.toDataURL())).toBe(first);
  finish();await cancelCountdown(page);expect(await savedCount(page)).toBe(1);
 });

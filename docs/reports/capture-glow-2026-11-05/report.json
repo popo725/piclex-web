@@ -1,0 +1,823 @@
+{
+  "status": "local_verified_not_deployed",
+  "build": "TypeScript and Vite passed",
+  "existingRegression": "13 passed",
+  "geometryCases": 40,
+  "browserResults": [
+    {
+      "name": "chrome",
+      "theme": "light",
+      "shape": "landscape",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(7.11342px)",
+          "blur(2.66753px)",
+          "blur(2.01547px)",
+          "blur(0.652063px)",
+          "blur(0.414949px)"
+        ],
+        "canvasFilterSupported": true
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          },
+          "button": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          },
+          "button": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          },
+          "button": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          },
+          "button": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          },
+          "button": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "chrome",
+      "theme": "light",
+      "shape": "portrait",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(9.33419px)",
+          "blur(3.50032px)",
+          "blur(2.64469px)",
+          "blur(0.855634px)",
+          "blur(0.544495px)"
+        ],
+        "canvasFilterSupported": true
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          },
+          "button": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          },
+          "button": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          },
+          "button": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          },
+          "button": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          },
+          "button": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "chrome",
+      "theme": "dark",
+      "shape": "landscape",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(7.11342px)",
+          "blur(2.66753px)",
+          "blur(2.01547px)",
+          "blur(0.652063px)",
+          "blur(0.414949px)"
+        ],
+        "canvasFilterSupported": true
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          },
+          "button": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          },
+          "button": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          },
+          "button": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          },
+          "button": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          },
+          "button": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "chrome",
+      "theme": "dark",
+      "shape": "portrait",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(9.33419px)",
+          "blur(3.50032px)",
+          "blur(2.64469px)",
+          "blur(0.855634px)",
+          "blur(0.544495px)"
+        ],
+        "canvasFilterSupported": true
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          },
+          "button": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          },
+          "button": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          },
+          "button": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          },
+          "button": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          },
+          "button": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "webkit",
+      "theme": "light",
+      "shape": "landscape",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(7.113419px)",
+          "blur(2.667532px)",
+          "blur(2.015469px)",
+          "blur(0.652063px)",
+          "blur(0.414949px)"
+        ],
+        "canvasFilterSupported": false
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          },
+          "button": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          },
+          "button": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          },
+          "button": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          },
+          "button": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          },
+          "button": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "webkit",
+      "theme": "light",
+      "shape": "portrait",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(9.334191px)",
+          "blur(3.500322px)",
+          "blur(2.644687px)",
+          "blur(0.855634px)",
+          "blur(0.544495px)"
+        ],
+        "canvasFilterSupported": false
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          },
+          "button": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          },
+          "button": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          },
+          "button": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          },
+          "button": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          },
+          "button": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "webkit",
+      "theme": "dark",
+      "shape": "landscape",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(7.113419px)",
+          "blur(2.667532px)",
+          "blur(2.015469px)",
+          "blur(0.652063px)",
+          "blur(0.414949px)"
+        ],
+        "canvasFilterSupported": false
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          },
+          "button": {
+            "left": 20,
+            "right": 373,
+            "width": 353
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          },
+          "button": {
+            "left": 20,
+            "right": 300,
+            "width": 280
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          },
+          "button": {
+            "left": 20,
+            "right": 410,
+            "width": 390
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          },
+          "button": {
+            "left": 328.859375,
+            "right": 515.140625,
+            "width": 186.28125
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          },
+          "button": {
+            "left": 470,
+            "right": 970,
+            "width": 500
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    },
+    {
+      "name": "webkit",
+      "theme": "dark",
+      "shape": "portrait",
+      "halo": {
+        "layers": 5,
+        "filters": [
+          "blur(9.334191px)",
+          "blur(3.500322px)",
+          "blur(2.644687px)",
+          "blur(0.855634px)",
+          "blur(0.544495px)"
+        ],
+        "canvasFilterSupported": false
+      },
+      "sizes": [
+        {
+          "viewport": {
+            "width": 393,
+            "height": 740
+          },
+          "card": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          },
+          "button": {
+            "left": 49.578125,
+            "right": 343.421875,
+            "width": 293.84375
+          }
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 568
+          },
+          "card": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          },
+          "button": {
+            "left": 62.046875,
+            "right": 257.9375,
+            "width": 195.890625
+          }
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 780
+          },
+          "card": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          },
+          "button": {
+            "left": 56.6875,
+            "right": 373.3125,
+            "width": 316.625
+          }
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "card": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          },
+          "button": {
+            "left": 370.171875,
+            "right": 473.8125,
+            "width": 103.640625
+          }
+        },
+        {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "card": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          },
+          "button": {
+            "left": 499.046875,
+            "right": 940.953125,
+            "width": 441.90625
+          }
+        }
+      ],
+      "cancelWorks": true,
+      "animationAndReducedMotion": true,
+      "errors": []
+    }
+  ],
+  "notes": [
+    "Existing capture test canvas selectors updated for five CSS-blurred layers.",
+    "Native palette, wave geometry, opacity and timing retained; CSS blur clips after padding rather than relying on unsupported Canvas 2D filter.",
+    "Initial verification harness was corrected to wait for real resize/media-query events while test clock was paused.",
+    "Background completion cancels auto-practice by existing design; kept that assertion separate from countdown alignment.",
+    "No simulator, device operation, real photo upload or deployment."
+  ]
+}
