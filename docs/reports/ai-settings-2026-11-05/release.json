@@ -41,5 +41,11 @@
     "latestObservedRun": 41961649945,
     "latestObservedStatus": "pending"
   },
-  "cleanup": "Task temporary local build, browser outputs and server upload directory removed after verification; release and prior rollback retained; shared artifacts untouched."
+  "cleanup": "Task temporary local build, browser outputs and server upload directory removed after verification; release and prior rollback retained; shared artifacts untouched.",
+  "subsequentRelease": {
+    "releaseID": "eb14001a8c75-8c737fda530c",
+    "sourceContainsAICommit": true,
+    "AIImplementationUnchanged": true,
+    "liveAIRechecksPassed": 12
+  }
 }
