@@ -60,7 +60,9 @@ export class WebDAV {
   const bytes=new TextEncoder().encode(JSON.stringify(envelope));checkSize(bytes.length,MAX_PROGRESS_BYTES);
   const folder=child(this.settings.root,'progress/');await this.mkdir(this.settings.root,true);await this.mkdir(folder,true);
   // Same immutable names as iOS: concurrent writers never replace each other.
-  const stage=child(folder,'.complete-uploading-'+crypto.randomUUID()),target=child(folder,name);
+  // getRandomValues remains available on LAN HTTP, unlike randomUUID.
+  const nonce=Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join('');
+  const stage=child(folder,'.complete-uploading-'+nonce),target=child(folder,name);
   let created=false;
   try{
    created=true;await this.request('PUT',stage,{data:bytes,headers:{'Content-Type':'application/json','If-None-Match':'*'},allow:[200,201,204],limit:1024*1024});

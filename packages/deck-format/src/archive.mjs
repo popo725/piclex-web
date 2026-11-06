@@ -1,4 +1,5 @@
 import { unzipSync, strFromU8 } from 'fflate';
+import {sha256 as portableSHA256} from '@noble/hashes/sha2.js';
 import { parseEmbeddedCovers } from './covers.mjs';
 import {parseEmbeddedAudio} from './audio.mjs';
 
@@ -11,7 +12,13 @@ const hash = /^[0-9a-f]{64}$/;
 const fail = message => { throw new Error(message); };
 const text = (value, limit = 2000) => typeof value === 'string' && value.length <= limit ? value : '';
 export async function sha256(bytes) {
-  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
+  // LAN HTTP origins do not expose SubtleCrypto. Keep the same SHA-256
+  // verification there using the implementation already used by backups.
+  const subtle=globalThis.crypto?.subtle;
+  const digest=subtle
+    ? new Uint8Array(await subtle.digest('SHA-256', bytes))
+    : portableSHA256(bytes instanceof ArrayBuffer?new Uint8Array(bytes):new Uint8Array(bytes.buffer,bytes.byteOffset,bytes.byteLength));
+  return [...digest].map(n => n.toString(16).padStart(2, '0')).join('');
 }
 function safePath(path) {
   return typeof path === 'string' && path.length <= 200 && !path.includes('\\') && !path.startsWith('/') && !path.split('/').some(s => ['.', '..', '__proto__', 'constructor', 'prototype', ''].includes(s)) && !/[\x00-\x1f:]/.test(path);
