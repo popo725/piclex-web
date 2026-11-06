@@ -1,3 +1,4 @@
+import {observeAmbienceMix,ambienceGain} from './helpers/ambience';
 import {test,expect,type Page} from '@playwright/test';
 import path from 'node:path';
 import fs from 'node:fs';
@@ -57,10 +58,11 @@ test('listening loops at end, retains position through a sheet and handles failu
  await page.getByRole('button',{name:'播放',exact:true}).click();await page.evaluate(()=>{(window as any).__utterances.at(-1).onerror?.({error:'network'});});await expect(page.getByRole('button',{name:'重新准备',exact:true})).toBeVisible();await page.getByRole('button',{name:'重新准备',exact:true}).click();await expect(page.getByRole('button',{name:'准备中…',exact:true})).toBeVisible();
 });
 test('native ambience loops, ducks during speech, persists and stops at panels, hidden page and module changes',async({page})=>{
+ await observeAmbienceMix(page);
  await page.addInitScript(()=>{const w=window as any,Original=window.Audio;w.__ambiences=[];w.Audio=class extends Original{constructor(src?:string){super(src);if(src?.includes('/ambience/'))w.__ambiences.push(this);this.muted=true;}};});
  await open(page);await speech(page);await listen(page);await page.locator('.sentence-ambience summary').click();await page.getByRole('button',{name:'咖啡厅',exact:true}).click();
  await expect.poll(()=>page.evaluate(()=>(window as any).__ambiences.at(-1)?.paused)).toBe(false);expect(await page.evaluate(()=>(window as any).__ambiences.at(-1).loop)).toBe(true);
- await page.getByRole('button',{name:'播放',exact:true}).click();await page.evaluate(()=>{(window as any).__utterances.at(-1).onstart?.();});await expect.poll(()=>page.evaluate(()=>(window as any).__ambiences.at(-1).volume)).toBeCloseTo(.28*.5*.22,3);
+ await page.getByRole('button',{name:'播放',exact:true}).click();await page.evaluate(()=>{(window as any).__utterances.at(-1).onstart?.();});await expect.poll(()=>ambienceGain(page)).toBeCloseTo(.28*.22*.22,3);
  await page.getByRole('button',{name:'当前卡组，学习设置',exact:true}).click();expect(await page.evaluate(()=>(window as any).__ambiences.every((a:HTMLAudioElement)=>a.paused))).toBe(true);await page.getByRole('button',{name:'关闭',exact:true}).click();expect(await page.evaluate(()=>(window as any).__ambiences.every((a:HTMLAudioElement)=>a.paused))).toBe(true);
  await page.locator('.sentence-ambience summary').click();await page.getByRole('button',{name:'咖啡厅',exact:true}).click();await expect.poll(()=>page.evaluate(()=>(window as any).__ambiences.at(-1).paused)).toBe(false);
  await page.evaluate(()=>window.dispatchEvent(new Event('pagehide')));expect(await page.evaluate(()=>(window as any).__ambiences.every((a:HTMLAudioElement)=>a.paused))).toBe(true);await page.getByRole('tab',{name:'练口语',exact:true}).click();expect(await page.evaluate(()=>(window as any).__ambiences.every((a:HTMLAudioElement)=>a.paused&&!a.getAttribute('src')))).toBe(true);
