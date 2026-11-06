@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-06",
+  "scope": "Web only",
+  "status": "Mac verification passed; Linux full regression and release pending",
+  "changes": [
+    "Route background through MediaElementAudioSourceNode -> GainNode -> destination, independent of HTMLMediaElement.volume restrictions.",
+    "Preserve saved ambience choice and level; signal base gain is selected level times 0.22 (previously media.volume times 0.5).",
+    "Typing attenuates background another 80 percent with 5 ms time constant; hold 280 ms after last key then restore with 80 ms time constant. Speech retains priority.",
+    "Keep keyboard audio at original gain and samples. If mixer is unavailable, fail background playback visibly without full-volume fallback.",
+    "No change to animation, study storage, deck fingerprints, iOS app or viewport layout."
+  ],
+  "mac": {
+    "targeted": {
+      "startTime": "2026-11-06T02:55:24.386Z",
+      "duration": 59809.025,
+      "expected": 42,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "failurePath": {
+      "startTime": "2026-11-06T02:57:36.345Z",
+      "duration": 6459.663,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "decodedSampleMeasurements": [
+      [
+        {
+          "file": "ambience/cafe.m4a",
+          "relativeDb": -9.038981253686346,
+          "typingDb": -23.018381340406723
+        },
+        {
+          "file": "ambience/piano.m4a",
+          "relativeDb": -9.720680025469665,
+          "typingDb": -23.700080112190037
+        }
+      ],
+      [
+        {
+          "file": "ambience/cafe.m4a",
+          "relativeDb": -9.038981253686346,
+          "typingDb": -23.018381340406723
+        },
+        {
+          "file": "ambience/piano.m4a",
+          "relativeDb": -9.720680025469665,
+          "typingDb": -23.700080112190037
+        }
+      ],
+      [
+        {
+          "file": "ambience/cafe.m4a",
+          "relativeDb": -9.039849203168217,
+          "typingDb": -23.01924928988859
+        },
+        {
+          "file": "ambience/piano.m4a",
+          "relativeDb": -9.721031893338182,
+          "typingDb": -23.70043198005856
+        }
+      ]
+    ],
+    "measurementBoundary": "Offline decoded sample RMS versus default Cherry MX Blue, highest visible background setting; not a subjective iPhone listening test."
+  },
+  "sourceSHA256": {
+    "apps/public/src/SentenceAmbience.tsx": "31ae68397160dd29c906f19ef6d7cafbdf13ce94c89b38a012c2d87b24b4d6a8",
+    "apps/public/src/ambience-mixer.ts": "80df9155e99d13d45ac8b7c30bc634cf569d92802dd8bb64a5f92e98f4c22496",
+    "packages/learning-ui/src/typing-sound.ts": "8f8a6216342a60feaa699e5bc195ec16aae7d443ba5e6ab033f7ba9f5bd56eaa",
+    "tests/browser/focus-ambience.spec.ts": "fdac9a00093d4b709fbcfea37473804ae0335f14c43b07a7b707ad56abeb15a9",
+    "tests/browser/layout-audit.spec.ts": "07896b57199e6fdcf957320c3c673538b19271fcc90479e1df08087432bd896c",
+    "tests/browser/helpers/ambience.ts": "7e47831cb6d36ae8ef37c8c6cbeb456e4fc55c879c72aaf92880dc1bc8e4ba7f"
+  },
+  "references": [
+    "https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html",
+    "https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createMediaElementSource",
+    "https://developer.mozilla.org/en-US/docs/Web/API/GainNode"
+  ],
+  "viewportFollowup": {
+    "userReportedResolvedAfterRefresh": true,
+    "productChanges": false,
+    "existingMacRegressionPassed": 12,
+    "possibleBrowserIssue": "https://issues.chromium.org/issues/558766777",
+    "diagnosticBoundary": "No reproduction on the affected iPhone; matching browser report is evidence of a possible cause, not confirmation."
+  }
+}
