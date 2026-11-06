@@ -1,41 +1,53 @@
 # 摄影学英语 Web
 
-**把眼前的生活，变成英语。** 拍照制卡，用照片练拼写、听力和口语。打开浏览器即可开始，无需登录。
+**把眼前的生活，变成英语。** 用经典电影画面练拼写、听力和口语，也能拍照制作自己的卡片。打开浏览器即可开始，无需登录。
 
 [在线体验](https://piclex.v2fy.com/piclex-web/) · [GitHub Pages 镜像](https://zhaoolee.com/piclex-web/) · [iPhone App](https://apps.apple.com/cn/app/id6808490052)
 
-## 一张照片，就是一页英语
+## 从喜欢的电影，记住一句英语
 
-拍摄或导入 → 双语标签与场景例句 → 开始练习。
+《阿甘正传》《教父》《星球大战》……在熟悉的画面里记单词，用经典台词练听说。
 
 <p align="center">
-  <img src="docs/reports/ai-settings-2026-11-05/live-official-recognition.png" width="800" alt="早餐照片生成的英语卡片，包含双语物品标签、场景词与诗句">
+  <a href="https://piclex.v2fy.com/piclex-web/#/deck/b33417a7-0f7e-4081-be35-2fe44d9d30c4?module=listening&amp;mode=listening&amp;photo=1">
+    <img src="docs/readme/movie-hero.png" width="800" alt="经典电影台词卡组：《阿甘正传》电影画面、双语台词与听力播放控件">
+  </a>
 </p>
 
-本页均为 Web 界面截图，摄于 2026-11-04～05。
+[打开「经典电影台词」卡组](https://piclex.v2fy.com/piclex-web/#/deck/b33417a7-0f7e-4081-be35-2fe44d9d30c4) · 100 张电影卡片，100 个目标词。
+
+电影示例为 2026-11-06 在线 Web 实际界面截图；其余截图摄于 2026-11-04～05。
 
 ## 看图拼词，听句子，开口说
 
 <table>
-  <tr><th>拼单词</th><th>练听力</th><th>练口语</th></tr>
+  <tr><th>《阿甘正传》· 拼单词</th><th>《教父》· 练听力</th><th>《星球大战》· 练口语</th></tr>
   <tr>
-    <td><img src="docs/reports/viewport-2026-11-05/chrome-spelling.png" width="260" alt="照片语境、例句填空与拼写键盘"></td>
-    <td><img src="docs/reports/layout-2026-11-04/listening-light-390x844.png" width="260" alt="看图听双语例句，支持循环和倍速"></td>
-    <td><img src="docs/reports/layout-2026-11-04/speaking-light-390x844.png" width="260" alt="听示范、麦克风跟读与逐词进度"></td>
+    <td><img src="docs/readme/movie-spelling.png" width="260" alt="《阿甘正传》巧克力场景、台词填空与拼写键盘"></td>
+    <td><img src="docs/readme/movie-listening.png" width="260" alt="《教父》电影画面与双语台词，支持循环和倍速播放"></td>
+    <td><img src="docs/readme/movie-speaking.png" width="260" alt="《星球大战》愿原力与你同在：听示范、麦克风跟读与逐词进度"></td>
   </tr>
 </table>
 
 ## 选一套喜欢的卡组
 
-日常生活、程序员英语、摄影……也能导入自己的 `.piclexdeck`，或分享公开卡组的练习链接。
+从经典电影台词开始，也有经典英语歌曲、日常生活、程序员英语、摄影等主题。支持导入自己的 `.piclexdeck`，或分享公开卡组的练习链接。
 
 <table>
-  <tr><th>浅色卡组</th><th>深色卡组</th></tr>
+  <tr><th>电影卡组 · 浅色</th><th>电影卡组 · 深色</th></tr>
   <tr>
-    <td><img src="docs/reports/deck-grid-2026-11-05/decks-light.png" width="320" alt="浅色照片卡组库与主题封面"></td>
-    <td><img src="docs/reports/deck-grid-2026-11-05/decks-dark.png" width="320" alt="深色照片卡组库与主题封面"></td>
+    <td><img src="docs/readme/movie-gallery-light.png" width="320" alt="浅色经典电影卡组：浏览电影画面并选择练习照片"></td>
+    <td><img src="docs/readme/movie-gallery-dark.png" width="320" alt="深色经典电影卡组：浏览电影画面并选择练习照片"></td>
   </tr>
 </table>
+
+## 一张照片，就是一页英语
+
+也可以从自己的生活出发：拍摄或导入 → 双语标签与场景例句 → 开始练习。
+
+<p align="center">
+  <img src="docs/reports/ai-settings-2026-11-05/live-official-recognition.png" width="800" alt="早餐照片生成的英语卡片，包含双语物品标签、场景词与诗句">
+</p>
 
 ## 白天、夜晚，都有喜欢的样子
 
