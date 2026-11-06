@@ -1,0 +1,23 @@
+{
+  "base": "https://zhaoolee.com",
+  "results": [
+    {
+      "browser": "desktop",
+      "word": "offer",
+      "reopened": true,
+      "writable": true
+    },
+    {
+      "browser": "touch",
+      "word": "offer",
+      "reopened": true,
+      "writable": true
+    },
+    {
+      "browser": "webkit",
+      "word": "offer",
+      "reopened": true,
+      "writable": true
+    }
+  ]
+}
