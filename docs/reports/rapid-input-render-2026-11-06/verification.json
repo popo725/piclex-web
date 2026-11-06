@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
   "base": "49b7eb807a9e490ed5e15f320c4f0325478cef68",
-  "status": "pre-push full Linux verification passed",
+  "status": "released and verified",
   "cause": "Each newly earned character unconditionally assigned both full-screen Canvas dimensions. Even unchanged dimensions clear live pixels and reset the backing store, interrupting particle continuity during rapid typing.",
   "change": "Keep the active backing store until dimensions actually change.",
   "preserved": [
@@ -43,7 +43,7 @@
     "packages/learning-ui/src/typing-sound.ts": "8f8a6216342a60feaa699e5bc195ec16aae7d443ba5e6ab033f7ba9f5bd56eaa",
     "tests/browser/input-performance.spec.ts": "65f4caf8c3bd613f1bea44d09f0a88294fe2ec5d5755165b4811ad9fa224fc83"
   },
-  "overlaySHA256": "fe3b6b701a112d77b96ef074d266c499d56172a55135c6eab6d91e82b69beb34",
+  "overlaySHA256": "cfd54cc1e926e164c56d7fe1214a0c34ffe2939e03892f4599f632b58df3ba1f",
   "linux": {
     "runtime": "Ubuntu 24.04 ARM64, Node 24.18.1, locked Playwright 1.63.0 Chromium/WebKit; Chrome channel mapped to matching bundled Chromium",
     "unitPassed": 255,
@@ -58,5 +58,80 @@
       "retries": 0
     },
     "testedSourceAndMainAssetMatchUpload": true
+  },
+  "sourceRevision": "0ce8d97d16747a3f3cd910064a0411d7789ca97b",
+  "featureCommit": "57dd8b95dacfbad586b7c7cc0f7ca5809f52d0d4",
+  "concurrentBaseline": "5b037be; documentation only; runtime and tests unchanged",
+  "workflows": {
+    "checkAndPublish": 42161592474,
+    "docker": 42161592523,
+    "status": "success",
+    "dockerResult": "success",
+    "checkAndPublishResult": "success",
+    "buildResult": "success",
+    "pagesDeployResult": "success",
+    "browser": {
+      "passed": 390,
+      "skipped": 4,
+      "failed": 0,
+      "durationMinutes": 13.3
+    },
+    "urls": {
+      "checkAndPublish": "https://github.com/zhaoolee/piclex-web/actions/runs/42161592474",
+      "docker": "https://github.com/zhaoolee/piclex-web/actions/runs/42161592523"
+    }
+  },
+  "mirror": {
+    "releaseID": "0ce8d97d1674-5fa452c4125d",
+    "sourceRevision": "0ce8d97d16747a3f3cd910064a0411d7789ca97b",
+    "files": 2306,
+    "preservedNonBuildFiles": 2293,
+    "status": "published; full file hashes, isolated Nginx, source/public HTTPS and old-release cleanup passed",
+    "script": "/piclex-web/assets/main-BGp1os7T.js",
+    "scriptSHA256": "50caa98e59057f7e43df84d66d1b95b40ab5db4abe4e47a8fedf22e2b0c3889e",
+    "matchesTestedBuild": true
+  },
+  "liveMirror": {
+    "passed": 6,
+    "failed": 0,
+    "projects": [
+      "desktop Chrome",
+      "touch Chrome",
+      "WebKit"
+    ],
+    "originalURLFreshLetters": 8,
+    "originalURLCanvasAssignments": 2,
+    "initialProfileAttempt": "Navigation completion exceeded 30 seconds after practice had rendered; temporary sampler timeout increased to 90 seconds, product and assertions unchanged."
+  },
+  "visualAudit": "Relative to 49b7eb8, only experience-effects.ts backing-store allocation changed. Flight constants, particles, glyphs, ripples, glow, CSS and typing audio source unchanged.",
+  "docker": {
+    "image": "zhaoolee/piclex-web:sha-0ce8d97",
+    "digest": "sha256:f3c2e7b761b367eebdb6e22a65f7680451237877770e7b4a5f0e46a7a4fed014",
+    "latestMatches": true,
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
+  },
+  "cleanup": {
+    "serverIncoming": "removed",
+    "serverReleases": "current only; unified activate.py cleanup passed",
+    "local": "Preview stopped; task logs, traces, archives and browser results removed after evidence capture. Isolated checkout removed after publishing and verifying this final record.",
+    "dedicatedLinuxContainer": "removed after local and GitHub browser regressions passed"
+  },
+  "pages": {
+    "url": "https://zhaoolee.github.io/piclex-web/",
+    "script": "/piclex-web/assets/main-BGp1os7T.js",
+    "scriptSHA256": "50caa98e59057f7e43df84d66d1b95b40ab5db4abe4e47a8fedf22e2b0c3889e",
+    "matchesTestedBuild": true
+  },
+  "livePages": {
+    "passed": 6,
+    "failed": 0,
+    "projects": [
+      "desktop Chrome",
+      "touch Chrome",
+      "WebKit"
+    ]
   }
 }

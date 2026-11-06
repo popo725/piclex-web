@@ -1,0 +1,235 @@
+{
+  "url": "https://piclex.v2fy.com/piclex-web/#/deck/b33417a7-0f7e-4081-be35-2fe44d9d30c4?module=spelling&photo=25&word=7045c6c1-4da5-4954-895c-8204546df611%3A0",
+  "viewport": "1440x1000@2",
+  "cpuRate": 1,
+  "resizes": 2,
+  "texts": 3738,
+  "arcs": 0,
+  "textTime": 34.200000047683716,
+  "drawTime": 87.19999933242798,
+  "frames": {
+    "count": 166,
+    "median": 16.69999999999891,
+    "p95": 16.700000000000728,
+    "max": 16.80000000000109
+  },
+  "keys": {
+    "count": 16,
+    "median": 1.3999998569488525,
+    "p95": 31.700000047683716,
+    "max": 31.700000047683716
+  },
+  "longTasks": [],
+  "traceSummary": [
+    [
+      "RunTask",
+      {
+        "count": 11828,
+        "ms": 1057.7019999999197
+      }
+    ],
+    [
+      "Commit",
+      {
+        "count": 158,
+        "ms": 215.52899999999997
+      }
+    ],
+    [
+      "GPUTask",
+      {
+        "count": 514,
+        "ms": 173.2579999999998
+      }
+    ],
+    [
+      "FunctionCall",
+      {
+        "count": 1131,
+        "ms": 115.64100000000055
+      }
+    ],
+    [
+      "FireAnimationFrame",
+      {
+        "count": 339,
+        "ms": 96.33100000000005
+      }
+    ],
+    [
+      "EventDispatch",
+      {
+        "count": 430,
+        "ms": 52.86299999999977
+      }
+    ],
+    [
+      "Paint",
+      {
+        "count": 628,
+        "ms": 40.22499999999996
+      }
+    ],
+    [
+      "UpdateLayoutTree",
+      {
+        "count": 189,
+        "ms": 38.166
+      }
+    ],
+    [
+      "TimerFire",
+      {
+        "count": 28,
+        "ms": 20.421
+      }
+    ],
+    [
+      "Decode Image",
+      {
+        "count": 3,
+        "ms": 16.761000000000003
+      }
+    ],
+    [
+      "RasterTask",
+      {
+        "count": 319,
+        "ms": 15.168999999999986
+      }
+    ],
+    [
+      "ImageDecodeTask",
+      {
+        "count": 2,
+        "ms": 14.257
+      }
+    ],
+    [
+      "Decode LazyPixelRef",
+      {
+        "count": 2,
+        "ms": 13.937999999999999
+      }
+    ],
+    [
+      "Layerize",
+      {
+        "count": 154,
+        "ms": 12.466000000000001
+      }
+    ],
+    [
+      "PrePaint",
+      {
+        "count": 154,
+        "ms": 8.894999999999998
+      }
+    ],
+    [
+      "Layout",
+      {
+        "count": 51,
+        "ms": 6.125
+      }
+    ],
+    [
+      "PaintImage",
+      {
+        "count": 462,
+        "ms": 3.6149999999999856
+      }
+    ],
+    [
+      "MinorGC",
+      {
+        "count": 3,
+        "ms": 1.4540000000000002
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER",
+      {
+        "count": 3,
+        "ms": 1.3670000000000002
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE",
+      {
+        "count": 3,
+        "ms": 1.348
+      }
+    ],
+    [
+      "UpdateLayer",
+      {
+        "count": 784,
+        "ms": 1.2719999999999843
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_BACKGROUND_SCAVENGE_PARALLEL",
+      {
+        "count": 7,
+        "ms": 0.825
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_PARALLEL_PHASE",
+      {
+        "count": 3,
+        "ms": 0.621
+      }
+    ],
+    [
+      "HitTest",
+      {
+        "count": 3,
+        "ms": 0.5499999999999999
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_PARALLEL",
+      {
+        "count": 2,
+        "ms": 0.215
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_ROOTS",
+      {
+        "count": 3,
+        "ms": 0.136
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_WEAK_GLOBAL_HANDLES_IDENTIFY",
+      {
+        "count": 3,
+        "ms": 0.125
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_FINALIZE",
+      {
+        "count": 3,
+        "ms": 0.099
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_SCAVENGE_WEAK_GLOBAL_HANDLES_PROCESS",
+      {
+        "count": 3,
+        "ms": 0.082
+      }
+    ],
+    [
+      "V8.GC_SCAVENGER_TRACED_HANDLES_COMPUTE_WEAKNESS_PARALLEL",
+      {
+        "count": 3,
+        "ms": 0.068
+      }
+    ]
+  ]
+}
