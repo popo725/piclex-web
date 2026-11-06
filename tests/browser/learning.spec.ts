@@ -15,7 +15,7 @@ test('a visitor can complete a scene, resume after refresh, and restart without 
  await page.getByLabel('选择照片卡组文件').setInputFiles(path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck'));
  await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();
  const input=page.getByRole('textbox',{name:'输入英文'});
- await fillSpelling(page,'crx');await expect(page.locator('.answer-feedback')).toContainText('删除错误字母');await fillSpelling(page,'cr');
+ await fillSpelling(page,'crx');await expect(page.locator('.native-answer')).toHaveClass(/wrong/);await expect(page.locator('.answer-feedback')).toHaveText('');await fillSpelling(page,'cr');await expect(page.locator('.native-answer')).not.toHaveClass(/wrong/);
  await page.reload();await expect(input).toHaveValue('cr');
  await page.screenshot({path:`test-results/practice-${testInfo.project.name}.png`,fullPage:true});
  for(const [i,word] of words.entries()){

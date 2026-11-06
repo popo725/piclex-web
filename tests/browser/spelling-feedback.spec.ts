@@ -46,3 +46,52 @@ for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays
  await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:10}));await expect(bar).toHaveAttribute('aria-valuenow',/^[1-9]\d?$/);await expect(segment).toHaveCount(0);
  await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.playback-button').click();await expect(bar).toHaveCount(0);await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());await expect(segment).toHaveCount(0);await expect(fill).toHaveCSS('transition-duration','0s');await expect.poll(async()=>Number(await bar.getAttribute('aria-valuenow'))).toBeGreaterThan(0);
 });
+
+// The App marks a mismatch with a red board only; a visible hint line used to
+// grow the footer and push the photo, playback and keyboard around on phones.
+for(const colorScheme of ['light','dark'] as const)test(`wrong letters keep answer, photo, playback and keyboard in place without hint text: ${colorScheme}`,async({page},info)=>{
+ await page.emulateMedia({colorScheme});await open(page);
+ const keyboard=page.getByRole('region',{name:'虚拟键盘'}),answer=page.locator('.native-answer'),feedback=page.locator('.answer-feedback'),field=page.getByRole('textbox',{name:'输入英文',exact:true});
+ // Tap/click the key's own coordinates: locator.tap() scrolls the practice
+ // surface into view and can spend the 1px of pre-existing horizontal
+ // overflow as a scrollLeft shift instead of the layout regression we assert.
+ const press=async(key:string)=>{
+  const box=await keyboard.getByRole('button',{name:key==='BACKSPACE'?'退格':`按键 ${key}`,exact:true}).boundingBox();
+  if(!box)throw new Error(`missing keyboard key ${key}`);
+  const x=box.x+box.width/2,y=box.y+box.height/2;
+  if(info.project.use.hasTouch)await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
+ };
+ const geometry=()=>page.evaluate(()=>{
+  const box=(selector:string)=>{const r=document.querySelector(selector)!.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};};
+  return {answer:box('.native-answer'),photo:box('.photo-browse'),playback:box('.native-playback'),keyboard:box('.virtual-keyboard')};
+ });
+ const border=()=>answer.evaluate(node=>{const style=getComputedStyle(node);return {color:style.borderTopColor,width:style.borderTopWidth};});
+ await expect(page.locator('.focus-image')).toBeVisible();
+ await expect.poll(()=>page.evaluate(()=>{const image=document.querySelector<HTMLImageElement>('.focus-image');return !!image&&image.complete&&image.naturalWidth>0;})).toBe(true);
+ await expect.poll(()=>page.locator('.native-practice').evaluate(node=>node.scrollHeight-node.clientHeight)).toBeLessThanOrEqual(1);
+ // Take the baseline only after two consecutive reads agree: the photo budget
+ // is measured by ResizeObserver and lands a frame or two after the image.
+ let settled=await geometry();
+ await expect.poll(async()=>{const current=await geometry(),same=JSON.stringify(current)===JSON.stringify(settled);settled=current;return same;},{intervals:[100,150,250,400]}).toBe(true);
+ const baseline=await geometry();
+ const stable=async(label:string)=>{
+  expect(await page.locator('.native-practice').evaluate(node=>node.scrollLeft)).toBe(0);
+  const current=await geometry();
+  for(const key of ['answer','photo','playback','keyboard'] as const){
+   const before=baseline[key],after=current[key];
+   expect(after.x,`${label} ${key} x`).toBeCloseTo(before.x,0);
+   expect(after.y,`${label} ${key} y`).toBeCloseTo(before.y,0);
+   expect(after.width,`${label} ${key} width`).toBeCloseTo(before.width,0);
+   expect(after.height,`${label} ${key} height`).toBeCloseTo(before.height,0);
+  }
+ };
+ const recovered=async()=>{await expect(answer).not.toHaveClass(/wrong/);await expect(feedback).toHaveText('');await expect(feedback).toBeHidden();expect((await border()).color).not.toBe('rgb(198, 68, 68)');};
+ await press('C');await press('R');await press('X');
+ await expect(field).toHaveValue('crx');await expect(answer).toHaveClass(/wrong/);await expect(feedback).toHaveText('');await expect(feedback).toBeHidden();await expect(page.getByText('请删除错误字母后继续输入')).toHaveCount(0);
+ const error=await border();expect(error.color).toBe('rgb(198, 68, 68)');expect(['1px','2px']).toContain(error.width);
+ await stable('first error');await page.screenshot({path:info.outputPath(`spelling-error-${colorScheme}.png`)});
+ await press('BACKSPACE');await expect(field).toHaveValue('cr');await recovered();await stable('deleted back to the correct prefix');
+ await press('X');await expect(field).toHaveValue('crx');await expect(answer).toHaveClass(/wrong/);await expect(feedback).toHaveText('');await stable('second error');
+ await press('BACKSPACE');await press('O');await expect(field).toHaveValue('cro');await recovered();await stable('correct prefix after the second error');
+ await page.screenshot({path:info.outputPath(`spelling-recovered-${colorScheme}.png`)});
+});
