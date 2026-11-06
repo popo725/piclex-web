@@ -1,7 +1,7 @@
 import {useEffect,useRef} from 'react';
 import {positionAnchor,positionIndex,positionScope} from '../../../packages/backup/src/positions.mjs';
 import {reduceStudy,studyKey,wordDraft} from '../../../packages/practice/src/study.mjs';
-import {positions,recordPosition} from './position-store';
+import {appliedPositionRevision,markPositionApplied,positions,recordPosition} from './position-store';
 import {parseLearningURL} from '../../../packages/practice/src/learning-url.mjs';
 export default function usePositionSync(deck:any,state:any,setState:(f:(s:any)=>any)=>void,onFailure:(s:string)=>void){
  const initialRoute=useRef(parseLearningURL(location.hash));
@@ -12,11 +12,11 @@ export default function usePositionSync(deck:any,state:any,setState:(f:(s:any)=>
   let cancelled=false;const c:typeof control.current=control.current={scope:'',signature:JSON.stringify(positionAnchor(deck,current.current)),interacted:false,revision:'',ready:false};
   const route=initialRoute.current;const explicit=!!(route?.word||route?.photo||route?.sentenceWord);
   const apply=()=>{if(cancelled||!c.ready||c.interacted||document.hidden)return;
-   try{const row=positions().find((r:any)=>r.deck===c.scope);if(!row||row.revision===c.revision)return;
+   try{const row=positions().find((r:any)=>r.deck===c.scope);if(!row||row.revision===c.revision||row.revision===appliedPositionRevision(c.scope))return;
     const snapshot=current.current,draft=wordDraft(deck,snapshot);if(draft.input&&!draft.result)return;
     const index=positionIndex(deck,row);if(index==null)return;
     setState(s=>{if(c.interacted)return s;const draft=wordDraft(deck,s);if(draft.input&&!draft.result)return s;
-     c.revision=row.revision;
+     c.revision=row.revision;markPositionApplied(c.scope,row.revision);
      const next=index>=deck.words.length?{...s,index:deck.words.length,pending:null,presentation:s.presentation+1}:reduceStudy(deck,s,{type:'selectWord',index,question:studyKey(s)});
      c.signature=JSON.stringify(positionAnchor(deck,next));return next;
     });
