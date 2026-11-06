@@ -5,9 +5,12 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { parseArchive } from '../packages/deck-format/src/archive.mjs';
 import { validateSnapshot } from '../packages/deck-format/src/public.mjs';
+import { latestPublicSnapshot } from './latest-public-snapshot.mjs';
 
 const root = resolve('apps/public/public');
-const snapshot = validateSnapshot(JSON.parse(await readFile('content/snapshot.json', 'utf8')));
+const reviewed = validateSnapshot(JSON.parse(await readFile('content/snapshot.json', 'utf8')));
+const {snapshot,changed} = latestPublicSnapshot(reviewed);
+for(const item of changed)console.log(`Updated public deck: ${item}`);
 const temporary = await mkdtemp(join(tmpdir(), 'piclex-library-'));
 const suppliedCache = process.env.PICLEX_CONTENT_CACHE;
 const cache = suppliedCache ? resolve(suppliedCache) : join(temporary, 'downloads');
@@ -35,6 +38,7 @@ try {
     const parsed = await parseArchive(new Uint8Array(bytes));
     if (parsed.photos.length !== entry.photoCount || parsed.words.length !== entry.wordCount) throw new Error(`Public package counts differ: ${entry.deckID}`);
     if (entry.learningSHA256 && parsed.learningFingerprint !== entry.learningSHA256) throw new Error(`Learning content changed while preserving progress: ${entry.deckID}`);
+    entry.learningSHA256=parsed.learningFingerprint;
     const name = `${entry.deckID}/v${entry.version}-${entry.packageSHA256.slice(0, 16)}`;
     const directory = join(output, name);
     await mkdir(join(directory, 'photos'), { recursive: true });

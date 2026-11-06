@@ -5,6 +5,8 @@ on:
     tags: ["v*"]
     paths-ignore: ["docs/**", "memory/**", "README.md", "ASSET_LICENSES.md", "deploy/**"]
   workflow_dispatch:
+  schedule:
+    - cron: '47 */6 * * *'
 permissions:
   contents: read
 concurrency:

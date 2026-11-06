@@ -162,21 +162,15 @@
       "deckID": "099b791c-b48b-4439-b3e1-000ac98ebb0c",
       "title": "新概念英语第二册",
       "author": "zhaoolee",
-      "description": "个人学习：第1–40课，427句按原句顺序，每句一个单词，保留重复词与重复句。85张原创场景配图。",
-      "version": 16,
-      "photoCount": 85,
-      "wordCount": 427,
-      "packageURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/deck-1245570cda02f0dd.piclexdeck",
-      "packageBytes": 44551769,
-      "packageSHA256": "1245570cda02f0dd4191d930231ed3c7aff14cf9c7add10f9760dd5f3bb180a6",
-      "coverURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-a8e1997d185be7ce.jpg",
+      "description": "个人学习：第1–96课，1054句按原句顺序，每句一个单词，保留重复词与重复句。241张原创场景配图。",
+      "version": 44,
+      "photoCount": 241,
+      "wordCount": 1054,
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/44/deck-82d4bdfb0b8fe5f8.piclexdeck",
+      "packageBytes": 133764117,
+      "packageSHA256": "82d4bdfb0b8fe5f88ac2f6d524c39847c54877476b96bfe098689dc2fbe61c64",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/44/cover-a8e1997d185be7ce.jpg",
       "access": "public",
-      "minimumIOS": "17.0",
-      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json",
-      "learningSHA256": "c5c115bc12937537cd3c764b15efbc652996ad2d07e9aa1c850e1d98ec22163a",
-      "progressAliases": [
-        "cadcdd18092f59217e7728f2e1bd1d53d091c4f18aab344a03a6c383df0c1a18"
-      ],
       "covers": {
         "landscape": {
           "mimeType": "image/jpeg",
@@ -184,7 +178,7 @@
           "height": 1024,
           "bytes": 415613,
           "sha256": "9a00316406310707ab2b08be1d0a3d7b571265bbfd2217dcff05a028e453ca47",
-          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-landscape-9a00316406310707.jpg"
+          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/44/cover-landscape-9a00316406310707.jpg"
         },
         "portrait": {
           "mimeType": "image/jpeg",
@@ -192,9 +186,16 @@
           "height": 1536,
           "bytes": 436438,
           "sha256": "a8e1997d185be7ce81a56ce6d67e16ec3adc141486632b5e23ba51c5afc0f0da",
-          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/16/cover-portrait-a8e1997d185be7ce.jpg"
+          "url": "https://piclex.v2fy.com/public/subscriptions/nce2/versions/44/cover-portrait-a8e1997d185be7ce.jpg"
         }
-      }
+      },
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json",
+      "progressAliases": [
+        "c5c115bc12937537cd3c764b15efbc652996ad2d07e9aa1c850e1d98ec22163a",
+        "cadcdd18092f59217e7728f2e1bd1d53d091c4f18aab344a03a6c383df0c1a18"
+      ],
+      "learningSHA256": "4abfa00d53108c5eaffa45affb3684d7a70fab374a5f74cac477352b48fcb4ba"
     },
     {
       "deckID": "0a1ff2e2-3db0-4bb1-889a-b27b62798cbe",

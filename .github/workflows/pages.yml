@@ -5,6 +5,8 @@ on:
     paths-ignore: ["docs/**", "memory/**", "README.md", "ASSET_LICENSES.md", "deploy/README.md"]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
 permissions:
   contents: read
 concurrency:

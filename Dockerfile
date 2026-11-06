@@ -9,6 +9,7 @@ COPY apps/public/ apps/public/
 COPY packages/ packages/
 COPY content/snapshot.json content/snapshot.json
 COPY scripts/build-public-content.mjs scripts/build-public-content.mjs
+COPY scripts/latest-public-snapshot.mjs scripts/latest-public-snapshot.mjs
 RUN --mount=type=cache,target=/var/cache/piclex-content \
     PICLEX_CONTENT_CACHE=/var/cache/piclex-content npm run content:build
 RUN npm run build

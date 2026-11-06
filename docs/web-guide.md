@@ -66,7 +66,7 @@ npm run test:browser              # 构建后运行桌面/手机 Chrome、移动
 npm run preview                  # 本地预览构建结果
 ```
 
-`content/snapshot.json` 固定公开来源、卡组 ID、版本、大小和 SHA256。内容构建下载并校验这些公开文件，生成被 Git 忽略的 `apps/public/public/library/` 和来源清单；原始大包不提交到源码仓库。三个小型照片示例保留在 `tests/fixtures/demo/`，通过 `npm run decks:build` 重建。
+`content/snapshot.json` 记录已审查的公开来源与当前基线。每次内容构建从这些来源读取最新公开版本，保留既有卡组 ID、旧学习进度指纹，并自动收录同一来源新增的公开卡组；付费卡组不进入公开构建。所有下载包仍须通过大小、SHA256 与结构校验，来源回退或同版本改包会阻止发布。Pages 与 Docker 每 6 小时重新构建一次，原始大包不提交到源码仓库。国内镜像仍需经过独立部署流程。三个小型照片示例保留在 `tests/fixtures/demo/`，通过 `npm run decks:build` 重建。
 
 ## 目录
 
