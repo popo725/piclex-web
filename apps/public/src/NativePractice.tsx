@@ -50,7 +50,7 @@ function revealFocusedAnswer(){
 function SpeakerIcon(){return <Icon name="sound"/>;}
 function PlaybackFill({progress}:{progress:ReturnType<typeof useSpeech>['progress']}){
  const {value,indeterminate}=useSyncExternalStore(progress.subscribe,progress.getSnapshot);
- return <span className={`playback-progress${indeterminate?' indeterminate':''}`} role="progressbar" aria-label="播放进度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={indeterminate?undefined:Math.round(value*100)} aria-valuetext={indeterminate?'正在播放':undefined}><span className="playback-fill" style={{transform:`scaleX(${value})`}}/>{indeterminate&&<span className="playback-activity"/>}</span>;
+ return <span className={`playback-progress${indeterminate?' indeterminate':''}`} role="progressbar" aria-label="播放进度" aria-valuemin={0} aria-valuemax={100} aria-valuenow={indeterminate?undefined:Math.round(value*100)} aria-valuetext={indeterminate?'正在播放':undefined}><span className="playback-fill" style={{transform:`scaleX(${value})`}}/></span>;
 }
 function Playback({play,audio,rate,setRate,label='播放句子'}:{play:()=>void;audio:ReturnType<typeof useSpeech>;rate:number;setRate:(n:number)=>void;label?:string}){
  return <div className="native-playback"><button className="native-button playback-button" onClick={play}>{audio.playing&&<PlaybackFill progress={audio.progress}/>}<span className="playback-label"><SpeakerIcon/>{audio.preparing?'准备音频…':audio.playing?'重新播放':label}</span></button><span className="playback-rate"><select aria-label="播放速度" value={rate} onChange={e=>setRate(Number(e.target.value))}>{rates.map(r=><option key={r} value={r}>{r===1?'1.0':r}×</option>)}</select><span aria-hidden="true">⌄</span></span></div>;

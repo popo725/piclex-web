@@ -5,11 +5,13 @@ import {createPlaybackProgress} from './playback-progress';
 export function useSpeech(notify:(s:string)=>void){
  const generation=useRef(0),timer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),media=useRef<HTMLAudioElement|null>(null),blob=useRef('');
  const [playing,setPlaying]=useState(false),[preparing,setPreparing]=useState(false),[position,setPosition]=useState(-1);
+ const mediaClock=useRef<ReturnType<typeof setInterval>|undefined>(undefined);
  const [error,setError]=useState('');
  const [progress]=useState(createPlaybackProgress);
  // Capture the media clock synchronously; timeupdate may lag a quick pause, sheet or rate change.
  const readProgress=useCallback(()=>{const player=media.current;return player&&Number.isFinite(player.duration)&&player.duration>0?Math.min(1,Math.max(0,player.currentTime/player.duration)):progress.getSnapshot().value;},[progress]);
  const clearMedia=useCallback(()=>{
+  clearInterval(mediaClock.current);mediaClock.current=undefined;
   const current=media.current;media.current=null;
   if(current){current.onended=null;current.onerror=null;current.ontimeupdate=null;current.onplaying=null;current.onwaiting=null;current.onstalled=null;current.onloadedmetadata=null;current.pause();current.removeAttribute('src');current.load();}
   if(blob.current){URL.revokeObjectURL(blob.current);blob.current='';}
@@ -48,7 +50,7 @@ export function useSpeech(notify:(s:string)=>void){
      const player=new Audio(source);media.current=player;player.playbackRate=rate;player.preservesPitch=true;
      const failed=()=>{if(media.current===player)fail('原音频播放失败，请检查网络并再次点击播放。');};
      let observedTime=0;
-     const time=()=>{if(media.current!==player||!valid())return;
+     const time=()=>{if(media.current!==player||!current())return;
       // Some media backends omit/reorder playing after a seek. A moving decoded
       // media clock is also evidence of playback; metadata/seek alone is not.
       if(player.currentTime>observedTime&&!player.paused&&!player.seeking&&player.readyState>=2)started();
@@ -58,6 +60,8 @@ export function useSpeech(notify:(s:string)=>void){
      player.onwaiting=player.onstalled=()=>{if(valid()&&media.current===player&&player.readyState<3)setPreparing(true);};
      player.onloadedmetadata=()=>{if(!valid()||media.current!==player)return;if(Number.isFinite(player.duration)&&player.duration>0)player.currentTime=player.duration*Math.min(.999,Math.max(0,startFraction));time();};
      player.ontimeupdate=time;player.onerror=failed;
+     // Like App, sample the actual audio clock; a stall cannot advance the fill.
+     mediaClock.current=setInterval(time,33);
      player.onended=()=>{if(!valid()||media.current!==player)return;clearMedia();ended();};
      void player.play().then(()=>{if(media.current===player&&current()&&!player.paused)started();}).catch(failed);
     }catch{fail('这张卡片的原音频暂时无法播放。');}

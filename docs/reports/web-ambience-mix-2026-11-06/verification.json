@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
   "scope": "Web only",
-  "status": "Mac verification passed; Linux full regression and release pending",
+  "status": "audio fix active on domestic site; combined playback publication pending",
   "changes": [
     "Route background through MediaElementAudioSourceNode -> GainNode -> destination, independent of HTMLMediaElement.volume restrictions.",
     "Preserve saved ambience choice and level; signal base gain is selected level times 0.22 (previously media.volume times 0.5).",
@@ -85,5 +85,65 @@
     "existingMacRegressionPassed": 12,
     "possibleBrowserIssue": "https://issues.chromium.org/issues/558766777",
     "diagnosticBoundary": "No reproduction on the affected iPhone; matching browser report is evidence of a possible cause, not confirmation."
+  },
+  "candidateCommit": "314297a2e06cb2c14945c3cfe9626db6389411c7",
+  "stagedMirror": {
+    "releaseID": "314297a2e06c-19c70c0aae27",
+    "sourceRevision": "314297a2e06cb2c14945c3cfe9626db6389411c7",
+    "base": "5575a167c29e-89567bb75283",
+    "files": 2306,
+    "preservedNonBuildFiles": 2293,
+    "overlaySHA256": "19c70c0aae27284315538509d9a2a8fdd8dc18d6da582c3ac9def5383a28151f",
+    "isolatedNginx": "passed; not activated",
+    "status": "activated; all hashes, source/public HTTPS and cleanup passed"
+  },
+  "buildAssets": {
+    "main-Dw7W7Xw0.js": "ee5fa7bd034ddca9f3eddd474d4a9cd3b2bfd84ec29216a635dd383139f8cc3d",
+    "main-Dd5u6t2U.js": "6f6a89fd841965da60bbc72a79b0876c212d471dfa26666e467864c135692ee8"
+  },
+  "linux": {
+    "stats": {
+      "startTime": "2026-11-06T03:00:03.583Z",
+      "duration": 1028911.201,
+      "expected": 380,
+      "skipped": 4,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "unitPassed": 255,
+    "deployPassed": 27,
+    "build": "passed"
+  },
+  "live": {
+    "initial": {
+      "startTime": "2026-11-06T03:18:42.506Z",
+      "duration": 87661.511,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 2,
+      "flaky": 0
+    },
+    "failure": "Two WebKit page.goto calls failed TLS before loading application; no assertions reached.",
+    "targetedRetry": {
+      "startTime": "2026-11-06T03:22:53.356Z",
+      "duration": 32207.398,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "assets": [
+      {
+        "url": "https://piclex.v2fy.com/piclex-web/",
+        "script": "/piclex-web/assets/main-Dw7W7Xw0.js",
+        "sha256": "ee5fa7bd034ddca9f3eddd474d4a9cd3b2bfd84ec29216a635dd383139f8cc3d",
+        "matchesTestedBuild": true
+      }
+    ]
+  },
+  "supersededWorkflow": {
+    "head": "11c2897c4660ca58ef1cbd0d034785bf2a1fff77",
+    "run": 42155623756,
+    "status": "cancel requested to avoid duplicate full workflow after user requested combining playback repair and reducing excess testing"
   }
 }

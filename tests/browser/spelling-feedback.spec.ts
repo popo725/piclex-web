@@ -19,7 +19,7 @@ test('hardware input survives replay focus, protected IME keys, and keeps dialog
  await page.getByRole('button',{name:'关闭',exact:true}).click();await page.keyboard.press('i');await expect(field).toHaveValue('croi');
  await page.getByRole('button',{name:'退格',exact:true}).click();await expect(field).toHaveValue('cro');
 });
-for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays below glyphs and unknown playback remains a moving segment: ${colorScheme}`,async({page},info)=>{
+for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays below glyphs and playback grows from a fixed left edge: ${colorScheme}`,async({page},info)=>{
  await page.emulateMedia({colorScheme});await open(page);const field=page.getByRole('textbox',{name:'输入英文',exact:true});
  await field.pressSequentially('croissa');
  // ResizeObserver updates the SVG viewBox after layout; typing can finish first.
@@ -34,9 +34,15 @@ for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays
  }).toPass({timeout:5000});
  await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());
  const bar=page.getByRole('progressbar',{name:'播放进度'});await expect(bar).toHaveAttribute('aria-valuetext','正在播放');expect(await bar.getAttribute('aria-valuenow')).toBeNull();
- const segment=page.locator('.playback-activity');expect((await segment.boundingBox())!.width).toBeLessThan((await bar.boundingBox())!.width*.35);
- const first=await segment.evaluate(e=>getComputedStyle(e).transform);await expect.poll(()=>segment.evaluate(e=>getComputedStyle(e).transform)).not.toBe(first);
+ const segment=page.locator('.playback-activity'),fill=page.locator('.playback-fill');await expect(segment).toHaveCount(0);
+ await expect(fill).toHaveCSS('transform','matrix(0, 0, 0, 1, 0, 0)');await expect(fill).toHaveCSS('animation-name','none');
+ await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:10}));
+ await expect.poll(async()=>(await fill.boundingBox())!.width).toBeGreaterThan(0);
+ const left=(await bar.boundingBox())!.x;expect((await fill.boundingBox())!.x).toBeCloseTo(left,0);
+ await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:20}));
+ await expect.poll(async()=>Number(await bar.getAttribute('aria-valuenow'))).toBeGreaterThan(10);
+ expect((await fill.boundingBox())!.x).toBeCloseTo(left,0);
  await page.screenshot({path:info.outputPath(`feedback-${colorScheme}.png`)});
  await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:10}));await expect(bar).toHaveAttribute('aria-valuenow',/^[1-9]\d?$/);await expect(segment).toHaveCount(0);
- await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());await expect(segment).toHaveCSS('animation-name','none');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());await expect(segment).toHaveCount(0);await expect(fill).toHaveCSS('transform','matrix(0, 0, 0, 1, 0, 0)');
 });

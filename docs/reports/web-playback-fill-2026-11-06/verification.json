@@ -1,0 +1,38 @@
+{
+  "status": "targeted checks passed; release pending",
+  "changes": [
+    "Integrate existing unpublished left-anchored playback fill and 33 ms sampling of actual media currentTime/duration.",
+    "Increase fill opacity to 0.28, matching native fill opacity. No scanning activity animation.",
+    "Playback updates remain in the subscribed leaf, preserving typing responsiveness.",
+    "Replay, rate changes, errors, page exit and media disposal clear playback clock; TTS uses confirmed boundary progress and does not invent duration."
+  ],
+  "nativeReferences": [
+    "PicLex/Features/Practice/PracticeView.swift:5033",
+    "PicLex/Features/Practice/SentenceDictationView.swift:2123",
+    "PicLex/Features/Practice/SentenceDictationAudio.swift:185"
+  ],
+  "validation": {
+    "linuxTargeted": {
+      "startTime": "2026-11-06T03:23:10.924Z",
+      "duration": 26922.563000000002,
+      "expected": 21,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "productionBuild": "passed once, before targeted tests",
+    "initialTestCorrection": "Missing brace in added test caused collection failure; corrected test syntax only, then 21 targeted cases passed. Product build not repeated.",
+    "fullSuite": "Reuse completed audio baseline full run (380 pass, 4 existing skips). Per latest user request no repeat of local full suite."
+  },
+  "sourceSHA256": {
+    "apps/public/src/NativePractice.tsx": "660d1701efb7a36050dac7cb4cf7502072fcc1576d857fd2f7dc87dc454d893a",
+    "apps/public/src/useSpeech.ts": "04176abe7dbc6f7089edf29d8b1e419466220ddda4940fc14fe3b9c9f33a9074",
+    "apps/public/src/practice.css": "464544caf0570c685d59fd4d8219028ff781ae3b11eb8192046b8c264505923e",
+    "tests/browser/playback-parity.spec.ts": "11b7f0027dadf7e83155be3513fad69c1c388f8e70a1a30a5975647e675368a1",
+    "tests/browser/spelling-feedback.spec.ts": "93fde3ec606a235b7f69e462dd2c573aa292b4a0569f6ee228fcc1b9d4862832"
+  },
+  "limitations": [
+    "Desktop Linux WebKit and Chrome are not physical iPhone confirmation.",
+    "Browser TTS exposes no reliable duration when boundary callbacks are missing; hold confirmed progress in that case."
+  ]
+}
