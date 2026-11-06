@@ -1,0 +1,71 @@
+{
+  "sourceRevision": "56d9746d911e7a2fa68182bfe241f1e74d11d1ec",
+  "nativeSourceRevision": "144d322b59c5a6a09ebdaa0fbc0a7e3317a78ff3",
+  "protocol": "com.zhaoolee.piclex.deck-positions v1",
+  "preservation": "Separate cursor sidecars; existing progress-v1, photos, XP, FSRS and drafts retained. No user WebDAV data or app container modified during validation.",
+  "verification": {
+    "unitTests": 273,
+    "productionSwiftJavaScriptInterop": "passed: byte-identical canonical data, filename, merge and duplicate rejection",
+    "linuxReproduction": "Original word-completion regression reproduced on Chromium and WebKit without changing assertions",
+    "linuxFixedTargeted": {
+      "passed": 9,
+      "projects": [
+        "desktop Chromium ARM64",
+        "mobile Chromium ARM64",
+        "mobile WebKit ARM64"
+      ]
+    },
+    "localFullRun": "Stopped after narrowing to reproduced failure; not counted as a full pass",
+    "ciURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42209047777",
+    "ciStatus": "success",
+    "officialLinuxBrowser": {
+      "passed": 408,
+      "skipped": 4,
+      "failed": 0,
+      "projects": [
+        "Chrome desktop",
+        "Chrome mobile",
+        "WebKit mobile"
+      ],
+      "shards": [
+        {
+          "passed": 139,
+          "skipped": 1
+        },
+        {
+          "passed": 133,
+          "skipped": 2
+        },
+        {
+          "passed": 136,
+          "skipped": 1
+        }
+      ]
+    },
+    "pagesDeploy": "success",
+    "dockerPublish": "success",
+    "pagesManifestMatchesCandidate": true
+  },
+  "mirror": {
+    "candidate": "56d9746d911e-294c96120358",
+    "files": 1142,
+    "isolatedNginx": "passed",
+    "activationPreview": "passed; no production configuration diff",
+    "activated": false,
+    "pending": "Unified sudo activation requires server user; command provided after full CI passed"
+  },
+  "native": {
+    "version": "1.0.22",
+    "build": 369,
+    "signedReleaseBuild": "passed",
+    "bundlesVerified": 4,
+    "installed": false,
+    "pending": "Paired phone unavailable"
+  },
+  "cleanup": {
+    "linuxContainerRemoved": true,
+    "supersededMirrorUploadRemoved": true,
+    "temporaryNativeBuildRemoved": true,
+    "pendingPhonePackageRetained": true
+  }
+}
