@@ -28,8 +28,8 @@ class AutoUpdatePublicTests(unittest.TestCase):
             self.assertEqual(auto.manifest_from_pages(),manifest)
 
     def test_reuses_verified_old_file_and_checks_new_download(self):
-        with tempfile.TemporaryDirectory(dir='/private/tmp') as directory:
-            root=pathlib.Path(directory);old=root/'old';stage=root/'stage'
+        with tempfile.TemporaryDirectory() as directory:
+            root=pathlib.Path(directory).resolve();old=root/'old';stage=root/'stage'
             (old/'piclex-web').mkdir(parents=True);stage.mkdir()
             previous=old/'piclex-web/old.txt';previous.write_bytes(b'old')
             same={'bytes':3,'sha256':hashlib.sha256(b'old').hexdigest()}
@@ -47,8 +47,8 @@ class AutoUpdatePublicTests(unittest.TestCase):
                 with self.assertRaises(RuntimeError):auto.populate(root/'bad-stage',manifest,None)
 
     def test_pointer_switch_retains_previous_release(self):
-        with tempfile.TemporaryDirectory(dir='/private/tmp') as directory:
-            root=pathlib.Path(directory);first=root/'old';second=root/'new'
+        with tempfile.TemporaryDirectory() as directory:
+            root=pathlib.Path(directory).resolve();first=root/'old';second=root/'new'
             first.mkdir();second.mkdir();(root/'current').symlink_to(first)
             with patch.object(auto,'ROOT',root):auto.switch(second)
             self.assertEqual((root/'current').resolve(),second)
