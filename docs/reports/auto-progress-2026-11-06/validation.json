@@ -21,7 +21,7 @@
     "failed": 0
   },
   "typeScriptAndVite": "passed",
-  "sourceInputsCompared": 648,
+  "sourceInputsCompared": 386,
   "sourceMismatches": 0,
   "largeBackupMiB": 128,
   "swiftInterop": "passed",
@@ -30,7 +30,20 @@
     "webkit": "06bcf85050de4ff27dc2450b83956d5e4bf2435444cf0c2cded10fb45e4336eb"
   },
   "parallelBaseline": "2a5125cc5379a4225a8ccfc85998387c9c9e9330",
-  "githubWorkflows": "pending",
+  "githubWorkflows": {
+    "pages": {
+      "id": 42150459672,
+      "conclusion": "failure",
+      "browserPassed": 364,
+      "browserSkipped": 4,
+      "browserFailed": 1,
+      "failure": "subscription-poster.spec.ts mobile: preview hidden after resetting text"
+    },
+    "docker": {
+      "id": 42150459674,
+      "conclusion": "success"
+    }
+  },
   "productionActivated": false,
   "previousPreloadOnlyValidation": {
     "node": {
@@ -46,5 +59,17 @@
       "retries": 0,
       "durationMinutes": 15.7
     }
+  },
+  "sourceInputsScope": "All tracked runtime/build/test inputs; docs and memory excluded",
+  "sourceCommit": "624d2e087276ce8c67202eacb7f8b932be7ac238",
+  "docker": {
+    "workflow": 42150459674,
+    "conclusion": "success",
+    "image": "zhaoolee/piclex-web:sha-624d2e0",
+    "digest": "sha256:a8e4db797fdb8df81068230edd23d9981e03faf9dc8bc4839ed43644698c49a0",
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
   }
 }

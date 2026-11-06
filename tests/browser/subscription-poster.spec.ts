@@ -23,3 +23,40 @@ test('editable template exports a real PNG and never sends the subscription URL 
  await page.getByRole('button',{name:'恢复默认文案',exact:true}).click();await expect(page.locator('#poster-result')).toBeVisible();
  await page.getByLabel('上传自己的封面').setInputFiles({name:'bad.txt',mimeType:'text/plain',buffer:Buffer.from('no image')});await expect(page.getByRole('alert')).toContainText('JPEG');await expect(page.locator('#poster-result')).toBeHidden();
 });
+
+test('preview recovers before PNG export finishes and stale exports cannot replace newer text',async({page})=>{
+ await page.addInitScript(()=>{
+  const state={hold:false,pending:[] as Array<()=>void>};
+  (window as any).posterExport=state;
+  const original=HTMLCanvasElement.prototype.toBlob;
+  HTMLCanvasElement.prototype.toBlob=function(callback,...args){
+   const hold=state.hold;
+   return original.call(this,blob=>{if(hold)state.pending.push(()=>callback(blob));else callback(blob);},...args);
+  };
+ });
+ await page.goto('/piclex-web/subscribe/');
+ await expect(page.getByRole('link',{name:'下载封面 PNG',exact:true})).toBeVisible();
+ await page.evaluate(()=>{(window as any).posterExport.hold=true;});
+ await page.getByLabel('扫码指引').fill('一\n二\n三\n四');
+ await expect(page.getByRole('alert')).toContainText('1至3行');
+ await page.getByRole('button',{name:'恢复默认文案',exact:true}).click();
+ await expect.poll(()=>page.evaluate(()=>(window as any).posterExport.pending.length)).toBe(1);
+ await expect(page.locator('#poster-result')).toBeVisible();
+ await expect(page.locator('#save-poster')).toBeHidden();
+ await expect(page.locator('#save-poster')).not.toHaveAttribute('href',/^blob:/);
+ const first=await page.locator('#poster').evaluate((canvas:HTMLCanvasElement)=>canvas.toDataURL());
+ await page.getByLabel('主标题').fill('新的分享标题');
+ await expect.poll(()=>page.evaluate(()=>(window as any).posterExport.pending.length)).toBe(2);
+ const latest=await page.locator('#poster').evaluate((canvas:HTMLCanvasElement)=>canvas.toDataURL());
+ expect(latest).not.toBe(first);
+ await page.evaluate(()=>{(window as any).posterExport.pending[0]();});
+ await expect(page.locator('#save-poster')).not.toHaveAttribute('href',/^blob:/);
+ expect(await page.locator('#poster').evaluate((canvas:HTMLCanvasElement)=>canvas.toDataURL())).toBe(latest);
+ await page.evaluate(()=>{(window as any).posterExport.pending[1]();});
+ await expect(page.getByRole('link',{name:'下载封面 PNG',exact:true})).toBeVisible();
+ const exported=await page.locator('#save-poster').evaluate(async(link:HTMLAnchorElement)=>{
+  const blob=await(await fetch(link.href)).blob();
+  return await new Promise<string>(resolve=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.readAsDataURL(blob);});
+ });
+ expect(exported).toBe(latest);
+});
