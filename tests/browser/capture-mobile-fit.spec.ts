@@ -25,5 +25,11 @@ test('portrait review keeps two brand lines, equal label padding and tools clear
  await page.screenshot({path:info.outputPath('capture-portrait-mobile.png')});
  const summary=page.locator('.capture-vocabulary summary');await summary.click();
  await page.locator('.capture-vocabulary button').last().click();const detail=page.locator('.capture-label-detail');await detail.scrollIntoViewIfNeeded();await expect(detail).toBeVisible();const nav=await page.locator('.app-tabs').boundingBox(),box=await detail.boundingBox();expect(box!.y+box!.height).toBeLessThan(nav!.y);
- await page.getByRole('button',{name:'编辑卡片',exact:true}).click();const save=page.getByRole('button',{name:'保存修改',exact:true});await save.scrollIntoViewIfNeeded();const saveBox=await save.boundingBox();expect(saveBox!.y+saveBox!.height).toBeLessThan(nav!.y);await save.click();await expect(page.getByRole('button',{name:'开练',exact:true})).toBeVisible();await page.setViewportSize({width:844,height:390});await summary.scrollIntoViewIfNeeded();const landscapeNav=await page.locator('.app-tabs').boundingBox(),landscapeTools=await summary.boundingBox();expect(landscapeTools!.y+landscapeTools!.height).toBeLessThan(landscapeNav!.y);
+ await page.getByRole('button',{name:'编辑卡片',exact:true}).click();const save=page.getByRole('button',{name:'保存修改',exact:true});await save.scrollIntoViewIfNeeded();const saveBox=await save.boundingBox();expect(saveBox!.y+saveBox!.height).toBeLessThan(nav!.y);await save.click();await expect(page.getByRole('button',{name:'开练',exact:true})).toBeVisible();await page.setViewportSize({width:844,height:390});
+ // Viewport variables and the photo budget update in animation frames after resize.
+ // Re-scroll after those updates, then compare both boxes in the same layout.
+ await expect.poll(async()=>{
+  await summary.scrollIntoViewIfNeeded();
+  return page.evaluate(()=>document.querySelector('.capture-vocabulary summary')!.getBoundingClientRect().bottom-document.querySelector('.app-tabs')!.getBoundingClientRect().top);
+ }).toBeLessThan(0);
 });
