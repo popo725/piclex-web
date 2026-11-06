@@ -33,9 +33,9 @@ for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays
   for(const g of geometry){expect(g.top).toBeGreaterThanOrEqual(g.glyphBottom);expect(g.filter).toBe('none');}
  }).toPass({timeout:5000});
  await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());
- const bar=page.getByRole('progressbar',{name:'播放进度'});await expect(bar).toHaveAttribute('aria-valuetext','正在播放');expect(await bar.getAttribute('aria-valuenow')).toBeNull();
+ const bar=page.getByRole('progressbar',{name:'播放进度'});await expect.poll(async()=>Number(await bar.getAttribute('aria-valuenow'))).toBeGreaterThan(0);
  const segment=page.locator('.playback-activity'),fill=page.locator('.playback-fill');await expect(segment).toHaveCount(0);
- await expect(fill).toHaveCSS('transform','matrix(0, 0, 0, 1, 0, 0)');await expect(fill).toHaveCSS('animation-name','none');
+ await expect.poll(async()=>(await fill.boundingBox())!.width).toBeGreaterThan(0);await expect(fill).toHaveCSS('animation-name','none');
  await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:10}));
  await expect.poll(async()=>(await fill.boundingBox())!.width).toBeGreaterThan(0);
  const left=(await bar.boundingBox())!.x;expect((await fill.boundingBox())!.x).toBeCloseTo(left,0);
@@ -44,5 +44,5 @@ for(const colorScheme of ['light','dark'] as const)test(`spelling progress stays
  expect((await fill.boundingBox())!.x).toBeCloseTo(left,0);
  await page.screenshot({path:info.outputPath(`feedback-${colorScheme}.png`)});
  await page.evaluate(()=>(window as any).__feedbackSpeech.onboundary({charIndex:10}));await expect(bar).toHaveAttribute('aria-valuenow',/^[1-9]\d?$/);await expect(segment).toHaveCount(0);
- await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.playback-button').click();await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());await expect(segment).toHaveCount(0);await expect(fill).toHaveCSS('transform','matrix(0, 0, 0, 1, 0, 0)');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.locator('.playback-button').click();await expect(bar).toHaveCount(0);await page.evaluate(()=>(window as any).__feedbackSpeech.onstart());await expect(segment).toHaveCount(0);await expect(fill).toHaveCSS('transition-duration','0s');await expect.poll(async()=>Number(await bar.getAttribute('aria-valuenow'))).toBeGreaterThan(0);
 });
