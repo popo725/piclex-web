@@ -14,14 +14,15 @@
     "failed": 0,
     "workers": 4,
     "retries": 0,
-    "durationMinutes": 13.0
+    "durationMinutes": 13.0,
+    "sourceCommit": "7fb94a72178452eb1f0128826cd052fe82cb779b"
   },
   "animationRepeated": {
     "passed": 27,
     "failed": 0
   },
   "typeScriptAndVite": "passed",
-  "sourceInputsCompared": 388,
+  "sourceInputsCompared": 390,
   "sourceMismatches": 0,
   "largeBackupMiB": 128,
   "swiftInterop": "passed",
@@ -48,7 +49,7 @@
     }
   },
   "sourceInputsScope": "All tracked runtime/build/test inputs; docs and memory excluded",
-  "sourceCommit": "7fb94a72178452eb1f0128826cd052fe82cb779b",
+  "sourceCommit": "ed7cf7d0fab9ed5880b53f09cff40fd26ea64ef5",
   "previousCombinationValidation": {
     "node": {
       "passed": 250,
@@ -93,5 +94,21 @@
       "linux/arm64"
     ]
   },
-  "mirrorStaging": "passed isolated Nginx and 986 file checks; not activated"
+  "mirrorStaging": "passed isolated Nginx and 986 file checks; not activated",
+  "postAmbienceMerge": {
+    "sourceCommit": "ed7cf7d0fab9ed5880b53f09cff40fd26ea64ef5",
+    "nodePassed": 255,
+    "build": "passed",
+    "linuxAffectedBrowserPassed": 48,
+    "failed": 0,
+    "workers": 4,
+    "durationMinutes": 1.4,
+    "scope": [
+      "focus-ambience",
+      "layout-audit",
+      "subscription-poster",
+      "spelling-feedback"
+    ],
+    "completeCombinedCI": "pending"
+  }
 }
