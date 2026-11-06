@@ -49,9 +49,10 @@ export default function CharacterRipples({ scope, expected, entered, quickIndice
     const draw = (now: number) => {
       context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, bounds.width, bounds.height);
       shocks.current = shocks.current.filter(shock => now - shock.started < RIPPLE_DURATION);
+      const color = getComputedStyle(node).getPropertyValue('--ripple').trim() || '#777';
       for (const shock of shocks.current) {
         const value = rippleFrame(now - shock.started); if (!value) continue;
-        context.strokeStyle = getComputedStyle(node).getPropertyValue('--ripple').trim() || '#777'; context.globalAlpha = value.opacity * .65; context.lineWidth = value.width;
+        context.strokeStyle = color; context.globalAlpha = value.opacity * .65; context.lineWidth = value.width;
         context.beginPath(); context.arc(shock.x, shock.y, value.radius, 0, Math.PI * 2); context.stroke();
         context.globalAlpha = value.opacity; context.lineWidth = 1.05; context.lineCap = 'round';
         for (const angle of [.16, 2.24, 4.20]) {

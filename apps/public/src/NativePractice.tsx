@@ -14,10 +14,12 @@ import {NativeIcon as Icon} from '../../../packages/learning-ui/src/NativeIcon';
 import {playTypingSound,stopTypingSound,prepareTypingSound} from '../../../packages/learning-ui/src/typing-sound';
 import {PracticeProgress,useExperience,LevelPage} from './Experience';
 import VirtualKeyboard,{useDesktopKeyboard} from '../../../packages/learning-ui/src/VirtualKeyboard';
+import {editSpellingText} from '../../../packages/learning-ui/src/spelling-edit.mjs';
+import useStudyPersistence from './useStudyPersistence';
 import {editKeyboardText} from '../../../packages/learning-ui/src/keyboard-edit.mjs';
 import {transactExperience} from '../../../packages/practice/src/experience-store.mjs';
 import {clearExperienceEffects,emitExperience} from '../../../packages/learning-ui/src/experience-effects';
-import {useEffect,useLayoutEffect,useMemo,useRef,useState,useSyncExternalStore,type CSSProperties,type ReactNode} from 'react';
+import {memo,useEffect,useLayoutEffect,useMemo,useRef,useState,useSyncExternalStore,type CSSProperties,type ReactNode} from 'react';
 import {PhotoFocus,type Focus} from '../../../packages/learning-ui/src/PhotoFocus';
 import {AnswerSlots} from '../../../packages/learning-ui/src/AnswerSlots';
 import SpellingGlow from '../../../packages/learning-ui/src/SpellingGlow';
@@ -34,6 +36,7 @@ export type AudioClip={mediaType:string;sha256:string;byteCount:number;durationS
 export type Word={audio?:AudioClip;id:string;english:string;chinese:string;imageIndex:number;focus:Focus;example:string;exampleChinese:string;phonetic:string;partOfSpeech:string;occurrenceID?:string};
 export type PracticeDeck={id:string;title:string;fingerprint:string;legacyFingerprints?:string[];words:Word[];images:string[]};
 type Action={type:string;[key:string]:unknown};
+const StablePhotoFocus=memo(PhotoFocus);
 const modes=[['listening','随身听'],['chunks','词块拼句'],['free','自由听写']];
 const modules=[['spelling','拼单词'],['listening','练听力'],['speaking','练口语']];
 function readJSON(key:string){try{return JSON.parse(readPreference(key)||'null');}catch{return null;}}
@@ -66,7 +69,7 @@ function ListeningSeek({audio,prompt,original,seek,onSeek,onBegin}:{audio:Return
 }
 
 function SentenceLine({sentence,target,translation,hidden,position,open}:{sentence:string;target:string;translation:string;hidden:boolean;position:number;open:()=>void}){
- const display=exampleTokens(sentence,target),words=exampleWords(sentence),index=words.findIndex(w=>position>=w.start&&position<w.end),highlight=tokenForWord(display,index);
+ const display=useMemo(()=>exampleTokens(sentence,target),[sentence,target]),words=useMemo(()=>exampleWords(sentence),[sentence]),index=words.findIndex(w=>position>=w.start&&position<w.end),highlight=tokenForWord(display,index);
  return <button className="native-example" onClick={open} aria-label="查看例句并练口语"><span>{display.map((t,i)=><span key={i} className={i===highlight?'spoken-word':''}>{t.text} </span>)}</span>{!hidden&&<small>{maskExample(translation,target)}</small>}</button>;
 }
 function GuidedInput({sentence,value,difficulty,disabled,onChange,onWarning,onComposing,onSubmit,onVirtualKey}:{sentence:string;value:string[];difficulty:string;disabled:boolean;onChange:(values:string[])=>void;onWarning:(show:boolean)=>void;onComposing:(active:boolean)=>void;onSubmit:()=>void;onVirtualKey:(key:string)=>void}){
@@ -150,7 +153,7 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  const pauseListening=()=>{if(listenRun)setSeek(promptAudio?audio.readProgress():Math.max(0,audio.position));setListenRun(false);audio.stop();};
  const pauseListeningRef=useRef(pauseListening);pauseListeningRef.current=pauseListening;
  const navigationAudio=useRef<{module:string;from:string}|null>(null),revealAudio=useRef<string|null>(null);
- function dispatch(action:Action){if(action.type==='preference'&&action.name==='quick')writePreference('piclex-web.quick',String(action.value));if(action.type==='restart')readingSaved.current.clear();if(['next','sentenceNext','selectWord'].includes(action.type))navigationAudio.current={module:state.module,from:state.module==='spelling'?word?.id:prompt?.key};else if(['module','pause','restart'].includes(action.type))navigationAudio.current=null;setState((s:any)=>reduceStudy(deck,s,{...action,question:key}));}
+ function dispatch(action:Action){if(action.type==='preference'&&action.name==='quick')writePreference('piclex-web.quick',String(action.value));if(action.type==='restart')readingSaved.current.clear();if(['next','sentenceNext','selectWord'].includes(action.type))navigationAudio.current={module:state.module,from:state.module==='spelling'?word?.id:prompt?.key};else if(['module','pause','restart'].includes(action.type))navigationAudio.current=null;setState((s:any)=>reduceStudy(deck,s,{...action,question:key},prompts));}
  const [urlRevision,setURLRevision]=useState(0);
  // Replace the current history entry: automatic advances must not fill the Back stack.
  useLayoutEffect(()=>{
@@ -182,7 +185,7 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  useEffect(()=>{
   for(const w of deck.words){const d=state.words[w.id];if(d?.result==='correct'||d?.result==='reviewed')award({id:`spell:${deck.fingerprint}:${state.round}:${w.id}`,kind:'spelling',result:d.result,wordKey:w.occurrenceID?.trim()?'occurrence:'+w.occurrenceID.trim():w.english.toLowerCase().trim()});}
   for(const p of prompts){const d=state.sentences[p.key];for(const mode of ['chunks','free'])if(d?.outcomes[mode]==='correct')award({id:`dictation:${deck.fingerprint}:${state.round}:${p.key}:${mode}`,kind:'dictation',mode,correct:true,wordCount:writtenWords(p.sentence).length});}
- },[state.words,state.sentences,state.round]);
+ },[key,draft.result,sentence?.outcomes,state.round]);
  const act=(action:Action)=>{if(action.type==='retry')audio.stop();dispatch({type:'sentence',action});if(action.type==='giveUp'&&prompt)audio.play([prompt.sentence],state.rate,undefined,0,promptAudio);};
  const revealWord=()=>{if(!active||!word||draft.result)return;revealAudio.current=word.id;dispatch({type:'reveal'});};
  // Create a stable shuffled bank once, even before the first chip is selected.
@@ -190,8 +193,8 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  const portableHistoryRef=useRef(state.history);portableHistoryRef.current=state.history;
  useEffect(()=>{let cancelled=false;const refresh=()=>{const initial=portableHistoryRef.current;portableHistory(deck).then(history=>{if(!cancelled)setState((s:any)=>({...s,history:{...s.history,...Object.fromEntries(Object.entries(history).filter(([id])=>s.history[id]===initial[id]))}}));}).catch(e=>notify(e.message));};refresh();window.addEventListener('piclex-progress-imported',refresh);return()=>{cancelled=true;window.removeEventListener('piclex-progress-imported',refresh);};},[deck.fingerprint]);
  const portablePrevious=useRef({words:state.words,round:state.round});
- useEffect(()=>{const previous=portablePrevious.current;portablePrevious.current={words:state.words,round:state.round};const words=Object.fromEntries(Object.entries(state.words).filter(([id,d]:[string,any])=>d.result&&(previous.round!==state.round||previous.words[id]?.result!==d.result)));if(Object.keys(words).length)void recordPortableStudy(deck,{...state,words}).catch(e=>notify(e.message));},[state.words,state.round]);
- useEffect(()=>{if(!writePreference(storageKey,JSON.stringify(state))&&!warned.current){warned.current=true;notify('浏览器无法保存进度；关闭页面后可能无法恢复。');}},[state]);
+ useEffect(()=>{const previous=portablePrevious.current;portablePrevious.current={words:state.words,round:state.round};const words=Object.fromEntries(Object.entries(state.words).filter(([id,d]:[string,any])=>d.result&&(previous.round!==state.round||previous.words[id]?.result!==d.result)));if(Object.keys(words).length)void recordPortableStudy(deck,{...state,words}).catch(e=>notify(e.message));},[key,draft.result,state.round]);
+ useStudyPersistence(storageKey,state,`${key}:${draft.result}:${sentence?.outcomes.chunks}:${sentence?.outcomes.free}`,()=>{if(!warned.current){warned.current=true;notify('浏览器无法保存进度；关闭页面后可能无法恢复。');}});
  useEffect(()=>{
   const visibility=()=>{setVisible(!document.hidden);if(document.hidden){pauseListeningRef.current();setState((s:any)=>reduceStudy(deck,s,{type:'pause',question:studyKey(s)}));}};
   const leave=()=>pauseListeningRef.current();
@@ -260,8 +263,8 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
    if(pressed==='Escape'){revealWord();return;}
    if(pressed==='Enter'){if(draft.result)dispatch({type:'next'});return;}
    if(draft.result)return;
-   const edited=editKeyboardText(draft.input,input.current?.selectionStart,input.current?.selectionEnd,pressed);
-   if(edited){setImeWarning(false);if(typingSound)playTypingSound();flushSync(()=>dispatch({type:'input',value:edited.value}));input.current?.setSelectionRange(edited.cursor,edited.cursor);}
+   const edited=editSpellingText(expectedInput(word,draft),draft.input,input.current?.selectionStart,input.current?.selectionEnd,pressed);
+   if(edited){setImeWarning(false);if(typingSound)playTypingSound();flushSync(()=>dispatch({type:'input',value:edited.value}));input.current?.setSelectionRange(edited.cursor,edited.end);}
   }else if(state.module==='listening'&&state.mode==='free'&&!state.sentenceFinished){
    if(sentenceResult){if(pressed==='Enter')dispatch({type:'sentenceNext'});return;}
    const inputs=[...document.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('.guided-input input,.dictation-input')];
@@ -316,7 +319,7 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
   {complete?<section className="native-completion"><h1>{state.module==='speaking'?'本轮口语练习完成':'本轮训练完成'}</h1>{state.module==='speaking'?<p>已到达卡组末尾。</p>:<p>拼对 {correct} 个词，复习 {reviewed} 个词。</p>}<button className="native-primary" onClick={()=>dispatch({type:'restart'})}>再来一轮</button><button className="native-button" onClick={exit}>换个卡组</button><button className="text-button" onClick={download}>下载卡组，在 App 中打开</button></section>:<>
    <div className="native-body" onPointerDown={e=>{if(e.pointerType==='mouse'||(e.target as HTMLElement).closest('input,textarea,select,.chunk,.reading-content,.native-example'))return;swipe.current={x:e.clientX,y:e.clientY};}} onPointerUp={e=>{const start=swipe.current;swipe.current=null;if(!start||panel||held.current.size>1)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4){const i=modules.findIndex(([id])=>id===state.module),target=modules[i+(dx<0?1:-1)];if(target){suppressPhoto.current=Date.now()+400;selectModule(target[0]);}}}} onPointerCancel={()=>{swipe.current=null;}}>
     <article className="native-card"><div className="photo-browse">
-     <PhotoFocus cache={photos} onImageReady={photoPalette.read} src={deck.images[word.imageIndex]} fit={desktopKeyboard||state.module==='listening'?'contain':'focus'} focus={word.focus} alt={word.focus?'训练照片，彩色框标示当前物体':'完整场景照片'} active={active} retry={photoRetry} onLoadState={setPhotoState}/><button className="photo-open" aria-label={photoState==='error'?'重新加载图片':'选择照片'} onClick={()=>{if(photoState==='error'){setPhotoRetry(n=>n+1);return;}if(Date.now()<suppressPhoto.current){suppressPhoto.current=0;return;}openPanel('gallery');}} onPointerDown={e=>{held.current.add(e.pointerId);if(held.current.size>1)openPanel('gallery');}} onPointerUp={e=>held.current.delete(e.pointerId)} onPointerCancel={()=>held.current.clear()}></button></div>
+     <StablePhotoFocus cache={photos} onImageReady={photoPalette.read} src={deck.images[word.imageIndex]} fit={desktopKeyboard||state.module==='listening'?'contain':'focus'} focus={word.focus} alt={word.focus?'训练照片，彩色框标示当前物体':'完整场景照片'} active={active} retry={photoRetry} onLoadState={setPhotoState}/><button className="photo-open" aria-label={photoState==='error'?'重新加载图片':'选择照片'} onClick={()=>{if(photoState==='error'){setPhotoRetry(n=>n+1);return;}if(Date.now()<suppressPhoto.current){suppressPhoto.current=0;return;}openPanel('gallery');}} onPointerDown={e=>{held.current.add(e.pointerId);if(held.current.size>1)openPanel('gallery');}} onPointerUp={e=>held.current.delete(e.pointerId)} onPointerCancel={()=>held.current.clear()}></button></div>
      {state.module==='spelling'?<div className="native-hint"><button aria-label={state.hiddenChinese?'显示中文提示':'隐藏中文提示'} onClick={()=>dispatch({type:'preference',name:'hiddenChinese',value:!state.hiddenChinese})}><h1>{state.hiddenChinese?'点击显示释义':word.chinese}</h1><small>{word.phonetic}</small></button>{ambienceControl}</div>:state.module==='listening'?<div className="sentence-toolbar"><select aria-label="句子练习模式" value={state.mode} onChange={e=>setMode(e.target.value)}>{modes.map(([id,title])=><option key={id} value={id}>{title}</option>)}</select>{ambienceControl}{state.mode==='free'&&<select aria-label="听写难度" value={state.difficulty} onChange={e=>setDifficulty(e.target.value)}><option value="easy">简单 · 字母数量</option><option value="medium">中等 · 单词数量</option><option value="hard">困难 · 无提示</option></select>}</div>:null}
     </article>
     {state.module==='spelling'&&word.example&&<SentenceLine sentence={word.example} target={word.english} translation={word.exampleChinese} hidden={state.hiddenChinese} position={audio.position} open={()=>selectModule('speaking')}/>}

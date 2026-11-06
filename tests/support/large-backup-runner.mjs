@@ -20,7 +20,13 @@ const page=await context.newPage(),errors=[],observations=[];page.on('pageerror'
 async function activate(button){await expect(button).toBeEnabled();await button.evaluate(node=>node.click());}
 const visit=route=>page.goto(new URL('/piclex-web/#/settings/'+route,baseURL).href);
 async function choose(name){await visit('data/webdav/restore');await activate(page.getByRole('button',{name:'刷新备份列表',exact:true}));await activate(page.getByRole('button',{name,exact:true}));await page.getByRole('button',{name:'恢复照片和学习进度',exact:true}).or(page.getByRole('alert')).first().waitFor({timeout:15*60000});if(await page.getByRole('alert').count())throw Error(await page.getByRole('alert').first().innerText());}
-async function commit(){await activate(page.getByRole('button',{name:'恢复照片和学习进度',exact:true}));await page.waitForFunction(()=>!document.querySelector('dialog'),{},{timeout:60000});}
+async function commit(){
+ // Restore reloads the document. A missing dialog can be the transient empty
+ // page, so wait for that navigation before issuing the next route change.
+ await Promise.all([page.waitForEvent('domcontentloaded',{timeout:60000}),activate(page.getByRole('button',{name:'恢复照片和学习进度',exact:true}))]);
+ await expect(page.getByRole('heading',{name:'恢复备份',exact:true})).toBeVisible();
+ await expect(page.locator('dialog')).toHaveCount(0);
+}
 let passed=false;const started=Date.now();
 const status=setInterval(()=>console.log('TRANSFER_BYTES',JSON.stringify(remote.stats)),30000);
 try{
