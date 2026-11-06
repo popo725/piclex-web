@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-06",
+  "productCommit": "e6ab8fca34c7e31ad0613fa99ca0da40da8b9836",
+  "ciOptimizationCommit": "6d7aca9820d96a27e70ad7019295a031ba1c4bc7",
+  "releaseID": "e6ab8fca34c7-d3dee21e3539",
+  "animationCI": 42195498959,
+  "animationDockerCI": 42195498666,
+  "optimizedCI": 42197900249,
+  "browserPassedBeforeAndAfter": 402,
+  "existingSkippedBeforeAndAfter": 4,
+  "shards": [
+    {
+      "passed": 137,
+      "skipped": 1,
+      "seconds": 262
+    },
+    {
+      "passed": 131,
+      "skipped": 2,
+      "seconds": 244
+    },
+    {
+      "passed": 134,
+      "skipped": 1,
+      "seconds": 447
+    }
+  ],
+  "timingSeconds": {
+    "browserBefore": 940,
+    "browserAfterLongestShard": 447,
+    "dockerVerificationBuildBefore": 508,
+    "dockerVerificationBuildAfter": 156,
+    "artifactVerification": 3
+  },
+  "verifiedImageArtifactFiles": 1142,
+  "ciOnlyDidNotDeployPagesOrPushDocker": true,
+  "live": {
+    "sourceRevision": "e6ab8fca34c7e31ad0613fa99ca0da40da8b9836",
+    "sameAssets": true,
+    "domains": [
+      {
+        "base": "https://zhaoolee.com/piclex-web/",
+        "pixel": {
+          "rendering": "crispEdges",
+          "fill": "rgb(36, 36, 36)"
+        },
+        "pacmanInline": true,
+        "sandVisible": true,
+        "sandMoving": true,
+        "reducedMotion": true,
+        "htmlSHA256": "102f486ad90c8309132c538075e619d08234180f6c9c54f4287281b5271c4717",
+        "cssPath": "/piclex-web/assets/main-BnYEos18.css",
+        "jsPath": "/piclex-web/assets/main-fRcXdiBI.js",
+        "cssSHA256": "b7b7c58fdbe722368d00cc811c866859089853f10ca0484f2ad5a2e56bd8b096",
+        "jsSHA256": "67ffe4d0ecec7de12cdf15e4fc0611e0304b5fc1d5d3ae51db6dbab5fa246654"
+      },
+      {
+        "base": "https://piclex.v2fy.com/piclex-web/",
+        "pixel": {
+          "rendering": "crispEdges",
+          "fill": "rgb(36, 36, 36)"
+        },
+        "pacmanInline": true,
+        "sandVisible": true,
+        "sandMoving": true,
+        "reducedMotion": true,
+        "htmlSHA256": "102f486ad90c8309132c538075e619d08234180f6c9c54f4287281b5271c4717",
+        "cssPath": "/piclex-web/assets/main-BnYEos18.css",
+        "jsPath": "/piclex-web/assets/main-fRcXdiBI.js",
+        "cssSHA256": "b7b7c58fdbe722368d00cc811c866859089853f10ca0484f2ad5a2e56bd8b096",
+        "jsSHA256": "67ffe4d0ecec7de12cdf15e4fc0611e0304b5fc1d5d3ae51db6dbab5fa246654"
+      }
+    ]
+  },
+  "cleanup": {
+    "remaining": [
+      "e6ab8fca34c7-d3dee21e3539"
+    ],
+    "deleted": [
+      "b63bb91ce8d1-d298a3fdac36"
+    ],
+    "userExplicitlyApprovedAndRanPrivilegedFinalizer": true,
+    "skipped": []
+  },
+  "notes": [
+    "Old full CI baseline was reused locally; animation main pushed once.",
+    "Domestic entry updated once via existing delta updater, followed by read-only browser checks.",
+    "First browser navigation timed out; HTTP/1.1 retry passed unchanged assertions.",
+    "Unprivileged cleanup could not inspect /proc; authorized sudo finalization completed without redeployment."
+  ]
+}
