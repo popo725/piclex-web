@@ -1,6 +1,6 @@
 {
   "date": "2026-11-06",
-  "status": "Domestic feature and source Docker release verified; superseding combined Pages/Docker run pending",
+  "status": "Domestic feature and Docker releases verified; combined Pages run pending runner dependency installation",
   "sourceRevision": "6f168d29132e4822c048ac89af8ff386a05d09ae",
   "changes": [
     "A continuous speech presentation clock advances between boundary events and without callbacks. Text/rate estimate is calibrated by actual boundaries.",
@@ -72,19 +72,20 @@
       42167251092,
       42167251095
     ],
-    "dockerResult": "combined run pending; source Docker 42168760115 succeeded",
+    "dockerResult": "success",
     "delay": "GitHub runner Ubuntu mirror downloads for Playwright dependencies were unusually slow; no new workflow was pushed or rerun.",
     "previousHead": "6f168d29132e4822c048ac89af8ff386a05d09ae",
     "previousCheckAndPublish": 42168760052,
     "previousCheckConclusion": "cancelled by parallel release after 54m05s, during slow runner dependency installation; browser tests had not started",
     "sourceDocker": 42168760115,
-    "combinedProgressSourceAndTestsUnchanged": true
+    "combinedProgressSourceAndTestsUnchanged": true,
+    "lastCheckedUTC": "2026-11-06T06:34:37Z"
   },
   "cleanup": {
     "dedicatedLinuxContainer": "removed",
     "serverOldReleases": "unified activation retained current only",
     "serverTaskStaging": "removed",
-    "localArtifacts": "Final build and completed test logs/traces removed; report and screenshot preserved. Temporary worktree and workflow watcher retained until final record.",
+    "localArtifacts": "Own generated content, build, test results/traces, dependency symlink and completed watcher logs removed; tracked report/screenshot preserved. Clean isolated worktree retained only through this evidence commit.",
     "unusedAlternativeImage": "Newly pulled Playwright 1.63.0 official image removed after existing workflow continued; no CI configuration change retained."
   },
   "docker": {
@@ -96,5 +97,5 @@
       "linux/arm64"
     ]
   },
-  "localMain": "Fast-forwarded to release revision; existing uncommitted changes preserved."
+  "localMain": "Fast-forwarded to 753e8c0 containing combined source and first evidence record; existing uncommitted changes preserved."
 }
