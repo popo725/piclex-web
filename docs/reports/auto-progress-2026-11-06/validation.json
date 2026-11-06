@@ -1,6 +1,6 @@
 {
   "node": {
-    "passed": 250,
+    "passed": 255,
     "failed": 0
   },
   "deployTests": {
@@ -8,42 +8,29 @@
     "reusedUnchangedCode": true
   },
   "linuxBrowser": {
-    "total": 369,
-    "passed": 365,
+    "total": 382,
+    "passed": 378,
     "skipped": 4,
     "failed": 0,
-    "workers": 2,
+    "workers": 4,
     "retries": 0,
-    "durationMinutes": 16.5
+    "durationMinutes": 13.0
   },
   "animationRepeated": {
     "passed": 27,
     "failed": 0
   },
   "typeScriptAndVite": "passed",
-  "sourceInputsCompared": 386,
+  "sourceInputsCompared": 388,
   "sourceMismatches": 0,
   "largeBackupMiB": 128,
   "swiftInterop": "passed",
   "browserSnapshots": {
-    "chrome": "4d9e43c64210e8d5b93c91895c0d6de37fa895fe23ef671cb1ad7697f59e4f0e",
-    "webkit": "06bcf85050de4ff27dc2450b83956d5e4bf2435444cf0c2cded10fb45e4336eb"
+    "chrome": "634a1a00db919dd85f5d72e809396f2eeffc651f1d34e2dc6643883c9cd806d5",
+    "webkit": "d85ab1fbe4890137a115e976761ecc2cd404d3878341dd3de15fe9245ed28943"
   },
   "parallelBaseline": "2a5125cc5379a4225a8ccfc85998387c9c9e9330",
-  "githubWorkflows": {
-    "pages": {
-      "id": 42150459672,
-      "conclusion": "failure",
-      "browserPassed": 364,
-      "browserSkipped": 4,
-      "browserFailed": 1,
-      "failure": "subscription-poster.spec.ts mobile: preview hidden after resetting text"
-    },
-    "docker": {
-      "id": 42150459674,
-      "conclusion": "success"
-    }
-  },
+  "githubWorkflows": "pending final repair push",
   "productionActivated": false,
   "previousPreloadOnlyValidation": {
     "node": {
@@ -61,8 +48,42 @@
     }
   },
   "sourceInputsScope": "All tracked runtime/build/test inputs; docs and memory excluded",
-  "sourceCommit": "624d2e087276ce8c67202eacb7f8b932be7ac238",
-  "docker": {
+  "sourceCommit": "7fb94a72178452eb1f0128826cd052fe82cb779b",
+  "previousCombinationValidation": {
+    "node": {
+      "passed": 250,
+      "failed": 0
+    },
+    "linuxBrowser": {
+      "total": 369,
+      "passed": 365,
+      "skipped": 4,
+      "failed": 0,
+      "workers": 2,
+      "retries": 0,
+      "durationMinutes": 16.5
+    },
+    "sourceCommit": "624d2e087276ce8c67202eacb7f8b932be7ac238"
+  },
+  "previousGithubAttempt": {
+    "pages": {
+      "id": 42150459672,
+      "conclusion": "failure",
+      "browserPassed": 364,
+      "browserSkipped": 4,
+      "browserFailed": 1,
+      "failure": "subscription-poster.spec.ts mobile: preview hidden after resetting text"
+    },
+    "docker": {
+      "id": 42150459674,
+      "conclusion": "success"
+    }
+  },
+  "posterRepeated": {
+    "passed": 30,
+    "failed": 0
+  },
+  "dockerPreviousAttempt": {
     "workflow": 42150459674,
     "conclusion": "success",
     "image": "zhaoolee/piclex-web:sha-624d2e0",
@@ -71,5 +92,6 @@
       "linux/amd64",
       "linux/arm64"
     ]
-  }
+  },
+  "mirrorStaging": "passed isolated Nginx and 986 file checks; not activated"
 }

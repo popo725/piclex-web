@@ -1,0 +1,43 @@
+{
+  "initialGitHubRun": 42150459672,
+  "initialGitHubBrowser": {
+    "passed": 364,
+    "skipped": 4,
+    "failed": 1
+  },
+  "failedCase": "mobile subscription-poster reset text preview visibility",
+  "traceFindings": [
+    "Reset click applied default fields",
+    "Error alert was empty",
+    "Preview remained hidden after five seconds"
+  ],
+  "originalLinuxRepeated": {
+    "passed": 10
+  },
+  "cpuThrottledDiagnostics": {
+    "rate": 4,
+    "passed": 20
+  },
+  "controlledDelayedPNGRegression": {
+    "oldBuild": "failed: preview remained hidden while PNG callback was held",
+    "fixedBuild": "passed"
+  },
+  "fixedChromeMobileWebKitRepeated": {
+    "total": 30,
+    "passed": 30,
+    "repeatsPerProject": 5,
+    "retries": 0
+  },
+  "assertionsPreserved": [
+    "PNG signature and 1024x1536 dimensions",
+    "No request to subscription author",
+    "Reject four-line guide and invalid cover"
+  ],
+  "addedAssertions": [
+    "Preview visible while export pending",
+    "Download unavailable until encoded",
+    "Stale export cannot publish over newer title",
+    "Export bytes match latest visible canvas"
+  ],
+  "note": "The trace does not identify which asynchronous image/PNG phase exhausted the wait. The fix removes redundant QR decoding and decouples preview painting from PNG export; no timeout or assertion was relaxed."
+}
