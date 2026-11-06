@@ -52,4 +52,16 @@ sudo python3 -B /home/hermes/piclex-web/deploy/activate.py --finalize-current --
 
 2026-11-03：部署工具与镜像构建完成；8 项部署测试和本机浏览器首页/进入练习/拼对判定通过。服务器上传、隔离验收和正式激活结果记录于 `memory/2026-11-03.md`。
 
-两个入口已上线，用户执行管理员切换后完成公网页面/学习资源、源站完整包、公网分段下载及旧业务接口核验。根入口自动跳转到 `/piclex-web/`。完整结果与网络验收边界见 `docs/reports/2026-11-03-mirror-verification.json`；没有配置后台自动发布。
+两个入口已上线，根入口自动跳转到 `/piclex-web/`。完整结果与网络验收边界见 `docs/reports/2026-11-03-mirror-verification.json`。
+
+## 公开卡组自动更新
+
+Pages 的完整检查成功后才发布 `/piclex-web/release.json`，其中列出本次公开文件的大小、SHA256 与源码提交。服务器上的 `deploy/auto-update-public.py` 定时读取这份清单；若版本未变就退出。版本有变时，仅从 Pages 下载新文件，复用逐字节核验过的旧文件，再按已有 `check-mirror.py` 验证独立 Nginx。它在同一发布锁内原子切换 `current`，检查源站和公网 HTTPS；失败恢复前一版本，成功后使用已有安全清理器处理旧版。现有 Nginx 配置必须与标准 Web 路由完全一致，脚本不会编辑配置或重载服务。
+
+服务器的 `hermes` 用户可使用已有的 `cron`，每小时运行一次：
+
+```cron
+23 * * * * /usr/bin/python3 -B /home/hermes/piclex-web/deploy/auto-update-public.py >> /home/hermes/piclex-web/reports/auto-update.log 2>&1 # piclex-web-public-auto-update
+```
+
+部署脚本与定时任务首次启用后，使用 `--check` 只校验候选包；正式运行前确认 Pages 该提交已经通过完整检查。不能以 Docker 发布成功替代 Pages 检查；若 Pages 暂时不可达或哈希不符，本次更新失败并保留当前站点。

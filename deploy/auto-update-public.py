@@ -1,0 +1,131 @@
+#!/usr/bin/env python3
+"""Promote a verified GitHub Pages release to the existing Web mirror."""
+import argparse
+from concurrent.futures import ThreadPoolExecutor
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import tempfile
+import time
+
+from activate import ROOT, SITE, LOCK_PATH, patch_site, verify_release
+from release_lifecycle import verify_live_release, prune_old_releases
+
+PAGES='https://zhaoolee.com/piclex-web/'
+HASH=re.compile(r'[0-9a-f]{64}')
+RELEASE=re.compile(r'[0-9a-f]{12}-[0-9a-f]{12}')
+
+
+def fetch(url, output=None, limit=2*1024*1024):
+    command=['curl','--fail','--silent','--show-error','--connect-timeout','10','--max-time','180','--max-filesize',str(limit)]
+    if output is not None:command+=['--output',str(output)]
+    result=subprocess.run(command+[url],check=True,stdout=subprocess.PIPE if output is None else subprocess.DEVNULL)
+    return result.stdout if output is None else None
+
+
+def digest(path):
+    value=hashlib.sha256()
+    with path.open('rb') as stream:
+        for chunk in iter(lambda:stream.read(1024*1024),b''):
+            value.update(chunk)
+    return value.hexdigest()
+
+
+def manifest_from_pages():
+    manifest=json.loads(fetch(PAGES+'release.json'))
+    if (not RELEASE.fullmatch(manifest.get('releaseID','')) or
+        not re.fullmatch(r'[0-9a-f]{40}',manifest.get('sourceRevision','')) or
+        manifest.get('origin')!='https://piclex.v2fy.com' or
+        not isinstance(manifest.get('files'),dict) or
+        len(manifest['files'])>10000):
+        raise RuntimeError('Invalid Pages release manifest')
+    files=manifest['files']
+    if (any(not safe_file(name,info) for name,info in files.items()) or
+        sum(info['bytes'] for info in files.values())>10*1024**3 or
+        manifest['releaseID']!=manifest['sourceRevision'][:12]+'-'+hashlib.sha256(json.dumps(files,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()[:12]):
+        raise RuntimeError('Invalid Pages release files or identity')
+    return manifest
+
+
+def safe_file(name, info):
+    parts=name.split('/') if isinstance(name,str) else []
+    return (len(parts)>1 and parts[0]=='piclex-web' and
+            re.fullmatch(r'[A-Za-z0-9_./-]+',name) is not None and
+            all(part not in ('','.','..') and not part.startswith('.') for part in parts) and
+            isinstance(info,dict) and isinstance(info.get('bytes'),int) and
+            0<=info['bytes']<=134217728 and HASH.fullmatch(info.get('sha256','')))
+
+
+def populate(stage,manifest,previous):
+    old_files={}
+    if previous is not None:
+        try:old_files=json.loads((previous/'release.json').read_text()).get('files',{})
+        except (OSError,ValueError):pass
+    def obtain(item):
+        name,info=item
+        if not safe_file(name,info):raise RuntimeError(f'Invalid release file path or metadata: {name}')
+        destination=stage/name
+        destination.parent.mkdir(parents=True,exist_ok=True)
+        old=previous/name if previous else None
+        if old is not None and old_files.get(name)==info and old.is_file() and not old.is_symlink() and digest(old)==info['sha256']:
+            os.link(old,destination)
+        else:
+            fetch(PAGES+name.removeprefix('piclex-web/'),destination,info['bytes']+1)
+        if destination.stat().st_size!=info['bytes'] or digest(destination)!=info['sha256']:
+            raise RuntimeError(f'Pages file checksum mismatch: {name}')
+    with ThreadPoolExecutor(max_workers=8) as workers:list(workers.map(obtain,manifest['files'].items()))
+    (stage/'release.json').write_text(json.dumps(manifest,indent=2)+'\n')
+
+
+def switch(target):
+    temporary=ROOT/f'.current-auto-{os.getpid()}'
+    try:
+        temporary.symlink_to(target)
+        os.replace(temporary,ROOT/'current')
+    finally:temporary.unlink(missing_ok=True)
+
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check',action='store_true',help='Verify the candidate without activating it')
+    args=parser.parse_args()
+    if not ROOT.is_dir() or ROOT.is_symlink() or SITE.is_symlink():raise RuntimeError('Unexpected deployment paths')
+    config=SITE.read_text()
+    if patch_site(config)!=config:raise RuntimeError('Nginx configuration needs privileged review')
+    with LOCK_PATH.open('r') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        started=time.time()
+        manifest=manifest_from_pages()
+        current=ROOT/'current'
+        previous=current.resolve() if current.is_symlink() else None
+        if previous and previous.name==manifest['releaseID']:
+            return print('Public Web release unchanged; no deployment')
+        if previous:
+            if previous.parent!=ROOT/'releases':raise RuntimeError('Current release is outside the managed directory')
+            verify_release(previous)
+        with tempfile.TemporaryDirectory(prefix='piclex-auto-',dir=ROOT/'incoming') as directory:
+            stage=Path(directory)
+            populate(stage,manifest,previous)
+            verify_release(stage)
+            subprocess.run(['/usr/bin/python3','-B',str(ROOT/'deploy/check-mirror.py'),'--release',str(stage)],check=True)
+            if args.check:return print(f'Candidate verified: {manifest["releaseID"]}')
+            if SITE.read_text()!=config:raise RuntimeError('Nginx configuration changed during preparation')
+            release=ROOT/'releases'/manifest['releaseID']
+            if release.exists():
+                if verify_release(release)!=manifest:raise RuntimeError('Release ID collision')
+            else:stage.rename(release)
+            try:
+                switch(release)
+                verify_live_release(release,manifest)
+            except BaseException:
+                if previous:switch(previous)
+                raise
+            print(f'Activated {manifest["releaseID"]}')
+            prune_old_releases(ROOT,SITE,release,previous,started,verify_release)
+
+
+if __name__=='__main__':main()
