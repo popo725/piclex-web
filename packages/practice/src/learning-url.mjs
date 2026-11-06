@@ -17,6 +17,9 @@ export function applyLearningURL(deck,state,route){
  if(index<0&&route.photo)index=deck.words.findIndex(w=>w.imageIndex===route.photo-1);
  if(index>=0)next=dispatch(next,{type:'selectWord',index});
  if(route.module)next=dispatch(next,{type:'module',value:route.module});
+ // A direct spelling link is a fresh attempt at that word, even when its saved
+ // answer was already complete. Keep the round and other words' drafts intact.
+ if(route.module==='spelling'&&index>=0&&deck.words[index].id===route.word)next=dispatch(next,{type:'retryWord'});
  if(next.module==='listening'){
   if(route.mode)next=dispatch(next,{type:'mode',value:route.mode});
   if(route.difficulty)next=dispatch(next,{type:'preference',name:'difficulty',value:route.difficulty});

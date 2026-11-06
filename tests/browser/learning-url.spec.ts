@@ -26,3 +26,13 @@ test('same-deck links and refresh restore dictation difficulty, legacy links sti
  await page.goto('/piclex-web/#/deck/'+card.id);await expect(page.locator('.native-header')).toBeVisible();await expect.poll(()=>parameters(page.url()).get('photo')).toBe('3');
  await page.goto('/piclex-web/#/deck/'+card.id+'?module=invalid&photo=99999999&word=missing&sentence=-1');await expect(page.locator('.native-header')).toBeVisible();await expect.poll(()=>parameters(page.url()).get('photo')).toBe('3');
 });
+test('opening a link to an already completed spelling starts a writable new attempt',async({page})=>{
+ const first=deck.words[0],second=deck.words[1],input=page.getByRole('textbox',{name:'输入英文',exact:true});
+ await page.goto('/piclex-web/#/deck/'+card.id);
+ await fillSpelling(page,first.english);
+ await expect(page.getByRole('heading',{name:second.chinese,exact:true})).toBeVisible();
+ const link=`/piclex-web/#/deck/${card.id}?module=spelling&photo=${first.imageIndex+1}&word=${encodeURIComponent(first.id)}`;
+ await page.goto(link);await expect(page.getByRole('heading',{name:first.chinese,exact:true})).toBeVisible();
+ await expect(input).toHaveValue('');await expect(page.getByRole('button',{name:'不认识'})).toBeEnabled();
+ await fillSpelling(page,first.english.slice(0,1));await expect(input).toHaveValue(first.english.slice(0,1));
+});

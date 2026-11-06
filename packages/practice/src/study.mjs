@@ -101,6 +101,11 @@ export function reduceStudy(deck,s,action,preparedPrompts){
   if(action.index===s.index){if(s.sentenceFinished){next.sentenceFinished=false;pause(next);return next;}return s;}navigate(action.index);
   const at=promptIndex(prompts,deck,action.index);if(at>=0){next.sentenceIndex=at;next.sentenceFinished=false;}return next;
  }
+ if(action.type==='retryWord'&&word&&s.module==='spelling'&&s.words[word.id]?.result){
+  const mistakes=next.quick?next.history[word.id]?.mistakes:null;
+  next.words[word.id]={input:'',hadMistake:false,result:null,quickIndices:mistakes?.length?mistakes:null};
+  pause(next);return next;
+ }
  if(action.type==='listeningJump'&&s.module==='listening'&&s.mode==='listening'&&Number.isInteger(action.index)&&prompts[action.index]){next.sentenceIndex=action.index;next.sentenceFinished=false;navigate(prompts[action.index].wordIndex);return next;}
  if(action.type==='sentenceNext'){
   const p=prompts[s.sentenceIndex],draft=p&&s.sentences[p.key];if(!p||(s.mode!=='listening'&&!draft?.outcomes[s.mode]))return s;

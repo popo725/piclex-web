@@ -31,6 +31,17 @@ test('URL navigation preserves drafts, grades, history and does not accept forge
  assert.equal(next.index,2);assert.equal(next.module,'listening');
  const hash=learningHash(deck,next);for(const privateKey of ['input','xp','result','history','round','rate'])assert.equal(new URLSearchParams(hash.split('?')[1]).has(privateKey),false);
 });
+test('a spelling link reopens a completed word without erasing the round or other drafts',()=>{
+ let saved=newStudy(deck);
+ saved=reduceStudy(deck,saved,{type:'input',value:'apple',question:studyKey(saved)});
+ saved=reduceStudy(deck,saved,{type:'next',question:studyKey(saved)});
+ saved=reduceStudy(deck,saved,{type:'input',value:'b',question:studyKey(saved)});
+ const original=structuredClone(saved),reopened=apply(saved,'module=spelling&photo=1&word=word%3Fa%26b');
+ assert.equal(reopened.index,0);assert.equal(reopened.words[deck.words[0].id].input,'');assert.equal(reopened.words[deck.words[0].id].result,null);
+ assert.deepEqual(reopened.words.b,original.words.b);assert.deepEqual(reopened.history,original.history);assert.equal(reopened.round,original.round);
+ assert.equal(saved.words[deck.words[0].id].result,'correct');
+ const repeated=apply(reopened,'module=spelling&photo=1&word=word%3Fa%26b');assert.equal(repeated.words[deck.words[0].id].result,null);
+});
 test('legacy links retain saved state; invalid or foreign destinations cannot corrupt cursors',()=>{
  const saved={...newStudy(deck),index:2};
  assert.equal(apply(saved,''),saved);assert.equal(parseLearningURL('#/deck/%zz'),null);assert.equal(parseLearningURL('#/settings'),null);
