@@ -65,67 +65,21 @@
 
 ## Docker 启动与更新
 
-支持 Linux AMD64 与 ARM64。以下命令在**运行 Docker 的电脑或服务器上**执行。
-
-### 首次启动：仅本机访问
+**一行启动**（在运行 Docker 的电脑或服务器上执行）：
 
 ```sh
-docker pull zhaoolee/piclex-web:latest &&
-docker run -d --name piclex-web \
-  --restart unless-stopped -p 127.0.0.1:18120:8080 \
-  zhaoolee/piclex-web:latest
+docker run --pull always -d --name piclex-web --restart unless-stopped -p 18120:8080 zhaoolee/piclex-web:latest
 ```
 
-在运行 Docker 的同一台电脑上打开 <http://127.0.0.1:18120>，会自动进入 `/piclex-web/`。此方式只绑定本机回环地址，适合本机使用或由同机反向代理提供访问；其他设备不能直接访问该端口。
+本机打开 <http://127.0.0.1:18120>；手机或其他局域网设备打开 `http://服务器IP:18120`（换成实际 IP，并确保端口可达）。
 
-### 首次启动：局域网其他设备访问
+**已部署？一行更新：**
 
 ```sh
-docker pull zhaoolee/piclex-web:latest &&
-docker run -d --name piclex-web \
-  --restart unless-stopped -p 18120:8080 \
-  zhaoolee/piclex-web:latest
+docker pull zhaoolee/piclex-web:latest && docker stop piclex-web && docker rm piclex-web && docker run -d --name piclex-web --restart unless-stopped -p 18120:8080 zhaoolee/piclex-web:latest
 ```
 
-在手机或另一台电脑上打开 `http://服务器的局域网IP:18120`，例如 `http://192.168.1.20:18120`，把示例 IP 换成实际运行 Docker 的机器地址。`127.0.0.1` 永远指浏览器所在设备，不能用它访问另一台机器。此映射监听所有网络接口，请在防火墙中仅向需要访问的局域网放行 18120 端口。
-
-**两种首次启动方式二选一。** 它们使用同一个容器名 `piclex-web`；如果已启动过，或出现容器名已存在的提示，请使用下面的更新步骤，不要重复执行首次启动命令。
-
-### 更新已有容器
-
-先拉取新镜像，再停止、删除旧静态网页容器并按原方式重建。下面的 `&&` 确保前一步成功后才继续；拉取失败时不会停止旧服务。**只执行与原部署方式对应的一组命令。** 如果改过容器名、端口或反向代理，请沿用自己的原配置。
-
-**原来仅本机访问：**
-
-```sh
-docker pull zhaoolee/piclex-web:latest &&
-docker stop piclex-web &&
-docker rm piclex-web &&
-docker run -d --name piclex-web \
-  --restart unless-stopped -p 127.0.0.1:18120:8080 \
-  zhaoolee/piclex-web:latest
-```
-
-**原来供局域网访问：**
-
-```sh
-docker pull zhaoolee/piclex-web:latest &&
-docker stop piclex-web &&
-docker rm piclex-web &&
-docker run -d --name piclex-web \
-  --restart unless-stopped -p 18120:8080 \
-  zhaoolee/piclex-web:latest
-```
-
-仅执行 `docker pull` 不会替换运行中的容器，`docker restart` 也仍使用旧镜像。更新后刷新原页面即可；旧版的 `Cannot read properties of undefined (reading 'digest')` 报错已修复，需要拉取并重建容器才能用到修复。
-
-### 数据与浏览器功能
-
-- 照片、学习进度和设置保存在**当前浏览器**，不是容器中；替换上述静态容器不会清除这些数据。保持原来的访问域名/IP、端口和协议，不要清除站点数据。更换访问地址或浏览器会进入另一份存储，迁移前请先导出完整备份。
-- 局域网 HTTP 可用于卡组学习、本地导入和等级/进度同步；相机、麦克风及部分大文件备份能力仍需有效 HTTPS 和浏览器授权。本机 `localhost`／`127.0.0.1` 是浏览器认可的安全上下文例外。WebDAV **服务地址本身**仍须使用 HTTPS。
-- 自托管 AI 制卡需在设置中配置自己的模型；镜像不包含模型 Key。配置 WebDAV 后可自动同步等级与学习进度，照片和卡组不会随轻量进度同步自动传输。
-
-[Compose、HTTPS 与详细部署说明](docs/docker.md)。
+照片和进度保存在浏览器，更新容器不会清除它们；请保持原访问地址，自定义容器名或端口映射沿用原值。[仅本机绑定、HTTPS、Compose 等详细说明](docs/docker.md)。
 
 [使用与开发说明](docs/web-guide.md) · [发布自己的卡组](docs/publishing-decks.md) · [部署说明](deploy/README.md) · [二维码分享封面](docs/subscription-qr/README.md)
 
