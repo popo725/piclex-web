@@ -5,11 +5,25 @@
 /* Full-page loading stays centered in the space above the bottom tabs. */
 .empty-state.load-screen{display:grid;place-items:center;min-height:calc(100dvh - var(--app-tab-height,64px) - env(safe-area-inset-bottom,0px));padding:24px 24px 44px}
 .load-screen .load-progress{width:min(300px,80vw);gap:13px}
-.load-screen .load-progress::before{content:"";justify-self:center;width:48px;height:52px;margin-bottom:8px;border:6px solid var(--ink);border-bottom-width:13px;border-radius:5px;background:radial-gradient(circle at 75% 27%,var(--ink) 0 4px,transparent 5px),linear-gradient(145deg,transparent 47%,var(--ink) 48% 57%,transparent 58%) 0 18px/100% 28px no-repeat,var(--bg);box-shadow:0 8px 18px #0002;transform:rotate(-8deg);animation:load-photo-float 2.4s ease-in-out infinite}
+/* Inline polaroid with a drifting sand picture; only the full-page loader shows it. */
+.load-sand-art{display:none}
+.load-screen .load-sand-art{display:block;justify-self:center;width:88px;height:110px;margin-bottom:5px;filter:drop-shadow(0 7px 15px #0000002b)}
+.load-screen .sand-stream{animation:sand-flow 2.7s linear infinite}
+.load-screen .sand-stream-2{animation-delay:-.9s}
+.load-screen .sand-stream-3{animation-delay:-1.8s}
+.load-screen .sand-grain{animation:sand-grain 3.4s linear infinite}
+.load-screen .sand-grain-2{animation-duration:4.1s;animation-delay:-1.3s}
+.load-screen .sand-grain-3{animation-duration:3s;animation-delay:-2.2s}
+.load-screen .sand-grain-4{animation-duration:4.6s;animation-delay:-.6s}
+.load-screen .sand-dune{transform-box:fill-box;transform-origin:50% 100%;animation:sand-settle 9s ease-in-out infinite alternate}
+.load-screen .sand-dune-2{animation-duration:11s;animation-delay:-3.5s}
+.load-screen .sand-dune-3{animation-duration:13s;animation-delay:-7s}
 .load-screen .load-progress progress{height:8px;border-radius:999px}
 .load-screen .load-progress progress::-webkit-progress-bar{background:var(--line);border-radius:999px}
 .load-screen .load-progress progress::-webkit-progress-value{border-radius:999px;background:linear-gradient(105deg,var(--ink) 20%,color-mix(in srgb,var(--ink) 55%,var(--bg)) 50%,var(--ink) 80%);background-size:200% 100%;animation:load-progress-glint 2s linear infinite}
 .load-screen .load-progress progress::-moz-progress-bar{border-radius:999px;background:var(--ink)}
-@keyframes load-photo-float{50%{transform:translateY(-5px) rotate(5deg)}}
+@keyframes sand-flow{from{stroke-dashoffset:18;opacity:0;transform:translateY(-3px)}20%{opacity:1}70%{opacity:.9}to{stroke-dashoffset:0;opacity:0;transform:translateY(12px)}}
+@keyframes sand-grain{from{opacity:0;transform:translateY(0)}14%{opacity:1}78%{opacity:.85}to{opacity:0;transform:translateY(40px)}}
+@keyframes sand-settle{from{transform:scaleY(1)}to{transform:scaleY(1.035)}}
 @keyframes load-progress-glint{to{background-position:-200% 0}}
-@media(prefers-reduced-motion:reduce){.load-screen .load-progress::before,.load-screen .load-progress progress::-webkit-progress-value{animation:none}}
+@media(prefers-reduced-motion:reduce){.load-screen .load-progress progress::-webkit-progress-value,.load-screen .load-sand-art g,.load-screen .load-sand-art circle{animation:none}}
