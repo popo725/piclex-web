@@ -25,8 +25,11 @@ async function obtain(name, url, maximum) {
   // No redirects, authentication, cookies, or private API. curl works with the public CDN.
   // A reset connection is retryable too. Never expose a partial download as a cache hit.
   const partial = path + '.part';
+  // Large public decks need more than three minutes on a slower CI connection.
+  // Keep the transfer bounded at a minimum throughput of 256 KiB/s.
+  const timeout = Math.max(180, Math.ceil(maximum / (256 * 1024)));
   try {
-    execFileSync('curl', ['--fail', '--silent', '--show-error', '--retry', '2', '--retry-all-errors', '--connect-timeout', '20', '--max-time', '180', '--max-filesize', String(maximum), '--output', partial, url]);
+    execFileSync('curl', ['--fail', '--silent', '--show-error', '--retry', '2', '--retry-all-errors', '--connect-timeout', '20', '--max-time', String(timeout), '--max-filesize', String(maximum), '--output', partial, url]);
     await rename(partial, path);
     return readFile(path);
   } finally { await rm(partial, { force: true }); }
