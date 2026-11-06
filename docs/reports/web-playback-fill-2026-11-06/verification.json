@@ -1,5 +1,5 @@
 {
-  "status": "targeted checks passed; release pending",
+  "status": "domestic production released and verified; automated Pages/Docker still pending",
   "changes": [
     "Integrate existing unpublished left-anchored playback fill and 33 ms sampling of actual media currentTime/duration.",
     "Increase fill opacity to 0.28, matching native fill opacity. No scanning activity animation.",
@@ -22,7 +22,16 @@
     },
     "productionBuild": "passed once, before targeted tests",
     "initialTestCorrection": "Missing brace in added test caused collection failure; corrected test syntax only, then 21 targeted cases passed. Product build not repeated.",
-    "fullSuite": "Reuse completed audio baseline full run (380 pass, 4 existing skips). Per latest user request no repeat of local full suite."
+    "fullSuite": "Reuse completed audio baseline full run (380 pass, 4 existing skips). Per latest user request no repeat of local full suite.",
+    "combinedBuild": "After merging independently verified subscription-poster code, rebuilt the final combined source successfully; no repeat local full suite.",
+    "live": {
+      "startTime": "2026-11-06T03:29:12.546Z",
+      "duration": 28381.354,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
   },
   "sourceSHA256": {
     "apps/public/src/NativePractice.tsx": "660d1701efb7a36050dac7cb4cf7502072fcc1576d857fd2f7dc87dc454d893a",
@@ -34,5 +43,39 @@
   "limitations": [
     "Desktop Linux WebKit and Chrome are not physical iPhone confirmation.",
     "Browser TTS exposes no reliable duration when boundary callbacks are missing; hold confirmed progress in that case."
-  ]
+  ],
+  "sourceRevision": "99557459fbb18e1bf5d501779fa79659c773aa80",
+  "mirror": {
+    "releaseID": "99557459fbb1-3134c739712b",
+    "sourceRevision": "99557459fbb18e1bf5d501779fa79659c773aa80",
+    "base": "314297a2e06c-19c70c0aae27",
+    "files": 2306,
+    "preservedNonBuildFiles": 2293,
+    "overlaySHA256": "3134c739712b8ed462bd317c49394f8ea1c97aac442f588097979c577373b799",
+    "status": "activated; 2306 file hashes, isolated Nginx, source/public HTTPS and cleanup succeeded",
+    "assets": {
+      "url": "https://piclex.v2fy.com/piclex-web/",
+      "script": "/piclex-web/assets/main-Bra0EaVt.js",
+      "sha256": "37ecaca0e5001d312e336b4203b527d311f94d0aab43d6936c189253cdf799af",
+      "matchesTestedBuild": true
+    }
+  },
+  "workflows": {
+    "head": "99557459fbb18e1bf5d501779fa79659c773aa80",
+    "checkAndPublish": 42156551532,
+    "docker": 42156551696,
+    "status": "pending; do not claim final pipeline success",
+    "checkURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42156551532",
+    "dockerURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42156551696",
+    "supersededChecksCancelled": [
+      42155623756,
+      42156033031
+    ]
+  },
+  "cleanup": {
+    "dedicatedLinuxContainer": "removed",
+    "serverUploadStaging": "removed",
+    "oldServerReleases": "removed by activate.py; current only",
+    "local": "temporary artifacts removed after evidence capture; isolated worktree removed after record push and remote verification"
+  }
 }
