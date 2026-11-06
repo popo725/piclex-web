@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-06",
+  "base": "624d2e087276ce8c67202eacb7f8b932be7ac238",
+  "rootCause": "SubtleCrypto and randomUUID unavailable on non-loopback HTTP origins",
+  "sourceSHA256": {
+    "packages/deck-format/src/archive.mjs": "6c9511e59de1b3f57765c23c5454ec0a9c76942a159fadac6dffaefd0f58ee26",
+    "apps/public/src/progress-sync.ts": "b3408ccf5c44ef149d994fdc02815063ee494c9230fe82178ac41802a2296563",
+    "packages/backup/src/webdav.mjs": "4403e6a6365102801531fed96eb12119f0f542b289a86c2059adc6b6913af029"
+  },
+  "linux": {
+    "nodePassed": 255,
+    "deployPassed": 27,
+    "deployReusedUnchangedCode": true,
+    "fullBrowser": {
+      "passed": 374,
+      "skipped": 4,
+      "failed": 0,
+      "workers": 4,
+      "minutes": 8.7
+    },
+    "httpBrowserPassed": 9,
+    "typeScriptAndVite": "passed",
+    "publicContent": "7 decks verified; generated catalog/source identical"
+  },
+  "baselineReproduction": {
+    "httpBrowserFailed": 2,
+    "missingCryptoUnitFailed": 3
+  },
+  "github": "pending",
+  "dockerPublishedImage": "pending",
+  "cleanup": "task container/worktree retained for release verification"
+}

@@ -1,3 +1,4 @@
+import {sha256} from '../../../packages/deck-format/src/archive.mjs';
 import {WebDAV,configuration} from '../../../packages/backup/src/webdav.mjs';
 import {encodeProgress,mergeProgress} from '../../../packages/backup/src/progress.mjs';
 import {currentProgress,mergeSyncedProgress} from './backup-service';
@@ -29,8 +30,7 @@ export async function syncProgress(){
  try{
   report({...status,message:'正在同步等级与学习进度…',error:false});
   const normalized=configuration(settings);
-  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(normalized.root+'\n'+normalized.username));
-  const destination=Array.from(new Uint8Array(digest),n=>n.toString(16).padStart(2,'0')).join('');
+  const destination=await sha256(new TextEncoder().encode(normalized.root+'\n'+normalized.username));
   const execute=async()=>{
    valid();const client=new WebDAV(settings,{signal:controller!.signal});
    const seen=new Set(await progressSyncReceipts(destination));
