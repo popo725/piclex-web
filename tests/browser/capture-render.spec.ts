@@ -85,9 +85,12 @@ async function recordEntrance(page:any){
   };requestAnimationFrame(sample);
  });
 }
+// Validate a real frame where all three fades are active. Sparse CI frames may
+// miss an arbitrary first-label opacity band while still capturing the stagger.
+const entranceMid=(frames:any[])=>frames.find(f=>f.opacity.length===3&&f.opacity.every((p:number)=>p>0&&p<1));
 function checkEntrance(frames:any[]){
  expect(frames.length).toBeGreaterThan(8);
- const mid=frames.find(f=>f.opacity[0]>.45&&f.opacity[0]<.8);
+ const mid=entranceMid(frames);
  expect(mid,'must capture the actual staggered reveal, not only the final DOM').toBeTruthy();
  expect(mid.opacity[0]-mid.opacity[1]).toBeCloseTo(.22,2);
  expect(mid.opacity[1]-mid.opacity[2]).toBeCloseTo(.22,2);
@@ -132,7 +135,7 @@ for(const reduced of [false,true])test(`late recognition preserves stagger and c
  await expect(page.locator('.recognition-halo')).toBeVisible();finish();
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toBeVisible();await page.getByRole('button',{name:/秒后进入拼写/}).click();
  const frames=await page.evaluate(()=>(window as any).__labelFrames);checkEntrance(frames);
- const mid=frames.find((f:any)=>f.opacity[0]>.45&&f.opacity[0]<.8),last=frames.at(-1);
+ const mid=entranceMid(frames),last=frames.at(-1);
  expect(mid.transforms[2]).toBe(last.transforms[2]); // Associations fade in place.
  if(reduced)expect(mid.transforms).toEqual(last.transforms);
  else expect(mid.transforms[0]).not.toBe(last.transforms[0]);

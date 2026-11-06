@@ -63,8 +63,10 @@ test('public catalog reuses existing content and practice never downloads a whol
  await expect(page.getByRole('heading',{name:'程序员面试',exact:true})).toHaveCount(0);
  await page.getByRole('button',{name:'开始练习',exact:true}).click();
  await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
+ // Wait for the bounded current + five-photo window; exact paths also reject duplicate downloads.
+ const expectedPhotos=publicDeck.photos.slice(0,6).map((photo:{path:string})=>'/piclex-web/'+photo.path).sort();
+ await expect.poll(()=>requests.filter(url=>url.includes('/photos/')).sort()).toEqual(expectedPhotos);
  expect(requests.some(url=>url.endsWith('.piclexdeck'))).toBe(false);
- expect(requests.filter(url=>url.includes('/photos/')).length).toBeLessThanOrEqual(2);
  await fillSpelling(page,publicDeck.words[0].english);
  await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();
  await page.reload();await expect(page.getByRole('heading',{name:publicDeck.words[1].chinese,exact:true})).toBeVisible();

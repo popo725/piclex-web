@@ -44,8 +44,8 @@ test('deck and photo downloads display actual intermediate progress, then clear 
  const server=http.createServer(async(req,res)=>{const bytes=req.url==='/deck'?payload:photo;res.writeHead(200,{'Content-Type':req.url==='/deck'?'application/json':'image/jpeg','Content-Length':bytes.length,'Access-Control-Allow-Origin':'*'});const split=Math.floor(bytes.length/2);res.write(bytes.subarray(0,split));await(req.url==='/deck'?deckGate:photoGate);res.end(bytes.subarray(split));});
  await new Promise<void>(resolve=>server.listen(0,'127.0.0.1',resolve));const port=(server.address() as any).port;
  try{
-  await page.route('**/'+card.payload,route=>route.fulfill({status:302,headers:{location:`http://127.0.0.1:${port}/deck`}}));
-  await page.route('**/'+deck.photos[0].path,route=>route.fulfill({status:302,headers:{location:`http://127.0.0.1:${port}/photo`}}));
+  await page.route('**/'+card.payload,route=>route.continue({url:`http://127.0.0.1:${port}/deck`}));
+  await page.route('**/'+deck.photos[0].path,route=>route.continue({url:`http://127.0.0.1:${port}/photo`}));
   await page.goto('/piclex-web/#/deck/'+card.id,{waitUntil:'domcontentloaded'});
   const data=page.getByRole('progressbar',{name:'正在加载卡组',exact:true});await expect(data).toBeVisible();await expect.poll(async()=>Number(await data.getAttribute('value'))).toBeGreaterThan(0);expect(Number(await data.getAttribute('value'))).toBeLessThan(100);
   releaseDeck();const image=page.getByRole('progressbar',{name:'正在加载图片',exact:true});await expect(image).toBeVisible();await expect.poll(async()=>Number(await image.getAttribute('value'))).toBeGreaterThan(0);expect(Number(await image.getAttribute('value'))).toBeLessThan(100);await expect(page.locator('.focus-image')).toHaveCount(0);
