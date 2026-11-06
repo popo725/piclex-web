@@ -1,0 +1,83 @@
+{
+  "status": "pages-verified-mirror-awaiting-terminal-activation",
+  "sourceRevision": "26d72511c8a1f5d37ac4a3bb9118855716c5fbfd",
+  "releaseID": "26d72511c8a1-09dadd58d719",
+  "workflow": {
+    "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42219345857",
+    "conclusion": "success",
+    "browserPassed": 408,
+    "browserSkippedExisting": 4,
+    "jobs": [
+      {
+        "name": "build",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:39:33Z",
+        "completedAt": "2026-11-06T12:40:32Z"
+      },
+      {
+        "name": "Browser shard 1/3",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:40:34Z",
+        "completedAt": "2026-11-06T12:46:36Z"
+      },
+      {
+        "name": "Browser shard 2/3",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:40:34Z",
+        "completedAt": "2026-11-06T12:46:32Z"
+      },
+      {
+        "name": "Browser shard 3/3",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:40:34Z",
+        "completedAt": "2026-11-06T12:50:53Z"
+      },
+      {
+        "name": "deploy",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:50:57Z",
+        "completedAt": "2026-11-06T12:52:48Z"
+      },
+      {
+        "name": "docker / publish",
+        "conclusion": "success",
+        "startedAt": "2026-11-06T12:50:55Z",
+        "completedAt": "2026-11-06T12:54:53Z"
+      }
+    ]
+  },
+  "pages": {
+    "base": "https://zhaoolee.com/piclex-web/",
+    "tiles": 52,
+    "cycle": 8320,
+    "spanX": 120,
+    "spanY": 96,
+    "faces": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "pelletsAtStart": 79,
+    "pelletsAtEnd": 28,
+    "reducedMotion": true,
+    "removedAfterLoad": true,
+    "htmlSHA256": "fba308ebebe57c74571e375a5e659e03b7400ebb557e2272eaab624359a03f5c"
+  },
+  "mirrorCandidate": {
+    "verifiedFiles": 1142,
+    "reusedFiles": 1141,
+    "downloadFiles": 1,
+    "downloadBytes": 13438,
+    "isolatedNginxCheck": "passed",
+    "currentAtLastCheck": "e6ab8fca34c7-d3dee21e3539",
+    "activation": "waiting for user terminal sudo password"
+  },
+  "diagnostic": {
+    "firstWorkflow": "https://github.com/zhaoolee/piclex-web/actions/runs/42216305420",
+    "failure": "capture-mobile-fit landscape coordinate assertion; changed to bounded polling with identical strict clearance requirement",
+    "linuxTargetedAfterFix": "10 passed",
+    "temporaryLinuxContainer": "removed",
+    "temporaryBuildAndDependencyLink": "removed"
+  }
+}
