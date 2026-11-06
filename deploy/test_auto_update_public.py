@@ -30,7 +30,7 @@ class AutoUpdatePublicTests(unittest.TestCase):
     def test_reuses_verified_old_file_and_checks_new_download(self):
         with tempfile.TemporaryDirectory() as directory:
             root=pathlib.Path(directory).resolve();old=root/'old';stage=root/'stage'
-            (old/'piclex-web').mkdir(parents=True);stage.mkdir()
+            (old/'piclex-web').mkdir(parents=True);stage.mkdir(mode=0o700)
             previous=old/'piclex-web/old.txt';previous.write_bytes(b'old')
             same={'bytes':3,'sha256':hashlib.sha256(b'old').hexdigest()}
             fresh={'bytes':3,'sha256':hashlib.sha256(b'new').hexdigest()}
@@ -39,10 +39,12 @@ class AutoUpdatePublicTests(unittest.TestCase):
             manifest={'releaseID':'a'*12+'-'+'b'*12,'sourceRevision':'a'*40,'origin':'https://piclex.v2fy.com','files':{'piclex-web/old.txt':same,'piclex-web/new.txt':fresh,**required}}
             def fetch(url,output=None,limit=None):output.write_bytes(b'new' if url.endswith('new.txt') else b'x')
             with patch.object(auto,'fetch',side_effect=fetch):auto.populate(stage,manifest,old)
+            self.assertEqual(stage.stat().st_mode & 0o777,0o755)
             self.assertEqual((stage/'piclex-web/old.txt').stat().st_ino,previous.stat().st_ino)
             self.assertEqual((stage/'piclex-web/new.txt').read_bytes(),b'new')
             from activate import verify_release
             self.assertEqual(verify_release(stage),manifest)
+            (root/'bad-stage').mkdir()
             with patch.object(auto,'fetch',side_effect=lambda url,output=None,limit=None:output.write_bytes(b'bad')):
                 with self.assertRaises(RuntimeError):auto.populate(root/'bad-stage',manifest,None)
 

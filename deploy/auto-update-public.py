@@ -61,6 +61,8 @@ def safe_file(name, info):
 
 
 def populate(stage,manifest,previous):
+    # The final release must be traversable by the existing Nginx worker.
+    stage.chmod(0o755)
     old_files={}
     if previous is not None:
         try:old_files=json.loads((previous/'release.json').read_text()).get('files',{})
