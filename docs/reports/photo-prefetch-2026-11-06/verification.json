@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-06",
+  "baseline": "327c1db20e9d7071776035ecf3e82412c5b93c04",
+  "behavior": {
+    "upcomingDistinctPhotos": 5,
+    "backgroundConcurrency": 2,
+    "reuseInFlightAndDecodedImages": true,
+    "scope": "current learning session",
+    "releaseOnExit": true
+  },
+  "validation": {
+    "linuxUnit": 240,
+    "linuxDeploy": 27,
+    "typescript": "passed",
+    "vite": "passed",
+    "linuxBrowser": {
+      "fullRun": {
+        "startTime": "2026-11-06T01:19:15.089Z",
+        "duration": 965216.409,
+        "expected": 337,
+        "skipped": 4,
+        "unexpected": 4,
+        "flaky": 0
+      },
+      "correctedTestsRepeated": {
+        "startTime": "2026-11-06T01:36:04.322Z",
+        "duration": 55666.962999999996,
+        "expected": 22,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "note": "Production code unchanged after the full run; four failed cases came from two test sampling/expectation issues. All affected tests passed twice across their supported browser projects."
+    },
+    "linuxRuntime": "Ubuntu 24.04 ARM64, Node 24.13.0, Playwright 1.63.0 Chromium/WebKit",
+    "testCorrections": [
+      "Exact current + next five photo request paths replace the obsolete maximum-two-photos expectation; whole-archive prohibition retained.",
+      "Select a recorded frame with all three label fades active; retain exact stagger, no-regression, transform and countdown assertions."
+    ],
+    "animationEvidence": {
+      "earlyRecognition": {
+        "frames": 29,
+        "maxFrameGapMs": 499,
+        "intermediateOpacity": [
+          0.848,
+          0.628,
+          0.408
+        ]
+      },
+      "lateReducedMotion": {
+        "frames": 37,
+        "maxFrameGapMs": 661,
+        "intermediateOpacity": [
+          0.879,
+          0.659,
+          0.439
+        ]
+      }
+    }
+  },
+  "release": {
+    "status": "pending",
+    "publicContentPolicy": "preserve current production non-build resources"
+  },
+  "scope": {
+    "unrelatedUncommittedChangesIncluded": false,
+    "simulatorsStarted": false,
+    "userDataModified": false
+  }
+}
