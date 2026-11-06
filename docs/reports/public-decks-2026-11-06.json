@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-06",
+  "decks": [
+    {
+      "deckID": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+      "title": "Basic English 850 场景卡片",
+      "version": 7,
+      "photoCount": 100,
+      "wordCount": 850,
+      "packageSHA256": "44149174eaed929e5f0c3166cb04514699c830c751a6286362d4d68f14d63aeb"
+    },
+    {
+      "deckID": "121d190a-5d4c-4a09-8d50-4741acdbbb1b",
+      "title": "程序员工作英语",
+      "version": 11,
+      "photoCount": 80,
+      "wordCount": 320,
+      "packageSHA256": "76fabb4c7eead2a16d95d703ebb8b3b6561c9ff4f8f27ae83c42aa31ef3db96e"
+    },
+    {
+      "deckID": "56a51624-d8aa-4167-99c5-e1c727a938db",
+      "title": "程序员 Vibe Coding",
+      "version": 3,
+      "photoCount": 23,
+      "wordCount": 92,
+      "packageSHA256": "3c6f1c9b60b13a5b8d59ddb9a78a251c57fa35f927bc5e45b6eedfec3058ba97"
+    },
+    {
+      "deckID": "ba777e29-70c7-4706-8ea3-dd65f592ac16",
+      "title": "下班后，去摄影吧！",
+      "version": 5,
+      "photoCount": 50,
+      "wordCount": 200,
+      "packageSHA256": "1ccd9831b62615d8f6b7b8c314e5041b7de23c12b3924930b16d56cd21ff0630"
+    },
+    {
+      "deckID": "099b791c-b48b-4439-b3e1-000ac98ebb0c",
+      "title": "新概念英语第二册",
+      "version": 44,
+      "photoCount": 241,
+      "wordCount": 1054,
+      "packageSHA256": "82d4bdfb0b8fe5f88ac2f6d524c39847c54877476b96bfe098689dc2fbe61c64"
+    },
+    {
+      "deckID": "0a1ff2e2-3db0-4bb1-889a-b27b62798cbe",
+      "title": "经典英语歌曲",
+      "version": 9,
+      "photoCount": 53,
+      "wordCount": 342,
+      "packageSHA256": "39249cf0db90324959011dd78ab7355b5cb5c425db513072bc6d42ee22f576a1"
+    },
+    {
+      "deckID": "b33417a7-0f7e-4081-be35-2fe44d9d30c4",
+      "title": "经典电影台词",
+      "version": 22,
+      "photoCount": 100,
+      "wordCount": 100,
+      "packageSHA256": "f4bb004d34964873bc4971397a562294409f1288201a28c9ad2e68054c977a77"
+    }
+  ],
+  "domains": [
+    "https://piclex.v2fy.com/piclex-web/",
+    "https://zhaoolee.com/piclex-web/"
+  ],
+  "allLiveCountsAndPackageHashesMatch": true,
+  "pagesCheck": 42187670426,
+  "linuxBrowserPassed": 402,
+  "linuxBrowserSkipped": 4,
+  "dockerSuccess": 42187670422,
+  "domesticRelease": "b63bb91ce8d1-d298a3fdac36",
+  "pagesRelease": "b63bb91ce8d1-0640899d55cf",
+  "pagesFilesMatchDomestic": 1142,
+  "scheduledWorkflowsRemoved": true,
+  "serverCronInstalled": false
+}
