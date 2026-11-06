@@ -57,7 +57,9 @@ async function fillFrames(page:Page,duration=700){
  await expect(page.locator('.playback-fill')).toBeVisible();
  return page.evaluate(duration=>new Promise<{time:number;value:number}[]>((resolve,reject)=>{
   const samples:{time:number;value:number}[]=[];const start=performance.now();
-  const sample=(time:number)=>{const fill=document.querySelector('.playback-fill');if(!fill){reject(Error('Missing playback fill'));return;}samples.push({time,value:new DOMMatrixReadOnly(getComputedStyle(fill).transform).a});if(time-start>=duration)resolve(samples);else requestAnimationFrame(sample);};requestAnimationFrame(sample);
+  // Collect enough actual frames even when a busy browser misses the nominal
+  // window. Keep every distinct-value, monotonicity and per-frame step assertion.
+  const sample=(time:number)=>{const fill=document.querySelector('.playback-fill');if(!fill){reject(Error('Missing playback fill'));return;}samples.push({time,value:new DOMMatrixReadOnly(getComputedStyle(fill).transform).a});if(time-start>=duration&&samples.length>=12)resolve(samples);else if(time-start>5000)reject(Error('Insufficient animation frames'));else requestAnimationFrame(sample);};requestAnimationFrame(sample);
  }),duration);
 }
 function expectSmooth(samples:{time:number;value:number}[]){
