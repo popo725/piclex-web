@@ -10,4 +10,12 @@ function gameBootManifest(){return {name:'game-boot-manifest',enforce:'post' as 
  const manifest=[...assets].map(([name,bytes])=>({url:'/piclex-web/'+name,bytes}));
  html.source=String(html.source).replace('</head>',`<script>window.PICLEX_LAB_BOOT_ASSETS=${JSON.stringify(manifest)}</script></head>`);
 }};}
-export default defineConfig({ plugins:[gameBootManifest()], root: 'apps/public', base: '/piclex-web/', build: { outDir: '../../dist', emptyOutDir: true, target: 'es2022', rollupOptions: { input: { subscribe: fileURLToPath(new URL('apps/public/subscribe/index.html', import.meta.url)), main: fileURLToPath(new URL('apps/public/index.html', import.meta.url)), lab: fileURLToPath(new URL('apps/public/lab/index.html', import.meta.url)) } } }, server: { fs: { allow: [fileURLToPath(new URL('.', import.meta.url))] } } });
+// Let the inline first-paint loader render while the app stylesheet downloads.
+// The loader stays in place until React has committed and this sheet is ready.
+function earlyAppStyle(){return {name:'early-app-style',enforce:'post' as const,generateBundle(_options:any,bundle:any){
+ const html=bundle['index.html'];if(!html)throw Error('Missing main HTML entry');
+ const source=String(html.source),link=/<link rel="stylesheet" crossorigin href="([^"]+\.css)">/;
+ if(!link.test(source))throw Error('Missing main app stylesheet');
+ html.source=source.replace(link,'<link rel="stylesheet" data-app-style media="print" crossorigin href="$1" onload="this.media=\'all\'">');
+}};}
+export default defineConfig({ plugins:[gameBootManifest(),earlyAppStyle()], root: 'apps/public', base: '/piclex-web/', build: { outDir: '../../dist', emptyOutDir: true, target: 'es2022', rollupOptions: { input: { subscribe: fileURLToPath(new URL('apps/public/subscribe/index.html', import.meta.url)), main: fileURLToPath(new URL('apps/public/index.html', import.meta.url)), lab: fileURLToPath(new URL('apps/public/lab/index.html', import.meta.url)) } } }, server: { fs: { allow: [fileURLToPath(new URL('.', import.meta.url))] } } });

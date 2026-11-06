@@ -4,6 +4,27 @@ import http from 'node:http';
 const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8')),card=catalog[0];
 const payload=fs.readFileSync('apps/public/public/'+card.payload),deck=JSON.parse(payload.toString());
 const photo=fs.readFileSync('apps/public/public/'+deck.photos[0].path);
+test('the inline Pac-Man appears before app assets and leaves after the styled app mounts',async({page})=>{
+ let releaseStyle!:()=>void,releaseScript!:()=>void;
+ const styleGate=new Promise<void>(resolve=>releaseStyle=resolve),scriptGate=new Promise<void>(resolve=>releaseScript=resolve);
+ await page.route(/\/assets\/main-[^/]+\.css$/,async route=>{await styleGate;await route.continue();});
+ await page.route(/\/assets\/main-[^/]+\.js$/,async route=>{await scriptGate;await route.continue();});
+ try{
+  await page.goto('/piclex-web/#/capture',{waitUntil:'commit'});
+  const loader=page.getByRole('status',{name:'页面加载中'});
+  await expect(loader).toBeVisible();
+  await expect(loader.locator('.boot-pac')).toHaveCount(1);
+  await expect.poll(()=>loader.locator('.boot-pac').evaluate(el=>getComputedStyle(el,'::before').animationName)).toBe('boot-chomp-top');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await expect.poll(()=>loader.locator('.boot-pac').evaluate(el=>getComputedStyle(el,'::before').animationName)).toBe('none');
+  releaseScript();
+  await expect.poll(()=>page.locator('#root').evaluate(el=>el.childElementCount)).toBeGreaterThan(0);
+  await expect(loader).toBeVisible();
+  releaseStyle();
+  await expect(loader).toHaveCount(0);
+  await expect(page.getByRole('navigation',{name:'底部导航'})).toBeVisible();
+ }finally{releaseScript();releaseStyle();}
+});
 test('all bottom icon assets start loading before any tap and delayed atlases retain square static icons',async({page})=>{
  const requested:string[]=[],loadedFrames=new Set<string>();let unlock!:()=>void;const gate=new Promise<void>(resolve=>unlock=resolve);
  page.on('request',r=>{if(/\/icons\/tab-/.test(r.url()))requested.push(r.url());});
@@ -48,6 +69,8 @@ test('deck and photo downloads display actual intermediate progress, then clear 
   await page.route('**/'+deck.photos[0].path,route=>route.continue({url:`http://127.0.0.1:${port}/photo`}));
   await page.goto('/piclex-web/#/deck/'+card.id,{waitUntil:'domcontentloaded'});
   const data=page.getByRole('progressbar',{name:'正在加载卡组',exact:true});await expect(data).toBeVisible();await expect.poll(async()=>Number(await data.getAttribute('value'))).toBeGreaterThan(0);expect(Number(await data.getAttribute('value'))).toBeLessThan(100);
+  const bounds=await data.boundingBox(),height=page.viewportSize()!.height;expect(bounds!.y).toBeGreaterThan(height*.3);expect(bounds!.y).toBeLessThan(height*.7);
+  await page.screenshot({path:testInfo.outputPath('deck-download-progress.png')});
   releaseDeck();const image=page.getByRole('progressbar',{name:'正在加载图片',exact:true});await expect(image).toBeVisible();await expect.poll(async()=>Number(await image.getAttribute('value'))).toBeGreaterThan(0);expect(Number(await image.getAttribute('value'))).toBeLessThan(100);await expect(page.locator('.focus-image')).toHaveCount(0);
   await page.screenshot({path:testInfo.outputPath('photo-download-progress.png')});
   releasePhoto();await expect(page.locator('.focus-image')).toBeVisible();await expect(image).toHaveCount(0);expect(await page.locator('.focus-image').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);

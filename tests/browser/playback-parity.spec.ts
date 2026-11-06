@@ -80,7 +80,7 @@ test('speech without boundary events animates continuously, freezes on pause and
 });
 test('sparse speech boundaries calibrate the continuous fill without a visible jump',async({page},info)=>{
  await open(page);await mockSpeech(page);await press(page.locator('.playback-button'),!!info.project.use.hasTouch);await emit(page,'start');
- expectSmooth(await fillFrames(page,400));await emit(page,'boundary',-1,{charIndex:32});expectSmooth(await fillFrames(page));
+ expectSmooth(await fillFrames(page,400));await emit(page,'boundary',-1,{charIndex:32});expectSmooth(await fillFrames(page,250));
  await emit(page,'boundary',-1,{charIndex:2});expectSmooth(await fillFrames(page,400));
  await page.getByRole('tab',{name:'练听力',exact:true}).click();await emit(page,'resume');await emit(page,'boundary',0,{charIndex:40});await expect(page.getByRole('progressbar',{name:'播放进度'})).toHaveCount(0);
 });

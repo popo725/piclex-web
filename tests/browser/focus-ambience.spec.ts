@@ -50,9 +50,14 @@ test('background gain stays below keys when media volume is read-only, ducks for
  expect(await page.evaluate(()=>(window as any).__ambienceMixes.at(-1).sound.volume)).toBe(1);
  await page.getByLabel('背景声音量').selectOption('0.45');await expect.poll(()=>ambienceGain(page)).toBeCloseTo(.45*.22,3);
  await page.locator('.sentence-ambience summary').click();
+ // Sample the actual AudioParam during each duck. The 280 ms window can end
+ // before a slow Linux browser returns from Playwright's click action.
+ await page.evaluate(()=>{const w=window as any;w.__duckSamples=[];window.addEventListener('piclex-typing-sound',()=>{
+  setTimeout(()=>w.__duckSamples.push(w.__ambienceMixes.at(-1)?.node.gain.value),60);
+ });});
  await press('C');await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toHaveValue('c');
- await expect.poll(()=>ambienceGain(page),{intervals:[10,20,30]}).toBeLessThan(.025);
- await press('R');await expect.poll(()=>ambienceGain(page),{intervals:[10,20,30]}).toBeLessThan(.025);
+ await expect.poll(()=>page.evaluate(()=>(window as any).__duckSamples[0])).toBeLessThan(.025);
+ await press('R');await expect.poll(()=>page.evaluate(()=>(window as any).__duckSamples[1])).toBeLessThan(.025);
  await expect.poll(()=>ambienceGain(page)).toBeCloseTo(.45*.22,3);
  // Real decoded source samples: even the loudest background at the highest UI
  // level must stay below the default keyboard recording, with extra room while typing.
