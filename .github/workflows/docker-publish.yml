@@ -1,10 +1,16 @@
 name: Publish Docker image
 on:
   push:
-    branches: [main]
     tags: ["v*"]
-    paths-ignore: ["docs/**", "memory/**", "README.md", "ASSET_LICENSES.md", "deploy/**"]
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      verified-artifact:
+        type: boolean
+        default: false
+      publish:
+        type: boolean
+        default: true
 permissions:
   contents: read
 concurrency:
@@ -13,12 +19,27 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_CONTEXT: .
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - uses: actions/download-artifact@v4
+        if: inputs.verified-artifact
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Prepare verified image without rebuilding the application
+        if: inputs.verified-artifact
+        run: |
+          mkdir dist
+          tar -xf "$RUNNER_TEMP/pages-artifact/artifact.tar" -C dist
+          node scripts/prepare-verified-image.mjs dist "$RUNNER_TEMP/verified-image" "$GITHUB_SHA"
+          echo "IMAGE_CONTEXT=$RUNNER_TEMP/verified-image" >> "$GITHUB_ENV"
       - name: Check Docker Hub configuration
+        if: ${{ !inputs.verified-artifact || inputs.publish }}
         env:
           USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -29,7 +50,7 @@ jobs:
       - name: Build image for verification
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ env.IMAGE_CONTEXT }}
           load: true
           platforms: linux/amd64
           tags: piclex-web:verify
@@ -45,10 +66,12 @@ jobs:
           done
           node scripts/test-docker.mjs http://127.0.0.1:18121
       - uses: docker/login-action@v3
+        if: ${{ !inputs.verified-artifact || inputs.publish }}
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - uses: docker/metadata-action@v5
+        if: ${{ !inputs.verified-artifact || inputs.publish }}
         id: meta
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/piclex-web
@@ -58,9 +81,10 @@ jobs:
             type=ref,event=tag
             type=sha,prefix=sha-
       - name: Publish AMD64 and ARM64
+        if: ${{ !inputs.verified-artifact || inputs.publish }}
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ${{ env.IMAGE_CONTEXT }}
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}

@@ -1,0 +1,15 @@
+# Package the same artifact already checked by every browser shard.
+FROM nginx:stable-alpine
+LABEL org.opencontainers.image.title="PicLex Web" \
+      org.opencontainers.image.description="Photo-based English learning with bundled public decks" \
+      org.opencontainers.image.source="https://github.com/zhaoolee/piclex-web" \
+      org.opencontainers.image.licenses="MIT"
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY dist/ /usr/share/nginx/html/piclex-web/
+COPY LICENSE ASSET_LICENSES.md /usr/share/licenses/piclex-web/
+USER nginx
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget -q -O /dev/null http://127.0.0.1:8080/piclex-web/library/catalog.json || exit 1
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]

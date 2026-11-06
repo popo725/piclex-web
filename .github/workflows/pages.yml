@@ -13,12 +13,18 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.scope.outputs.publish }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
+      - id: scope
+        run: node scripts/ci-release-scope.mjs
       - run: npm ci
       - run: npm run decks:build && git diff --exit-code -- tests/fixtures/demo
       - run: npm test
@@ -33,25 +39,58 @@ jobs:
           PICLEX_CONTENT_CACHE: .cache/piclex-content
       - run: npm run build
       - run: node scripts/write-public-release-manifest.mjs
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  browser:
+    name: Browser shard ${{ matrix.shard }}/3
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Restore the single built artifact and test fixtures
+        run: |
+          mkdir dist
+          tar -xf "$RUNNER_TEMP/pages-artifact/artifact.tar" -C dist
+          ln -s "$PWD/dist/library" apps/public/public/library
       - name: Use responsive Ubuntu package mirror
         run: |
           if [ -f /etc/apt/apt-mirrors.txt ] && grep -q 'azure.archive.ubuntu.com' /etc/apt/apt-mirrors.txt; then
             sudo sed -i 's#http://azure.archive.ubuntu.com/ubuntu#https://archive.ubuntu.com/ubuntu#g' /etc/apt/apt-mirrors.txt
           fi
       - run: npx playwright install --with-deps chrome webkit
-      - run: npm run test:browser
+      - run: npm run test:browser -- --shard=${{ matrix.shard }}/3 --reporter=line,blob
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: browser-results
-          path: test-results/
-      - uses: actions/upload-pages-artifact@v3
-        if: github.event_name != 'pull_request'
-        with:
-          path: dist
-  deploy:
+          name: browser-results-${{ matrix.shard }}
+          path: |
+            test-results/
+            blob-report/
+  docker:
+    needs: [build, browser]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: build
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      verified-artifact: true
+      publish: ${{ needs.build.outputs.publish == 'true' }}
+    secrets: inherit
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
+    needs: [build, browser]
     runs-on: ubuntu-latest
     permissions:
       pages: write
