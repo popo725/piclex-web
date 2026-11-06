@@ -155,10 +155,9 @@ body[data-practice=true] .toast button{pointer-events:auto}
 .playback-button{position:relative;overflow:hidden;isolation:isolate}
 .playback-label{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px}
 .playback-progress{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
-.playback-fill{position:absolute;inset:0;background:var(--ink);opacity:.28;transform-origin:left;transition:transform .18s linear}
-/* The left edge stays fixed. The speech clock also advances between callbacks;
-   reduced motion removes easing, while retaining useful playback progress. */
-@media(prefers-reduced-motion:reduce){.playback-fill{transition:none}}
+.playback-fill{position:absolute;inset:0;background:var(--ink);opacity:.28;transform-origin:left;transform:scaleX(0)}
+/* PlaybackFill paints a continuous, monotonic transform and handles reduced
+   motion directly; CSS retargeting can briefly reverse the fill in WebKit. */
 
 /* Two adjacent targets: avatar opens levels; the whole right side opens decks. */
 .practice-level-target{right:auto;width:61px}

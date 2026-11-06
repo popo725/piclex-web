@@ -87,7 +87,7 @@ export function useSpeech(notify:(s:string)=>void){
     utterance.onboundary=e=>{if(current()){begin();clock?.boundary(e.charIndex,performance.now());if(i===0)setPosition(e.charIndex+offset);}};
     utterance.onpause=()=>{if(current()){paused=true;clock?.setPaused(true,performance.now());}};
     utterance.onresume=()=>{if(current()){paused=false;clock?.setPaused(false,performance.now());}};
-    // Let the existing short width transition finish before hiding the button's
+    // Let the short completion animation finish before hiding the button's
     // fill. The next segment still starts after the established 180 ms gap.
     utterance.onend=()=>ended(180);
     utterance.onerror=e=>{if(current())fail(['interrupted','canceled'].includes(e.error)?undefined:'朗读暂时不可用，请检查浏览器的语音与播放权限。');};
