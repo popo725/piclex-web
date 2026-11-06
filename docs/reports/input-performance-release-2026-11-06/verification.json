@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-06",
+  "status": "preflight complete; hosted workflow and production activation pending",
+  "base": "ce4246fe778e88da647058c5d050bd910b5e65af",
+  "changes": [
+    "Input reducer copies only current spelling/sentence draft and changed maps.",
+    "Save bursts after 180 ms idle with 1000 ms maximum wait; flush question/result checkpoints, hidden page, pagehide and unmount.",
+    "Avoid unchanged photo/example work and per-character reward/portable-history scans.",
+    "Map caret through automatically inserted punctuation.",
+    "Read ripple color once per frame; all animation parameters, effect counts, CSS and sound preserved."
+  ],
+  "dataCompatibility": [
+    "No study storage key or serialized state schema change.",
+    "No deck/learning fingerprint or content snapshot changes.",
+    "No migrations, storage clearing, imports into user browsers or device operations."
+  ],
+  "mac": {
+    "stats": {
+      "startTime": "2026-11-06T01:42:54.743Z",
+      "duration": 53912.993,
+      "expected": 33,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "inputWork": [
+      {
+        "project": "desktop",
+        "clones": 0,
+        "segments": 0,
+        "writes": 0,
+        "glyphs": 6,
+        "ripples": 216,
+        "durations": [
+          3.1000001430511475,
+          1.3999998569488525,
+          1.2000000476837158,
+          1.2000000476837158,
+          1.0999999046325684,
+          1.2999999523162842
+        ]
+      },
+      {
+        "project": "mobile",
+        "clones": 0,
+        "segments": 0,
+        "writes": 0,
+        "glyphs": 6,
+        "ripples": 112,
+        "durations": [
+          3.4000000953674316,
+          1.2999999523162842,
+          1.4000000953674316,
+          1.2999999523162842,
+          1.2000000476837158,
+          1.2999999523162842
+        ]
+      },
+      {
+        "project": "mobile-webkit",
+        "clones": 0,
+        "segments": 0,
+        "writes": 0,
+        "glyphs": 6,
+        "ripples": 48,
+        "durations": [
+          4,
+          2,
+          2,
+          1,
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  "initialTestCorrection": "Old-snapshot test seeded active state, which normal pagehide flush replaced; corrected setup to seed only after leaving learning. Same preservation assertions pass.",
+  "linux": {
+    "runtime": "Ubuntu 24.04 ARM64, Node 24.13.0, Playwright 1.63.0 Chromium/WebKit",
+    "unitPassed": 247,
+    "deployPassed": 27,
+    "productionBuild": "passed",
+    "fullRun": {
+      "startTime": "2026-11-06T01:42:38.454Z",
+      "duration": 935167.272,
+      "expected": 352,
+      "skipped": 4,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "failure": "WebKit large backup runner navigated during the transient empty reload document; failure page remained at Restore backup. Fixed test commit() to wait for DOMContentLoaded and restored page heading before next navigation; all data assertions retained.",
+    "targetedFixVerification": {
+      "startTime": "2026-11-06T01:58:25.693Z",
+      "duration": 115720.25,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "hosted": "pending",
+  "unchangedSourceChecks": [
+    "content/snapshot.json",
+    "packages/deck-format/src/public.mjs",
+    "apps/public/src/storage.ts",
+    "packages/learning-ui/src/AnswerSlots.tsx",
+    "packages/learning-ui/src/SpellingGlow.tsx",
+    "packages/learning-ui/src/experience-effects.ts",
+    "packages/learning-ui/src/typing-sound.ts",
+    "packages/learning-ui/src/completion-sound.ts",
+    "apps/public/src/practice.css"
+  ],
+  "publicResourcePolicy": "The mirror keeps all current production non-build resource bytes, including newer catalog content absent from the repository snapshot. Only assets/ and the three application HTML entry points are replaced. Preservation is verified against the active release manifest before activation.",
+  "testedSourceSHA256": {
+    "apps/public/src/NativePractice.tsx": "7dca39241805d0cb452c9a96d4ca00d753e782d40a43a3ede6065a8c286f12c4",
+    "apps/public/src/useStudyPersistence.ts": "51137bc8acfba450a992efd2de998df69a4d408d948d3a220c24b7f830b05fc6",
+    "packages/practice/src/study.mjs": "cb581a6a5190053fafe538c4a930103f27c5cf7104485bb7f8a2374a8bfdd228",
+    "packages/practice/src/buffered-save.mjs": "d177d85eda5cd3fb24e0ea016c248b97b0cad5bdcd6598f07f4da78441d52ee5",
+    "packages/learning-ui/src/CharacterRipples.tsx": "69d7ce925eb09c44447517fb04ba693ddcb36b776576b004ee98d1959e0d8f06",
+    "packages/learning-ui/src/spelling-edit.mjs": "4cb822ae41f1151c2c3a2274c76c68b41d1d4608bd7bef73995d1d9312ecc596",
+    "tests/browser/input-performance.spec.ts": "2a52a1ae9ca7f3678797456e8a4e8309ff46a3a09cc09de70d2eef062d4a944d",
+    "playwright.config.ts": "2040cfcfe8e6dbae43f55d53c7205e81b91bf3cabedd9228c9d8fefd50a8ba5d",
+    "tests/support/large-backup-runner.mjs": "163bb43d7fb96fab4c90458962ce739c0ce2a93a0f08117b6dfbebbc936721b3"
+  },
+  "overlaySHA256": "2aa910ac499080bb1d808919ad28323aae1ed2cab37af110c81d6a530f2be956"
+}

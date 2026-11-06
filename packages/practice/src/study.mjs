@@ -64,9 +64,16 @@ export function restoreStudy(deck,saved,legacy){
  return s;
 }
 /** Both spelling and sentence cursors refer to the same photo/word. Sentences never grade spelling. */
-export function reduceStudy(deck,s,action){
+export function reduceStudy(deck,s,action,preparedPrompts){
  if(action.question!==studyKey(s))return s;
- const next=structuredClone(s),prompts=promptsFor(deck),word=deck.words[s.index];
+ if(action.type==='input')return inputStudy(deck,s,action);
+ const prompts=preparedPrompts??promptsFor(deck);
+ if(action.type==='sentence'){
+  const p=prompts[s.sentenceIndex];if(!p||s.module!=='listening'||!['chunks','free'].includes(s.mode))return s;
+  const current=s.sentences[p.key]||newSentence(p),draft=reduceSentence(p,current,s.mode,{...action.action,key:p.key});
+  return draft===current?s:{...s,sentences:{...s.sentences,[p.key]:draft}};
+ }
+ const next=structuredClone(s),word=deck.words[s.index];
  const navigate=(index)=>{next.index=index;pause(next);prepare(deck,next);};
  if(action.type==='pause'){pause(next);return next;}
  if(action.type==='module'){
@@ -103,18 +110,24 @@ export function reduceStudy(deck,s,action){
  if(action.type==='sentencePrevious'){
   if(s.sentenceIndex>0){next.sentenceIndex--;next.sentenceFinished=false;navigate(prompts[next.sentenceIndex].wordIndex);}return next;
  }
- if(action.type==='sentence'){
-  const p=prompts[s.sentenceIndex];if(!p||s.module!=='listening'||!['chunks','free'].includes(s.mode))return s;
-  next.sentences[p.key]=reduceSentence(p,next.sentences[p.key]||newSentence(p),s.mode,{...action.action,key:p.key});return next;
- }
  if(!word||s.module!=='spelling')return s;
  prepare(deck,next);const draft=next.words[word.id],expected=expectedInput(word,draft);
  if(action.type==='next'&&draft.result){let index=s.index+1;while(next.quick&&deck.words[index]&&next.history[deck.words[index].id]?.mastered)index++;navigate(index);return next;}
  if(draft.result)return s;
  if(action.type==='reveal'){draft.input=expected;draft.result='revealed';next.history[word.id]={mastered:false,mistakes:[...word.english].flatMap((c,i)=>fixed(c)?[]:[i])};pause(next);return next;}
- if(action.type!=='input'||typeof action.value!=='string')return s;
+ return s;
+}
+// Keystrokes only copy the current draft and maps that actually change. Navigation
+// still uses the general reducer; no unrelated sentence bank is rebuilt per letter.
+function inputStudy(deck,s,action){
+ const word=deck.words[s.index];
+ if(!word||s.module!=='spelling'||typeof action.value!=='string'||wordDraft(deck,s).result)return s;
+ const next={...s,words:{...s.words}},old=s.words[word.id];
+ if(old)next.words[word.id]={...old};else prepare(deck,next);
+ const draft=next.words[word.id],expected=expectedInput(word,draft);
  draft.input=resolve(expected,draft.input,action.value.slice(0,200));const wrong=mismatch(expected,draft.input);
- if(wrong>=0){draft.hadMistake=true;const actualIndex=draft.quickIndices?.[wrong]??wrong;const old=next.history[word.id]?.mistakes||[];next.history[word.id]={mastered:false,mistakes:[...new Set([...old,actualIndex])].sort((a,b)=>a-b)};}
- if(draft.input.toLowerCase()===expected.toLowerCase()){draft.result=draft.hadMistake?'reviewed':'correct';next.pending='word';if(!draft.hadMistake)next.history[word.id]={mastered:true,mistakes:[]};}
+ if(draft.input===old?.input&&draft.input.toLowerCase()!==expected.toLowerCase())return s;
+ if(wrong>=0){draft.hadMistake=true;const actualIndex=draft.quickIndices?.[wrong]??wrong;const old=next.history[word.id]?.mistakes||[];next.history={...next.history};next.history[word.id]={mastered:false,mistakes:[...new Set([...old,actualIndex])].sort((a,b)=>a-b)};}
+ if(draft.input.toLowerCase()===expected.toLowerCase()){draft.result=draft.hadMistake?'reviewed':'correct';next.pending='word';if(!draft.hadMistake){next.history={...next.history};next.history[word.id]={mastered:true,mistakes:[]};}}
  return next;
 }
