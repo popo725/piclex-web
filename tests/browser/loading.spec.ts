@@ -4,7 +4,7 @@ import http from 'node:http';
 const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8')),card=catalog[0];
 const payload=fs.readFileSync('apps/public/public/'+card.payload),deck=JSON.parse(payload.toString());
 const photo=fs.readFileSync('apps/public/public/'+deck.photos[0].path);
-test('the inline Pac-Man appears before app assets and leaves after the styled app mounts',async({page})=>{
+test('the inline Pac-Man maze appears before app assets and leaves after the styled app mounts',async({page})=>{
  let releaseStyle!:()=>void,releaseScript!:()=>void;
  const styleGate=new Promise<void>(resolve=>releaseStyle=resolve),scriptGate=new Promise<void>(resolve=>releaseScript=resolve);
  await page.route(/\/assets\/main-[^/]+\.css$/,async route=>{await styleGate;await route.continue();});
@@ -13,15 +13,70 @@ test('the inline Pac-Man appears before app assets and leaves after the styled a
   await page.goto('/piclex-web/#/capture',{waitUntil:'commit'});
   const loader=page.getByRole('status',{name:'页面加载中'});
   await expect(loader).toBeVisible();
-  await expect(loader.locator('.boot-pac svg')).toHaveCount(1);
+  const maze=loader.locator('.boot-maze');
+  await expect(maze).toHaveCount(1);
+  const box=await maze.boundingBox();
+  expect(box!.width).toBeGreaterThanOrEqual(180);expect(box!.width).toBeLessThanOrEqual(210);
+  expect(box!.height).toBeGreaterThanOrEqual(120);expect(box!.height).toBeLessThanOrEqual(140);
+  // 2D maze: drawn walls plus one square pellet per corridor tile.
+  await expect(loader.locator('.boot-wall')).toHaveCount(1);
+  expect(await loader.locator('.boot-wall').evaluate(el=>parseFloat(getComputedStyle(el).strokeWidth))).toBeGreaterThan(1);
+  const dots=loader.locator('.boot-dot');
+  expect(await dots.count()).toBeGreaterThan(40);
+  expect(await dots.evaluateAll(els=>els.every(el=>el.getAttribute('width')===el.getAttribute('height')&&Number(el.getAttribute('width'))>=2))).toBe(true);
+  await expect(loader.locator('.boot-pac')).toHaveCount(1);
   await expect(loader.locator('.boot-pac .boot-frame')).toHaveCount(3);
+  const meta=await maze.evaluate(el=>({tiles:Number(el.getAttribute('data-tiles')),cycle:Number(el.getAttribute('data-cycle'))}));
+  expect(meta.tiles).toBeGreaterThan(20);expect(meta.cycle).toBeGreaterThan(4);
+  // Sample the whole loop: the maze route must move on both axes, one corridor
+  // tile at a time (never diagonally, never straight through a wall), and the
+  // facing must snap to the four axis directions at the corners.
+  const samples=await loader.locator('.boot-pac').evaluate((el,{tiles,step})=>{
+   const anims=el.getAnimations();
+   const walk=anims.find(a=>(a as CSSAnimation).animationName==='boot-path')!;
+   const face=anims.find(a=>(a as CSSAnimation).animationName==='boot-face')!;
+   walk.pause();face.pause();
+   const out:{x:number;y:number;deg:number}[]=[];
+   for(let tile=0;tile<tiles;tile++){
+    walk.currentTime=tile*step;face.currentTime=tile*step;
+    const s=getComputedStyle(el),[tx,ty]=s.getPropertyValue('translate').split(' ').map(v=>parseFloat(v));
+    out.push({x:Math.round(tx),y:Math.round(ty),deg:((parseFloat(s.getPropertyValue('rotate'))||0)%360+360)%360});
+   }
+   return out;
+  },{tiles:meta.tiles,step:meta.cycle*1000/meta.tiles});
+  expect(samples).toHaveLength(meta.tiles);
+  for(let i=1;i<samples.length;i++){
+   const a=samples[i-1],b=samples[i],movedX=a.x!==b.x,movedY=a.y!==b.y;
+   expect(movedX!==movedY).toBe(true);
+   expect(Math.abs(b.x-a.x)+Math.abs(b.y-a.y)).toBe(12);
+  }
+  const xs=samples.map(s=>s.x),ys=samples.map(s=>s.y);
+  expect(new Set(xs).size).toBeGreaterThan(2);expect(new Set(ys).size).toBeGreaterThan(2);
+  expect(Math.max(...xs)-Math.min(...xs)).toBeGreaterThanOrEqual(72);
+  expect(Math.max(...ys)-Math.min(...ys)).toBeGreaterThanOrEqual(72);
+  expect([...new Set(samples.map(s=>s.deg))].sort((a,b)=>a-b)).toEqual([0,90,180,270]);
+  // Pellet removal shares the route clock: a square vanishing as Pac-Man reaches
+  // it stays gone until the loop restarts and then comes back.
+  const fade=await loader.locator('.boot-arena').evaluate((arena,cycleMs)=>{
+   const clock=arena.getAnimations().find(a=>(a as CSSAnimation).animationName==='boot-clock')!;
+   clock.pause();
+   const dot=[...arena.querySelectorAll('.boot-dot')].find(el=>{const d=Number((el as SVGRectElement).style.getPropertyValue('--d'));return d>0.1&&d<0.9;}) as SVGRectElement;
+   const d=Number(dot.style.getPropertyValue('--d'));
+   const read=(t:number)=>{clock.currentTime=t;return parseFloat(getComputedStyle(dot).opacity);};
+   return {d,start:read(0),before:read(d*cycleMs-40),after:read(d*cycleMs+40),restored:read(cycleMs+40)};
+  },meta.cycle*1000);
+  expect(fade.d).toBeGreaterThan(0.1);expect(fade.d).toBeLessThan(0.9);
+  expect(fade.start).toBe(1);expect(fade.before).toBe(1);expect(fade.after).toBe(0);expect(fade.restored).toBe(1);
   await expect.poll(()=>loader.locator('.boot-pac .boot-frame-a').evaluate(el=>getComputedStyle(el).animationName)).toBe('boot-chomp-a');
   await expect.poll(()=>loader.locator('.boot-pac .boot-frame-c').evaluate(el=>getComputedStyle(el).animationName)).toBe('boot-chomp-c');
   await expect.poll(()=>loader.locator('.boot-pac').evaluate(el=>getComputedStyle(el).color)).toBe('rgb(36, 36, 36)');
-  await expect.poll(()=>loader.locator('.boot-dot').first().evaluate(el=>{const s=getComputedStyle(el);return `${s.borderRadius}|${s.width===s.height}`;})).toBe('0px|true');
   await page.emulateMedia({reducedMotion:'reduce'});
   await expect.poll(()=>loader.locator('.boot-pac .boot-frame-c').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
-  await expect.poll(()=>loader.locator('.boot-dot').first().evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+  await expect.poll(()=>loader.locator('.boot-pac').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+  await expect.poll(()=>loader.locator('.boot-arena').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+  // Without animation the shared clock stays at 0, so every pellet except the
+  // one Pac-Man already stands on is shown again.
+  await expect.poll(()=>loader.locator('.boot-dot').evaluateAll(els=>els.filter(el=>parseFloat(getComputedStyle(el).opacity)===1).length)).toBeGreaterThan(40);
   await expect.poll(()=>loader.locator('.boot-pac .boot-frame-b').evaluate(el=>getComputedStyle(el).opacity)).toBe('1');
   await expect.poll(()=>loader.locator('.boot-pac .boot-frame-a').evaluate(el=>getComputedStyle(el).opacity)).toBe('0');
   releaseScript();
