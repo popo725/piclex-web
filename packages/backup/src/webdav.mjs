@@ -1,4 +1,5 @@
 import {sha256} from '@noble/hashes/sha2.js';
+import {decodeProgress,encodeProgress} from './progress.mjs';
 import {hashBlob,byteSize,MAX_BACKUP_BYTES,MAX_PROGRESS_BYTES,MAX_MANIFEST_BYTES,sizeError,checkSize} from './streaming.mjs';
 export function configuration(value){
  let directory;try{directory=new URL(value.address.trim());}catch{throw Error('请填写有效的 HTTPS WebDAV 文件夹地址。');}
@@ -23,8 +24,8 @@ export class WebDAV {
  /** @param {any} settings @param {{signal?:AbortSignal,onProgress?:(progress:any)=>void,job?:any}} options */
  constructor(settings,{signal,onProgress=(_progress)=>{},job}={}){this.job=job;this.settings=configuration(settings);this.signal=signal;this.onProgress=onProgress;this.authorization='Basic '+btoa(String.fromCharCode(...new TextEncoder().encode(this.settings.username+':'+this.settings.password)));}
  /** @returns {Promise<any>} */
- async request(method,url,{data,headers={},allow=[200],limit=MAX_BACKUP_BYTES,toDisk=false,digestOnly=false}={}){
-  if(!toDisk&&!digestOnly)limit=Math.min(limit,MAX_MANIFEST_BYTES);
+ async request(method,url,{data,headers={},allow=[200],limit=MAX_BACKUP_BYTES,toDisk=false,digestOnly=false,progressJSON=false}={}){
+  if(!toDisk&&!digestOnly)limit=Math.min(limit,progressJSON?MAX_PROGRESS_BYTES:MAX_MANIFEST_BYTES);
   const endpoint=new URL(url),base=new URL(this.settings.directory);if(endpoint.origin!==base.origin||!endpoint.pathname.startsWith(base.pathname)||endpoint.username||endpoint.password)throw Error('拒绝访问备份文件夹以外的地址。');
   const controller=new AbortController(),abort=()=>controller.abort();if(this.signal?.aborted)abort();this.signal?.addEventListener('abort',abort,{once:true});let timedOut=false;let timer;const reset=(duration=120000)=>{clearTimeout(timer);timer=setTimeout(()=>{timedOut=true;abort();},duration);};reset(method==='PUT'?6*60*60*1000:120000);
   try{
@@ -43,6 +44,32 @@ export class WebDAV {
  }
  async properties(url,depth='1',missing=false){const r=await this.request('PROPFIND',url,{data:body,headers:{Depth:depth,'Content-Type':'application/xml; charset=utf-8'},allow:missing?[207,404]:[207],limit:8*1024*1024});return r.status===404?null:parseDirectory(new TextDecoder().decode(r.bytes),url);}
  async connect(){const rows=await this.properties(this.settings.directory,'0');if(!rows.some(r=>r.url.replace(/\/$/,'')===this.settings.directory.replace(/\/$/,'')&&r.collection))throw Error('WebDAV 地址不是文件夹。');return true;}
+ async listProgress(){
+  const rows=await this.properties(child(this.settings.root,'progress/'),'1',true);
+  return (rows||[]).filter(r=>!r.collection&&/^PicLex-progress-v1-[a-f0-9]{20}\.json$/.test(r.name)).sort((a,b)=>a.name.localeCompare(b.name));
+ }
+ async readProgress(name){
+  if(!/^PicLex-progress-v1-[a-f0-9]{20}\.json$/.test(name))throw Error('学习进度文件名无效。');
+  const response=await this.request('GET',child(child(this.settings.root,'progress/'),name),{limit:MAX_PROGRESS_BYTES,progressJSON:true});
+  const content=await decodeProgress(response.bytes),envelope=await encodeProgress(content);
+  if(name!==`PicLex-progress-v1-${envelope.contentSHA256.slice(0,20)}.json`)throw Error('学习进度文件名与内容校验不一致。');
+  return content;
+ }
+ async uploadProgress(content){
+  const envelope=await encodeProgress(content),name=`PicLex-progress-v1-${envelope.contentSHA256.slice(0,20)}.json`;
+  const bytes=new TextEncoder().encode(JSON.stringify(envelope));checkSize(bytes.length,MAX_PROGRESS_BYTES);
+  const folder=child(this.settings.root,'progress/');await this.mkdir(this.settings.root,true);await this.mkdir(folder,true);
+  // Same immutable names as iOS: concurrent writers never replace each other.
+  const stage=child(folder,'.complete-uploading-'+crypto.randomUUID()),target=child(folder,name);
+  let created=false;
+  try{
+   created=true;await this.request('PUT',stage,{data:bytes,headers:{'Content-Type':'application/json','If-None-Match':'*'},allow:[200,201,204],limit:1024*1024});
+   await this.request('MOVE',stage,{headers:{Destination:target,Overwrite:'F'},allow:[201,204,412],limit:1024*1024});
+   const saved=await encodeProgress(await this.readProgress(name));
+   if(saved.contentSHA256!==envelope.contentSHA256)throw Error('学习进度校验失败，请重试。');
+   return name;
+  }finally{if(created){try{const cleanup=new WebDAV({address:this.settings.directory,username:this.settings.username,password:this.settings.password});await cleanup.request('DELETE',stage,{allow:[200,204,404],limit:1024*1024});}catch{/* Only this run's unique temporary file can remain. */}}}
+ }
  async list(){await this.connect();const rows=await this.properties(this.settings.root,'1',true);return (rows||[]).filter(r=>r.collection&&/^PicLex-Backup-[A-Za-z0-9_.-]+$/.test(r.name)).sort((a,b)=>b.name.localeCompare(a.name));}
  async mkdir(url,existing=false){const r=await this.request('MKCOL',url,{allow:existing?[201,405]:[201],limit:1024*1024});if(r.status===405){const rows=await this.properties(url,'0');if(!rows.some(r=>r.collection&&r.url.replace(/\/$/,'')===url.replace(/\/$/,'')))throw Error('备份目录不可用。');}}
  async upload(files,name){

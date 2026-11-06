@@ -2,6 +2,8 @@ import {fillEnglish} from './helpers/spelling';
 import {fillSpelling} from './helpers/spelling';
 import {test,expect} from '@playwright/test';
 import path from 'node:path';
+import fs from 'node:fs';
+const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8'));
 const fixture=path.resolve('tests/fixtures/demo/decks/cafe.piclexdeck');
 async function importCafe(page:any){await page.goto('/piclex-web/#/decks');await expect(page.getByRole('button',{name:'导入自己的卡组'})).toBeEnabled();await page.getByLabel('选择照片卡组文件').setInputFiles(fixture);await expect(page.getByRole('heading',{name:'牛角包',exact:true})).toBeVisible();}
 test('three App tabs keep the current deck and draft; earned experience survives reload without duplication',async({page})=>{
@@ -38,7 +40,7 @@ test('one App shell adapts at 320, 390, 768 and 1440px without hiding navigation
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const rows=page.locator('.settings-home-rows > .settings-row');const a=await rows.nth(0).boundingBox(),b=await rows.nth(1).boundingBox();expect(Math.abs(b!.x-a!.x)).toBeLessThan(1);
   await tabs.getByRole('button',{name:'拍摄',exact:true}).click();await expect(page.getByRole('button',{name:'拍摄照片',exact:true})).toBeVisible();expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  await page.goto('/piclex-web/#/decks');await expect(page.locator('.deck-card')).toHaveCount(6);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
+  await page.goto('/piclex-web/#/decks');await expect(page.locator('.deck-card')).toHaveCount(catalog.length);expect(await page.evaluate(()=>getComputedStyle(document.querySelector('.deck-grid')!).gridTemplateColumns.split(' ').length)).toBe(width<=600?1:width<960?2:3);
   await page.getByRole('button',{name:'开始练习',exact:true}).click();await expect(page.getByRole('textbox',{name:'输入英文'})).toBeVisible();
   await page.getByRole('button',{name:/^不认识/}).scrollIntoViewIfNeeded();
   const action=await page.getByRole('button',{name:/^不认识/}).boundingBox(),bar=await tabs.boundingBox();expect(action!.y+action!.height).toBeLessThanOrEqual(bar!.y);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

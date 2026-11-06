@@ -2,7 +2,8 @@
   "sources": [
     "https://piclex.v2fy.com/decks/source.json",
     "https://piclex.v2fy.com/public/subscriptions/nce2/feed.json",
-    "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json"
+    "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json",
+    "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/feed.json"
   ],
   "decks": [
     {
@@ -199,14 +200,14 @@
       "deckID": "0a1ff2e2-3db0-4bb1-889a-b27b62798cbe",
       "title": "经典英语歌曲",
       "author": "zhaoolee",
-      "description": "通过经典英语歌曲练习拼词与歌词默写，按歌曲及歌词顺序学习，每句选一个词，保留重复句。现收录 Galway Girl、God Is a Girl（Chillout Mix）和 Hotel California：22张场景卡、153句歌词，附原唱片段及中文译文。后续歌曲持续追加到同一卡组。原音频需摄影学英语353版或更高版本。",
-      "version": 8,
-      "photoCount": 22,
-      "wordCount": 153,
-      "packageURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/8/deck-b0de796e5bd56e88.piclexdeck",
-      "packageBytes": 16808330,
-      "packageSHA256": "b0de796e5bd56e88ff21a58aa7c64481eed04d9cbd28f3a05084a0222cc8d5ba",
-      "coverURL": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/8/cover-5fbd162a687559d9.jpg",
+      "description": "通过经典英语歌曲练习拼词与歌词默写，按歌曲及原歌词顺序学习，保留重复句。现收录 Galway Girl、God Is a Girl（Chillout Mix）、Hotel California、Yesterday Once More、Take Me Home, Country Roads 和 Loves Me Not（t.A.T.u.）：6首歌曲、53张场景卡、342句歌词与原唱片段，附中文译文。后续歌曲追加到同一卡组。原音频需摄影学英语353版或更高版本。",
+      "version": 9,
+      "photoCount": 53,
+      "wordCount": 342,
+      "packageURL": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v9-39249cf0db903249/deck.piclexdeck",
+      "packageBytes": 36251864,
+      "packageSHA256": "39249cf0db90324959011dd78ab7355b5cb5c425db513072bc6d42ee22f576a1",
+      "coverURL": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v9-39249cf0db903249/cover.jpg",
       "access": "public",
       "covers": {
         "landscape": {
@@ -215,7 +216,7 @@
           "height": 1024,
           "bytes": 334799,
           "sha256": "05955bb6ca1c5db59d66711b4b84b8c2874b25fc98ddcf4ffcf5348c85a7cc46",
-          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/8/cover-landscape-05955bb6ca1c5db5.jpg"
+          "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v9-39249cf0db903249/cover-landscape.jpg"
         },
         "portrait": {
           "mimeType": "image/jpeg",
@@ -223,7 +224,7 @@
           "height": 1536,
           "bytes": 349718,
           "sha256": "5fbd162a687559d9b1f973155d5f85b8f422a1eeb34d707fd87d692c699b4db3",
-          "url": "https://piclex.v2fy.com/public/subscriptions/classic-english-songs/versions/8/cover-portrait-5fbd162a687559d9.jpg"
+          "url": "https://piclex.v2fy.com/piclex-web/library/0a1ff2e2-3db0-4bb1-889a-b27b62798cbe/v9-39249cf0db903249/cover-portrait.jpg"
         }
       },
       "minimumIOS": "17.0",
@@ -234,9 +235,85 @@
         "66f36957cb2ef0a5b9a5f0e70534836074bf31b1bf1de472eeb4722a0a7ce0cc",
         "c60d2b10263a6780052e2d36dec1803c21402e00af959272cec2cb3b3888bc51",
         "0debbd9d532e0885cd8ca36c997f2a7e5a34676079dc97c2f5f2d24dfa35caab",
-        "1a488b732cb91bce7c6caa68e55de5eba4aed0f3b60592bc8d84c34f26ff344b"
+        "1a488b732cb91bce7c6caa68e55de5eba4aed0f3b60592bc8d84c34f26ff344b",
+        "b0de796e5bd56e88ff21a58aa7c64481eed04d9cbd28f3a05084a0222cc8d5ba"
       ],
-      "learningSHA256": "0debbd9d532e0885cd8ca36c997f2a7e5a34676079dc97c2f5f2d24dfa35caab"
+      "learningSHA256": "5f6a2d21bb067c99334f2ac974400d426c0c8b9b1623080fb24777935718bdf1"
+    },
+    {
+      "deckID": "b33417a7-0f7e-4081-be35-2fe44d9d30c4",
+      "title": "经典电影台词",
+      "author": "zhaoolee",
+      "description": "每张卡学习一个出现在电影原句中的词，搭配原句、中译与真实电影配图。现有100张卡、100个目标词，持续更新。",
+      "version": 22,
+      "photoCount": 100,
+      "wordCount": 100,
+      "packageURL": "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/versions/22/deck-f4bb004d34964873.piclexdeck",
+      "packageBytes": 30354570,
+      "packageSHA256": "f4bb004d34964873bc4971397a562294409f1288201a28c9ad2e68054c977a77",
+      "coverURL": "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/versions/22/cover-531f32a58c785ee1.jpg",
+      "access": "public",
+      "covers": {
+        "landscape": {
+          "mimeType": "image/jpeg",
+          "width": 1536,
+          "height": 1024,
+          "bytes": 288243,
+          "sha256": "477457adfbd6362b442180a4e3e9ee94d145aa17bf4a5b9ec6e4108ba7f7c373",
+          "url": "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/versions/22/cover-landscape-477457adfbd6362b.jpg"
+        },
+        "portrait": {
+          "mimeType": "image/jpeg",
+          "width": 1024,
+          "height": 1536,
+          "bytes": 270472,
+          "sha256": "531f32a58c785ee1d45d972f53d7bc3a0e58ab51f7f95f85a732536c06698ae0",
+          "url": "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/versions/22/cover-portrait-531f32a58c785ee1.jpg"
+        }
+      },
+      "minimumIOS": "17.0",
+      "sourceURL": "https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/feed.json",
+      "learningSHA256": "e1fd47b730eb15dc993b22821418dda4b1430ac317d01cfddfcccc2dad5073b8",
+      "progressAliases": [
+        "576adf6a93c47e92a198b50c9d9147f13918612f2f249f5817a0f28514a13a05",
+        "c9dcbedc3e9233ef1ff0b7a8118cdebd107c4b47967656ef9885dbbd786025b1",
+        "bbe741516b2317d4c54fa70750683d9a1e2794d95b985bc55a9702817f1cb189",
+        "0461802825d15aa55cb31bf18b13c0a669979a8c9b4f1ebc97211049746257fb",
+        "c6eaf5bc2edbc60632087c1cde0756a5c2e16b67e5c405d81caf2d38271f344b",
+        "d210c6f6830fedf6bff103e4696a7f4bc18adfeb6a34fa88396271b635b7da18",
+        "4a15ee15a0b5e7fa1220aeac591c4f55f86cd9e8afc58094a52cda23ad3e80d4",
+        "690f9f9ea33e3333e2fcbd2777670ae90bc97da10927835bcf40312d2d6550c5",
+        "d61b7e9caf04223969735038c1c664f73dbd545497c046a3663967f31f2d3513",
+        "76b785c282c1dc24b35a563f4fccb81e6a1183fe36e413bbc4b659cb4e93382d",
+        "da93cddebcd7e3b1b30530539ffc7ba278db9b51355935eb748cf8d487f0eb09",
+        "1c42fb597201d509b13b46e333792b6b158f4ef6fcc9a6a4baf7399ecee7b658",
+        "bb61e73132fe109f4510477d2077e90c555d16140c7c13b400a42c035c8cfde4",
+        "1467407c6bba38e96c33d8a2aa619b4defa10a506818b49e7d302145154f4880",
+        "f965cedc0f08e8bd709b833b8575288944c5d0d2f23382f3abbd61af1b99e0d6",
+        "8064320c35d4ebc45b16f05bf5e2cfd7ebe5bc736193eb058a3c128d1d1e8666",
+        "4c881b98e0891f124cb15c0e30ae0a10fb1298649d109cde08a789b291620950",
+        "2f459b6e3411da02fa09d028460f3577dfabc5b0965d49f2c3ed54d13e4b8d2c",
+        "5b6c07fcb6eae15d541b87ae13eb4fb6e73860e0774a1a8844334b1de2cd7b31",
+        "d764e390db1047dd4a4a351756c8a6c565ca5a62727a708be444bb383b630a2e",
+        "1a64cdef8f7121c232803d40c6193512a11f314ab926bf0b892f21cb6981801b",
+        "742ef55e9764bfa47839b8350884d7ebae56938f78c7052732881ded834aced7",
+        "8428231beec72c103b6c9368122581f3c0d6f6a492f9f9d998551c5a0090677e",
+        "009c83482161912d9306b2803397db0121a360cee7a760e5bce9b22a6114b7fe",
+        "b8386836a12409768fc3b0200c62f8428f2888610ac843ebd93a2a76106e8fd7",
+        "2a74ae2fb92897e5499a0c633be6f80d04507d361307c406164c1c24f5c5719f",
+        "e8540856cdcda5505c8ecc84d91b3e0726b768b1f00a43afad0fd9d33fe4b095",
+        "51b174c938a3c121317a48380fc009d742aaecd48794346c6bd3bbd7e8cf522a",
+        "fb7609d37fdde6d7bc30161682adf8d0c170ccc3f0ff9b405b8fd1753d7574fc",
+        "0ad9acbc2717b8e21db39ea54c8cb99df61b147d57d0cfff1475ec8aa900f5b0",
+        "865258d4ad6586c914b3e4ae1f1cf0053ea834e68d507a314ebafd51f9060d4b",
+        "97fac2b83f9f1ddce536331a8499c1600b1e24de5a616cfb8e1d00db8de671d9",
+        "85ddd0ae35218df672bfe3baa393845eddeda8ae5971797cccbace7278abf3a2",
+        "c64c2605c42336dfa0919acdbb50773616892576fd67d6d43b583803e35259b5",
+        "5f0911611485cd6e296f73900c978d2183d8dce3ba06756ae6c2a71975ffc8b7",
+        "a2e5547a96ecb2bb63fa3ef37fdbb3380bbbf32ad1999546e84611d42c6a5647",
+        "9e49e0b124fd3591b808f4781aba67cfee91789b5992a929fe867a07aa821dbd",
+        "ed95b1b3d065b9872882d4fbff3620bc471c8bf0ffc2556cd50e1621c206d957"
+      ]
     }
   ]
 }

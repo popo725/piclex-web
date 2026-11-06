@@ -60,3 +60,14 @@ export function mergeProgress(local,remote){
 export const practiceWordKey=w=>w.occurrenceID?.trim()?'occurrence:'+w.occurrenceID.trim():w.english.toLowerCase().trim();
 export async function stableID(id){const h=await sha256(new TextEncoder().encode('piclex-web:'+id));return `${h.slice(0,8)}-${h.slice(8,12)}-5${h.slice(13,16)}-a${h.slice(17,20)}-${h.slice(20,32)}`.toUpperCase();}
 export function spellingEvent(id,wordKey,result,at){const correct=result==='correct',completed=result!=='revealed';return {id,wordKey,reviewedAt:at,correct,mode:'traditional',logJSON:btoa(JSON.stringify({rating:correct?3:1,elapsedDays:0,lastElapsedDays:0,scheduledDays:0,learningSteps:0,review:at/1000-978307200})),completedAt:at,finalCorrect:completed,statisticsVersion:1,...(completed?{levelCreditAt:at}:{})};}
+
+// XP and portable progress are committed to separate IndexedDB databases. A
+// sync may see the XP receipt first; that must not suppress the pending answer.
+export function applyPortableAnswer(progress,events,{wordKey,result,mistakes,id,at}){
+ const event=events.get(id),old=progress.get(wordKey);
+ if(event&&old?.lastPracticedAt!=null&&old.lastPracticedAt>=event.reviewedAt)return;
+ at=event?.reviewedAt??at;
+ const counted=result!=='revealed',streak=counted?(old?.streak||0)+1:0;
+ progress.set(wordKey,{wordKey,attempts:(old?.attempts||0)+1,correctAnswers:(old?.correctAnswers||0)+(counted?1:0),streak,lastPracticedAt:at,nextReviewAt:at+(streak?[1,2,4,7,15,30][Math.min(streak-1,5)]*86400000:0),misspelledIndices:mistakes||[]});
+ if(!event)events.set(id,spellingEvent(id,wordKey,result,at));
+}

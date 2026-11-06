@@ -1,10 +1,19 @@
 import {strToU8,strFromU8} from 'fflate';
-import {backupState,collectPhotos,mergeBackup,type BackupPhoto} from './backup-store';
+import {backupState,collectPhotos,mergeBackup,mergePortableProgress,type BackupPhoto} from './backup-store';
 import {encodeProgress,decodeProgress,mergeProgress,emptyProgress,stableID,spellingEvent,practiceWordKey} from '../../../packages/backup/src/progress.mjs';
 import {readPhotos,writePhotos} from '../../../packages/backup/src/photos.mjs';
 import {hashBlob,bytesOf,checkSize,MAX_MANIFEST_BYTES,MAX_PROGRESS_BYTES} from '../../../packages/backup/src/streaming.mjs';
 import {experienceEvents,mergeBackupExperience} from '../../../packages/practice/src/experience-store.mjs';
 export type CompleteFiles=Record<string,Blob|Uint8Array>;
+export async function currentProgress(){
+ const state=await backupState(false);
+ return mergeProgress(state.content,await experienceContent([],state.content));
+}
+export async function mergeSyncedProgress(remote:any){
+ await mergePortableProgress(remote);
+ await restoreExperience((await backupState(false)).content);
+ window.dispatchEvent(new Event('piclex-progress-imported'));
+}
 async function experienceContent(photos:BackupPhoto[],existing:any){
  const rows=(await experienceEvents() as any[]).sort((a,b)=>a.at-b.at),content:any=emptyProgress(),words=new Map<string,any>(),drafts=new Map<string,any>(),histories=new Map<string,any>();
  content.readingEvents=[];content.laboratoryExperienceEvents=[];

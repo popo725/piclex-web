@@ -9,9 +9,19 @@ const string = (value, min, max) => typeof value === 'string' && value.length >=
 const positive = (value, max) => Number.isSafeInteger(value) && value > 0 && value <= max;
 const assetPath = value => string(value, 1, 300) && /^library\/[a-zA-Z0-9/._-]+$/.test(value) && !value.split('/').some(part => !part || part.startsWith('.'));
 
+function validateSnapshotAsset(entry, value, filename) {
+  let url; try { url = new URL(value); } catch { fail(); }
+  if (url.origin !== 'https://piclex.v2fy.com' || url.username || url.password || url.hash || url.search) fail();
+  if (['/decks/', '/public/subscriptions/'].some(prefix => url.pathname.startsWith(prefix))) return;
+  // Published mirrors remain valid sources only at this deck's exact immutable
+  // version/hash path. This does not open arbitrary same-origin downloads.
+  const mirrored = `/piclex-web/library/${entry.deckID}/v${entry.version}-${entry.packageSHA256.slice(0, 16)}/${filename}`;
+  if (url.pathname !== mirrored || url.href !== value) fail();
+}
+
 /** A reviewed build snapshot; only publicly downloadable sources may be mirrored. */
 export function validateSnapshot(snapshot) {
-  const sources = new Set(['https://piclex.v2fy.com/decks/source.json', 'https://piclex.v2fy.com/public/subscriptions/nce2/feed.json', 'https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json']);
+  const sources = new Set(['https://piclex.v2fy.com/decks/source.json', 'https://piclex.v2fy.com/public/subscriptions/nce2/feed.json', 'https://piclex.v2fy.com/public/subscriptions/classic-english-songs/feed.json', 'https://piclex.v2fy.com/public/subscriptions/classic-movie-quotes/feed.json']);
   if (!snapshot || !Array.isArray(snapshot.decks) || !snapshot.decks.length || snapshot.decks.length > 1000) fail();
   const ids = new Set();
   for (const entry of snapshot.decks) {
@@ -22,13 +32,11 @@ export function validateSnapshot(snapshot) {
       if (!entry.covers || !coverRoles.every(role => entry.covers[role]) || Object.keys(entry.covers).length !== 2) fail();
       for (const role of coverRoles) {
         const info = entry.covers[role]; validateCoverInfo(info, role);
-        let url; try { url = new URL(info.url); } catch { fail(); }
-        if (url.origin !== 'https://piclex.v2fy.com' || url.username || url.password || url.hash || url.search || !['/decks/', '/public/subscriptions/'].some(prefix => url.pathname.startsWith(prefix))) fail();
+        validateSnapshotAsset(entry, info.url, `cover-${role}.jpg`);
       }
     }
     for (const field of ['packageURL', 'coverURL']) {
-      let url; try { url = new URL(entry[field]); } catch { fail(); }
-      if (url.origin !== 'https://piclex.v2fy.com' || url.username || url.password || url.hash || url.search || !['/decks/', '/public/subscriptions/'].some(prefix => url.pathname.startsWith(prefix))) fail();
+      validateSnapshotAsset(entry, entry[field], field === 'packageURL' ? 'deck.piclexdeck' : 'cover.jpg');
     }
   }
   return snapshot;

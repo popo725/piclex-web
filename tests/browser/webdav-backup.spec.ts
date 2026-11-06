@@ -1,7 +1,7 @@
 import {test as baseTest,expect,webkit,type Page} from '@playwright/test';
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {startWebDAV} from '../support/webdav-server.mjs';import {createHash} from 'node:crypto';
 import {createPhotoDeck} from '../../packages/deck-format/src/create.mjs';
-import {decodeProgress} from '../../packages/backup/src/progress.mjs';
+import {decodeProgress,encodeProgress} from '../../packages/backup/src/progress.mjs';
 const test=baseTest.extend({context:async({context,browserName},use,info)=>{if(browserName!=='webkit'){await use(context);return;}const profile=info.outputPath('webkit-profile'),persistent=await webkit.launchPersistentContext(profile,{headless:true,ignoreHTTPSErrors:true,args:process.platform==='darwin'?['--mute-audio']:[],viewport:{width:390,height:844},isMobile:true,hasTouch:true});try{await use(persistent);}finally{await persistent.close();fs.rmSync(profile,{recursive:true,force:true});}}});
 test.use({ignoreHTTPSErrors:true});
 test.describe.configure({mode:'default'});
@@ -21,7 +21,7 @@ async function server(page:Page,options:{failPut?:boolean;corruptReadback?:boole
  const photo=Buffer.from(await createPhotoDeck({image:new Uint8Array(fs.readFileSync('tests/fixtures/covers/portrait.jpg')),title:'相机照片',id:photoID,labels:[{english:'camera',chinese:'相机',example:'This is a camera.',exampleChinese:'这是一台相机。',relation:'scene_extension'}]}));
  const manifest={format:'com.zhaoolee.piclex.complete-backup',version:1,photos:'photos.piclexdeck',learningProgress:'learning-progress.json',photoCount:1,photosSHA256:createHash('sha256').update(photo).digest('hex'),progressSHA256:JSON.parse(progress.toString()).contentSHA256};
  for(const [name,bytes]of Object.entries({'photos.piclexdeck':photo,'learning-progress.json':progress,'backup.json':Buffer.from(JSON.stringify(manifest))}))files.set(root+nativeName+'/'+name,bytes);
- return {files,stats:remote.stats,requests:remote.requests,get directories(){return new Set([base,root,...fs.readdirSync(path.join(directory,'PicLex')).map(n=>root+n+'/')]);}};
+ return {putProgress(bytes:Buffer){const name='PicLex-progress-v1-'+JSON.parse(bytes.toString()).contentSHA256.slice(0,20)+'.json';fs.mkdirSync(absolute(root+'progress/'),{recursive:true});files.set(root+'progress/'+name,bytes);return name;},files,stats:remote.stats,requests:remote.requests,get directories(){return new Set([base,root,...fs.readdirSync(path.join(directory,'PicLex')).map(n=>root+n+'/')]);}};
 }
 async function connect(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/connection');await page.getByLabel('服务器地址',{exact:true}).fill(origin+base);await page.getByLabel('账号',{exact:true}).fill('test-account');await page.getByLabel('密码',{exact:true}).fill('test-secret');await page.getByRole('button',{name:'保存并连接',exact:true}).click();await expect(page.getByText('连接成功',{exact:true})).toBeVisible();}
 async function restore(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/restore');await page.getByRole('button',{name:'刷新备份列表',exact:true}).click();await page.getByRole('button',{name:nativeName,exact:true}).click();await expect(page.getByRole('dialog',{name:'恢复完整备份？'})).toBeVisible();await Promise.all([page.waitForEvent('domcontentloaded'),page.getByRole('button',{name:'恢复照片和学习进度',exact:true}).click()]);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.locator('.photo-data-page')).toBeVisible();}
@@ -52,3 +52,70 @@ test('quota and native 20 GiB limit failures leave existing data intact and clea
 test('cancel download and upload removes only operation files and keeps photos and progress',async({page})=>{const remote=await server(page);await connect(page);await restore(page);remote.stats.slow=true;await page.goto('/piclex-web/#/settings/data/webdav/restore');await page.getByRole('button',{name:'刷新备份列表',exact:true}).click();await page.getByRole('button',{name:nativeName,exact:true}).click();await page.getByRole('button',{name:'取消',exact:true}).click();await expect(page.getByRole('alert')).toContainText('取消');await expect.poll(()=>temporaryFiles(page)).toBe(1);remote.stats.slow=false;remote.stats.slowPut=true;await page.goto('/piclex-web/#/settings/data/webdav');await page.getByRole('button',{name:'创建完整备份',exact:true}).click();await expect.poll(()=>remote.requests.some(r=>r.method==='PUT')).toBe(true);await page.getByRole('button',{name:'取消',exact:true}).click();await expect(page.getByRole('alert')).toContainText('取消');await expect.poll(()=>remote.requests.filter(r=>r.method==='DELETE').length).toBe(1);await expect.poll(()=>temporaryFiles(page)).toBe(1);expect([...remote.directories].some(p=>p.includes('.complete-uploading-'))).toBe(false);expect(remote.files.has(root+nativeName+'/photos.piclexdeck')).toBe(true);await xp(page);});
 
 test('conservative storage estimates do not reject valid backups',async({page})=>{await server(page);await connect(page);await page.evaluate(()=>Object.defineProperty(Object.getPrototypeOf(navigator.storage),'estimate',{configurable:true,value:async()=>({usage:1,quota:2})}));await restore(page);await xp(page);await page.goto('/piclex-web/#/settings/data');await expect(page.getByRole('button',{name:'已拍照片 1',exact:true})).toBeVisible();});
+
+
+test('automatic progress imports native XP without photos and unchanged sync never uploads a deck',async({page})=>{
+ const remote=await server(page);const name=remote.putProgress(progress);
+ await connect(page);await page.goto('/piclex-web/#/settings/data/webdav');
+ await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});
+ await xp(page);await page.goto('/piclex-web/#/settings/data');
+ await expect(page.getByRole('button',{name:'已拍照片 0',exact:true})).toBeVisible();
+ expect(remote.requests.filter(r=>r.method==='GET').every(r=>r.path.startsWith(root+'progress/'))).toBe(true);
+ expect(remote.requests.some(r=>r.method==='PUT')).toBe(false);
+ const count=remote.requests.length;
+ await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+ await expect.poll(()=>remote.requests.slice(count).some(r=>r.method==='GET'&&r.path.endsWith(name))).toBe(true);
+ await xp(page);expect(remote.requests.some(r=>r.method==='PUT')).toBe(false);
+});
+
+test('automatic progress merges offline web and native receipts once and retries failed uploads',async({page})=>{
+ const remote=await server(page);remote.putProgress(progress);
+ await connect(page);await page.goto('/piclex-web/#/settings/data/webdav');
+ await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});
+ remote.stats.failPut=true;
+ // Simulate an already committed offline reading receipt, then a connectivity event.
+ await page.evaluate(async()=>{
+  const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open('piclex-web-experience-v1');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});
+  await new Promise<void>((resolve,reject)=>{const t=db.transaction('events','readwrite');t.objectStore('events').put({id:'offline-reading',kind:'reading',credit:3,wordCount:3,at:Date.now()});t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);});db.close();
+  window.dispatchEvent(new Event('piclex-experience'));
+  window.dispatchEvent(new Event('online'));
+ });
+ await expect(page.getByText('WebDAV 存储空间不足。',{exact:true})).toBeVisible();
+ remote.stats.failPut=false;await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+ await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible();
+ const outputs=[...remote.files].filter(([p])=>p.startsWith(root+'progress/')&&p.endsWith('.json'));
+ expect(outputs).toHaveLength(2);
+ const contents=await Promise.all(outputs.map(([,b])=>decodeProgress(new Uint8Array(b))));
+ const original=await decodeProgress(new Uint8Array(progress));
+ expect(contents.some(c=>c.readingEvents?.length===2&&c.events.length===original.events.length&&c.events[0].id===original.events[0].id)).toBe(true);
+ await page.goto('/piclex-web/#/settings/level');await expect(page.locator('.level-page')).toContainText('共 8 经验');
+ const puts=remote.requests.filter(r=>r.method==='PUT').length;
+ await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+ await page.goto('/piclex-web/#/settings/data/webdav');await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});
+ expect(remote.requests.filter(r=>r.method==='PUT')).toHaveLength(puts);
+ expect(remote.requests.filter(r=>r.method==='GET').every(r=>r.path.startsWith(root+'progress/'))).toBe(true);
+});
+
+test('automatic progress merges concurrent native snapshots and opt out stops transfers',async({page})=>{
+ const remote=await server(page);remote.putProgress(progress);
+ const content=await decodeProgress(new Uint8Array(progress));
+ const branch={progress:[],memories:[],events:[],readingEvents:[{id:'AAAAAAAA-AAAA-4AAA-8AAA-AAAAAAAAAAAA',completedAt:Date.now(),wordCount:2,experience:3}]};
+ remote.putProgress(Buffer.from(JSON.stringify(await encodeProgress(branch))));
+ await connect(page);await page.goto('/piclex-web/#/settings/data/webdav');
+ await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});
+ await page.goto('/piclex-web/#/settings/level');await expect(page.locator('.level-page')).toContainText('共 8 经验');
+ await page.goto('/piclex-web/#/settings/data/webdav');await page.getByRole('checkbox',{name:'自动同步等级与学习进度'}).uncheck();
+ const before=remote.requests.length;await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+ await expect(page.getByText('学习进度自动同步已关闭',{exact:true})).toBeVisible();expect(remote.requests).toHaveLength(before);
+ const outputs=[...remote.files].filter(([p])=>p.startsWith(root+'progress/')&&p.endsWith('.json'));
+ expect(outputs).toHaveLength(3);
+ expect(remote.requests.some(r=>r.path.endsWith('.piclexdeck'))).toBe(false);
+});
+
+test('corrupt standalone progress is rejected without publishing or replacing local records',async({page})=>{
+ const remote=await server(page);const bad=JSON.parse(progress.toString());bad.content.progress[0].attempts+=1;remote.putProgress(Buffer.from(JSON.stringify(bad)));
+ await connect(page);await page.goto('/piclex-web/#/settings/data/webdav');
+ await expect(page.getByText(/学习进度.*校验/)).toBeVisible({timeout:20000});
+ expect(remote.requests.some(r=>r.method==='PUT'||r.method==='DELETE')).toBe(false);
+ await page.goto('/piclex-web/#/settings/level');await expect(page.locator('.level-page')).toContainText('共 0 经验');
+});

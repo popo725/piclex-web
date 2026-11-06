@@ -1,3 +1,5 @@
+import {startProgressSync} from './progress-sync';
+startProgressSync();
 import {backupPhotoDeck,thumbnail} from './backup-photo-deck';
 import {writePhotos} from '../../../packages/backup/src/photos.mjs';
 import {BackupJob,asBlob} from '../../../packages/backup/src/streaming.mjs';

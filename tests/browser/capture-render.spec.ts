@@ -75,7 +75,12 @@ const entranceLabels=[
  {english:'table',chinese:'桌子',example:'',exampleChinese:'',relation:'visible',bbox:[400,500,900,900],anchor:[600,700],suggestedBubblePosition:{x:200,y:700}},
  {english:'coffee',chinese:'咖啡',example:'',exampleChinese:'',relation:'associated'},
 ];
-async function recordEntrance(page:any){
+async function openAndRecordEntrance(page:any){
+ // Control the production RAF timeline so busy CI renderers cannot skip the
+ // mid-fade observation window. Advance in bounded steps below.
+ await page.clock.install({time:new Date('2026-01-01T00:00:00Z')});
+ await page.goto('/piclex-web/#/capture');
+ await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
  await page.evaluate(()=>{
   const samples:any[]=[];(window as any).__labelFrames=samples;
   const sample=()=>{
@@ -84,6 +89,12 @@ async function recordEntrance(page:any){
    if(samples.length<1500)requestAnimationFrame(sample);
   };requestAnimationFrame(sample);
  });
+}
+async function advanceEntrance(page:any){
+ // fastForward fires each scheduled RAF once per step. Sixteen 100 ms steps
+ // cover the full 1.44 s stagger and sample every frame actually rendered,
+ // without runFor scheduling hundreds of real yielding timers in WebKit.
+ for(let step=0;step<16;step++)await page.clock.fastForward(100);
 }
 function checkEntrance(frames:any[]){
  expect(frames.length).toBeGreaterThan(8);
@@ -102,23 +113,27 @@ test('early recognition keeps every label hidden through landing and reveals onc
   const original=Element.prototype.animate;
   Element.prototype.animate=function(frames,options){const a=original.call(this,frames,options);if(this.classList.contains('capture-printing')&&typeof options==='object'&&options.duration===160){(window as any).__fade=a;a.pause();}else a.playbackRate=20;return a;};
  });
- await page.goto('/piclex-web/#/capture');await recordEntrance(page);
+ await openAndRecordEntrance(page);
  await expect(page.getByRole('button',{name:'导入照片',exact:true})).toBeEnabled();await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(photo);
- await expect.poll(()=>page.evaluate(()=>!!(window as any).__fade),{timeout:15000}).toBe(true);
+ await expect.poll(async()=>{await page.clock.fastForward(32);return page.evaluate(()=>!!(window as any).__fade);},{timeout:15000}).toBe(true);
  await expect(page.locator('.capture-review')).toHaveCSS('visibility','visible');
  await expect(page.locator('.capture-annotation')).toHaveCount(3);
  for(const node of await page.locator('.capture-annotation').all())await expect(node).toHaveCSS('opacity','0');
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toHaveCount(0);
  await page.screenshot({path:info.outputPath('landed-labels-still-hidden.png')});
+ await page.clock.fastForward(64); // Record hidden labels while the print overlay still owns the handoff.
  await page.evaluate(()=>{(window as any).__fade.finish();});
+ await expect(page.locator('.capture-printing')).toHaveCount(0);
+ await advanceEntrance(page);
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toBeVisible();
  await page.getByRole('button',{name:/秒后进入拼写/}).click();
  const frames=await page.evaluate(()=>(window as any).__labelFrames);checkEntrance(frames);
+ expect(frames.filter((f:any)=>f.printing).length).toBeGreaterThan(0);
  expect(frames.filter((f:any)=>f.printing).every((f:any)=>f.opacity.every((p:number)=>p===0))).toBe(true);
  await info.attach('entrance-frames',{body:JSON.stringify(frames),contentType:'application/json'});
  const tabs=page.getByRole('navigation',{name:'底部导航'});
  await tabs.getByRole('button',{name:'设置',exact:true}).click();await tabs.getByRole('button',{name:'拍摄',exact:true}).click();
- await page.waitForTimeout(300);
+ await page.clock.fastForward(300);
  checkEntrance(await page.evaluate(()=>(window as any).__labelFrames));
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toHaveCount(0);
 });
@@ -127,9 +142,11 @@ for(const reduced of [false,true])test(`late recognition preserves stagger and c
  await page.route('https://piclex.v2fy.com/v1/web/analyze',async route=>{await pending;await route.fulfill({json:{labels:entranceLabels,quote:null}});});
  await page.addInitScript(()=>localStorage.setItem('piclex-web.import-animation','false'));
  await page.emulateMedia({reducedMotion:reduced?'reduce':'no-preference'});
- await page.goto('/piclex-web/#/capture');await recordEntrance(page);
+ await openAndRecordEntrance(page);
  await expect(page.getByRole('button',{name:'导入照片',exact:true})).toBeEnabled();await page.getByLabel('导入照片制卡',{exact:true}).setInputFiles(photo);
  await expect(page.locator('.recognition-halo')).toBeVisible();finish();
+ await expect(page.locator('.capture-annotation')).toHaveCount(3);
+ await advanceEntrance(page);
  await expect(page.getByRole('button',{name:/秒后进入拼写/})).toBeVisible();await page.getByRole('button',{name:/秒后进入拼写/}).click();
  const frames=await page.evaluate(()=>(window as any).__labelFrames);checkEntrance(frames);
  const mid=frames.find((f:any)=>f.opacity[0]>.45&&f.opacity[0]<.8),last=frames.at(-1);

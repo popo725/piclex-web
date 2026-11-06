@@ -42,7 +42,7 @@ test('local archives survive refresh; duplicate and invalid imports preserve pre
  await chooser.setInputFiles(path.resolve('tests/fixtures/demo/decks/travel.piclexdeck'));
  await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('pass');
  await page.goto('/piclex-web/#/decks');
- await expect(page.locator('.deck-card')).toHaveCount(7);
+ await expect(page.locator('.deck-card')).toHaveCount(catalog.length + 1);
 });
 test('direct links, reveal, dark theme and unknown decks have usable states',async({page})=>{
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await expect(page.getByRole('heading',{name:publicDeck.words[0].chinese,exact:true})).toBeVisible();
@@ -57,7 +57,7 @@ test('direct links, reveal, dark theme and unknown decks have usable states',asy
 test('public catalog reuses existing content and practice never downloads a whole archive',async({page})=>{
  const requests:string[]=[];page.on('request',request=>requests.push(new URL(request.url()).pathname));
  await page.goto('/piclex-web/#/decks');
- await expect(page.locator('.deck-card')).toHaveCount(6);
+ await expect(page.locator('.deck-card')).toHaveCount(catalog.length);
  await expect(page.getByRole('heading',{name:'Basic English 850 场景卡片',exact:true})).toBeVisible();
  await expect(page.getByRole('heading',{name:'新概念英语第二册',exact:true})).toBeVisible();
  await expect(page.getByRole('heading',{name:'程序员面试',exact:true})).toHaveCount(0);
