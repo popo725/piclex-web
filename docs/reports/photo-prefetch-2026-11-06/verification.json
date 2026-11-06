@@ -59,12 +59,96 @@
     }
   },
   "release": {
-    "status": "pending",
-    "publicContentPolicy": "preserve current production non-build resources"
+    "status": "complete",
+    "releaseID": "ce4246fe778e-c7b56eab2bb1",
+    "filesVerified": 2306,
+    "preservedNonBuildFiles": 2293,
+    "onlyCurrentRetained": true,
+    "url": "https://piclex.v2fy.com/piclex-web/",
+    "liveBrowser": {
+      "startTime": "2026-11-06T01:42:12.110Z",
+      "duration": 21637.481,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cleanupNote": "Initial safety check retained predecessor referenced by the activation shell; after the shell exited, official --finalize-current reverified and removed it.",
+    "livePagesBrowser": {
+      "startTime": "2026-11-06T02:01:49.388Z",
+      "duration": 33130.576,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "liveAssets": [
+      {
+        "origin": "https://piclex.v2fy.com",
+        "entry": "/piclex-web/assets/main-CvoECV-J.js",
+        "sha256": "cf3c62bb5a8a20a155e6e8819abd67c5a4b0f5e567b228e42a30dbc9d463868b",
+        "matchesVerifiedArtifact": true
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "entry": "/piclex-web/assets/main-CvoECV-J.js",
+        "sha256": "cf3c62bb5a8a20a155e6e8819abd67c5a4b0f5e567b228e42a30dbc9d463868b",
+        "matchesVerifiedArtifact": true
+      }
+    ],
+    "serverCleanup": {
+      "current": "ce4246fe778e-c7b56eab2bb1",
+      "deleted": [
+        "ccdb27f4fe49-bd6642bf9d83"
+      ],
+      "skipped": [],
+      "remaining": [
+        "ce4246fe778e-c7b56eab2bb1"
+      ],
+      "freeBytesBefore": 32872968192,
+      "freeBytesAfter": 32877682688,
+      "completedAt": 1793929422.8257232
+    }
   },
   "scope": {
     "unrelatedUncommittedChangesIncluded": false,
     "simulatorsStarted": false,
     "userDataModified": false
+  },
+  "sourceRevision": "ce4246fe778e88da647058c5d050bd910b5e65af",
+  "github": {
+    "pagesRun": 42145175315,
+    "dockerRun": 42145175259,
+    "status": "success",
+    "docker": {
+      "run": 42145175259,
+      "status": "success",
+      "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42145175259",
+      "digest": "sha256:bc120ce551bf40ea1142659d9f38c316f8b25d392969223631835b590d0d42e3",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "tag": "sha-ce4246f",
+      "latestMatchesCommitTag": true
+    },
+    "pages": {
+      "run": 42145175315,
+      "status": "success",
+      "build": "success",
+      "deploy": "success",
+      "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42145175315",
+      "unitPassed": 240,
+      "deployTestsPassed": 27,
+      "browserPassed": 341,
+      "browserSkipped": 4,
+      "browserFailed": 0
+    }
+  },
+  "cleanup": {
+    "dedicatedLinuxContainerRemoved": true,
+    "serverUploadRemoved": true,
+    "serverOnlyCurrentRetained": true,
+    "sharedCachesAndOtherTasksPreserved": true
   }
 }
