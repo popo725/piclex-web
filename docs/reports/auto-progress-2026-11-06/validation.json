@@ -1,6 +1,6 @@
 {
   "node": {
-    "passed": 243,
+    "passed": 250,
     "failed": 0
   },
   "deployTests": {
@@ -8,13 +8,13 @@
     "reusedUnchangedCode": true
   },
   "linuxBrowser": {
-    "total": 357,
-    "passed": 353,
+    "total": 369,
+    "passed": 365,
     "skipped": 4,
     "failed": 0,
     "workers": 2,
     "retries": 0,
-    "durationMinutes": 15.7
+    "durationMinutes": 16.5
   },
   "animationRepeated": {
     "passed": 27,
@@ -26,10 +26,25 @@
   "largeBackupMiB": 128,
   "swiftInterop": "passed",
   "browserSnapshots": {
-    "chrome": "9fe03eb43abed3d5c41b31823bb8a582831176af3aaba3ec27c3994fc5960a47",
-    "webkit": "799a72ad4bdf6a92c9c336765417f434310289b7d46815a5e8a1091f5ec94339"
+    "chrome": "4d9e43c64210e8d5b93c91895c0d6de37fa895fe23ef671cb1ad7697f59e4f0e",
+    "webkit": "06bcf85050de4ff27dc2450b83956d5e4bf2435444cf0c2cded10fb45e4336eb"
   },
-  "parallelBaseline": "ce4246fe778e88da647058c5d050bd910b5e65af",
+  "parallelBaseline": "2a5125cc5379a4225a8ccfc85998387c9c9e9330",
   "githubWorkflows": "pending",
-  "productionActivated": false
+  "productionActivated": false,
+  "previousPreloadOnlyValidation": {
+    "node": {
+      "passed": 243,
+      "failed": 0
+    },
+    "linuxBrowser": {
+      "total": 357,
+      "passed": 353,
+      "skipped": 4,
+      "failed": 0,
+      "workers": 2,
+      "retries": 0,
+      "durationMinutes": 15.7
+    }
+  }
 }
