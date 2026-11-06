@@ -1,3 +1,4 @@
+import usePositionSync from './usePositionSync';
 import {PhotoCache} from '../../../packages/learning-ui/src/photo-cache';
 import {upcomingPhotos} from '../../../packages/practice/src/upcoming-photos.mjs';
 import DeckPicker from './DeckPicker';
@@ -150,6 +151,7 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  const storageKey=`piclex-web.study.v2.${deck.fingerprint}`;
  // The model validates untrusted saved state and migrates the first public release's progress.
  const [state,setState]=useState<any>(()=>{let restored=restoreStudyFromStorage(deck,readJSON);const globalQuick=readPreference('piclex-web.quick');if(globalQuick!==null)restored=reduceStudy(deck,restored,{type:'preference',name:'quick',value:globalQuick==='true',question:studyKey(restored)});restored=applyLearningURL(deck,restored,parseLearningURL(location.hash));return spellingRequest?reduceStudy(deck,restored,{type:'module',value:'spelling',question:studyKey(restored)}):restored;});
+ usePositionSync(deck,state,setState,notify);
  const key=studyKey(state),input=useRef<HTMLInputElement>(null),warned=useRef(false),[panel,setPanel]=useState<'gallery'|'settings'|'download'|'level'|null>(null);
  const [visible,setVisible]=useState(!document.hidden),[composing,setComposing]=useState(false),[imeWarning,setImeWarning]=useState(false);
  const [repeat,setRepeat]=useState(()=>readPreference('piclex-web.listening.repeat')||'once'),[onePhoto]=useState(()=>readPreference('piclex-web.listening.single-photo')==='true');

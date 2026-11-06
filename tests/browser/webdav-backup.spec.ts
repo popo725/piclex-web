@@ -1,3 +1,4 @@
+import {encodePositions,decodePositions,positionName,positionAnchor} from '../../packages/backup/src/positions.mjs';
 import {test as baseTest,expect,webkit,type Page} from '@playwright/test';
 import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';import {startWebDAV} from '../support/webdav-server.mjs';import {createHash} from 'node:crypto';
 import {createPhotoDeck} from '../../packages/deck-format/src/create.mjs';
@@ -21,7 +22,7 @@ async function server(page:Page,options:{failPut?:boolean;corruptReadback?:boole
  const photo=Buffer.from(await createPhotoDeck({image:new Uint8Array(fs.readFileSync('tests/fixtures/covers/portrait.jpg')),title:'相机照片',id:photoID,labels:[{english:'camera',chinese:'相机',example:'This is a camera.',exampleChinese:'这是一台相机。',relation:'scene_extension'}]}));
  const manifest={format:'com.zhaoolee.piclex.complete-backup',version:1,photos:'photos.piclexdeck',learningProgress:'learning-progress.json',photoCount:1,photosSHA256:createHash('sha256').update(photo).digest('hex'),progressSHA256:JSON.parse(progress.toString()).contentSHA256};
  for(const [name,bytes]of Object.entries({'photos.piclexdeck':photo,'learning-progress.json':progress,'backup.json':Buffer.from(JSON.stringify(manifest))}))files.set(root+nativeName+'/'+name,bytes);
- return {putProgress(bytes:Buffer){const name='PicLex-progress-v1-'+JSON.parse(bytes.toString()).contentSHA256.slice(0,20)+'.json';fs.mkdirSync(absolute(root+'progress/'),{recursive:true});files.set(root+'progress/'+name,bytes);return name;},files,stats:remote.stats,requests:remote.requests,get directories(){return new Set([base,root,...fs.readdirSync(path.join(directory,'PicLex')).map(n=>root+n+'/')]);}};
+ return {async putPositions(rows:any[]){const bytes=encodePositions(rows),name=await positionName(bytes);fs.mkdirSync(absolute(root+'positions/'),{recursive:true});files.set(root+'positions/'+name,Buffer.from(bytes));return name;},putProgress(bytes:Buffer){const name='PicLex-progress-v1-'+JSON.parse(bytes.toString()).contentSHA256.slice(0,20)+'.json';fs.mkdirSync(absolute(root+'progress/'),{recursive:true});files.set(root+'progress/'+name,bytes);return name;},files,stats:remote.stats,requests:remote.requests,get directories(){return new Set([base,root,...fs.readdirSync(path.join(directory,'PicLex')).map(n=>root+n+'/')]);}};
 }
 async function connect(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/connection');await page.getByLabel('服务器地址',{exact:true}).fill(origin+base);await page.getByLabel('账号',{exact:true}).fill('test-account');await page.getByLabel('密码',{exact:true}).fill('test-secret');await page.getByRole('button',{name:'保存并连接',exact:true}).click();await expect(page.getByText('连接成功',{exact:true})).toBeVisible();}
 async function restore(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/restore');await page.getByRole('button',{name:'刷新备份列表',exact:true}).click();await page.getByRole('button',{name:nativeName,exact:true}).click();await expect(page.getByRole('dialog',{name:'恢复完整备份？'})).toBeVisible();await Promise.all([page.waitForEvent('domcontentloaded'),page.getByRole('button',{name:'恢复照片和学习进度',exact:true}).click()]);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.locator('.photo-data-page')).toBeVisible();}
@@ -118,4 +119,34 @@ test('corrupt standalone progress is rejected without publishing or replacing lo
  await expect(page.getByText(/学习进度.*校验/)).toBeVisible({timeout:20000});
  expect(remote.requests.some(r=>r.method==='PUT'||r.method==='DELETE')).toBe(false);
  await page.goto('/piclex-web/#/settings/level');await expect(page.locator('.level-page')).toContainText('共 0 经验');
+});
+
+
+test('deck positions receive native anchors without changing XP and defer while typing',async({page})=>{
+ const remote=await server(page);remote.putProgress(progress);
+ const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8')),card=catalog[0],deck={...JSON.parse(fs.readFileSync('apps/public/public/'+card.payload,'utf8')),id:card.id};
+ const row={deck:'deck:'+card.id.toLowerCase(),...positionAnchor(deck,{index:3}),updatedAt:Date.now(),revision:'11111111-1111-4111-8111-111111111111'};
+ await remote.putPositions([row]);await connect(page);await page.goto('/piclex-web/#/settings/data/webdav');await expect(page.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});
+ await xp(page);await page.goto('/piclex-web/#/deck/'+card.id);await expect.poll(()=>new URLSearchParams(page.url().split('?')[1]).get('word')).toBe(deck.words[3].id);
+ const input=page.getByRole('textbox',{name:'输入英文',exact:true});await input.pressSequentially(deck.words[3].english.slice(0,1));const typed=await input.inputValue();
+ const next={...row,...positionAnchor(deck,{index:6}),updatedAt:row.updatedAt+1000,revision:'22222222-2222-4222-8222-222222222222'};
+ await remote.putPositions([next]);await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+ await expect.poll(()=>page.evaluate(()=>JSON.parse(localStorage.getItem('piclex-web.deck-positions.v1')!).positions[0].revision)).toBe(next.revision);
+ expect(new URLSearchParams(page.url().split('?')[1]).get('word')).toBe(deck.words[3].id);await expect(input).toHaveValue(typed);
+ await input.press('ControlOrMeta+a');await input.press('Backspace');await expect(input).toHaveValue('');
+ await page.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));await expect.poll(()=>new URLSearchParams(page.url().split('?')[1]).get('word')).toBe(deck.words[6].id);
+ await xp(page);expect(remote.requests.some(r=>r.path.endsWith('.piclexdeck'))).toBe(false);
+});
+
+test('deck positions publish navigation and a fresh browser resumes the same word',async({page,browser})=>{
+ const remote=await server(page);await connect(page);
+ const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8')),card=catalog[0],deck={...JSON.parse(fs.readFileSync('apps/public/public/'+card.payload,'utf8')),id:card.id};
+ await page.goto('/piclex-web/#/deck/'+card.id);await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'选择照片',exact:true}).click();await page.getByRole('button',{name:'照片 2',exact:true}).click();
+ const target=deck.words.find((w:any)=>w.imageIndex===1);await expect.poll(()=>new URLSearchParams(page.url().split('?')[1]).get('word')).toBe(target.id);
+ await expect.poll(()=>page.evaluate(()=>localStorage.getItem('piclex-web.deck-positions.v1')!==null)).toBe(true);
+ await page.evaluate(()=>window.dispatchEvent(new Event('online')));await expect.poll(()=>[...remote.files].filter(([p])=>p.startsWith(root+'positions/')&&p.endsWith('.json')).length).toBeGreaterThan(0);
+ const output=[...remote.files].filter(([p])=>p.startsWith(root+'positions/')&&p.endsWith('.json')).at(-1)![1];const rows=decodePositions(new Uint8Array(output));expect(rows[0]).toMatchObject({deck:'deck:'+card.id.toLowerCase(),...positionAnchor(deck,{index:deck.words.indexOf(target)})});
+ const other=await browser.newContext({ignoreHTTPSErrors:true});try{const receiver=await other.newPage();await connect(receiver);await receiver.goto('/piclex-web/#/settings/data/webdav');await expect(receiver.getByText('等级与学习进度已自动同步',{exact:true})).toBeVisible({timeout:20000});await receiver.goto('/piclex-web/#/deck/'+card.id);await expect.poll(()=>new URLSearchParams(receiver.url().split('?')[1]).get('word')).toBe(target.id);}finally{await other.close();}
+ expect(remote.requests.some(r=>r.path.endsWith('.piclexdeck'))).toBe(false);
 });

@@ -1,3 +1,4 @@
+import {decodePositions,encodePositions,positionName,isPositionName,positionLimit} from './positions.mjs';
 import {sha256} from '@noble/hashes/sha2.js';
 import {decodeProgress,encodeProgress} from './progress.mjs';
 import {hashBlob,byteSize,MAX_BACKUP_BYTES,MAX_PROGRESS_BYTES,MAX_MANIFEST_BYTES,sizeError,checkSize} from './streaming.mjs';
@@ -44,6 +45,13 @@ export class WebDAV {
  }
  async properties(url,depth='1',missing=false){const r=await this.request('PROPFIND',url,{data:body,headers:{Depth:depth,'Content-Type':'application/xml; charset=utf-8'},allow:missing?[207,404]:[207],limit:8*1024*1024});return r.status===404?null:parseDirectory(new TextDecoder().decode(r.bytes),url);}
  async connect(){const rows=await this.properties(this.settings.directory,'0');if(!rows.some(r=>r.url.replace(/\/$/,'')===this.settings.directory.replace(/\/$/,'')&&r.collection))throw Error('WebDAV 地址不是文件夹。');return true;}
+ async listPositions(){const rows=await this.properties(child(this.settings.root,'positions/'),'1',true);return (rows||[]).filter(r=>!r.collection&&isPositionName(r.name));}
+ async readPositions(name){if(!isPositionName(name))throw Error('卡组位置文件名无效。');const r=await this.request('GET',child(child(this.settings.root,'positions/'),name),{limit:positionLimit,progressJSON:true});const rows=decodePositions(r.bytes);if(await positionName(encodePositions(rows))!==name)throw Error('卡组位置校验失败。');return rows;}
+ async uploadPositions(rows){const bytes=encodePositions(rows),name=await positionName(bytes),folder=child(this.settings.root,'positions/');await this.mkdir(this.settings.root,true);await this.mkdir(folder,true);
+ const nonce=Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join(''),stage=child(folder,'.complete-uploading-'+nonce),target=child(folder,name);
+ try{await this.request('PUT',stage,{data:bytes,headers:{'Content-Type':'application/json','If-None-Match':'*'},allow:[200,201,204],limit:1024*1024});await this.request('MOVE',stage,{headers:{Destination:target,Overwrite:'F'},allow:[201,204,412],limit:1024*1024});await this.readPositions(name);return name;}
+ finally{try{const cleanup=new WebDAV({address:this.settings.directory,username:this.settings.username,password:this.settings.password});await cleanup.request('DELETE',stage,{allow:[200,204,404],limit:1024*1024});}catch{}}
+ }
  async listProgress(){
   const rows=await this.properties(child(this.settings.root,'progress/'),'1',true);
   return (rows||[]).filter(r=>!r.collection&&/^PicLex-progress-v1-[a-f0-9]{20}\.json$/.test(r.name)).sort((a,b)=>a.name.localeCompare(b.name));

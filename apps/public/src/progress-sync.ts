@@ -1,3 +1,5 @@
+import {positions,mergeStoredPositions} from './position-store';
+import {mergePositions,encodePositions,positionName} from '../../../packages/backup/src/positions.mjs';
 import {sha256} from '../../../packages/deck-format/src/archive.mjs';
 import {WebDAV,configuration} from '../../../packages/backup/src/webdav.mjs';
 import {encodeProgress,mergeProgress} from '../../../packages/backup/src/progress.mjs';
@@ -50,6 +52,10 @@ export async function syncProgress(){
     if(files.some(f=>f.name===name))await client.readProgress(name);
     else await client.uploadProgress(content);
    }
+   valid();const positionFiles=await client.listPositions();let combined=positions();
+   for(const file of positionFiles){combined=mergePositions(combined,await client.readPositions(file.name));valid();}
+   valid();combined=mergeStoredPositions(combined); // Reread local changes after network awaits.
+   if(combined.length){const positionFile=await positionName(encodePositions(combined));valid();if(!positionFiles.some(f=>f.name===positionFile))await client.uploadPositions(combined);}
    valid();for(const f of files)seen.add(f.name);seen.add(name);
    await progressSyncReceipts(destination,[...seen]);
   };
@@ -65,7 +71,7 @@ export function startProgressSync(){
  window.addEventListener('focus',()=>void syncProgress());
  window.addEventListener('online',()=>{retryAt=0;void syncProgress();});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void syncProgress();});
- const configChanged=()=>{generation++;controller?.abort();retryAt=0;failures=0;if(enabled())queue();else report({...status,message:'学习进度自动同步已关闭'});};
+ const configChanged=()=>{generation++;controller?.abort();retryAt=0;failures=0;if(enabled()){queue();void syncProgress();}else report({...status,message:'学习进度自动同步已关闭'});};
  window.addEventListener('piclex-webdav-configured',configChanged);
  window.addEventListener('storage',e=>{if(e.key===webDAVConfigKey||e.key===autoProgressKey)configChanged();});
  setInterval(()=>{if(!document.hidden)void syncProgress();},60_000);
