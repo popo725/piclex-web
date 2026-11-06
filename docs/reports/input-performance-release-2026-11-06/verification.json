@@ -1,6 +1,6 @@
 {
   "date": "2026-11-06",
-  "status": "preflight complete; hosted workflow and production activation pending",
+  "status": "released and verified",
   "base": "ce4246fe778e88da647058c5d050bd910b5e65af",
   "changes": [
     "Input reducer copies only current spelling/sentence draft and changed maps.",
@@ -98,7 +98,22 @@
       "flaky": 0
     }
   },
-  "hosted": "pending",
+  "hosted": {
+    "commit": "5575a167c29e8a7766fde3587ea5a48b0b509015",
+    "checkAndPublishRun": 42147702755,
+    "dockerRun": 42147702770,
+    "status": "success",
+    "dockerResult": "success",
+    "dockerURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42147702770",
+    "build": "success",
+    "pagesDeploy": "success",
+    "checkAndPublishURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42147702755",
+    "browserPassed": 353,
+    "browserSkippedExisting": 4,
+    "browserFailed": 0,
+    "unitPassed": 247,
+    "deployTestsPassed": 27
+  },
   "unchangedSourceChecks": [
     "content/snapshot.json",
     "packages/deck-format/src/public.mjs",
@@ -122,5 +137,71 @@
     "playwright.config.ts": "2040cfcfe8e6dbae43f55d53c7205e81b91bf3cabedd9228c9d8fefd50a8ba5d",
     "tests/support/large-backup-runner.mjs": "163bb43d7fb96fab4c90458962ce739c0ce2a93a0f08117b6dfbebbc936721b3"
   },
-  "overlaySHA256": "2aa910ac499080bb1d808919ad28323aae1ed2cab37af110c81d6a530f2be956"
+  "overlaySHA256": "2aa910ac499080bb1d808919ad28323aae1ed2cab37af110c81d6a530f2be956",
+  "mirror": {
+    "releaseID": "5575a167c29e-89567bb75283",
+    "sourceRevision": "5575a167c29e8a7766fde3587ea5a48b0b509015",
+    "files": 2306,
+    "preservedNonBuildFiles": 2293,
+    "status": "activated; source and public HTTPS health verified",
+    "isolatedNginx": "passed: 2306 file hashes, HTML, MIME, catalogs, packages, guards and existing routes",
+    "cleanup": {
+      "current": "5575a167c29e-89567bb75283",
+      "deleted": [
+        "ce4246fe778e-c7b56eab2bb1"
+      ],
+      "skipped": [],
+      "remaining": [
+        "5575a167c29e-89567bb75283"
+      ],
+      "freeBytesBefore": 32441098240,
+      "freeBytesAfter": 32445796352,
+      "completedAt": 1793931839.3722095
+    }
+  },
+  "liveAssets": [
+    {
+      "url": "https://piclex.v2fy.com/piclex-web/",
+      "script": "/piclex-web/assets/main-CwkgZvnV.js",
+      "sha256": "1da8e2b9d84d66b7b614c87adc95596a53bdcbbe4138a641d3f73381921d0b47",
+      "matchesTestedBuild": true
+    },
+    {
+      "url": "https://zhaoolee.com/piclex-web/",
+      "script": "/piclex-web/assets/main-CwkgZvnV.js",
+      "sha256": "1da8e2b9d84d66b7b614c87adc95596a53bdcbbe4138a641d3f73381921d0b47",
+      "matchesTestedBuild": true
+    }
+  ],
+  "liveBrowser": {
+    "url": "https://piclex.v2fy.com/piclex-web/",
+    "initial": {
+      "startTime": "2026-11-06T02:27:22.254Z",
+      "duration": 158039.47,
+      "expected": 26,
+      "skipped": 0,
+      "unexpected": 7,
+      "flaky": 0
+    },
+    "networkFollowup": {
+      "startTime": "2026-11-06T02:30:29.623Z",
+      "duration": 106925.111,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "explanation": "Initial live run passed all 12 input/persistence cases and all spelling feedback cases; six image preload waits and one success-audio-start wait exceeded the local 5-second budget. Repeated all photo-prefetch and word-completion cases on all three browser projects with a temporary live-only 30-second expectation budget: 12 passed, zero failed. No source/CI config or behavioral assertion changed; these are separate runs, not a single all-green run."
+  },
+  "cleanup": {
+    "serverUploadStaging": "removed",
+    "dedicatedLinuxContainer": "removed",
+    "localTemporaryArtifacts": "removed except isolated release worktree; remove that worktree after this record is pushed and remote is verified",
+    "preserved": [
+      "production current release",
+      "shared dependency/browser caches",
+      "other task worktrees and modifications",
+      "user learning data"
+    ]
+  }
 }
