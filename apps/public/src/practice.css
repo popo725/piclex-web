@@ -156,8 +156,8 @@ body[data-practice=true] .toast button{pointer-events:auto}
 .playback-label{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px}
 .playback-progress{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:inherit}
 .playback-fill{position:absolute;inset:0;background:var(--ink);opacity:.28;transform-origin:left;transition:transform .18s linear}
-/* Match App: the left edge stays fixed; only confirmed progress expands the fill.
-   Speech without boundary callbacks holds its last confirmed position. */
+/* The left edge stays fixed. The speech clock also advances between callbacks;
+   reduced motion removes easing, while retaining useful playback progress. */
 @media(prefers-reduced-motion:reduce){.playback-fill{transition:none}}
 
 /* Two adjacent targets: avatar opens levels; the whole right side opens decks. */

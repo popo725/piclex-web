@@ -53,12 +53,42 @@ test('errors, mode changes and leaving the page clear progress and reject old ca
  await page.evaluate(()=>window.dispatchEvent(new Event('pagehide')));await expect(button).toHaveText('播放句子');
  await emit(page,'start');await emit(page,'end');await expect(page.getByRole('progressbar',{name:'播放进度'})).toHaveCount(0);
 });
-test('speech without boundary events holds confirmed progress without a looping animation',async({page},info)=>{
- await page.emulateMedia({reducedMotion:'reduce'});await open(page);await mockSpeech(page);
- const button=page.locator('.playback-button');await press(button,!!info.project.use.hasTouch);await emit(page,'start');
- const bar=page.getByRole('progressbar',{name:'播放进度'});await expect(bar).toHaveAttribute('aria-valuetext','正在播放');expect(await bar.getAttribute('aria-valuenow')).toBeNull();
- await expect(page.locator('.playback-activity')).toHaveCount(0);await expect(page.locator('.playback-fill')).toHaveCSS('transform','matrix(0, 0, 0, 1, 0, 0)');await expect(page.locator('.playback-fill')).toHaveCSS('transition-duration','0s');await emit(page,'end');
- await expect.poll(()=>page.evaluate(()=>(window as any).__utterances.at(-1).text)).toBe('croissant');const confirmed=await page.locator('.playback-fill').evaluate(e=>getComputedStyle(e).transform);await emit(page,'start');await expect(page.locator('.playback-fill')).toHaveCSS('transform',confirmed);await emit(page,'end');await expect(bar).toHaveCount(0);
+async function fillFrames(page:Page,duration=700){
+ await expect(page.locator('.playback-fill')).toBeVisible();
+ return page.evaluate(duration=>new Promise<{time:number;value:number}[]>((resolve,reject)=>{
+  const samples:{time:number;value:number}[]=[];const start=performance.now();
+  const sample=(time:number)=>{const fill=document.querySelector('.playback-fill');if(!fill){reject(Error('Missing playback fill'));return;}samples.push({time,value:new DOMMatrixReadOnly(getComputedStyle(fill).transform).a});if(time-start>=duration)resolve(samples);else requestAnimationFrame(sample);};requestAnimationFrame(sample);
+ }),duration);
+}
+function expectSmooth(samples:{time:number;value:number}[]){
+ expect(new Set(samples.map(s=>s.value.toFixed(4))).size).toBeGreaterThan(8);
+ expect(samples.at(-1)!.value-samples[0].value).toBeGreaterThan(.02);
+ for(let i=1;i<samples.length;i++){expect(samples[i].value).toBeGreaterThanOrEqual(samples[i-1].value-.001);expect(samples[i].value-samples[i-1].value).toBeLessThan((samples[i].time-samples[i-1].time)*.002+.02);}
+}
+test('speech without boundary events animates continuously, freezes on pause and resumes without jumping',async({page},info)=>{
+ await open(page);await mockSpeech(page);const button=page.locator('.playback-button'),bar=page.getByRole('progressbar',{name:'播放进度'});
+ await press(button,!!info.project.use.hasTouch);await expect(bar).toHaveCount(0);await emit(page,'start');
+ expectSmooth(await fillFrames(page));await expect(page.locator('.playback-activity')).toHaveCount(0);
+ await page.screenshot({path:info.outputPath('smooth-speech-progress.png')});
+ await emit(page,'pause');await page.waitForTimeout(220);const paused=await fillFrames(page,300);
+ expect(Math.max(...paused.map(s=>s.value))-Math.min(...paused.map(s=>s.value))).toBeLessThan(.001);
+ await emit(page,'resume');expectSmooth(await fillFrames(page));await emit(page,'end');
+ await expect.poll(()=>page.evaluate(()=>(window as any).__utterances.at(-1).text)).toBe('croissant');await emit(page,'start');expectSmooth(await fillFrames(page,400));
+ expect(Number(await bar.getAttribute('aria-valuenow'))).toBeLessThan(100);await emit(page,'end');await expect(bar).toHaveCount(0);
+});
+test('sparse speech boundaries calibrate the continuous fill without a visible jump',async({page},info)=>{
+ await open(page);await mockSpeech(page);await press(page.locator('.playback-button'),!!info.project.use.hasTouch);await emit(page,'start');
+ expectSmooth(await fillFrames(page,400));await emit(page,'boundary',-1,{charIndex:32});expectSmooth(await fillFrames(page));
+ await emit(page,'boundary',-1,{charIndex:2});expectSmooth(await fillFrames(page,400));
+ await page.getByRole('tab',{name:'练听力',exact:true}).click();await emit(page,'resume');await emit(page,'boundary',0,{charIndex:40});await expect(page.getByRole('progressbar',{name:'播放进度'})).toHaveCount(0);
+});
+test('reduced motion retains estimated speech progress and only the real end completes it',async({page},info)=>{
+ await page.emulateMedia({reducedMotion:'reduce'});await open(page);await mockSpeech(page);await page.clock.install();
+ const button=page.locator('.playback-button'),bar=page.getByRole('progressbar',{name:'播放进度'});
+ await press(button,!!info.project.use.hasTouch);await emit(page,'start');await page.clock.runFor(500);
+ await expect(page.locator('.playback-fill')).toHaveCSS('transition-duration','0s');expect(Number(await bar.getAttribute('aria-valuenow'))).toBeGreaterThan(0);
+ await page.clock.runFor(12000);expect(Number(await bar.getAttribute('aria-valuenow'))).toBeLessThan(100);await expect(button).toHaveText('重新播放');
+ await emit(page,'end');await page.clock.runFor(200);await emit(page,'start');await page.clock.runFor(5000);expect(Number(await bar.getAttribute('aria-valuenow'))).toBeLessThan(100);await emit(page,'end');await page.clock.runFor(200);await expect(bar).toHaveCount(0);
 });
 
 test('original audio fills the button from its clock even without timeupdate and stops advancing while paused',async({page},info)=>{
