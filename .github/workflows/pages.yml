@@ -35,6 +35,11 @@ jobs:
           PICLEX_CONTENT_CACHE: .cache/piclex-content
       - run: npm run build
       - run: node scripts/write-public-release-manifest.mjs
+      - name: Use responsive Ubuntu package mirror
+        run: |
+          if [ -f /etc/apt/apt-mirrors.txt ] && grep -q 'azure.archive.ubuntu.com' /etc/apt/apt-mirrors.txt; then
+            sudo sed -i 's#http://azure.archive.ubuntu.com/ubuntu#https://archive.ubuntu.com/ubuntu#g' /etc/apt/apt-mirrors.txt
+          fi
       - run: npx playwright install --with-deps chrome webkit
       - run: npm run test:browser
       - uses: actions/upload-artifact@v4
