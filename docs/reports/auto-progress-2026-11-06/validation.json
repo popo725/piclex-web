@@ -31,8 +31,35 @@
     "webkit": "d85ab1fbe4890137a115e976761ecc2cd404d3878341dd3de15fe9245ed28943"
   },
   "parallelBaseline": "2a5125cc5379a4225a8ccfc85998387c9c9e9330",
-  "githubWorkflows": "pending final repair push",
-  "productionActivated": false,
+  "githubWorkflows": {
+    "sourceCommit": "99557459fbb18e1bf5d501779fa79659c773aa80",
+    "pages": {
+      "id": 42156551532,
+      "build": "success",
+      "deploy": "success",
+      "conclusion": "success",
+      "nodePassed": 255,
+      "deployPassed": 27,
+      "browser": {
+        "passed": 387,
+        "skipped": 4,
+        "failed": 0,
+        "durationMinutes": 17.6
+      }
+    },
+    "docker": {
+      "id": 42156551696,
+      "conclusion": "success",
+      "image": "zhaoolee/piclex-web:sha-9955745",
+      "digest": "sha256:76a9d1d6cc205dac8a687374b6b34744dc8b5fda73ec9e9570426a6356b16561",
+      "latestMatches": true,
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  },
+  "productionActivated": true,
   "previousPreloadOnlyValidation": {
     "node": {
       "passed": 243,
@@ -110,5 +137,66 @@
       "spelling-feedback"
     ],
     "completeCombinedCI": "pending"
+  },
+  "finalPublishedSourceCommit": "99557459fbb18e1bf5d501779fa79659c773aa80",
+  "supersededWorkflow": {
+    "sourceCommit": "b5d7230097bd5916a7856fc434cd11a9ab67a811",
+    "run": 42156033031,
+    "conclusion": "cancelled",
+    "reason": "Parallel release superseded with descendant containing playback improvement and all sync/poster fixes"
+  },
+  "completePostAmbienceLinux": {
+    "sourceCommit": "b5d7230097bd5916a7856fc434cd11a9ab67a811",
+    "passed": 384,
+    "skipped": 4,
+    "failed": 0,
+    "workers": 4,
+    "retries": 0,
+    "durationMinutes": 9.2
+  },
+  "latestPlaybackMergeValidation": "Reused 21 Linux cases with all five source hashes matching; final complete GitHub CI passed",
+  "mirror": {
+    "releaseID": "99557459fbb1-3134c739712b",
+    "sourceCommit": "99557459fbb18e1bf5d501779fa79659c773aa80",
+    "all986BuildFilesMatch": true,
+    "liveVerification": {
+      "origin": "https://piclex.v2fy.com",
+      "releaseHTMLAndAssetsMatch": true,
+      "autoProgressDefaultEnabled": true,
+      "deckCount": 7,
+      "practiceOpened": true,
+      "posterResetAndExportReady": true,
+      "pageErrors": 0
+    },
+    "onlyCurrentReleaseRetained": true,
+    "supersededTaskIncomingRemoved": true,
+    "retainedNonBuildFilesCompared": 2292
+  },
+  "liveVerification": [
+    {
+      "origin": "https://piclex.v2fy.com",
+      "releaseHTMLAndAssetsMatch": true,
+      "autoProgressDefaultEnabled": true,
+      "deckCount": 7,
+      "practiceOpened": true,
+      "posterResetAndExportReady": true,
+      "pageErrors": 0
+    },
+    {
+      "origin": "https://zhaoolee.github.io",
+      "releaseHTMLAndAssetsMatch": true,
+      "autoProgressDefaultEnabled": true,
+      "deckCount": 7,
+      "practiceOpened": true,
+      "posterResetAndExportReady": true,
+      "pageErrors": 0
+    }
+  ],
+  "cleanup": {
+    "serverOnlyCurrent": true,
+    "supersededIncomingRemoved": true,
+    "obsoleteLocalPackagesRemoved": true,
+    "container": "removed",
+    "isolatedCheckouts": "remove after final records are pushed and integrated"
   }
 }
