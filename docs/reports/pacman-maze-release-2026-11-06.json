@@ -1,5 +1,5 @@
 {
-  "status": "pages-verified-mirror-awaiting-terminal-activation",
+  "status": "published-and-verified-both-origins",
   "sourceRevision": "26d72511c8a1f5d37ac4a3bb9118855716c5fbfd",
   "releaseID": "26d72511c8a1-09dadd58d719",
   "workflow": {
@@ -70,14 +70,50 @@
     "downloadFiles": 1,
     "downloadBytes": 13438,
     "isolatedNginxCheck": "passed",
-    "currentAtLastCheck": "e6ab8fca34c7-d3dee21e3539",
-    "activation": "waiting for user terminal sudo password"
+    "currentAtLastCheck": "26d72511c8a1-09dadd58d719",
+    "activation": "completed by user terminal; verified current and cleanup report"
   },
   "diagnostic": {
     "firstWorkflow": "https://github.com/zhaoolee/piclex-web/actions/runs/42216305420",
     "failure": "capture-mobile-fit landscape coordinate assertion; changed to bounded polling with identical strict clearance requirement",
     "linuxTargetedAfterFix": "10 passed",
     "temporaryLinuxContainer": "removed",
-    "temporaryBuildAndDependencyLink": "removed"
+    "temporaryBuildAndDependencyLink": "removed",
+    "closingCheck": "Pages prior successful behavior check reused for identical HTML; one closing attempt timed out waiting for its main script. Mirror targeted check passed including application entry, with the same HTML SHA256.",
+    "temporaryReleaseVerificationFiles": "removed after recording results"
+  },
+  "verifiedAt": "2026-11-06T13:14:31.134741+00:00",
+  "mirror": {
+    "base": "https://piclex.v2fy.com/piclex-web/",
+    "tiles": 52,
+    "cycle": 8320,
+    "spanX": 120,
+    "spanY": 96,
+    "faces": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "pelletsAtStart": 79,
+    "pelletsAtEnd": 28,
+    "reducedMotion": true,
+    "removedAfterLoad": true,
+    "htmlSHA256": "fba308ebebe57c74571e375a5e659e03b7400ebb557e2272eaab624359a03f5c"
+  },
+  "identicalEntryHTML": true,
+  "cleanup": {
+    "current": "26d72511c8a1-09dadd58d719",
+    "deleted": [
+      "56d9746d911e-294c96120358",
+      "e6ab8fca34c7-d3dee21e3539"
+    ],
+    "skipped": [],
+    "remaining": [
+      "26d72511c8a1-09dadd58d719"
+    ],
+    "freeBytesBefore": 32966615040,
+    "freeBytesAfter": 33569574912,
+    "completedAt": 1793970698.6960769
   }
 }
