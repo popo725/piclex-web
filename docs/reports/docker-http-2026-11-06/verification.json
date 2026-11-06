@@ -26,7 +26,47 @@
     "httpBrowserFailed": 2,
     "missingCryptoUnitFailed": 3
   },
-  "github": "pending",
-  "dockerPublishedImage": "pending",
-  "cleanup": "task container/worktree retained for release verification"
+  "github": {
+    "pagesRun": 42152494257,
+    "build": "success",
+    "deploy": "success",
+    "nodePassed": 255,
+    "deployPassed": 27,
+    "browserPassed": 374,
+    "browserSkipped": 4,
+    "browserFailed": 0,
+    "dockerRun": 42152494214,
+    "dockerStatus": "success"
+  },
+  "dockerPublishedImage": {
+    "tag": "zhaoolee/piclex-web:sha-b3e185b",
+    "latestMatches": true,
+    "digest": "sha256:8f33263ee1cfbe291b83fd27aa23689e125b4fd86400596e2798063b498c578d",
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ],
+    "workflow": 42152494214,
+    "status": "success",
+    "runtimeIntegrity": {
+      "requests": 542,
+      "decks": 7,
+      "photos": 491,
+      "words": 2331,
+      "audioRange": true,
+      "status": "passed"
+    },
+    "realImageHttpBrowser": {
+      "passed": 9,
+      "failed": 0
+    }
+  },
+  "cleanup": "Task containers, temporary pulled image tag, and isolated source worktree removed before pushing this final record; shared caches, other tasks and user data preserved.",
+  "releaseCommit": "b3e185b9edabb852e02a3187dfd31d0c939ee0da",
+  "livePages": {
+    "entry": "https://zhaoolee.com/piclex-web/assets/main-vWH212l5.js",
+    "sha256": "61e7825b7ae9eb35a0ddec5861483a87d09f18002b1c7a9f0391a502a4481720",
+    "matchesVerifiedBuild": true
+  },
+  "authorizedForumReply": "https://www.v2ex.com/t/1254876?p=1#r_18263050"
 }
