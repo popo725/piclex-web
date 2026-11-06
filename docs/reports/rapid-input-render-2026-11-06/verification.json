@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-06",
+  "base": "49b7eb807a9e490ed5e15f320c4f0325478cef68",
+  "status": "pre-push full Linux verification passed",
+  "cause": "Each newly earned character unconditionally assigned both full-screen Canvas dimensions. Even unchanged dimensions clear live pixels and reset the backing store, interrupting particle continuity during rapid typing.",
+  "change": "Keep the active backing store until dimensions actually change.",
+  "preserved": [
+    "particle count and limit",
+    "particle trajectories, timing, opacity, color, size and resolution",
+    "glyph, ripple and progress-rail animations",
+    "keyboard and completion audio",
+    "study state and persistence format"
+  ],
+  "regression": {
+    "before": "Desktop fails with 30 backing-store resets during a 15-letter burst",
+    "after": "Desktop Chrome, touch Chrome and WebKit all pass; zero resets after allocation and existing particle pixel preserved synchronously"
+  },
+  "profile": {
+    "conditions": "isolated muted Chrome; 1440x1000, DPR 2, 4x CPU throttling, 33 consecutive correct characters at 30 ms intervals",
+    "backingStoreAssignments": [
+      66,
+      2
+    ],
+    "inputP95Ms": [
+      28.100000143051147,
+      9.799999952316284
+    ],
+    "frameP95Ms": [
+      33.399999999999636,
+      33.40000000000009
+    ],
+    "frameMaxMs": [
+      66.69999999999982,
+      50.100000000000364
+    ],
+    "boundary": "Single controlled before/after samples. Frame P95 did not improve; no physical-device or universal no-jank claim."
+  },
+  "sourceSHA256": {
+    "packages/learning-ui/src/experience-effects.ts": "d57d7b510b5ab1c8c9642fd905b7a14bbb68a1803e86db52eb90cf94c02111f9",
+    "packages/learning-ui/src/experience-flight.mjs": "2c70aa59bebe29f9d066101a2311eb51843f3d592fc380805108736695560bfa",
+    "packages/learning-ui/src/CharacterRipples.tsx": "69d7ce925eb09c44447517fb04ba693ddcb36b776576b004ee98d1959e0d8f06",
+    "packages/learning-ui/src/SpellingGlow.tsx": "a56cf81c411b62c1bb62fbf6bf13242493e344162a0dd4874862882203e69f40",
+    "packages/learning-ui/src/typing-sound.ts": "8f8a6216342a60feaa699e5bc195ec16aae7d443ba5e6ab033f7ba9f5bd56eaa",
+    "tests/browser/input-performance.spec.ts": "65f4caf8c3bd613f1bea44d09f0a88294fe2ec5d5755165b4811ad9fa224fc83"
+  },
+  "overlaySHA256": "fe3b6b701a112d77b96ef074d266c499d56172a55135c6eab6d91e82b69beb34",
+  "linux": {
+    "runtime": "Ubuntu 24.04 ARM64, Node 24.18.1, locked Playwright 1.63.0 Chromium/WebKit; Chrome channel mapped to matching bundled Chromium",
+    "unitPassed": 255,
+    "deployPassed": 27,
+    "productionBuild": "passed",
+    "browser": {
+      "passed": 390,
+      "skipped": 4,
+      "failed": 0,
+      "durationMinutes": 8.3,
+      "workers": 4,
+      "retries": 0
+    },
+    "testedSourceAndMainAssetMatchUpload": true
+  }
+}

@@ -7,7 +7,11 @@ export function emitExperience(sources:DOMRect[],complete=false,perfect=false,ef
  const meter=document.querySelector('.learning-experience');if(!meter)return;
  const bounds=document.querySelector('.native-practice')?.getBoundingClientRect();
  canvas??=Object.assign(document.createElement('canvas'),{className:'experience-particles'});canvas.setAttribute('aria-hidden','true');if(!canvas.isConnected)document.body.append(canvas);
- const ratio=Math.min(2,devicePixelRatio||1);canvas.width=innerWidth*ratio;canvas.height=innerHeight*ratio;
+ const ratio=Math.min(2,devicePixelRatio||1),width=Math.round(innerWidth*ratio),height=Math.round(innerHeight*ratio);
+ // Assigning even the same dimensions clears every live particle and resets
+ // the backing store. Reuse it throughout a burst; resize only when needed.
+ if(canvas.width!==width)canvas.width=width;
+ if(canvas.height!==height)canvas.height=height;
  const now=performance.now(),count=complete?32:Math.min(15,sources.length*5);
  for(let i=0;i<count&&particles.length<MAX_PARTICLES;i++){const flight=makeFlight({source:sources[i%sources.length],origin,photo,width:bounds?.right||innerWidth,leftBound:bounds?.left||0,perfect});particles.push({...flight,start:now,effect});}
  if(frame)return;

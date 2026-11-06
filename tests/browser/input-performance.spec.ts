@@ -43,6 +43,35 @@ test('typing avoids whole-study clones and prompt rebuilds while preserving glyp
  await expect.poll(()=>page.evaluate(()=>(window as any).__inputWork.writes)).toBeGreaterThan(0);
  await page.screenshot({path:info.outputPath('input-effects.png')});
 });
+test('rapid typing preserves the active particle frame instead of resetting the full-screen canvas',async({page})=>{
+ await open(page,'supercalifragilisticexpialidocious');
+ const input=page.getByRole('textbox',{name:'输入英文',exact:true});await input.press('s');
+ await expect.poll(()=>page.evaluate(()=>{
+  const canvas=document.querySelector<HTMLCanvasElement>('.experience-particles');if(!canvas)return false;
+  return canvas.getContext('2d')!.getImageData(0,0,canvas.width,canvas.height).data.some((v,i)=>i%4===3&&v>0);
+ })).toBe(true);
+ const burst=await page.evaluate(()=>{
+  const canvas=document.querySelector<HTMLCanvasElement>('.experience-particles')!;
+  let resets=0;for(const key of ['width','height']){
+   const descriptor=Object.getOwnPropertyDescriptor(HTMLCanvasElement.prototype,key)!;
+   Object.defineProperty(canvas,key,{get(){return descriptor.get!.call(this);},set(value){resets++;descriptor.set!.call(this,value);},configurable:true});
+  }
+  const context=canvas.getContext('2d')!,pixels=context.getImageData(0,0,canvas.width,canvas.height).data;
+  const index=pixels.findIndex((value,i)=>i%4===3&&value>0),pixel=(index-3)/4,x=pixel%canvas.width,y=Math.floor(pixel/canvas.width);
+  const before=[...context.getImageData(x,y,1,1).data];
+  const input=document.querySelector<HTMLInputElement>('input[aria-label="输入英文"]')!;
+  // Real key handlers commit synchronously; no animation frame can repair a
+  // cleared backing store between these rapid events and the pixel check.
+  for(const key of 'upercalifragili'){
+   input.dispatchEvent(new KeyboardEvent('keydown',{key,code:`Key${key.toUpperCase()}`,bubbles:true,cancelable:true}));
+   input.dispatchEvent(new KeyboardEvent('keyup',{key,bubbles:true}));
+  }
+  return {resets,before,after:[...context.getImageData(x,y,1,1).data],sameCanvas:canvas===document.querySelector('.experience-particles'),value:input.value};
+ });
+ expect(burst.value).toBe('supercalifragili');expect(burst.sameCanvas).toBe(true);
+ expect(burst.resets).toBe(0);expect(burst.after).toEqual(burst.before);
+ await expect(page.locator('.experience-particles')).toHaveCount(0,{timeout:5000});
+});
 test('an immediate page exit and leaving learning flush the last burst without waiting for autosave',async({page})=>{
  await open(page);
  await page.evaluate(()=>{
