@@ -65,19 +65,13 @@
 
 ## Docker 启动与更新
 
-**一行启动**（在运行 Docker 的电脑或服务器上执行）：
+**复制这一行即可：没有容器就启动，已有容器就更新。** 在运行 Docker 的电脑或服务器上执行：
 
 ```sh
-docker run --pull always -d --name piclex-web --restart unless-stopped -p 18120:8080 zhaoolee/piclex-web:latest
+docker pull zhaoolee/piclex-web:latest && (if docker container inspect piclex-web >/dev/null 2>&1; then docker stop piclex-web && docker rm piclex-web; fi) && docker run -d --name piclex-web --restart unless-stopped -p 18120:8080 zhaoolee/piclex-web:latest
 ```
 
 本机打开 <http://127.0.0.1:18120>；手机或其他局域网设备打开 `http://服务器IP:18120`（换成实际 IP，并确保端口可达）。
-
-**已部署？一行更新：**
-
-```sh
-docker pull zhaoolee/piclex-web:latest && docker stop piclex-web && docker rm piclex-web && docker run -d --name piclex-web --restart unless-stopped -p 18120:8080 zhaoolee/piclex-web:latest
-```
 
 照片和进度保存在浏览器，更新容器不会清除它们；请保持原访问地址，自定义容器名或端口映射沿用原值。[仅本机绑定、HTTPS、Compose 等详细说明](docs/docker.md)。
 
