@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-06",
+  "status": "Domestic feature and source Docker release verified; superseding combined Pages/Docker run pending",
+  "sourceRevision": "6f168d29132e4822c048ac89af8ff386a05d09ae",
+  "changes": [
+    "A continuous speech presentation clock advances between boundary events and without callbacks. Text/rate estimate is calibrated by actual boundaries.",
+    "A monotonic requestAnimationFrame painter avoids WebKit backwards CSS-transition samples; progress updates stay in the subscribed leaf.",
+    "Pause/resume excludes paused time; replay/rate changes reset; estimated whole-queue progress stays at most 99% until actual end; reduced motion remains supported."
+  ],
+  "limitation": "Browser speech duration is estimated; Web Speech does not expose native pre-rendered audio timing. Original audio still uses its actual media clock.",
+  "sourceSHA256": {
+    "apps/public/src/NativePractice.tsx": "583d2f767645108cc0fedbf26b3b8dc683f05d1df1d8490da5d3401681a97b50",
+    "apps/public/src/useSpeech.ts": "826f06bfdd26fe5f0e331d7338f99b8f5618c331d1d78b2279742f8a1c6083fb",
+    "apps/public/src/speech-progress.mjs": "c95da943f41d4b4eeff2dfb50194182230b429f92884170bc066005b862b9906",
+    "apps/public/src/practice.css": "f5dbf92291ba3657ab6726177629df98d5855a9872c647809704c50a7aea8c6e",
+    "tests/browser/playback-parity.spec.ts": "f4e7856b0e3000b70ab14ba41ac32d79557e37a45e7869a79c48e04b818442e7",
+    "tests/browser/spelling-feedback.spec.ts": "4be7f522ad1d36b2b53973ceda5e023e67a36d392cd9f97f637114d03da2dc23",
+    "tests/speech-progress.test.mjs": "503c68ca0f8276a84424250323a2c32993f69e717fe5ad21d0733d5d45d53f5c"
+  },
+  "validation": {
+    "unitPassed": 260,
+    "deployPassed": 27,
+    "macFinalTargetedPassed": 27,
+    "macWebKitRegressionRepeatPassed": 5,
+    "linuxChrome": {
+      "firstRunPassed": 291,
+      "firstRunSkipped": 3,
+      "firstRunFailed": 4,
+      "cause": "Old tests required speech progress to stay at zero without callbacks. Updated assertions to require progress, retaining geometry/theme checks.",
+      "correctedTestsPassed": 4,
+      "runtimeScope": "Speech clock final; painter subsequently changed and covered by final Mac targeted and Linux WebKit checks."
+    },
+    "linuxFinalWebKit": {
+      "firstRunPassed": 100,
+      "firstRunSkipped": 1,
+      "firstRunFailed": 1,
+      "cause": "Busy 400 ms sampling window captured only 8 distinct frames. Sample at least 12 rendered frames while preserving all distinct-value, monotonicity and step assertions.",
+      "correctedTestRepeatPassed": 3
+    },
+    "build": "final Linux TypeScript/Vite build passed; same artifact used for deployment",
+    "liveBeforePainter": {
+      "passed": 7,
+      "failed": 1,
+      "cause": "Small WebKit CSS transition reversal, fixed in final painter."
+    },
+    "liveFinal": {
+      "passed": 8,
+      "failed": 0,
+      "projects": [
+        "desktop Chrome",
+        "WebKit"
+      ],
+      "durationSeconds": 56.5
+    }
+  },
+  "mirror": {
+    "releaseID": "6f168d29132e-0866933b4070",
+    "files": 2306,
+    "preservedNonBuildFiles": 2293,
+    "overlaySHA256": "0866933b4070cbe48c524088b14d160d1ae3e9b2e83b848ae573dba6c8625ad5",
+    "script": "/piclex-web/assets/main-CEDt5UEs.js",
+    "sha256": "65c036a54329fcb4ad2ab078567af3a1cbb7b0530f7faa21c98834d6094dd900",
+    "matchesTestedBuild": true,
+    "status": "activated; full file hashes, isolated Nginx, source/public HTTPS and cleanup passed"
+  },
+  "workflows": {
+    "head": "6777be8b70ecad99d19308887f6d6750266cc569",
+    "checkAndPublish": 42173906538,
+    "docker": 42173906511,
+    "status": "pending",
+    "supersededCancelled": [
+      42167251092,
+      42167251095
+    ],
+    "dockerResult": "combined run pending; source Docker 42168760115 succeeded",
+    "delay": "GitHub runner Ubuntu mirror downloads for Playwright dependencies were unusually slow; no new workflow was pushed or rerun.",
+    "previousHead": "6f168d29132e4822c048ac89af8ff386a05d09ae",
+    "previousCheckAndPublish": 42168760052,
+    "previousCheckConclusion": "cancelled by parallel release after 54m05s, during slow runner dependency installation; browser tests had not started",
+    "sourceDocker": 42168760115,
+    "combinedProgressSourceAndTestsUnchanged": true
+  },
+  "cleanup": {
+    "dedicatedLinuxContainer": "removed",
+    "serverOldReleases": "unified activation retained current only",
+    "serverTaskStaging": "removed",
+    "localArtifacts": "Final build and completed test logs/traces removed; report and screenshot preserved. Temporary worktree and workflow watcher retained until final record.",
+    "unusedAlternativeImage": "Newly pulled Playwright 1.63.0 official image removed after existing workflow continued; no CI configuration change retained."
+  },
+  "docker": {
+    "image": "zhaoolee/piclex-web:sha-6f168d2",
+    "digest": "sha256:8765a03583a90d024597625f0dcb27cacbc1ae975ab03c96745254977ff511d2",
+    "latestMatches": true,
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
+  },
+  "localMain": "Fast-forwarded to release revision; existing uncommitted changes preserved."
+}
