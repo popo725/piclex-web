@@ -1,6 +1,69 @@
 import {test,expect,type Page} from '@playwright/test';
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {fillEnglish} from './helpers/spelling';
 const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8'));
+test('guided word blanks show readable underlines and preserve typing, reveal and difficulty changes',async({page},info)=>{
+ await page.goto('/piclex-web/#/deck/'+catalog.find((deck:{title:string})=>deck.title==='程序员工作英语').id);
+ await page.getByRole('tab',{name:'练听力',exact:true}).click();
+ await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+ await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
+ const words=page.locator('.guided-word'),fields=words.locator('input');
+ await expect(words).toHaveCount(3);
+ expect((await words.allTextContents()).join('')).not.toMatch(/[\p{L}\p{N}]/u);
+ for(const field of await fields.all()){
+  await expect(field).toHaveValue('');await expect(field).toHaveAttribute('readonly','');
+ }
+ const boxes=await words.evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().toJSON()));
+ expect(boxes[0].width).toBe(boxes[1].width);expect(boxes[2].width).toBeGreaterThan(boxes[1].width);
+ await fields.first().focus();
+ expect(await fields.first().evaluate(el=>getComputedStyle(el).outlineStyle)).toBe('none');
+ await page.locator('.photo-focus img').first().waitFor({state:'visible'});
+ await page.screenshot({path:info.outputPath('guided-empty.png')});
+ const second=fields.nth(1);
+ await fillEnglish(second,"i'm");await expect(second).toHaveValue("i'm");
+ await expect(words.nth(1).locator('.guided-letters')).toContainText('m');
+ await expect(words.nth(1).locator('.bad-letter')).toHaveCount(0);
+ await second.focus();await second.press('End');await second.press('Backspace');await expect(second).toHaveValue("i'");
+ await page.getByLabel('听写难度',{exact:true}).selectOption('medium');
+ await expect(fields.nth(1)).toHaveValue("i'");
+ const equalWidths=await words.evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().width));
+ expect(new Set(equalWidths).size).toBe(1);
+ await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
+ const peek=words.first().getByRole('button',{name:'按住查看第 1 个单词',exact:true});
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await page.mouse.move(5,5);await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
+ await expect(fields.first()).toHaveValue('');
+ await page.getByLabel('听写难度',{exact:true}).selectOption('hard');
+ await expect(page.locator('.guided-input')).toHaveCount(0);
+ await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
+ await expect(fields.nth(1)).toHaveValue("i'");
+ await page.screenshot({path:info.outputPath('guided-typed.png')});
+});
+test('long guided words wrap without covering the next word or reveal control',async({page},info)=>{
+ const card=catalog[0],deck=JSON.parse(fs.readFileSync('apps/public/public/'+card.payload,'utf8'));
+ deck.words[0].example='A pneumonoultramicroscopicsilicovolcanoconiosis appears.';
+ const body=JSON.stringify(deck),sha=createHash('sha256').update(body).digest('hex');
+ await page.route('**/library/catalog.json',route=>route.fulfill({json:catalog.map((entry:{id:string})=>entry.id===card.id?{...entry,payloadSHA256:sha}:entry)}));
+ await page.route('**/'+card.payload,route=>route.fulfill({body,contentType:'application/json'}));
+ await page.setViewportSize({width:320,height:568});
+ await page.goto('/piclex-web/#/deck/'+card.id);
+ await page.getByRole('tab',{name:'练听力',exact:true}).click();
+ await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+ await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
+ const words=page.locator('.guided-word');await expect(words).toHaveCount(3);
+ const geometry=await words.nth(1).evaluate(el=>{
+  const rect=el.getBoundingClientRect(),letters=[...el.querySelectorAll('.guided-letters i')].map(n=>n.getBoundingClientRect()),peek=el.querySelector('.peek-letter')!.getBoundingClientRect();
+  return {bottom:Math.max(...letters.map(r=>r.bottom)),right:Math.max(...letters.map(r=>r.right)),left:Math.min(...letters.map(r=>r.left)),wordRight:rect.right,wordLeft:rect.left,peekTop:peek.top,rows:new Set(letters.map(r=>r.top)).size};
+ });
+ expect(geometry.rows).toBeGreaterThan(1);expect(geometry.bottom).toBeLessThanOrEqual(geometry.peekTop);
+ expect(geometry.right).toBeLessThanOrEqual(geometry.wordRight);expect(geometry.left).toBeGreaterThanOrEqual(geometry.wordLeft);
+ expect((await words.nth(2).boundingBox())!.y).toBeGreaterThan(geometry.bottom);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await words.nth(1).scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('guided-long-word.png')});
+});
 async function learn(page:Page){
  await page.goto('/piclex-web/#/deck/'+catalog[0].id);
  await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();

@@ -91,18 +91,19 @@ function SentenceLine({sentence,target,translation,hidden,position,open}:{senten
 }
 function GuidedInput({sentence,value,difficulty,disabled,onChange,onWarning,onComposing,onSubmit,onVirtualKey}:{sentence:string;value:string[];difficulty:string;disabled:boolean;onChange:(values:string[])=>void;onWarning:(show:boolean)=>void;onComposing:(active:boolean)=>void;onSubmit:()=>void;onVirtualKey:(key:string)=>void}){
  const words:string[]=writtenWords(sentence),inputs=useRef<(HTMLInputElement|null)[]>([]),[peek,setPeek]=useState(-1),hold=useRef<ReturnType<typeof setTimeout>|undefined>(undefined);
- useEffect(()=>()=>clearTimeout(hold.current),[]);
- const chars=(w:string)=>w.replace(/[^\p{L}\p{N}]/gu,'');
+ const cancelPeek=()=>{clearTimeout(hold.current);hold.current=undefined;setPeek(-1);};
+ useEffect(()=>{cancelPeek();const hide=()=>{if(document.hidden)cancelPeek();};window.addEventListener('blur',cancelPeek);document.addEventListener('visibilitychange',hide);return()=>{clearTimeout(hold.current);window.removeEventListener('blur',cancelPeek);document.removeEventListener('visibilitychange',hide);};},[sentence,difficulty,disabled]);
+ const letterGroups=(w:string)=>{const values:{letter:string;punctuation:string}[]=[];for(const character of w){if(/[\p{L}\p{N}]/u.test(character))values.push({letter:character,punctuation:''});else if(values.length)values[values.length-1].punctuation+=character;}return values;};
  const update=(i:number,v:string)=>{const next=words.map((_,j)=>value[j]||'');next[i]=v;onChange(next);};
  return <div className="guided-input" aria-label={difficulty==='easy'?'显示单词和字母数量':'只显示单词数量'}>{words.map((word,i)=>{
-  const capacity=chars(word).length,entered=value[i]||'';
-  return <label key={i} className="guided-word" style={{width:difficulty==='easy'?Math.max(28,Math.min(280,capacity*16+8)):80}}>
+  const expected=letterGroups(word),entered=value[i]||'',typed=letterGroups(entered),capacity=expected.length,slots=Math.max(capacity,typed.length);
+  return <label key={i} className="guided-word" style={{width:difficulty==='easy'?`min(${slots*16}px,100%)`:80}}>
    <EnglishInput key={`${sentence}:${i}`} ref={n=>{inputs.current[i]=n as HTMLInputElement|null;}} label={`第 ${i+1} 个单词${difficulty==='easy'?`，${capacity} 个字母`:''}`} readOnly={disabled} onVirtualKey={onVirtualKey} value={entered} onWarning={onWarning} onComposing={onComposing}
-    onValue={(raw,advance)=>{update(i,raw.replace(/\s/g,''));if(advance&&(raw.endsWith(' ')||(difficulty==='easy'&&chars(raw).length>=capacity)))inputs.current[i+1]?.focus({preventScroll:true});}}
+    onValue={(raw,advance)=>{update(i,raw.replace(/\s/g,''));if(advance&&(raw.endsWith(' ')||(difficulty==='easy'&&letterGroups(raw).length>=capacity)))inputs.current[i+1]?.focus({preventScroll:true});}}
     onPaste={e=>{const text=e.clipboardData.getData('text');if(!/\s/.test(text))return;e.preventDefault();const next=words.map((_,j)=>value[j]||'');text.trim().split(/\s+/).forEach((v,j)=>{if(i+j<next.length)next[i+j]=v;});onChange(next);}}
     onKeyDown={e=>{if(e.nativeEvent.isComposing)return;if(e.key==='Enter'){e.preventDefault();if(!disabled&&inputs.current[i+1])inputs.current[i+1]?.focus({preventScroll:true});else onSubmit();return;}if(disabled)return;if(e.key==='Backspace'&&!entered){e.preventDefault();inputs.current[i-1]?.focus({preventScroll:true});}}}/>
-   {difficulty==='easy'&&<span className="guided-letters" aria-hidden="true">{[...chars(word)].map((c,j)=><i key={j} className={entered[j]&&entered[j].toLowerCase()!==c.toLowerCase()?'bad-letter':''}>{entered[j]||'\u00a0'}</i>)}</span>}
-   <button className="peek-letter" aria-label={`按住查看第 ${i+1} 个单词`} onPointerDown={()=>{hold.current=setTimeout(()=>setPeek(i),450);}} onPointerUp={()=>{clearTimeout(hold.current);setPeek(-1);}} onPointerCancel={()=>{clearTimeout(hold.current);setPeek(-1);}} onBlur={()=>setPeek(-1)}><Icon name="peek"/></button>{peek===i&&<span className="word-peek">{word}</span>}
+   {difficulty==='easy'&&<span className="guided-letters" aria-hidden="true">{Array.from({length:slots},(_,j)=>{const want=expected[j],got=typed[j],punctuation=got?.punctuation||want?.punctuation;return <i key={j} className={got&&(!want||got.letter.toLowerCase()!==want.letter.toLowerCase())?'bad-letter':''}><span>{got?.letter||'\u00a0'}</span>{punctuation&&<b className="guided-punctuation">{punctuation}</b>}</i>;})}</span>}
+   <button className="peek-letter" disabled={disabled} aria-label={`按住查看第 ${i+1} 个单词`} onPointerDown={e=>{if(disabled||e.button!==0||!e.isPrimary)return;e.preventDefault();clearTimeout(hold.current);e.currentTarget.setPointerCapture(e.pointerId);hold.current=setTimeout(()=>setPeek(i),400);}} onPointerUp={cancelPeek} onPointerCancel={cancelPeek} onLostPointerCapture={cancelPeek} onBlur={cancelPeek} onKeyDown={e=>{if(e.key!==' '&&e.key!=='Enter')return;e.preventDefault();if(e.repeat)return;clearTimeout(hold.current);hold.current=setTimeout(()=>setPeek(i),400);}} onKeyUp={e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();cancelPeek();}}}><Icon name="peek"/></button>{peek===i&&<span className="word-peek">{word}</span>}
   </label>;
  })}</div>;
 }
