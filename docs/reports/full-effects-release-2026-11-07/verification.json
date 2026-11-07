@@ -1,6 +1,6 @@
 {
   "date": "2026-11-07",
-  "status": "Candidate checks passed; exact-commit CI and live publication pending",
+  "status": "Published and verified on Pages, domestic HTTPS and Docker",
   "base": "c8d731f",
   "requirement": "Preserve complete effects; optimize repeated Emoji rasterization only",
   "invariants": {
@@ -144,5 +144,247 @@
   "limitations": [
     "Mac WebKit and throttled Chrome do not replace actual iPhone Chrome acceptance."
   ],
-  "candidateMacBrowserPassed": 42
+  "candidateMacBrowserPassed": 42,
+  "sourceRevision": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+  "releaseID": "5b9eb2cc05fb-4a7063a2147d",
+  "ci": {
+    "runID": 42334414497,
+    "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42334414497",
+    "sourceRevision": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+    "unitPassed": 273,
+    "deployPassed": 30,
+    "browserPassed": 420,
+    "browserSkipped": 4,
+    "browserShards": [
+      {
+        "id": 128288215075,
+        "passed": 143,
+        "skipped": 1
+      },
+      {
+        "id": 128288214887,
+        "passed": 137,
+        "skipped": 2
+      },
+      {
+        "id": 128288214892,
+        "passed": 140,
+        "skipped": 1
+      }
+    ],
+    "jobs": [
+      {
+        "id": 128292650809,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 128292651518,
+        "name": "Browser shard 1/3",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 128292651837,
+        "name": "docker / publish",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 128292652137,
+        "name": "Browser shard 2/3",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 128292679357,
+        "name": "Browser shard 3/3",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 128292680381,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "status": "completed",
+    "conclusion": "success",
+    "attempt": 2,
+    "deploymentRecovery": {
+      "initialStatus": "syncing_files",
+      "failure": "Pages deployment synchronization exceeded the 10 minute action timeout; all build/browser/Docker jobs had passed.",
+      "action": "Retried only the Pages deployment job once, reusing the exact verified artifact; no code changes, rebuilds, browser reruns or Docker republication.",
+      "result": "success",
+      "jobID": 128292650809
+    }
+  },
+  "publicBuildHashes": [
+    {
+      "origin": "https://zhaoolee.com",
+      "sourceRevision": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+      "releaseID": "5b9eb2cc05fb-4a7063a2147d",
+      "checkedPublicBuildFiles": [
+        "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-Dd5u6t2U.js",
+        "piclex-web/assets/main-QQfaDO7S.css",
+        "piclex-web/assets/main-VS2eDFIR.js",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/credits.html",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/subscribe/index.html"
+      ],
+      "manifestSHA256": "e6af7d3cd011e6f6773bf307a95426be8870a9ef2a66619fcd60b78877b0273b"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "sourceRevision": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+      "releaseID": "5b9eb2cc05fb-4a7063a2147d",
+      "checkedPublicBuildFiles": [
+        "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-Dd5u6t2U.js",
+        "piclex-web/assets/main-QQfaDO7S.css",
+        "piclex-web/assets/main-VS2eDFIR.js",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/credits.html",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/subscribe/index.html"
+      ],
+      "manifestSHA256": "e6af7d3cd011e6f6773bf307a95426be8870a9ef2a66619fcd60b78877b0273b",
+      "manifestSource": "SSH current release"
+    }
+  ],
+  "serverStage": {
+    "sourceRevision": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+    "previous": "03cdaab527df-04cd12ad0bb1",
+    "releaseID": "5b9eb2cc05fb-4a7063a2147d",
+    "files": 1142,
+    "changed": [
+      "piclex-web/assets/main-VS2eDFIR.js",
+      "piclex-web/index.html"
+    ],
+    "removed": [
+      "piclex-web/assets/main-BdrTxBVr.js"
+    ],
+    "preservedPublicFiles": 1128,
+    "downloadBytes": 673628
+  },
+  "serverCleanup": {
+    "current": "5b9eb2cc05fb-4a7063a2147d",
+    "deleted": [
+      "03cdaab527df-04cd12ad0bb1"
+    ],
+    "skipped": [],
+    "remaining": [
+      "5b9eb2cc05fb-4a7063a2147d"
+    ],
+    "freeBytesBefore": 32871821312,
+    "freeBytesAfter": 32873017344,
+    "completedAt": 1794024133.796934
+  },
+  "docker": [
+    {
+      "tag": "latest",
+      "digest": "sha256:36f1b14080f03c0457f9b5b98dcee818fe4b84f0c6864351b0becdff19b6426e",
+      "platforms": [
+        {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        {
+          "architecture": "arm64",
+          "os": "linux"
+        },
+        {
+          "architecture": "unknown",
+          "os": "unknown"
+        },
+        {
+          "architecture": "unknown",
+          "os": "unknown"
+        }
+      ]
+    },
+    {
+      "tag": "sha-5b9eb2c",
+      "digest": "sha256:36f1b14080f03c0457f9b5b98dcee818fe4b84f0c6864351b0becdff19b6426e",
+      "platforms": [
+        {
+          "architecture": "amd64",
+          "os": "linux"
+        },
+        {
+          "architecture": "arm64",
+          "os": "linux"
+        },
+        {
+          "architecture": "unknown",
+          "os": "unknown"
+        },
+        {
+          "architecture": "unknown",
+          "os": "unknown"
+        }
+      ]
+    }
+  ],
+  "liveAcceptance": {
+    "pages": {
+      "distinctChecksPassed": 12,
+      "firstRun": {
+        "startTime": "2026-11-07T03:53:43.880Z",
+        "duration": 30087.206000000002,
+        "expected": 11,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "audioFollowup": {
+        "startTime": "2026-11-07T03:55:56.548Z",
+        "duration": 11136.684000000001,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "note": "Initial WebKit audio range requests remained pending during the 5 second playback assertion. Public byte-range response was verified (206, bytes 0-1/61484). The follow-up waits for both native preload voices to reach readyState >= 3, then keeps the original playback counts, ended events, 0.32 second decoded waveform and restored-answer silence assertions. No product changes."
+    },
+    "domestic": {
+      "distinctChecksPassed": 12,
+      "stats": {
+        "startTime": "2026-11-07T04:02:25.348Z",
+        "duration": 105837.346,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "setup": "Isolated mobile Chrome and mobile WebKit contexts; full motion enabled; no user browser storage or iOS simulator. Public CSS/font/keyboard and native audio preload readiness are explicit test preconditions.",
+    "httpProbe": "Domestic manifest is read from SSH current; public assets are checked with curl, matching the deployment health checker. Python urllib probe returned 403; browser/curl public checks passed."
+  },
+  "localCleanup": {
+    "removedTaskGeneratedDirectories": [
+      "dist",
+      "test-results",
+      "live-results"
+    ],
+    "sharedDependenciesPreserved": true,
+    "browsersAndPreviewStopped": true,
+    "releaseCheckout": "Retained only until the final record commit is pushed, then removed."
+  }
 }
