@@ -1,0 +1,1768 @@
+{
+  "startedAt": "2026-11-07T07:40:20.072Z",
+  "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+  "releaseID": "028b7e5ba46a-b0e066f5d221",
+  "setup": "Actual first-time UI answers in fresh isolated browser contexts; no storage seeding, response mocking, clock changes or product code changes.",
+  "cases": [
+    {
+      "browser": "Chrome touch",
+      "site": "https://zhaoolee.com",
+      "startedAt": "2026-11-07T07:40:20.074Z",
+      "steps": [
+        {
+          "stage": "completed-first-eight-through-real-UI",
+          "at": "2026-11-07T07:40:35.116Z",
+          "completedCards": 8,
+          "untouchedNinthDraft": "b"
+        },
+        {
+          "stage": "linked-to-second-completed-card",
+          "at": "2026-11-07T07:40:35.134Z",
+          "followingCardsStillCompletedBeforeVisit": true
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:35.230Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:35.835Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:35.921Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:36.767Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:36.855Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:38.055Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:38.133Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:38.734Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:38.805Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:39.997Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:40.085Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:41.090Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:40:41.202Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:40:41.728Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "auto-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:40:41.735Z"
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:41.822Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:41.986Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:42.082Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:42.237Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:42.342Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:42.834Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:43.079Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:43.241Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:43.419Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:43.610Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:43.825Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:44.003Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:40:44.187Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:40:44.347Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "manual-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:40:44.353Z"
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:40:44.460Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:40:45.293Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:40:46.086Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "mixed-history-auto-next-to-fifth-card",
+          "at": "2026-11-07T07:40:46.999Z",
+          "empty": true
+        }
+      ],
+      "assets": [
+        {
+          "file": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+        },
+        {
+          "file": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+        },
+        {
+          "file": "piclex-web/assets/main-CwPpeDqU.css",
+          "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+        },
+        {
+          "file": "piclex-web/assets/main-BcDaruv5.js",
+          "sha256": "9e47844c470f954e02ef6b03596087f4d4ff701bf7a7604ac71341fd5f25242c"
+        }
+      ],
+      "errors": [],
+      "deck": {
+        "id": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+        "title": "Basic English 850 场景卡片",
+        "words": [
+          {
+            "card": 1,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:0",
+            "english": "bed",
+            "chinese": "床"
+          },
+          {
+            "card": 2,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:1",
+            "english": "sleep",
+            "chinese": "睡觉"
+          },
+          {
+            "card": 3,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:2",
+            "english": "awake",
+            "chinese": "醒着的"
+          },
+          {
+            "card": 4,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:3",
+            "english": "morning",
+            "chinese": "早晨"
+          },
+          {
+            "card": 5,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:4",
+            "english": "clock",
+            "chinese": "钟"
+          },
+          {
+            "card": 6,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:5",
+            "english": "curtain",
+            "chinese": "窗帘"
+          },
+          {
+            "card": 7,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:6",
+            "english": "light",
+            "chinese": "光"
+          },
+          {
+            "card": 8,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:7",
+            "english": "early",
+            "chinese": "时间还早"
+          },
+          {
+            "card": 9,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:8",
+            "english": "be",
+            "chinese": "系动词"
+          }
+        ]
+      },
+      "actualCompletedBeforeReentry": [
+        {
+          "card": 1,
+          "input": "bed",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 2,
+          "input": "sleep",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 3,
+          "input": "awake",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 4,
+          "input": "morning",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 5,
+          "input": "clock",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 6,
+          "input": "curtain",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 7,
+          "input": "light",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 8,
+          "input": "early",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        }
+      ],
+      "passed": true,
+      "finishedAt": "2026-11-07T07:40:47.004Z",
+      "isolatedContextClosed": true
+    },
+    {
+      "browser": "WebKit touch",
+      "site": "https://zhaoolee.com",
+      "startedAt": "2026-11-07T07:40:20.080Z",
+      "steps": [],
+      "assets": [
+        {
+          "file": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+        },
+        {
+          "file": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+        },
+        {
+          "file": "piclex-web/assets/main-BcDaruv5.js",
+          "sha256": "9e47844c470f954e02ef6b03596087f4d4ff701bf7a7604ac71341fd5f25242c"
+        },
+        {
+          "file": "piclex-web/assets/main-CwPpeDqU.css",
+          "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+        }
+      ],
+      "errors": [],
+      "deck": {
+        "id": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+        "title": "Basic English 850 场景卡片",
+        "words": [
+          {
+            "card": 1,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:0",
+            "english": "bed",
+            "chinese": "床"
+          },
+          {
+            "card": 2,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:1",
+            "english": "sleep",
+            "chinese": "睡觉"
+          },
+          {
+            "card": 3,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:2",
+            "english": "awake",
+            "chinese": "醒着的"
+          },
+          {
+            "card": 4,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:3",
+            "english": "morning",
+            "chinese": "早晨"
+          },
+          {
+            "card": 5,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:4",
+            "english": "clock",
+            "chinese": "钟"
+          },
+          {
+            "card": 6,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:5",
+            "english": "curtain",
+            "chinese": "窗帘"
+          },
+          {
+            "card": 7,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:6",
+            "english": "light",
+            "chinese": "光"
+          },
+          {
+            "card": 8,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:7",
+            "english": "early",
+            "chinese": "时间还早"
+          },
+          {
+            "card": 9,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:8",
+            "english": "be",
+            "chinese": "系动词"
+          }
+        ]
+      },
+      "passed": false,
+      "failure": "page.goto: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://zhaoolee.com/piclex-web/#/deck/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f?module=spelling&photo=1&word=d779515d-c223-4139-87b6-f97d8d3bcde8%3A0\", waiting until \"domcontentloaded\"\u001b[22m\n\n    at run (/private/tmp/piclex-spelling-live-20261107.cjs:45:14)\n    at async /private/tmp/piclex-spelling-live-20261107.cjs:92:18",
+      "isolatedContextClosed": true
+    },
+    {
+      "browser": "WebKit touch",
+      "site": "https://zhaoolee.com",
+      "startedAt": "2026-11-07T07:41:20.493Z",
+      "steps": [
+        {
+          "stage": "completed-first-eight-through-real-UI",
+          "at": "2026-11-07T07:41:32.381Z",
+          "completedCards": 8,
+          "untouchedNinthDraft": "b"
+        },
+        {
+          "stage": "linked-to-second-completed-card",
+          "at": "2026-11-07T07:41:32.401Z",
+          "followingCardsStillCompletedBeforeVisit": true
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:32.475Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:33.274Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:33.380Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:34.083Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:34.381Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:35.261Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:35.320Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:35.856Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:35.915Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:36.471Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:36.513Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:36.984Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:41:37.032Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:41:37.472Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "auto-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:41:37.477Z"
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:37.527Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:37.616Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:37.662Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:37.779Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:37.828Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:37.929Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:37.980Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:38.095Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:38.176Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:38.282Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:38.331Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:38.436Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:41:38.482Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:41:38.571Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "manual-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:41:38.575Z"
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:41:38.620Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:41:39.357Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:41:39.942Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "mixed-history-auto-next-to-fifth-card",
+          "at": "2026-11-07T07:41:40.530Z",
+          "empty": true
+        }
+      ],
+      "assets": [
+        {
+          "file": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+        },
+        {
+          "file": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+        },
+        {
+          "file": "piclex-web/assets/main-BcDaruv5.js",
+          "sha256": "9e47844c470f954e02ef6b03596087f4d4ff701bf7a7604ac71341fd5f25242c"
+        },
+        {
+          "file": "piclex-web/assets/main-CwPpeDqU.css",
+          "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+        }
+      ],
+      "errors": [],
+      "deck": {
+        "id": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+        "title": "Basic English 850 场景卡片",
+        "words": [
+          {
+            "card": 1,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:0",
+            "english": "bed",
+            "chinese": "床"
+          },
+          {
+            "card": 2,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:1",
+            "english": "sleep",
+            "chinese": "睡觉"
+          },
+          {
+            "card": 3,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:2",
+            "english": "awake",
+            "chinese": "醒着的"
+          },
+          {
+            "card": 4,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:3",
+            "english": "morning",
+            "chinese": "早晨"
+          },
+          {
+            "card": 5,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:4",
+            "english": "clock",
+            "chinese": "钟"
+          },
+          {
+            "card": 6,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:5",
+            "english": "curtain",
+            "chinese": "窗帘"
+          },
+          {
+            "card": 7,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:6",
+            "english": "light",
+            "chinese": "光"
+          },
+          {
+            "card": 8,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:7",
+            "english": "early",
+            "chinese": "时间还早"
+          },
+          {
+            "card": 9,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:8",
+            "english": "be",
+            "chinese": "系动词"
+          }
+        ]
+      },
+      "actualCompletedBeforeReentry": [
+        {
+          "card": 1,
+          "input": "bed",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 2,
+          "input": "sleep",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 3,
+          "input": "awake",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 4,
+          "input": "morning",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 5,
+          "input": "clock",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 6,
+          "input": "curtain",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 7,
+          "input": "light",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 8,
+          "input": "early",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        }
+      ],
+      "passed": true,
+      "finishedAt": "2026-11-07T07:41:40.531Z",
+      "isolatedContextClosed": true
+    },
+    {
+      "browser": "Chrome touch",
+      "site": "https://piclex.v2fy.com",
+      "startedAt": "2026-11-07T07:41:40.621Z",
+      "steps": [
+        {
+          "stage": "completed-first-eight-through-real-UI",
+          "at": "2026-11-07T07:42:06.663Z",
+          "completedCards": 8,
+          "untouchedNinthDraft": "b"
+        },
+        {
+          "stage": "linked-to-second-completed-card",
+          "at": "2026-11-07T07:42:06.822Z",
+          "followingCardsStillCompletedBeforeVisit": true
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:06.998Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:07.848Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:07.960Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:08.905Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:09.088Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:09.889Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:10.054Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:11.122Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:11.181Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:12.295Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:12.568Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:13.608Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:13.664Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:14.183Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "auto-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:42:14.197Z"
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:14.306Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:14.509Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:14.618Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:14.765Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:14.854Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:15.032Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:15.133Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:15.369Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:15.465Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:15.589Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:15.681Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:15.915Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:16.121Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:16.264Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "manual-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:42:16.268Z"
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:16.345Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:17.516Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:18.680Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "mixed-history-auto-next-to-fifth-card",
+          "at": "2026-11-07T07:42:19.927Z",
+          "empty": true
+        }
+      ],
+      "assets": [
+        {
+          "file": "piclex-web/assets/main-BcDaruv5.js",
+          "sha256": "9e47844c470f954e02ef6b03596087f4d4ff701bf7a7604ac71341fd5f25242c"
+        },
+        {
+          "file": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+        },
+        {
+          "file": "piclex-web/assets/main-CwPpeDqU.css",
+          "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+        },
+        {
+          "file": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+        }
+      ],
+      "errors": [],
+      "deck": {
+        "id": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+        "title": "Basic English 850 场景卡片",
+        "words": [
+          {
+            "card": 1,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:0",
+            "english": "bed",
+            "chinese": "床"
+          },
+          {
+            "card": 2,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:1",
+            "english": "sleep",
+            "chinese": "睡觉"
+          },
+          {
+            "card": 3,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:2",
+            "english": "awake",
+            "chinese": "醒着的"
+          },
+          {
+            "card": 4,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:3",
+            "english": "morning",
+            "chinese": "早晨"
+          },
+          {
+            "card": 5,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:4",
+            "english": "clock",
+            "chinese": "钟"
+          },
+          {
+            "card": 6,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:5",
+            "english": "curtain",
+            "chinese": "窗帘"
+          },
+          {
+            "card": 7,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:6",
+            "english": "light",
+            "chinese": "光"
+          },
+          {
+            "card": 8,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:7",
+            "english": "early",
+            "chinese": "时间还早"
+          },
+          {
+            "card": 9,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:8",
+            "english": "be",
+            "chinese": "系动词"
+          }
+        ]
+      },
+      "actualCompletedBeforeReentry": [
+        {
+          "card": 1,
+          "input": "bed",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 2,
+          "input": "sleep",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 3,
+          "input": "awake",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 4,
+          "input": "morning",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 5,
+          "input": "clock",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 6,
+          "input": "curtain",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 7,
+          "input": "light",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 8,
+          "input": "early",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        }
+      ],
+      "passed": true,
+      "finishedAt": "2026-11-07T07:42:19.928Z",
+      "isolatedContextClosed": true
+    },
+    {
+      "browser": "WebKit touch",
+      "site": "https://piclex.v2fy.com",
+      "startedAt": "2026-11-07T07:41:40.621Z",
+      "steps": [
+        {
+          "stage": "completed-first-eight-through-real-UI",
+          "at": "2026-11-07T07:42:05.772Z",
+          "completedCards": 8,
+          "untouchedNinthDraft": "b"
+        },
+        {
+          "stage": "linked-to-second-completed-card",
+          "at": "2026-11-07T07:42:05.796Z",
+          "followingCardsStillCompletedBeforeVisit": true
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:05.898Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:06.826Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:06.920Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:07.839Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:07.945Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:08.804Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:09.050Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:09.674Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:09.772Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:10.548Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:10.630Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:11.223Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "auto-reopen-and-type",
+          "at": "2026-11-07T07:42:11.272Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "automatic-next",
+          "at": "2026-11-07T07:42:11.768Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "auto-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:42:11.772Z"
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:11.822Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:11.966Z",
+          "fromCard": 2,
+          "toCard": 3
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:12.029Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:12.156Z",
+          "fromCard": 3,
+          "toCard": 4
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:12.232Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:12.565Z",
+          "fromCard": 4,
+          "toCard": 5
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:12.722Z",
+          "card": 5,
+          "word": "clock",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:12.877Z",
+          "fromCard": 5,
+          "toCard": 6
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:12.925Z",
+          "card": 6,
+          "word": "curtain",
+          "emptyBeforeInput": true,
+          "typedPrefix": "c",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:13.059Z",
+          "fromCard": 6,
+          "toCard": 7
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:13.100Z",
+          "card": 7,
+          "word": "light",
+          "emptyBeforeInput": true,
+          "typedPrefix": "l",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:13.213Z",
+          "fromCard": 7,
+          "toCard": 8
+        },
+        {
+          "stage": "manual-reopen-and-type",
+          "at": "2026-11-07T07:42:13.276Z",
+          "card": 8,
+          "word": "early",
+          "emptyBeforeInput": true,
+          "typedPrefix": "e",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "clicked-next",
+          "at": "2026-11-07T07:42:13.420Z",
+          "fromCard": 8,
+          "toCard": 9
+        },
+        {
+          "stage": "manual-round-preserved-first-card-and-unfinished-draft",
+          "at": "2026-11-07T07:42:13.426Z"
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:13.486Z",
+          "card": 2,
+          "word": "sleep",
+          "emptyBeforeInput": true,
+          "typedPrefix": "s",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:14.135Z",
+          "card": 3,
+          "word": "awake",
+          "emptyBeforeInput": true,
+          "typedPrefix": "a",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "revealed-history-reopen-and-type",
+          "at": "2026-11-07T07:42:14.848Z",
+          "card": 4,
+          "word": "morning",
+          "emptyBeforeInput": true,
+          "typedPrefix": "m",
+          "savedResultBeforeInput": null
+        },
+        {
+          "stage": "mixed-history-auto-next-to-fifth-card",
+          "at": "2026-11-07T07:42:15.690Z",
+          "empty": true
+        }
+      ],
+      "assets": [
+        {
+          "file": "piclex-web/assets/main-BcDaruv5.js",
+          "sha256": "9e47844c470f954e02ef6b03596087f4d4ff701bf7a7604ac71341fd5f25242c"
+        },
+        {
+          "file": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+        },
+        {
+          "file": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+        },
+        {
+          "file": "piclex-web/assets/main-CwPpeDqU.css",
+          "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+        }
+      ],
+      "errors": [],
+      "deck": {
+        "id": "add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f",
+        "title": "Basic English 850 场景卡片",
+        "words": [
+          {
+            "card": 1,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:0",
+            "english": "bed",
+            "chinese": "床"
+          },
+          {
+            "card": 2,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:1",
+            "english": "sleep",
+            "chinese": "睡觉"
+          },
+          {
+            "card": 3,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:2",
+            "english": "awake",
+            "chinese": "醒着的"
+          },
+          {
+            "card": 4,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:3",
+            "english": "morning",
+            "chinese": "早晨"
+          },
+          {
+            "card": 5,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:4",
+            "english": "clock",
+            "chinese": "钟"
+          },
+          {
+            "card": 6,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:5",
+            "english": "curtain",
+            "chinese": "窗帘"
+          },
+          {
+            "card": 7,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:6",
+            "english": "light",
+            "chinese": "光"
+          },
+          {
+            "card": 8,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:7",
+            "english": "early",
+            "chinese": "时间还早"
+          },
+          {
+            "card": 9,
+            "id": "d779515d-c223-4139-87b6-f97d8d3bcde8:8",
+            "english": "be",
+            "chinese": "系动词"
+          }
+        ]
+      },
+      "actualCompletedBeforeReentry": [
+        {
+          "card": 1,
+          "input": "bed",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 2,
+          "input": "sleep",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 3,
+          "input": "awake",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 4,
+          "input": "morning",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 5,
+          "input": "clock",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 6,
+          "input": "curtain",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 7,
+          "input": "light",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        },
+        {
+          "card": 8,
+          "input": "early",
+          "hadMistake": false,
+          "result": "correct",
+          "quickIndices": null
+        }
+      ],
+      "passed": true,
+      "finishedAt": "2026-11-07T07:42:15.692Z",
+      "isolatedContextClosed": true
+    }
+  ],
+  "deviceValidation": false,
+  "finishedAt": "2026-11-07T07:42:20.663Z",
+  "passed": true,
+  "navigationRetryNote": "First WebKit Pages attempt exceeded the 15-second navigation timeout before any spelling action. Preserved that failed attempt; retry allows 60 seconds for remote navigation/initial card loading, with all product assertions and 15-second interaction expectations unchanged.",
+  "manifestUnchangedBeforeAndAfter": true,
+  "manifestSHA256": "72c16174a95a894eabea3c9517c00d620d33ab122e65f39678bbe4c8ad5a20ba",
+  "screenshotsVisuallyReviewed": true,
+  "summary": {
+    "successfulBrowserSiteCombinations": 4,
+    "setupNavigationTimeoutsBeforeRetry": 1,
+    "spellingFailures": 0,
+    "automaticReopenedCardsPerCase": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "manualReopenedCardsPerCase": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "realUITypedPrefixChecks": 68,
+    "preservedFirstCardAndNinthDraft": true,
+    "isolatedContextsClosed": true
+  },
+  "screenshots": {
+    "domestic-webkit-third-card-input.png": "890fe5445b4f47b8f4d34222e8affd0e0502d03aadee439234b2f0c720ced94a",
+    "pages-webkit-failure.png": "e186bda478b5afc91d3322208eff318f1479b061ea8b8a21c90e8a949faa6835",
+    "pages-chrome-third-card-input.png": "31329a37b41d273ede2ca4ff025baf6b132b270cbc899ff1d9757813d26d1732",
+    "domestic-chrome-third-card-input.png": "07a1556e1f9d989a8ec9d5bdd6521f61b36d53c98a7679dc915ecc1955967f2c",
+    "pages-webkit-third-card-input.png": "631f4c9f3557a3241a4e6b9191c76158a8ca46ec8d0e3fc704b955ac51cab41c"
+  }
+}
