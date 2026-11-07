@@ -34,10 +34,22 @@
       "initialNetworkTimeouts": 3,
       "targetedRecheckPassed": 4,
       "explanation": "Trace showed lab HTML / initial deck requests had not completed within the temporary 15s online expectation. Rechecked affected cases serially with 45s online network budget; all functional assertions unchanged. Product and CI timeouts unchanged."
-    }
+    },
+    "domesticLive": {
+      "uniqueScenarios": 18,
+      "browsers": [
+        "mobile Chrome",
+        "mobile WebKit"
+      ],
+      "initialPassed": 15,
+      "initialNetworkOrNavigationWaitTimeouts": 3,
+      "targetedRecheckPassed": 3,
+      "explanation": "Chrome fault injection still awaited other game assets; share waited for the second photo (trace at 97%). Both original assertions passed with a temporary 180s network budget. WebKit page was fully rendered but goto waited for load; the temporary live copy waits for DOMContentLoaded then retains every original UI/game/deck/draft assertion. Product and CI tests unchanged."
+    },
+    "domesticPublicHashCheck": "14 public build files verified with the existing release-validator curl method from the server. Python urllib received Cloudflare 1010; a local curl attempt had a transient TLS error. No CDN or global proxy settings changed."
   },
   "release": {
-    "status": "Pages and Docker published; domestic candidate verified, activation requires server sudo password",
+    "status": "Published and verified on Pages, domestic HTTPS and Docker",
     "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
     "releaseID": "e273c2cfba11-9912bd6e261e",
     "ci": {
@@ -135,15 +147,50 @@
       "downloadBytes": 777052
     },
     "domesticPreview": "1142 files verified; isolated Nginx, content, MIME, guard and routes checks passed; activation preview no config diff",
-    "domesticActivation": "not activated: sudo requires interactive password"
+    "domesticActivation": "User executed the standard sudo activation; current and cleanup report verified",
+    "domestic": {
+      "origin": "https://piclex.v2fy.com",
+      "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+      "releaseID": "e273c2cfba11-9912bd6e261e",
+      "checkedPublicBuildFiles": [
+        "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-C-Kg6bWO.css",
+        "piclex-web/assets/main-Dd5u6t2U.js",
+        "piclex-web/assets/main-uI5Kw53w.js",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/credits.html",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/subscribe/index.html"
+      ],
+      "manifestSHA256": "89a8467e819444fc2b710d626edfa3d34367355accf3a22f0175a842ce1b5404"
+    },
+    "domesticCleanup": {
+      "current": "e273c2cfba11-9912bd6e261e",
+      "deleted": [
+        "5b9eb2cc05fb-4a7063a2147d"
+      ],
+      "skipped": [],
+      "remaining": [
+        "e273c2cfba11-9912bd6e261e"
+      ],
+      "freeBytesBefore": 32854208512,
+      "freeBytesAfter": 32855482368,
+      "completedAt": 1794026145.6329408
+    }
   },
   "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
   "cleanup": {
     "removed": [
-      "temporary Linux container",
-      "Linux dependency/build copy",
-      "downloaded CI artifacts"
+      "temporary Linux container and dependencies",
+      "temporary build output",
+      "browser traces/output and downloaded CI archives"
     ],
-    "retained": "Isolated source/verification files pending domestic activation; shared Colima VM retained because other services are running. No simulator, app installation or user data changes."
+    "retained": "Shared Colima services preserved. Thin isolated source/verification checkout retained only until this record is pushed and remote SHA checked, then removed. No simulator, native app or user data changes."
   }
 }
