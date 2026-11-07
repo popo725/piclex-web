@@ -1,0 +1,26 @@
+{
+  "removed": [
+    "/private/tmp/piclex-four-linux-initial-results",
+    "/private/tmp/piclex-four-release-source.tar",
+    "/private/tmp/piclex-four-content-cache.tar",
+    "/private/tmp/piclex-four-merged-mobile",
+    "/private/tmp/piclex-four-reading-regression",
+    "/private/tmp/piclex-four-completion-layout",
+    "/private/tmp/piclex-four-evidence-ready",
+    "/private/tmp/piclex-parity-four-20261107/dist",
+    "/private/tmp/piclex-four-ci-failure-artifacts",
+    "/private/tmp/piclex-four-recheck-source.tar",
+    "/private/tmp/piclex-four-live-pages-results",
+    "/private/tmp/piclex-four-live-domestic-results",
+    "/private/tmp/piclex-parity-four-20261107/four.playwright.config.ts",
+    "/private/tmp/piclex-parity-four-20261107/four.vite.config.ts",
+    "/private/tmp/piclex-parity-four-20261107/live.playwright.config.ts",
+    "/private/tmp/piclex-parity-four-20261107/tests/browser/four-visual.spec.ts",
+    "/private/tmp/piclex-parity-four-20261107/node_modules",
+    "/private/tmp/piclex-parity-four-20261107/apps/public/public/library"
+  ],
+  "linuxContainerRemoved": true,
+  "finalRecheckContainerRemoved": true,
+  "localPreviewStopped": true,
+  "retained": "Canonical screenshots and failure evidence; clean source worktree; shared dependencies/browser image cache left intact"
+}

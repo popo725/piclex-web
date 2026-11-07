@@ -1,0 +1,25 @@
+build	Set up job	2026-11-07T10:10:32.9578965Z Metadata: read
+build	Run npm test	2026-11-07T10:10:44.0725019Z ℹ tests 297
+build	Run npm test	2026-11-07T10:10:44.0725375Z ℹ pass 297
+build	Run npm test	2026-11-07T10:10:44.0725542Z ℹ fail 0
+build	Run npm test	2026-11-07T10:10:44.0725897Z ℹ skipped 0
+build	Run npm run test:deploy	2026-11-07T10:10:44.8469703Z Ran 45 tests in 0.513s
+Browser shard 1/3	UNKNOWN STEP	2026-11-07T10:11:32.4404890Z Metadata: read
+Browser shard 1/3	UNKNOWN STEP	2026-11-07T10:18:42.4530020Z   1 skipped
+Browser shard 1/3	UNKNOWN STEP	2026-11-07T10:18:42.4530364Z   177 passed (5.4m)
+Browser shard 3/3	UNKNOWN STEP	2026-11-07T10:11:32.1996402Z Metadata: read
+Browser shard 3/3	UNKNOWN STEP	2026-11-07T10:20:50.8341520Z   1 skipped
+Browser shard 3/3	UNKNOWN STEP	2026-11-07T10:20:50.8341719Z   174 passed (8.1m)
+Browser shard 2/3	UNKNOWN STEP	2026-11-07T10:11:32.5407334Z Metadata: read
+Browser shard 2/3	UNKNOWN STEP	2026-11-07T10:19:32.3933954Z   2 skipped
+Browser shard 2/3	UNKNOWN STEP	2026-11-07T10:19:32.3934453Z   177 passed (6.5m)
+deploy	Set up job	2026-11-07T10:21:00.4740530Z Metadata: read
+docker / publish	UNKNOWN STEP	2026-11-07T10:20:59.6913377Z Metadata: read
+docker / publish	UNKNOWN STEP	2026-11-07T10:22:02.0695704Z         "Metadata": {
+docker / publish	UNKNOWN STEP	2026-11-07T10:22:03.7780764Z     "Metadata": {},
+docker / publish	UNKNOWN STEP	2026-11-07T10:22:03.7783929Z       "MetadataPath": "<IN MEMORY>",
+docker / publish	UNKNOWN STEP	2026-11-07T10:23:35.0220399Z ##[group]ImageID
+docker / publish	UNKNOWN STEP	2026-11-07T10:23:35.0223730Z ##[group]Metadata
+docker / publish	UNKNOWN STEP	2026-11-07T10:23:57.7577681Z #15 exporting manifest list sha256:2c8fef9d3d83fa75e79959dc81342d4d6a97d56c2fc66bda6d44ab0b58a3746d done
+docker / publish	UNKNOWN STEP	2026-11-07T10:25:13.1307434Z ##[group]ImageID
+docker / publish	UNKNOWN STEP	2026-11-07T10:25:13.1310389Z ##[group]Metadata

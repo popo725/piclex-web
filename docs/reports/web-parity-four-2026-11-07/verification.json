@@ -6,12 +6,12 @@
     "F05",
     "F17"
   ],
-  "status": "ci_transport_corrected_pending_release",
-  "published": false,
+  "status": "published_and_verified",
+  "published": true,
   "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
   "branch": "codex/web-parity-four-review",
   "worktree": "/private/tmp/piclex-parity-four-20261107",
-  "preview": "http://127.0.0.1:18204/piclex-web/",
+  "preview": null,
   "other_18": "Paused; not included in this candidate",
   "checks": {
     "unit": "297 passed",
@@ -21,13 +21,15 @@
     "mobile_final_state": "4 passed",
     "mobile_subscription": "1 passed; download/update/corrupt package/storage rollback/progress/cancel/resume",
     "build": "Linux production build and TypeScript passed",
-    "visual": "390x844 before/after capture and settings screenshots reviewed; measured main layouts identical; no screenshot pixel-identity claim"
+    "visual": "Both sites: all four full-page screenshots reviewed, photo/avatar/icons loaded, existing layout retained; direct hold and no-eye screenshots reviewed.",
+    "formal_ci": "297 unit + 45 deployment + 528 browser passed; 4 pre-existing platform skips; build, Pages and multi-architecture Docker all successful",
+    "live": "Pages 46/46; domestic 43 first-pass + 3 exact rechecks after network loading failures, unchanged assertions/timeouts. Chrome mobile and WebKit mobile; isolated data."
   },
   "screenshots": {
-    "F01": "evidence/01-listening-link.png",
-    "F02": "evidence/02-dialogue.png",
-    "F05": "evidence/05-dictation-restart.png",
-    "F17": "evidence/17-subscription-update.png"
+    "F01": "live-domestic/01-listening-link.png",
+    "F02": "live-domestic/02-dialogue.png",
+    "F05": "live-domestic/05-dictation-restart.png",
+    "F17": "live-domestic/17-subscription-update.png"
   },
   "verification_notes": [
     "F01: repeated Learning entry is consumed once; explicit listening route and saved draft win.",
@@ -63,15 +65,15 @@
     {
       "id": "guided-eye-removal",
       "authorization": "Explicit user screenshot correction through coordination chat; original other 18 items remain paused",
-      "status": "verified_pending_user_review",
+      "status": "published_and_verified",
       "change": "Remove guided-word eye buttons and their 20px reserved row in easy/medium modes; reuse existing bilingual direct word hold from shared code only in guided mode",
       "validation": "15 targeted Chrome desktop/mobile and WebKit cases passed on Mac; final TypeScript and production build passed",
       "boundaries": "Input component, hard-mode branch and keyboard unchanged; no eye DOM, hit targets or CSS remain",
       "webkit_fix": "Guided input caret scrolling no longer cancels hold; page scroll, pointer release and movement still dismiss it",
       "screenshots": [
-        "evidence/01-listening-link.png",
-        "evidence/eye-removal-medium.png",
-        "evidence/eye-removal-hold.png"
+        "live-domestic/eye-removal-easy.png",
+        "live-domestic/eye-removal-medium.png",
+        "live-domestic/eye-removal-hold.png"
       ]
     }
   ],
@@ -144,7 +146,7 @@
     "linuxPlatform": "Linux ARM64, locked Playwright Chromium 153 and WebKit. Chrome-channel persistent helper maps to the same installed Chromium; formal CI validates branded Chrome on Ubuntu AMD64.",
     "environmentCorrection": "First parallel full run: 510 passed, 18 failed, 4 pre-existing skipped. Three failures were a missing docs/native-keyboard-sounds.json reference; remaining failures were clustered timeouts during high CPU pressure. Copied the tracked reference and reran all 18 at standard two-worker load with unchanged code/limits/assertions; all passed. Combined final coverage: 528 passed, 4 pre-existing skipped.",
     "adjacentRegression": "Fixed delayed manual microphone start and effect cleanup stopping fresh demonstrations; original assertions pass in 30 Linux and 20 Mac Chrome/WebKit scenarios.",
-    "visual": "Four complete 390x844 screenshots reviewed, with visible pictures/avatar/icons loaded; final live screenshots pending.",
+    "visual": "Final four screenshots reviewed on both live sites; photo/avatar/icons fully loaded.",
     "firstCI": {
       "run": 42361205441,
       "sourceRevision": "11fc1ce82579f20b97bc4e1515c62f9f07fd70f1",
@@ -158,6 +160,70 @@
       "originalLocalRepetition": "8 passed; intermittent engine failure only observed in the captured Ubuntu CI run",
       "fixedLinux": "16 WebDAV cases passed, 1 existing redirect-platform skip; original case passed separately with four entry-script HTTP 200 responses and zero internal resource errors.",
       "dispatch": "Skip duplicate automatic tooling-only run and use existing workflow_dispatch for one complete Check and publish, including Pages and Docker."
-    }
+    },
+    "sourceRevision": "2c84d2fe3458d366f8baac7eb62984fab228c9cd",
+    "releaseID": "2c84d2fe3458-25056b8df2a1",
+    "formalCI": {
+      "run": 42362819514,
+      "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42362819514",
+      "status": "success",
+      "unitPassed": 297,
+      "deploymentPassed": 45,
+      "browserPassed": 528,
+      "browserSkipped": 4,
+      "browserFailed": 0,
+      "jobs": [
+        {
+          "name": "build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser shard 1/3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser shard 3/3",
+          "conclusion": "success"
+        },
+        {
+          "name": "Browser shard 2/3",
+          "conclusion": "success"
+        },
+        {
+          "name": "deploy",
+          "conclusion": "success"
+        },
+        {
+          "name": "docker / publish",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "pages": "https://zhaoolee.com/piclex-web/",
+    "domestic": "https://piclex.v2fy.com/piclex-web/",
+    "live": {
+      "pages": {
+        "passed": 46
+      },
+      "domestic": {
+        "firstPassed": 43,
+        "firstFailed": 3,
+        "exactRecheckPassed": 3,
+        "unchangedAssertionsAndTimeouts": true,
+        "failureEvidence": "live-domestic-network-failures.json",
+        "diagnosis": "Network loading failures: pending Cloudflare beacon on reload; 30s failed main/icon requests; delayed dictionary response. Bulk resource downloads stopped before one-worker exact recheck."
+      }
+    },
+    "publicResourceHashesVerified": 16,
+    "docker": {
+      "tag": "zhaoolee/piclex-web:sha-2c84d2f",
+      "digest": "sha256:2c8fef9d3d83fa75e79959dc81342d4d6a97d56c2fc66bda6d44ab0b58a3746d",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    },
+    "domesticActivation": "Existing admin SSH identity ran unchanged standard auto-update script; 1170 files, isolated Nginx and live checks passed; previous release cleaned with no skipped items.",
+    "cleanup": "Own Linux containers, source tar, disposable test outputs, preview process and harness/symlinks removed; original failure evidence and screenshots retained. Shared dependencies and other tasks untouched."
   }
 }

@@ -1,0 +1,167 @@
+{
+  "firstPass": 43,
+  "firstFailures": 3,
+  "exactRecheckPass": 3,
+  "unchangedAssertionsAndTimeouts": true,
+  "events": [
+    {
+      "test": "guided-no-eyes-medium-has--e291c-es-bilingual-help-and-input-mobile-webkit",
+      "networkEvidence": [
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/forward.png",
+          "status": 200,
+          "ms": 3621.13,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3618.7960000000003,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3616.149,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3618.179,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3617.9139999999998,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3617.561,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3616.459,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3616.7970000000005,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/cherry-mx-blue.mp3",
+          "status": 206,
+          "ms": 3617.2129999999997,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/keycap.png",
+          "status": 200,
+          "ms": 3619.326,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/microphone.png",
+          "status": -1,
+          "ms": -1,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/moon.png",
+          "status": -1,
+          "ms": -1,
+          "failure": null
+        }
+      ]
+    },
+    {
+      "test": "parity-subscriptions-F17-s-3e092--subscription-keeps-content-mobile",
+      "networkEvidence": [
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/library/add03b54-d0a7-46fd-88c8-2aa0fa7f0c7f/v7-44149174eaed929e/photos/d779515d-c223-4139-87b6-f97d8d3bcde8.jpg",
+          "status": -1,
+          "ms": 545.0480000000025,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/audio/ambience/cafe.m4a",
+          "status": -1,
+          "ms": 26.383999999998196,
+          "failure": null
+        },
+        {
+          "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+          "status": -1,
+          "ms": -1,
+          "failure": null
+        }
+      ]
+    },
+    {
+      "test": "word-peek-hard-input-hold--002c7-y-reply-cannot-resurrect-it-mobile",
+      "networkEvidence": [
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/",
+          "status": 200,
+          "ms": 3014.967,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/tab-capture.png",
+          "status": -1,
+          "ms": 30174.117000000013,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn.png",
+          "status": -1,
+          "ms": 30174.089999999997,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/tab-learn-frames.png",
+          "status": -1,
+          "ms": 30174.114,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/icons/tab-settings-frames.png",
+          "status": -1,
+          "ms": 30174.01000000001,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/assets/main-HRZt8ohW.js",
+          "status": -1,
+          "ms": 30174.001000000004,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/assets/main-BVKCGbL3.css",
+          "status": -1,
+          "ms": 30176.557,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+          "status": -1,
+          "ms": 30177.849000000002,
+          "failure": null
+        },
+        {
+          "url": "https://piclex.v2fy.com/piclex-web/assets/experience-store-Cf0PUDr3.js",
+          "status": -1,
+          "ms": 30177.861000000004,
+          "failure": null
+        }
+      ]
+    }
+  ]
+}

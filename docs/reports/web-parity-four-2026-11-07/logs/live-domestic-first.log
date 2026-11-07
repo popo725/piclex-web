@@ -1,0 +1,162 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test tests/browser/parity-state.spec.ts tests/browser/parity-speaking.spec.ts tests/browser/parity-subscriptions.spec.ts tests/browser/guided-no-eyes.spec.ts tests/browser/word-peek.spec.ts --config live.playwright.config.ts --project mobile --project mobile-webkit --output /private/tmp/piclex-four-live-domestic-results --reporter=line
+
+Running 46 tests using 2 workers
+
+[1/46] [mobile] › tests/browser/guided-no-eyes.spec.ts:5:43 › easy has no eye controls or reserved row; word hold preserves bilingual help and input
+[2/46] [mobile] › tests/browser/guided-no-eyes.spec.ts:5:43 › medium has no eye controls or reserved row; word hold preserves bilingual help and input
+[3/46] [mobile] › tests/browser/parity-speaking.spec.ts:10:1 › F02 dialogue alternates learner A and machine B without grading labels or machine lines
+[4/46] [mobile] › tests/browser/parity-speaking.spec.ts:16:1 › F02 skipping learner A never grants its words
+[5/46] [mobile] › tests/browser/parity-speaking.spec.ts:18:1 › ordinary speaking still advances and continues through consecutive sentences
+[6/46] [mobile] › tests/browser/parity-speaking.spec.ts:24:1 › F02 bundled programmer dialogue advances without speaking labels and fits the existing page
+[7/46] [mobile] › tests/browser/parity-state.spec.ts:33:1 › a warm Learning entry is one-shot and never overrides an explicit listening link
+[8/46] [mobile] › tests/browser/parity-state.spec.ts:65:1 › finished dictation offers challenge, another round and word learning without losing spelling drafts
+[9/46] [mobile] › tests/browser/parity-state.spec.ts:101:1 › another dictation round preserves reward dedupe identity and spelling history
+[10/46] [mobile] › tests/browser/parity-state.spec.ts:125:1 › F05 selecting the completed photo opens an editable fresh dictation
+[11/46] [mobile] › tests/browser/parity-subscriptions.spec.ts:8:1 › F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content
+[12/46] [mobile] › tests/browser/word-peek.spec.ts:31:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[13/46] [mobile] › tests/browser/word-peek.spec.ts:62:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+  1) [mobile] › tests/browser/parity-subscriptions.spec.ts:8:1 › F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: page.reload: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for navigation until "load"
+        - navigated to "https://piclex.v2fy.com/piclex-web/#/settings/decks"
+
+
+       8 | test('F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content',async({page})=>{let current=await version(1),corrupt=false;await page.route('https://parity-decks.example/**',route=>route.fulfill(route.request().url().endsWith('source.json')?{json:current.feed}:{body:Buffer.from(corrupt?new Uint8Array([1,2,3]):current.bytes),contentType:'application/zip'}));await page.goto('/piclex-web/#/learn');await page.getByRole('button',{name:'下载第三方卡组',exact:true}).click();await page.getByLabel('粘贴卡组 URL').fill(source);await page.getByRole('button',{name:'下载卡组',exact:false}).last().click();await page.getByRole('button',{name:/Stable subscription.*下载/}).click();await expect(page.getByRole('dialog')).toHaveCount(0);let first=await inventory(page);expect(first.subscriptions).toHaveLength(1);expect(first.decks).toHaveLength(1);const id=first.decks[0].id,cardID=first.subscriptions[0].cards[0].localID;
+       9 |  await page.goto('/piclex-web/#/deck/'+id);await fillSpelling(page,'co');await page.goto('/piclex-web/#/settings/decks');await page.getByRole('button',{name:'管理订阅：Stable subscription'}).click();const manage=page.getByRole('region',{name:'订阅详情'});current=await version(2);await manage.getByRole('button',{name:'检查更新',exact:true}).click();await manage.getByRole('button',{name:/更新至 v[23]/}).click();await expect(manage.getByText('v2',{exact:true})).toBeVisible();let updated=await inventory(page);expect(updated.decks).toHaveLength(1);expect(updated.decks[0].id).toBe(id);expect(updated.subscriptions[0].cards[0].localID).toBe(cardID);
+    > 10 |  current=await version(3);await manage.getByRole('button',{name:'检查更新',exact:true}).click();corrupt=true;await manage.getByRole('button',{name:/更新至 v[23]/}).click();await expect(page.getByRole('status').last()).toContainText('校验');expect((await inventory(page)).subscriptions[0].version).toBe(2);corrupt=false;await page.evaluate(()=>{const put=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(value:any,...args:any[]){if(this.name==='subscriptions'&&value.version===3){IDBObjectStore.prototype.put=put;throw new DOMException('Fixture storage quota','QuotaExceededError');}return (put as any).call(this,value,...args);};});await manage.getByRole('button',{name:/更新至 v[23]/}).click();await expect(page.getByRole('status').last()).toContainText('本地空间不足');await expect(manage).toBeVisible();expect((await inventory(page)).subscriptions[0].version).toBe(2);await manage.getByRole('button',{name:/更新至 v[23]/}).click();await expect(manage.getByText('v3',{exact:true})).toBeVisible();if(test.info().project.name==='mobile')await evidenceScreenshot(page,'/17-subscription-update.png');await page.goto('/piclex-web/#/deck/'+id);await expect(page.getByRole('textbox',{name:'输入英文'})).toHaveValue('co');await page.goto('/piclex-web/#/settings/decks');await page.getByRole('button',{name:'管理订阅：Stable subscription'}).click();await manage.getByRole('button',{name:'取消订阅',exact:true}).click();await manage.getByRole('button',{name:'确认取消订阅',exact:true}).click();await expect(manage.getByText('已取消订阅，照片已保留')).toBeVisible();updated=await inventory(page);expect(updated.decks).toHaveLength(1);expect(updated.subscriptions[0].active).toBe(false);await page.reload();await page.getByRole('button',{name:'管理订阅：Stable subscription'}).click();await expect(manage.getByRole('button',{name:'恢复订阅'})).toBeVisible();});
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^
+      11 |
+        at /private/tmp/piclex-parity-four-20261107/tests/browser/parity-subscriptions.spec.ts:10:1656
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/parity-subscriptions-F17-s-3e092--subscription-keeps-content-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../piclex-four-live-domestic-results/parity-subscriptions-F17-s-3e092--subscription-keeps-content-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/parity-subscriptions-F17-s-3e092--subscription-keeps-content-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../piclex-four-live-domestic-results/parity-subscriptions-F17-s-3e092--subscription-keeps-content-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[14/46] [mobile] › tests/browser/word-peek.spec.ts:80:1 › successful chunks hide Next and the challenge row while auto-advance runs once
+  2) [mobile] › tests/browser/word-peek.spec.ts:62:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for getByRole('tab', { name: '练听力', exact: true })
+
+
+      24 | async function openGuided(page:any,difficulty='easy'){
+      25 |  await page.goto('/piclex-web/#/deck/'+sentenceDeck.id);
+    > 26 |  await page.getByRole('tab',{name:'练听力',exact:true}).click();
+         |                                                      ^
+      27 |  await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+      28 |  await page.getByLabel('听写难度',{exact:true}).selectOption(difficulty);
+      29 | }
+        at openGuided (/private/tmp/piclex-parity-four-20261107/tests/browser/word-peek.spec.ts:26:54)
+        at /private/tmp/piclex-parity-four-20261107/tests/browser/word-peek.spec.ts:66:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/word-peek-hard-input-hold--002c7-y-reply-cannot-resurrect-it-mobile/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../piclex-four-live-domestic-results/word-peek-hard-input-hold--002c7-y-reply-cannot-resurrect-it-mobile/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/word-peek-hard-input-hold--002c7-y-reply-cannot-resurrect-it-mobile/trace.zip
+    Usage:
+
+        npx playwright show-trace ../piclex-four-live-domestic-results/word-peek-hard-input-hold--002c7-y-reply-cannot-resurrect-it-mobile/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[15/46] [mobile] › tests/browser/word-peek.spec.ts:96:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[16/46] [mobile] › tests/browser/word-peek.spec.ts:110:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[17/46] [mobile] › tests/browser/word-peek.spec.ts:131:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[18/46] [mobile] › tests/browser/word-peek.spec.ts:142:1 › failed dictionary loads can retry on a later hold
+[19/46] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free easy success preserves button dimensions without a success row or transient Next
+[20/46] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free medium success preserves button dimensions without a success row or transient Next
+[21/46] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard success preserves button dimensions without a success row or transient Next
+[22/46] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[23/46] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+[24/46] [mobile-webkit] › tests/browser/guided-no-eyes.spec.ts:5:43 › easy has no eye controls or reserved row; word hold preserves bilingual help and input
+[25/46] [mobile-webkit] › tests/browser/guided-no-eyes.spec.ts:5:43 › medium has no eye controls or reserved row; word hold preserves bilingual help and input
+[26/46] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:10:1 › F02 dialogue alternates learner A and machine B without grading labels or machine lines
+  3) [mobile-webkit] › tests/browser/guided-no-eyes.spec.ts:5:43 › medium has no eye controls or reserved row; word hold preserves bilingual help and input 
+
+    Error: expect(locator).not.toHaveText(expected) failed
+
+    Locator: getByRole('tooltip').locator('.word-peek-meaning')
+    Expected pattern: not /查询中|暂不可用|暂无释义/
+    Received string: "查询中…"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "not toHaveText" getByRole('tooltip').locator('.word-peek-meaning') with timeout 5000ms
+      - waiting for getByRole('tooltip').locator('.word-peek-meaning')
+        14 × locator resolved to <span class="word-peek-meaning">查询中…</span>
+           - unexpected value "查询中…"
+
+
+      10 |  await fillEnglish(fields.nth(1),'x');const draft=await fields.evaluateAll(nodes=>nodes.map(n=>(n as HTMLInputElement).value));await expect(fields.nth(1)).toBeFocused();
+      11 |  await words.first().scrollIntoViewIfNeeded();await page.waitForTimeout(300);const box=(await words.first().boundingBox())!;
+    > 12 |  await page.mouse.move(box.x+8,box.y+14);await page.mouse.down();await expect(tooltip).toBeVisible();await expect(tooltip.locator('.word-peek-english')).toHaveText('Hi');await expect(tooltip.locator('.word-peek-meaning')).not.toHaveText(/查询中|暂不可用|暂无释义/);await expect(fields.nth(1)).toBeFocused();
+         |                                                                                                                                                                                                                                   ^
+      13 |  if(info.project.name==='mobile'&&difficulty==='easy'&&process.env.PARITY_EVIDENCE)await page.screenshot({path:process.env.PARITY_EVIDENCE+'/eye-removal-hold.png',scale:'css'});
+      14 |  await page.mouse.up();await expect(tooltip).toHaveCount(0);await expect(fields.nth(1)).toBeFocused();expect(await fields.evaluateAll(nodes=>nodes.map(n=>(n as HTMLInputElement).value))).toEqual(draft);
+      15 |  await fields.nth(1).press('y');await expect(fields.nth(1)).toHaveValue('xy');await fields.nth(1).focus();await fields.nth(1).press('End');await fields.nth(1).press('Backspace');await expect(fields.nth(1)).toHaveValue('x');
+        at /private/tmp/piclex-parity-four-20261107/tests/browser/guided-no-eyes.spec.ts:12:227
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/guided-no-eyes-medium-has--e291c-es-bilingual-help-and-input-mobile-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../piclex-four-live-domestic-results/guided-no-eyes-medium-has--e291c-es-bilingual-help-and-input-mobile-webkit/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../piclex-four-live-domestic-results/guided-no-eyes-medium-has--e291c-es-bilingual-help-and-input-mobile-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace ../piclex-four-live-domestic-results/guided-no-eyes-medium-has--e291c-es-bilingual-help-and-input-mobile-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[27/46] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:16:1 › F02 skipping learner A never grants its words
+[28/46] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:18:1 › ordinary speaking still advances and continues through consecutive sentences
+[29/46] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:24:1 › F02 bundled programmer dialogue advances without speaking labels and fits the existing page
+[30/46] [mobile-webkit] › tests/browser/parity-state.spec.ts:33:1 › a warm Learning entry is one-shot and never overrides an explicit listening link
+[31/46] [mobile-webkit] › tests/browser/parity-state.spec.ts:65:1 › finished dictation offers challenge, another round and word learning without losing spelling drafts
+[32/46] [mobile-webkit] › tests/browser/parity-state.spec.ts:101:1 › another dictation round preserves reward dedupe identity and spelling history
+[33/46] [mobile-webkit] › tests/browser/parity-state.spec.ts:125:1 › F05 selecting the completed photo opens an editable fresh dictation
+[34/46] [mobile-webkit] › tests/browser/parity-subscriptions.spec.ts:8:1 › F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content
+[35/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:31:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[36/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:62:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[37/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:80:1 › successful chunks hide Next and the challenge row while auto-advance runs once
+[38/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:96:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[39/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:110:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[40/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:131:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[41/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:142:1 › failed dictionary loads can retry on a later hold
+[42/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:149:191 › free easy success preserves button dimensions without a success row or transient Next
+[43/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:149:191 › free medium success preserves button dimensions without a success row or transient Next
+[44/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:149:191 › free hard success preserves button dimensions without a success row or transient Next
+[45/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:149:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[46/46] [mobile-webkit] › tests/browser/word-peek.spec.ts:149:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+  3 failed
+    [mobile] › tests/browser/parity-subscriptions.spec.ts:8:1 › F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content 
+    [mobile] › tests/browser/word-peek.spec.ts:62:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it 
+    [mobile-webkit] › tests/browser/guided-no-eyes.spec.ts:5:43 › medium has no eye controls or reserved row; word hold preserves bilingual help and input 
+  43 passed (4.3m)

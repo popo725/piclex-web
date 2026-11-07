@@ -1,0 +1,104 @@
+{
+  "releaseID": "2c84d2fe3458-25056b8df2a1",
+  "sourceRevision": "2c84d2fe3458d366f8baac7eb62984fab228c9cd",
+  "vantage": "Production server through public HTTPS URLs",
+  "scope": "Entry HTML, its linked runtime JS/CSS, catalog, hero and dictionary sample. All 1170 files separately verified by standard deployment.",
+  "files": [
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "bytes": 6764,
+      "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/assets/main-BVKCGbL3.css",
+      "bytes": 100669,
+      "sha256": "33de82073b6fe994a890e14601118f4b5466359ed21b788c1a4db4ef5991d3c6"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/assets/main-HRZt8ohW.js",
+      "bytes": 699087,
+      "sha256": "3a8329f4ee2448fd7e884d968c8cbc4c328c280f0ec8e8c9157ce56729e3a87e"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "bytes": 711,
+      "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/dictionary/h.json",
+      "bytes": 781901,
+      "sha256": "df0c3989053cba08d5bce177aaffed7e3b09bf6e4b9da9c1b6743d2aea5ba1af"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/index.html",
+      "bytes": 13438,
+      "sha256": "0bd114ade97840a0437ea1500e47589c8f097a5ebf7ce1a18ebd8d1bf255fc6d"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/lab/assets/hero.png",
+      "bytes": 1151470,
+      "sha256": "1d54520c141c1e29dcd0bd2c903181a1c9ffd211f0ae970028dd03631a2c25d8"
+    },
+    {
+      "origin": "https://zhaoolee.com",
+      "path": "piclex-web/library/catalog.json",
+      "bytes": 13516,
+      "sha256": "efeb85dc02fa48c11c66c7f14068cc502949f0277e03637e406ed85b5da21dbb"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "bytes": 6764,
+      "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/assets/main-BVKCGbL3.css",
+      "bytes": 100669,
+      "sha256": "33de82073b6fe994a890e14601118f4b5466359ed21b788c1a4db4ef5991d3c6"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/assets/main-HRZt8ohW.js",
+      "bytes": 699087,
+      "sha256": "3a8329f4ee2448fd7e884d968c8cbc4c328c280f0ec8e8c9157ce56729e3a87e"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "bytes": 711,
+      "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/dictionary/h.json",
+      "bytes": 781901,
+      "sha256": "df0c3989053cba08d5bce177aaffed7e3b09bf6e4b9da9c1b6743d2aea5ba1af"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/index.html",
+      "bytes": 13438,
+      "sha256": "0bd114ade97840a0437ea1500e47589c8f097a5ebf7ce1a18ebd8d1bf255fc6d"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/lab/assets/hero.png",
+      "bytes": 1151470,
+      "sha256": "1d54520c141c1e29dcd0bd2c903181a1c9ffd211f0ae970028dd03631a2c25d8"
+    },
+    {
+      "origin": "https://piclex.v2fy.com",
+      "path": "piclex-web/library/catalog.json",
+      "bytes": 13516,
+      "sha256": "efeb85dc02fa48c11c66c7f14068cc502949f0277e03637e406ed85b5da21dbb"
+    }
+  ]
+}
