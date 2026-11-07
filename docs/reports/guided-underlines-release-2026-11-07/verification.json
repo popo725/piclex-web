@@ -1,0 +1,300 @@
+{
+  "status": "deployed_and_verified",
+  "sourceRevision": "29ec2c7a1bd1a67751d0e9a9aef8fdbb8e980565",
+  "baseline": "bbe5092e087bb934b00d51d571572e68e3c8ffa7",
+  "previousLiveRelease": "39457f509451-f0008c475e03",
+  "ciUrl": "https://github.com/zhaoolee/piclex-web/actions/runs/42348697234",
+  "local": {
+    "node": 281,
+    "deployment": 45,
+    "targetedBrowser": 20,
+    "productionBuild": "passed",
+    "liveVerifierRehearsal": 3
+  },
+  "scope": "Marked listening word-underlines and associated free-dictation interaction",
+  "deviceValidation": false,
+  "routing": "TypeSafe Choice selected codex using only sanitized release characteristics",
+  "preservation": "Only the guided function, guided styles, focused regression and task record were committed. Concurrent unrelated workspace changes preserved.",
+  "releaseID": "29ec2c7a1bd1-92686544210f",
+  "ci": {
+    "status": "success",
+    "browserPassed": 447,
+    "existingSkipped": 4,
+    "failed": 0,
+    "pagesDeploy": "success",
+    "dockerPublish": "success"
+  },
+  "docker": {
+    "image": "zhaoolee/piclex-web",
+    "tags": [
+      "sha-29ec2c7",
+      "latest"
+    ],
+    "digest": "sha256:0ff2db65535eeb20722544b589044ef3a5fb86b9a9b56bc0c26fe848e1858d9d",
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
+  },
+  "live": {
+    "pages": "https://zhaoolee.com/piclex-web/",
+    "main": "https://piclex.v2fy.com/piclex-web/",
+    "browsers": [
+      "Chrome",
+      "WebKit"
+    ],
+    "pagesChecks": 6,
+    "mainChecks": 6,
+    "passed": 12,
+    "failed": 0,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "viewports": [
+      "390x844",
+      "693x1048"
+    ],
+    "checks": [
+      "native letter-slot and word-line geometry",
+      "no visible number hints or rectangular focus outline",
+      "tap and keyboard input",
+      "apostrophes and deletion",
+      "400ms hold reveal and release outside",
+      "easy/medium/hard switching",
+      "draft retention on reload",
+      "wrong-letter correction and automatic next sentence"
+    ],
+    "mainLightScreenshotAssetsDecoded": 11,
+    "pagesRunStats": {
+      "startTime": "2026-11-07T07:02:58.361Z",
+      "duration": 54273.172,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "mainRunStats": {
+      "startTime": "2026-11-07T07:06:58.628Z",
+      "duration": 153214.878,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "appearance": {
+    "reference": "Current native DictationGuidedLayout and DictationWordCell.draw plus user screenshot",
+    "easyPitch": 16,
+    "strokeWidth": 12,
+    "lineY": 28,
+    "rowHeight": 36,
+    "mediumWordWidth": 80,
+    "visualReview": "Live light and dark word area inspected; loaded main-site screenshot includes all three eye icons.",
+    "scopeLimitation": "Verification covers the requested listening underline area and related controls, not pixel identity or interaction parity across the entire app."
+  },
+  "publicArtifacts": {
+    "releaseID": "29ec2c7a1bd1-92686544210f",
+    "sourceRevision": "29ec2c7a1bd1a67751d0e9a9aef8fdbb8e980565",
+    "origins": [
+      "https://zhaoolee.com",
+      "https://piclex.v2fy.com"
+    ],
+    "publicFilesVerifiedPerSite": 16,
+    "unchangedPublicResources": 1129,
+    "checked": [
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/lab-r_hvwpDT.css",
+        "sha256": "e480205951a020813ff59d5125c95db666af40dd285154a7739102bce6f6e5dc"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "sha256": "a08f75a084708222bf99c9a08db514a68f3e020f348aa9b52eb3a7205c2330e4"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/main-CwPpeDqU.css",
+        "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "sha256": "d0d98617c19a6b46c2e7831f70d5a711a880ff121ea14ec4371fd52553cdb7ae"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/subscribe-CgjdP79_.css",
+        "sha256": "2992dc2dacb3068a11e2f769b9d335030b8d6d15737e5d054fa76ff81e171d0b"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/main-Drg7trcQ.js",
+        "sha256": "c344229c5a27f151873dd94cd98ade1aba35fd24efb709ab6d9ba0958bc3184d"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "sha256": "7c02d8804ff0d274ee29527e10879f73d384161268fd94b307d8d03028a0778f"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/icons/peek.png",
+        "sha256": "077da10ab9d60e88d8cd025680936aa6b6c2767afba80bb08b110f7c6172dcac"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/index.html",
+        "sha256": "3ef6fd8322c2da1e9fcd58e561f591407ea45515cf02a9fb651e16bf74ed439b"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/lab/index.html",
+        "sha256": "11b4b3c3612c8dc4cab548e5c907f29944454a705f5de46cfed5baa3f65f793a"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/library/catalog.json",
+        "sha256": "efeb85dc02fa48c11c66c7f14068cc502949f0277e03637e406ed85b5da21dbb"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/source.json",
+        "sha256": "1112c373ab10be6f81163b0952ec5fc1d7926c58a4783354af94def4b5edb6ab"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/subscribe/index.html",
+        "sha256": "c3c88b8bb7ac94492d5fa00daaf3669cc437df8fe80eced5901ae3772f27c04b"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "sha256": "d0d98617c19a6b46c2e7831f70d5a711a880ff121ea14ec4371fd52553cdb7ae"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "sha256": "017ed4d62e21388b1e46a658bbbdf2e536900d05798debe74e60263c5c4c34dd"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "sha256": "a08f75a084708222bf99c9a08db514a68f3e020f348aa9b52eb3a7205c2330e4"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/lab-r_hvwpDT.css",
+        "sha256": "e480205951a020813ff59d5125c95db666af40dd285154a7739102bce6f6e5dc"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/main-CwPpeDqU.css",
+        "sha256": "9778defa3fb684e313900507d7008af633659b1f4f74dea653c8d90a91a2b52c"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/main-Dd5u6t2U.js",
+        "sha256": "6f6a89fd841965da60bbc72a79b0876c212d471dfa26666e467864c135692ee8"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "sha256": "d2a32840421496e872ade591618d2fa5c33797605d1aec04301717e5a90757d0"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/main-Drg7trcQ.js",
+        "sha256": "c344229c5a27f151873dd94cd98ade1aba35fd24efb709ab6d9ba0958bc3184d"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "sha256": "7c02d8804ff0d274ee29527e10879f73d384161268fd94b307d8d03028a0778f"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/assets/subscribe-CgjdP79_.css",
+        "sha256": "2992dc2dacb3068a11e2f769b9d335030b8d6d15737e5d054fa76ff81e171d0b"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/icons/peek.png",
+        "sha256": "077da10ab9d60e88d8cd025680936aa6b6c2767afba80bb08b110f7c6172dcac"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/lab/index.html",
+        "sha256": "11b4b3c3612c8dc4cab548e5c907f29944454a705f5de46cfed5baa3f65f793a"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/library/catalog.json",
+        "sha256": "efeb85dc02fa48c11c66c7f14068cc502949f0277e03637e406ed85b5da21dbb"
+      },
+      {
+        "origin": "https://zhaoolee.com",
+        "name": "piclex-web/assets/main-Dd5u6t2U.js",
+        "sha256": "6f6a89fd841965da60bbc72a79b0876c212d471dfa26666e467864c135692ee8"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/source.json",
+        "sha256": "1112c373ab10be6f81163b0952ec5fc1d7926c58a4783354af94def4b5edb6ab"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/subscribe/index.html",
+        "sha256": "c3c88b8bb7ac94492d5fa00daaf3669cc437df8fe80eced5901ae3772f27c04b"
+      },
+      {
+        "origin": "https://piclex.v2fy.com",
+        "name": "piclex-web/index.html",
+        "sha256": "3ef6fd8322c2da1e9fcd58e561f591407ea45515cf02a9fb651e16bf74ed439b"
+      }
+    ]
+  },
+  "server": {
+    "activation": "Existing administrator auto-update-public.py; 1142 files verified; isolated Nginx, origin and public HTTPS passed",
+    "cleanup": {
+      "current": "29ec2c7a1bd1-92686544210f",
+      "deleted": [
+        "39457f509451-f0008c475e03"
+      ],
+      "skipped": [],
+      "remaining": [
+        "29ec2c7a1bd1-92686544210f"
+      ],
+      "freeBytesBefore": 32804950016,
+      "freeBytesAfter": 32806227968,
+      "completedAt": 1794035107.6188672
+    }
+  },
+  "verificationCorrections": [
+    "Initial main-site verifier requested a non-public release.json and stopped before UI. Corrected to check served HTML/JS/CSS hashes against the actual active manifest; unchanged UI assertions then passed.",
+    "Initial extra public-asset reads hit transport timeout/TLS disconnect. Final same-hash verification succeeded for 16 actual files per site; no hash or UI assertion was weakened.",
+    "Main light screenshot initially preceded mask/image loading. Retaken after decoding all 11 visible assets."
+  ],
+  "concurrentChanges": {
+    "preservedRemoteHead": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+    "guidedFunctionUnchanged": true,
+    "recordOnlyCommit": "The verification record follows the concurrent capture-group commit; its separate release is not claimed as tested here."
+  },
+  "localCleanup": {
+    "previewStopped": true,
+    "temporaryBuildsAndBrowserResultsRemoved": true,
+    "sharedDependenciesAndContentPreserved": true,
+    "releaseCheckout": "Retained only until documentation push is confirmed, then removed."
+  }
+}
