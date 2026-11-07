@@ -31,9 +31,9 @@ test('guided word blanks show readable underlines and preserve typing, reveal an
  expect(new Set(equalWidths).size).toBe(1);
  await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
  const peek=words.first().getByRole('button',{name:'按住查看第 1 个单词',exact:true});
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek .word-peek-english')).toHaveText('Hi');await expect(page.locator('.word-peek .word-peek-meaning')).not.toHaveText('查询中…');
  await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek .word-peek-english')).toHaveText('Hi');await expect(page.locator('.word-peek .word-peek-meaning')).not.toHaveText('查询中…');
  await page.mouse.move(5,5);await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
  await expect(fields.first()).toHaveValue('');
  await page.getByLabel('听写难度',{exact:true}).selectOption('hard');

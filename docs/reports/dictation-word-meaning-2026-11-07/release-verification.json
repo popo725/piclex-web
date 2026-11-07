@@ -1,0 +1,14 @@
+{
+  "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
+  "nodePassed": 287,
+  "deployPassed": 45,
+  "build": "passed",
+  "linuxWebKitPassed": 15,
+  "linuxInitial": {
+    "passed": 13,
+    "failed": 2,
+    "cause": "Initial native-body scroll occurs 52–213ms after keyboard hold begins; intended scroll cancellation correctly dismisses it. Tests now wait for actual stable target/panel geometry before keyboard hold. Original assertions unchanged."
+  },
+  "phone": "Release 1.0.22 (370) installed and independently verified",
+  "status": "candidate ready; remote CI and live delivery pending"
+}

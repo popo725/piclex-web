@@ -1,0 +1,12 @@
+{
+  "apps/public/src/NativePractice.tsx": "9cfdd705cbe9e0685217468a61fa8f034fd274fb31810b18e5fe809ca1bab4d7",
+  "apps/public/src/WordPeek.tsx": "3473a77b0e68f92b50f09e08e4415326c28a950e50601117c5d07af1fa47a790",
+  "apps/public/src/word-definitions.ts": "c25234df684431e3db4ec28450a3a40c1654795c3d9db11c7a98fc775c015a8a",
+  "apps/public/src/env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+  "apps/public/src/practice.css": "6c891b876bb9f6b0d5fb6c19267888bc982837451480edf88660051e91ac0841",
+  "tests/browser/word-peek.spec.ts": "be48ab3ff4c30c17999a448f450805d407fa526aa5afa1d599c38f292d40cd02",
+  "tests/browser/listening-layout.spec.ts": "70607feff18f3538092d42f391208fd9675e174149b9834465fee2a5c6bf68d0",
+  "tests/browser/learning-parity.spec.ts": "94d3b52434c7b5acd122c2cb9c4b6cb26018b2530ec89c770210fdd6565171f0",
+  "tests/browser/learning.spec.ts": "b42c0e18d9ea1243482ac3c6eaf6511f6f44178ec65b59ca52ba3af0c3c30335",
+  "playwright.config.ts": "1be2f9d3944825190bcc19603fcb6d7ab9acb586b2224b33659920381ae4c972"
+}

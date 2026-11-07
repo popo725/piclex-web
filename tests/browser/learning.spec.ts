@@ -112,7 +112,10 @@ test('sentence fill checks automatically; failed order can be corrected and assi
  await expect(page.getByRole('status')).toContainText('顺序还需要调整');
  await selected.getByRole('button',{name:'I',exact:true}).press('Alt+ArrowLeft');
  await expect(page.getByRole('status')).toContainText('听写正确');
- // Switching immediately cancels this successful chunk attempt's delayed advance.
+ // Replay pauses the successful chunk attempt's delayed advance, restoring the
+ // manual challenge action for this still-visible sentence.
+ await page.getByRole('button',{name:'播放句子',exact:true}).click();
+ await expect(page.getByRole('button',{name:'挑战自由听写'})).toBeVisible();
  await page.getByRole('button',{name:'挑战自由听写'}).click();
  await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'I wrong');await page.getByRole('button',{name:'检查答案'}).click();
  await expect(page.getByRole('status')).toContainText('再听一次');
