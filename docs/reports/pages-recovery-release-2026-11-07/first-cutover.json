@@ -1,0 +1,48 @@
+{
+  "observedAt": 1794035206.9372852,
+  "releaseID": "29ec2c7a1bd1-92686544210f",
+  "sourceRevision": "29ec2c7a1bd1a67751d0e9a9aef8fdbb8e980565",
+  "receipt": {
+    "schemaVersion": 1,
+    "activatedRelease": "/home/hermes/piclex-web/releases/29ec2c7a1bd1-92686544210f",
+    "activatedIdentity": [
+      64770,
+      403393
+    ],
+    "previousRelease": "/home/hermes/piclex-web/releases/39457f509451-f0008c475e03",
+    "previousIdentity": [
+      64770,
+      404993
+    ],
+    "activatedConfigSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980"
+  },
+  "receiptWrittenAt": 1794035058.2168767,
+  "cleanup": {
+    "current": "29ec2c7a1bd1-92686544210f",
+    "deleted": [
+      "39457f509451-f0008c475e03"
+    ],
+    "skipped": [],
+    "remaining": [
+      "29ec2c7a1bd1-92686544210f"
+    ],
+    "freeBytesBefore": 32804950016,
+    "freeBytesAfter": 32806227968,
+    "completedAt": 1794035107.6188672
+  },
+  "previousStillExists": false,
+  "remainingReleases": [
+    "29ec2c7a1bd1-92686544210f"
+  ],
+  "safetyCodeSHA256": "7fec3272cdadc23d625e50dedebba644b955e5ec3f86aebad9661630bb572062",
+  "nginxConfigSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980",
+  "predecessorForNextCutover": {
+    "releaseID": "29ec2c7a1bd1-92686544210f",
+    "directoryModifiedAt": 1794035052.9087932,
+    "observedAt": 1794035255.1974998,
+    "identity": [
+      64770,
+      403393
+    ]
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "recordedAt": "2026-11-07T07:32:50.069913+00:00",
+  "result": "Published descendants include both the spelling and predecessor fixes; production cutovers, predecessor receipts and automatic cleanup verified.",
+  "spellingFixRevision": "39457f509451f03874f6f21cdd4c6a8c30115576",
+  "predecessorFixRevision": "b54a07acb974081c3b34ab6207a39f526d9487ef",
+  "historicalFailure": {
+    "runURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42344107909",
+    "result": "Original Pages attempt and one deployment-only retry timed out and were cancelled. The original run remains failed.",
+    "diagnosis": "Hosted deployment stalled in syncing_files, then empty status on retry. Artifact was below the documented site size limit. The internal GitHub cause is not established.",
+    "timeoutLimitSeconds": 600
+  },
+  "recovery": {
+    "method": "Normal official workflow succeeded for newer legitimate main commits. No extra recovery workflow or weakened checks were committed, and no stale artifact was published.",
+    "pagesDeployments": [
+      {
+        "sourceRevision": "29ec2c7a1bd1a67751d0e9a9aef8fdbb8e980565",
+        "runURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42348697234",
+        "jobID": 128333860872,
+        "conclusion": "success",
+        "createdAt": "2026-11-07T06:59:08.7867702Z",
+        "succeededAt": "2026-11-07T06:59:24.3106884Z"
+      },
+      {
+        "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+        "runURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42349277654",
+        "jobID": 128337113296,
+        "conclusion": "success",
+        "createdAt": "2026-11-07T07:14:06.3226464Z",
+        "succeededAt": "2026-11-07T07:14:22.1335563Z"
+      }
+    ],
+    "workflowAndDeploymentSourceUnchangedSincePredecessorFix": true,
+    "concurrentWorkPreserved": true
+  },
+  "latestCI": {
+    "runURL": "https://github.com/zhaoolee/piclex-web/actions/runs/42349277654",
+    "conclusion": "success",
+    "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+    "nodePassed": 287,
+    "deploymentPassed": 45,
+    "productionBuild": "passed",
+    "linuxBrowserPassed": 459,
+    "existingBrowserSkipped": 4,
+    "browserFailed": 0,
+    "pages": "success",
+    "docker": "success"
+  },
+  "docker": {
+    "verifiedTags": [
+      "latest",
+      "sha-028b7e5"
+    ],
+    "manifestDigest": "sha256:0b08e58b877d8f543d55b345311aba2a1d9ca5d2dc7874176410d33d357b15f3",
+    "linuxAMD64": "sha256:00f2dc1dff5bb5f04efb83c0b24f07af8778b54a86560b2d9fb88664bcfae816",
+    "linuxARM64": "sha256:3616f70becee58cc797d255c134e7e7ce44d0e2f65de2f00226341190f8558fb"
+  },
+  "standardDeploymentInvocations": {
+    "entrypoint": "python3 -u -B /home/hermes/piclex-web/deploy/auto-update-public.py",
+    "identity": "administrator",
+    "results": [
+      "Public Web release unchanged; no deployment",
+      "Public Web release unchanged; no deployment"
+    ],
+    "explanation": "Concurrent release tasks completed the standard locked cutovers before these invocations acquired the lock. This task independently audited the actual receipts and cleanup reports without switching again or rewriting them."
+  },
+  "firstCutoverEvidence": "first-cutover.json",
+  "latestProductionAudit": {
+    "observedAt": 1794036070.4174545,
+    "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+    "releaseID": "028b7e5ba46a-b0e066f5d221",
+    "receipt": {
+      "schemaVersion": 1,
+      "activatedRelease": "/home/hermes/piclex-web/releases/028b7e5ba46a-b0e066f5d221",
+      "activatedIdentity": [
+        64770,
+        405016
+      ],
+      "previousRelease": "/home/hermes/piclex-web/releases/29ec2c7a1bd1-92686544210f",
+      "previousIdentity": [
+        64770,
+        403393
+      ],
+      "activatedConfigSHA256": "9896f57099744618f7fc2202f76ec45e768bddbd668f10166fbdc78e62d51980"
+    },
+    "receiptWrittenAt": 1794035894.1397655,
+    "cleanup": {
+      "current": "028b7e5ba46a-b0e066f5d221",
+      "deleted": [
+        "29ec2c7a1bd1-92686544210f"
+      ],
+      "skipped": [],
+      "remaining": [
+        "028b7e5ba46a-b0e066f5d221"
+      ],
+      "freeBytesBefore": 32801968128,
+      "freeBytesAfter": 32803168256,
+      "completedAt": 1794035944.0226824
+    },
+    "previousDirectoryModifiedAt": 1794035052.9087932,
+    "previousAgeAtCleanupSeconds": 891.1138892173767,
+    "secondsFromReceiptToCleanup": 49.88291692733765,
+    "previousStillExists": false,
+    "remainingReleases": [
+      "028b7e5ba46a-b0e066f5d221"
+    ],
+    "verifiedLocalFiles": 1142,
+    "verifiedDomestic": {
+      "originHTTPS": [
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-BcDaruv5.js",
+        "piclex-web/assets/main-CwPpeDqU.css",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/library/catalog.json",
+        "piclex-web/source.json",
+        "piclex-web/subscribe/index.html"
+      ],
+      "publicHTTPS": [
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-BcDaruv5.js",
+        "piclex-web/assets/main-CwPpeDqU.css",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/library/catalog.json",
+        "piclex-web/source.json",
+        "piclex-web/subscribe/index.html"
+      ]
+    },
+    "verifiedPagesFiles": [
+      "piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "piclex-web/assets/lab-C8Nqr4Kh.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-BcDaruv5.js",
+      "piclex-web/assets/main-CwPpeDqU.css",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-D3VMIW3x.js",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/library/catalog.json",
+      "piclex-web/source.json",
+      "piclex-web/subscribe/index.html"
+    ],
+    "publicManifestsEqual": true,
+    "installedTools": {
+      "activate.py": "5e2eec21f35e16d30d5a970aa559a5cfb90cd17b3425dc16a593f3fa00ae5190",
+      "auto-update-public.py": "20aab6769cfc206c999a8adcd3b4bf028429026d280b3d93ebd39da54648bb41",
+      "release_state.py": "8ee468fb5aa47a5d93a59de1e7346cbd8e88b7d50904bf047be0db7e4eaa5633",
+      "release_lifecycle.py": "7fec3272cdadc23d625e50dedebba644b955e5ec3f86aebad9661630bb572062",
+      "check-mirror.py": "1faef9aabc91185c5bb4adff68c470193d1f94f2dc60f801ed556e149601808d"
+    },
+    "nginxConfigUnchanged": true
+  },
+  "safety": {
+    "allFiveInstalledDeploymentScriptsMatchPublishedSource": true,
+    "releaseLifecycleAndMirrorVerifierByteIdentical": true,
+    "preservedChecks": [
+      "manifest and file hashes",
+      "extra/user files",
+      "symlinks and mounts",
+      "process and Docker references",
+      "configuration references",
+      "current/config concurrency checks",
+      "one-hour protection for unrelated uploads"
+    ],
+    "manualReceiptBackfill": false,
+    "directoryTimesModified": false,
+    "protectionWindowModified": false,
+    "nginxConfigChanged": false,
+    "userDataModified": false
+  },
+  "scope": "Publication recovery and production deployment audit. Prior spelling UI regression evidence remains in spelling-revisit-release-2026-11-07; this turn did not repeat or claim a new UI test.",
+  "outstandingReleaseIssues": []
+}
