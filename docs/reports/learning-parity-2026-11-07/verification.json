@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-07",
+  "baseline": "5b9eb2cc05fb991fe9cdece7fe866efd7dabbaee",
+  "routing": {
+    "choice": "codex",
+    "confidence": 1,
+    "pi": "bounded CSS repair; final review by Codex"
+  },
+  "validation": {
+    "typescriptVite": "passed",
+    "unit": 273,
+    "deployment": 30,
+    "adjacentBrowser": 85,
+    "finalBrowser": 15,
+    "browsers": [
+      "Chrome desktop",
+      "Chrome touch",
+      "WebKit touch"
+    ],
+    "nativeDevice": false
+  },
+  "release": "pending"
+}

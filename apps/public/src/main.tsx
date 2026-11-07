@@ -76,6 +76,7 @@ function App() {
   const [showLibrary,setShowLibrary]=useState(()=>location.hash==='#/decks');
   const [spellingEntry,setSpellingEntry]=useState({id:'',sequence:0});
   const [page,setPage]=useState(screen),[labDeck,setLabDeck]=useState<Deck|null>(null),[gameBusy,setGameBusy]=useState(false);
+  const gameOrigin=useRef('/settings/laboratory'),gameOpening=useRef(false);
   const [gameDeckID,setGameDeckID]=useState(()=>readPreference('piclex-web.last-deck')||'');
   const xp=useExperience();
   useEffect(()=>{document.body.dataset.page=page;window.scrollTo(0,0);return()=>{delete document.body.dataset.page;};},[page]);
@@ -173,7 +174,32 @@ function App() {
     setCards(current=>current.some(item=>item.id===id)?current.map(item=>item.id===id?card:item):[...current,card]);
     return id;
   }
-  async function openGame(){if(gameBusy||!ready)return;setGameBusy(true);try{const card=cards.find(c=>c.id===gameDeckID)||cards[0];if(!card)throw Error('请先选择或导入一份卡组。');let value=cache.get(card.id);if(!value&&card.local)value=await localDeck(card.id);if(!value){const response=await fetch(asset(card.payload!));if(!response.ok)throw Error('卡组加载失败，请重试。');const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};cache.set(card.id,value);}setLabDeck(value);location.hash='/settings/lab';}catch(e){setNotice((e as Error).message);location.hash='/settings';}finally{setGameBusy(false);}}
+  async function openGame(practiceDeck?:Deck){
+    if(gameOpening.current||!ready)return;
+    const origin=location.hash;
+    gameOpening.current=true;setGameBusy(true);
+    try{
+      let value=practiceDeck;
+      if(!value){
+        const card=cards.find(c=>c.id===gameDeckID)||cards[0];
+        if(!card)throw Error('请先选择或导入一份卡组。');
+        value=cache.get(card.id);
+        if(!value&&card.local)value=await localDeck(card.id);
+        if(!value){
+          const response=await fetch(asset(card.payload!));
+          if(!response.ok)throw Error('卡组加载失败，请重试。');
+          const parsed=await parsePublicDeck(new Uint8Array(await response.arrayBuffer()),card);
+          value={id:card.id,title:parsed.title,fingerprint:parsed.learningFingerprint||parsed.fingerprint,words:parsed.words,images:parsed.photos.map((p:{path:string})=>asset(p.path)),downloadURL:asset(card.package!)};
+          cache.set(card.id,value);
+        }
+      }
+      // A delayed load must not pull the learner back after they leave the entry.
+      if(location.hash!==origin)return;
+      gameOrigin.current=origin==='#/settings/lab'?'/settings/laboratory':origin.slice(1)||'/settings/laboratory';
+      setLabDeck(value);location.hash='/settings/lab';
+    }catch(e){if(location.hash===origin){setNotice((e as Error).message);if(origin==='#/settings/lab')location.hash='/settings/laboratory';}}
+    finally{gameOpening.current=false;setGameBusy(false);}
+  }
   useEffect(()=>{if(page==='lab'&&ready&&!labDeck)void openGame();},[page,ready]);
   async function saveDownloaded(bytes:Uint8Array,signal:AbortSignal){
     const parsed=await parseArchive(bytes);signal.throwIfAborted();
@@ -190,7 +216,7 @@ function App() {
   return <><a className="skip-link" href="#main-content">跳到内容</a>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={startLearning} notify={setNotice}/></div>
-    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} exit={(hash?:string)=>{location.hash=hash||'/settings/laboratory';}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state load-screen"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => void downloadDeck(deck).catch(e=>setNotice(e.message))} share={async () => {
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage openGame={()=>void openGame()} gameBusy={gameBusy} gameReady={ready} learn={()=>{location.hash='/learn';}}/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} returnLabel={gameOrigin.current.startsWith('/settings/level')?'返回我的等级':gameOrigin.current.startsWith('/settings')?'返回实验室':'返回学习'} exit={(hash?:string)=>{location.hash=hash||gameOrigin.current;}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state load-screen"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={deck.fingerprint} deck={deck} openGame={()=>void openGame(deck)} gameBusy={gameBusy} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => void downloadDeck(deck).catch(e=>setNotice(e.message))} share={async () => {
           if (selected.startsWith('local-')) { await downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : !showLibrary ? <main className={!ready?"empty-state load-screen":"empty-state"}>{!ready?<LoadProgress label="正在准备学习" progress={null}/>:<><h1>还没有可用卡组</h1><button className="primary" onClick={()=>file.current?.click()}>导入卡组文件</button></>}</main> : <main className="home">
