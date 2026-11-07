@@ -17,7 +17,11 @@
       "Chrome touch",
       "WebKit touch"
     ],
-    "nativeDevice": false
+    "nativeDevice": false,
+    "routeFixLinuxWebKit": 19,
+    "routeFixMacChrome": 18,
+    "raceRegression": "old production build fails; fixed build passes",
+    "initialCIFailure": "https://github.com/zhaoolee/piclex-web/actions/runs/42336165851"
   },
   "release": "pending"
 }

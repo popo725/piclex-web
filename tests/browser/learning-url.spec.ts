@@ -36,3 +36,19 @@ test('opening a link to an already completed spelling starts a writable new atte
  await expect(input).toHaveValue('');await expect(page.getByRole('button',{name:'不认识'})).toBeEnabled();
  await fillSpelling(page,first.english.slice(0,1));await expect(input).toHaveValue(first.english.slice(0,1));
 });
+test('an incoming learning link wins over a pending local module update',async({page})=>{
+ await page.goto('/piclex-web/#/deck/'+card.id);
+ await expect(page.getByRole('textbox',{name:'输入英文',exact:true})).toBeVisible();
+ const target=`/deck/${card.id}?module=listening&mode=free&difficulty=easy&photo=2`;
+ // Both actions precede the queued hashchange: React must not write the older
+ // tab state over the incoming link while committing the local interaction.
+ await page.evaluate(hash=>{
+  location.hash=hash;
+  (Array.from(document.querySelectorAll<HTMLElement>('[role=tab]')).find(tab=>tab.textContent?.includes('练口语'))!).click();
+ },target);
+ await expect(page.getByRole('tab',{name:'练听力',exact:true})).toHaveAttribute('aria-selected','true');
+ await expect(page.getByLabel('听写难度')).toHaveValue('easy');
+ await expect.poll(()=>parameters(page.url()).get('photo')).toBe('2');
+ await page.reload();
+ await expect(page.getByLabel('听写难度')).toHaveValue('easy');
+});

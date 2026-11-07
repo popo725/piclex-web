@@ -172,21 +172,26 @@ export default function NativePractice({deck,openGame,gameBusy,deckChoices,selec
  const pauseListeningRef=useRef(pauseListening);pauseListeningRef.current=pauseListening;
  const navigationAudio=useRef<{module:string;from:string}|null>(null),revealAudio=useRef<string|null>(null);
  function dispatch(action:Action){if(action.type==='preference'&&action.name==='quick')writePreference('piclex-web.quick',String(action.value));if(action.type==='restart')readingSaved.current.clear();if(['next','sentenceNext','selectWord'].includes(action.type))navigationAudio.current={module:state.module,from:state.module==='spelling'?word?.id:prompt?.key};else if(['module','pause','restart'].includes(action.type))navigationAudio.current=null;setState((s:any)=>reduceStudy(deck,s,{...action,question:key},prompts));}
- const [urlRevision,setURLRevision]=useState(0);
- // Replace the current history entry: automatic advances must not fill the Back stack.
+ const [urlRevision,setURLRevision]=useState(0),consumedHash=useRef(location.hash);
+ // Subscribe during commit: a fast link after Back can arrive before passive effects.
  useLayoutEffect(()=>{
-  if(parseLearningURL(location.hash)?.id!==deck.id)return;
-  const hash=learningHash(deck,state);
-  if(location.hash!==hash)history.replaceState(history.state,'',hash);
- },[deck,state.module,state.mode,state.difficulty,state.index,state.sentenceIndex,state.sentenceFinished,urlRevision]);
- useEffect(()=>{
   const restore=()=>{
    const route=parseLearningURL(location.hash);if(route?.id!==deck.id)return;
+   consumedHash.current=location.hash;
    navigationAudio.current=null;readingContinuation.current=false;setListenRun(false);audio.stop();setPanel(null);
    setState((current:any)=>applyLearningURL(deck,current,route));setURLRevision(n=>n+1);
   };
-  window.addEventListener('hashchange',restore);return()=>window.removeEventListener('hashchange',restore);
+  window.addEventListener('hashchange',restore);
+  if(location.hash!==consumedHash.current)restore();
+  return()=>window.removeEventListener('hashchange',restore);
  },[deck]);
+ // Replace only a URL already consumed by this state. An incoming navigation
+ // wins over an older render while its hashchange event is still queued.
+ useLayoutEffect(()=>{
+  if(location.hash!==consumedHash.current||parseLearningURL(location.hash)?.id!==deck.id)return;
+  const hash=learningHash(deck,state);consumedHash.current=hash;
+  if(location.hash!==hash)history.replaceState(history.state,'',hash);
+ },[deck,state.module,state.mode,state.difficulty,state.index,state.sentenceIndex,state.sentenceFinished,urlRevision]);
  const credited=useRef(new Set<string>());
  const award=(event:any)=>{const stamp=event.id+':'+(event.matched||'');if(credited.current.has(stamp))return;credited.current.add(stamp);void transactExperience(event).catch(e=>{credited.current.delete(stamp);notify(e.message);});};
  useEffect(()=>{prepareExperienceEffects();return()=>{clearExperienceEffects();stopTypingSound();};},[]);
