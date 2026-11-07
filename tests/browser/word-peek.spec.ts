@@ -91,7 +91,8 @@ test('successful chunks hide Next and the challenge row while auto-advance runs 
  await page.getByRole('tab',{name:'练听力',exact:true}).click();
  const bank=page.getByLabel('待选词块');
  for(const text of ['I','am','still','in','bed.'])await bank.getByRole('button',{name:text,exact:true}).click();
- await expect(page.getByRole('status')).toContainText('听写正确');
+ await expect(page.locator('.sentence-actions-pending')).toHaveCount(1);
+ await expect(page.locator('.sentence-feedback')).toHaveCount(0);
  await expect(page.getByRole('button',{name:'下一个',exact:true})).toHaveCount(0);
  await expect(page.getByRole('button',{name:'挑战自由听写',exact:true})).toHaveCount(0);
  const before=page.url();
@@ -111,7 +112,7 @@ test('paused automatic advance and assisted answers keep a manual Next fallback'
  await expect(page.getByRole('button',{name:'下一个',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'下一个',exact:true}).click();
  await page.getByRole('button',{name:'听不懂',exact:true}).click();
- await expect(page.getByRole('status')).toContainText('参考答案');
+ await expect(page.locator('.sentence-feedback[role=status]')).toContainText('参考答案');
  await expect(page.getByRole('button',{name:'下一个',exact:true})).toBeVisible();
 });
 
@@ -154,16 +155,28 @@ test('failed dictionary loads can retry on a later hold',async({page})=>{
  await page.keyboard.down(' ');await expect(page.getByRole('tooltip')).toContainText('嗨；你好');await page.keyboard.up(' ');expect(requests).toBe(2);
 });
 
-test('free sentence success never inserts a transient Next button',async({page},info)=>{
- await openGuided(page,'hard');
+for(const scenario of [{difficulty:'easy'},{difficulty:'medium'},{difficulty:'hard'},{difficulty:'hard',viewport:{width:390,height:667}},{difficulty:'hard',viewport:{width:844,height:390}}])test(`free ${scenario.difficulty}${scenario.viewport?` ${scenario.viewport.width}x${scenario.viewport.height}`:''} success preserves button dimensions without a success row or transient Next`,async({page},info)=>{
+ const {difficulty}=scenario;if(scenario.viewport)await page.setViewportSize(scenario.viewport);
+ await openGuided(page,difficulty);
  await page.evaluate(()=>{
   (window as any).__nextFlashes=0;
   new MutationObserver(()=>{if([...document.querySelectorAll('button')].some(button=>button.textContent?.trim()==='下一个'))(window as any).__nextFlashes++;}).observe(document.querySelector('.native-practice')!,{childList:true,subtree:true});
  });
- const before=page.url();await fillEnglish(page.getByRole('textbox',{name:'听写句子',exact:true}),"Hi I'm Alex");
- await expect(page.getByRole('status')).toContainText('听写正确');
+ const controls=page.locator('.sentence-footer');
+ const measure=()=>controls.evaluate(node=>{
+  const rect=(selector:string)=>{const r=node.querySelector(selector)!.getBoundingClientRect();return {width:r.width,height:r.height};};
+  return {replay:rect('.playback-button'),rate:rect('.playback-rate'),actions:rect('.sentence-actions'),height:node.getBoundingClientRect().height};
+ });
+ const before=await measure(),url=page.url();
+ if(difficulty==='hard')await fillEnglish(page.getByRole('textbox',{name:'听写句子',exact:true}),"Hi I'm Alex");
+ else for(const [i,word] of ['Hi',"I'm",'Alex'].entries())await fillEnglish(page.locator('.guided-input input').nth(i),word);
+ await expect(page.locator('.sentence-actions-pending')).toHaveCount(1);
+ await expect(page.locator('.sentence-feedback')).toHaveCount(0);
+ await expect(page.getByText('听写正确！',{exact:true})).toHaveCount(0);
  await expect(page.getByRole('button',{name:'下一个',exact:true})).toHaveCount(0);
- if(info.project.name==='mobile')await page.screenshot({path:'../web-complete.png'});
- await expect.poll(()=>page.url(),{timeout:2500}).not.toBe(before);
+ expect(await measure()).toEqual(before);
+ if(info.project.name==='mobile')await page.screenshot({path:info.outputPath(`stable-${difficulty}-complete.png`)});
+ await expect.poll(()=>page.url(),{timeout:2500}).not.toBe(url);
+ expect(await measure()).toEqual(before);
  expect(await page.evaluate(()=>(window as any).__nextFlashes)).toBe(0);
 });

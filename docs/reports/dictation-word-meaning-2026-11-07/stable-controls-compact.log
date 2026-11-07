@@ -1,0 +1,16 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config playwright.local.config.ts tests/browser/word-peek.spec.ts --grep 390x667|844x390 --reporter=line
+[WebServer] npm notice run piclex-web@0.1.0 preview
+
+[WebServer] npm notice run vite preview --host 127.0.0.1 --port 18120 --port 18337
+
+
+Running 6 tests using 2 workers
+
+[1/6] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+[2/6] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[3/6] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+[4/6] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[5/6] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[6/6] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+  6 passed (14.9s)

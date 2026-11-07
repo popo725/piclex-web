@@ -1,0 +1,46 @@
+
+Running 42 tests using 4 workers
+
+[1/42] [desktop] › tests/browser/listening-layout.spec.ts:6:44 › listening preserves the full portrait scene above the keyboard across layouts
+[2/42] [desktop] › tests/browser/learning-parity.spec.ts:6:1 › guided word blanks show readable underlines and preserve typing, reveal and difficulty changes
+[3/42] [desktop] › tests/browser/learning.spec.ts:108:1 › sentence fill checks automatically; failed order can be corrected and assistance does not claim success
+[4/42] [desktop] › tests/browser/listening-layout.spec.ts:6:44 › listening preserves the full landscape scene above the keyboard across layouts
+[5/42] [desktop] › tests/browser/word-peek.spec.ts:34:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[6/42] [desktop] › tests/browser/word-peek.spec.ts:71:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[7/42] [desktop] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[8/42] [desktop] › tests/browser/word-peek.spec.ts:119:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[9/42] [desktop] › tests/browser/word-peek.spec.ts:140:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[10/42] [desktop] › tests/browser/word-peek.spec.ts:151:1 › failed dictionary loads can retry on a later hold
+[11/42] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free easy success preserves button dimensions without a success row or transient Next
+[12/42] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free medium success preserves button dimensions without a success row or transient Next
+[13/42] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free hard success preserves button dimensions without a success row or transient Next
+[14/42] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[15/42] [desktop] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+[16/42] [mobile] › tests/browser/learning-parity.spec.ts:6:1 › guided word blanks show readable underlines and preserve typing, reveal and difficulty changes
+[17/42] [mobile] › tests/browser/learning.spec.ts:108:1 › sentence fill checks automatically; failed order can be corrected and assistance does not claim success
+[18/42] [mobile] › tests/browser/listening-layout.spec.ts:6:44 › listening preserves the full portrait scene above the keyboard across layouts
+[19/42] [mobile] › tests/browser/listening-layout.spec.ts:6:44 › listening preserves the full landscape scene above the keyboard across layouts
+[20/42] [mobile] › tests/browser/word-peek.spec.ts:34:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[21/42] [mobile] › tests/browser/word-peek.spec.ts:71:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[22/42] [mobile] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[23/42] [mobile] › tests/browser/word-peek.spec.ts:119:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[24/42] [mobile] › tests/browser/word-peek.spec.ts:140:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[25/42] [mobile] › tests/browser/word-peek.spec.ts:151:1 › failed dictionary loads can retry on a later hold
+[26/42] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free easy success preserves button dimensions without a success row or transient Next
+[27/42] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free medium success preserves button dimensions without a success row or transient Next
+[28/42] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free hard success preserves button dimensions without a success row or transient Next
+[29/42] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[30/42] [mobile] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+[31/42] [mobile-webkit] › tests/browser/learning-parity.spec.ts:6:1 › guided word blanks show readable underlines and preserve typing, reveal and difficulty changes
+[32/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:34:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[33/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:71:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[34/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[35/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:119:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[36/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:140:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[37/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:151:1 › failed dictionary loads can retry on a later hold
+[38/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free easy success preserves button dimensions without a success row or transient Next
+[39/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free medium success preserves button dimensions without a success row or transient Next
+[40/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free hard success preserves button dimensions without a success row or transient Next
+[41/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[42/42] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+  42 passed (44.7s)

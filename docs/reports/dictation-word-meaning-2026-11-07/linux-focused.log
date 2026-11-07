@@ -1,0 +1,19 @@
+
+Running 15 tests using 2 workers
+
+[1/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:45:1 › long guided words wrap without covering the next word or reveal control
+[2/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:6:1 › guided word blanks show readable underlines and preserve typing, reveal and difficulty changes
+[3/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:71:1 › avatar level sheet enters the real game with the current deck and returns to the same listening draft
+[4/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:96:1 › settings level entry offers game loading recovery back to the level page
+[5/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:106:1 › rewards have real details, learning and settings routes, and saved milestones remain visible after spending
+[6/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:121:37 › light listening answer trays remain distinct from the page and selected chips have a visible outline
+[7/15] [mobile-webkit] › tests/browser/learning-parity.spec.ts:121:37 › dark listening answer trays remain distinct from the page and selected chips have a visible outline
+[8/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:34:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[9/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:71:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[10/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:89:1 › successful chunks hide Next and the challenge row while auto-advance runs once
+[11/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:104:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[12/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:118:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[13/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:139:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[14/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:150:1 › failed dictionary loads can retry on a later hold
+[15/15] [mobile-webkit] › tests/browser/word-peek.spec.ts:157:1 › free sentence success never inserts a transient Next button
+  15 passed (39.8s)

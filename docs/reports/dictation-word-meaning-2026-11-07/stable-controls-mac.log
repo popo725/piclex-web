@@ -1,0 +1,24 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config playwright.local.config.ts tests/browser/word-peek.spec.ts tests/browser/learning.spec.ts --grep success preserves|sentence fill checks|paused automatic --reporter=line
+[WebServer] npm notice run piclex-web@0.1.0 preview
+
+[WebServer] npm notice run vite preview --host 127.0.0.1 --port 18120 --port 18337
+
+
+Running 14 tests using 2 workers
+
+[1/14] [desktop] › tests/browser/learning.spec.ts:108:1 › sentence fill checks automatically; failed order can be corrected and assistance does not claim success
+[2/14] [desktop] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[3/14] [desktop] › tests/browser/word-peek.spec.ts:158:50 › free easy success preserves button dimensions without a success row or transient Next
+[4/14] [desktop] › tests/browser/word-peek.spec.ts:158:50 › free medium success preserves button dimensions without a success row or transient Next
+[5/14] [desktop] › tests/browser/word-peek.spec.ts:158:50 › free hard success preserves button dimensions without a success row or transient Next
+[6/14] [mobile] › tests/browser/learning.spec.ts:108:1 › sentence fill checks automatically; failed order can be corrected and assistance does not claim success
+[7/14] [mobile] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[8/14] [mobile] › tests/browser/word-peek.spec.ts:158:50 › free easy success preserves button dimensions without a success row or transient Next
+[9/14] [mobile] › tests/browser/word-peek.spec.ts:158:50 › free medium success preserves button dimensions without a success row or transient Next
+[10/14] [mobile] › tests/browser/word-peek.spec.ts:158:50 › free hard success preserves button dimensions without a success row or transient Next
+[11/14] [mobile-webkit] › tests/browser/word-peek.spec.ts:105:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[12/14] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:50 › free easy success preserves button dimensions without a success row or transient Next
+[13/14] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:50 › free medium success preserves button dimensions without a success row or transient Next
+[14/14] [mobile-webkit] › tests/browser/word-peek.spec.ts:158:50 › free hard success preserves button dimensions without a success row or transient Next
+  14 passed (35.0s)
