@@ -1,0 +1,1002 @@
+
+> piclex-web@0.1.0 decks:build
+> node scripts/build-demo-decks.mjs
+
+Built 3 demo decks with 18 words.
+
+> piclex-web@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ all shipped examples satisfy archive checks and source protocol hashes (25.632509ms)
+✔ tampered photo and metadata fail before an import can be committed (71.607154ms)
+✔ malformed packages, unsafe paths, excessive expansion, wrong versions and duplicate IDs are rejected (179.795803ms)
+✔ production Swift fixture round-trips with native digest and retains absent optional fields (14.899543ms)
+✔ restore is idempotent and local conflicts only accept strictly newer progress (1.763054ms)
+✔ tampering, invalid counts, duplicate identity and unknown versions fail before writes (1.561262ms)
+✔ web spelling receipt IDs are deterministic and logs use native deferred-to-Date reference epoch (0.780881ms)
+✔ full photo archives retain trash, IDs, bytes and raw annotation metadata (131.879262ms)
+✔ HTTPS configuration keeps App PicLex folder convention and rejects credential URLs (0.619147ms)
+✔ FSRS cards and manual logs are retained byte for byte while invalid scheduling fields fail (1.744653ms)
+✔ native fractional dates and FSRS bytes survive canonical checksums (1.413422ms)
+✔ uppercase native UUIDs use lowercase archive paths required by App (36.030405ms)
+✔ every authenticated WebDAV request explicitly rejects redirects and omits browser cookies (1.395397ms)
+✔ backup limits equal App: 20 GiB archive/expanded data, independent 64 MiB progress limit (0.477734ms)
+✔ ZIP64 streams round-trip without whole-file ArrayBuffer reads and preserve CRC validation (8.516171ms)
+✔ metadata decompression stops before accepting a chunk beyond its limit (0.577837ms)
+✔ default ZIP output uses ZIP64 descriptors before offsets cross 4 GiB for ZIPFoundation compatibility (2.139558ms)
+✔ complete ZIP allows progress above 8 MiB while preserving its independent 64 MiB cap (85.63773ms)
+✔ local ZIP export rejects progress above App 64 MiB before packaging (30.7523ms)
+✔ a burst saves only the newest snapshot and explicit exit flush cancels delayed writes (1.495208ms)
+✔ continuous typing has a bounded save delay (0.172458ms)
+✔ failed saves retain the latest pending snapshot and retry without overwriting another writer (0.128477ms)
+✔ AI deck preserves native focus coordinates, examples, phonetics and quotation through export/import (10.97515ms)
+✔ contextual words and invalid positions never invent focus boxes (16.67933ms)
+✔ AI fractional coordinates export as native integers without creating collapsed boxes (5.52296ms)
+✔ three independently saved photos form one ordered deck without changing the originals (1.442673ms)
+✔ legacy drafts, mistakes and completed answers from every photo survive, with the original reward IDs (19.567723ms)
+✔ adding photos retains a partial answer and resumes a finished deck at the first new photo (0.905812ms)
+✔ photo removal remaps the cursor by word ID and keeps surviving drafts (3.282923ms)
+✔ identical sentences in different photos retain separate drafts and original award keys (2.228645ms)
+✔ finished listening stays finished on reload and opens appended sentences (0.282451ms)
+✔ native glass keeps distinct fixed hues and white text readable over a white photograph (3.723895ms)
+✔ callouts avoid clustered object anchors, remain inside the image and connect from label edges (10.848925ms)
+✔ each newly correct letter fires once, including pasted and final letters; errors and retyping cannot replay (1.249476ms)
+✔ quick spelling maps repeated letters to requested original slots; supplied letters and separators earn no wave (0.187105ms)
+✔ restoration, a new scope, reveal and input while inactive do not manufacture or defer waves (0.119339ms)
+✔ the impact stays local, has no initial flash, and expires at 700ms (1.016973ms)
+✔ CI-only changes run verification without republishing; product changes still publish (0.768154ms)
+Verified 1 files for aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; image reuses exact Pages bytes
+✔ verified image context preserves exact artifact bytes and minimal runtime inputs (25.071279ms)
+✔ different source revisions and tampered bytes are rejected before packaging (2.758871ms)
+✔ unexpected files cannot enter the image context (2.372896ms)
+✔ independent covers keep photo count, learning identity and old progress intact (59.524316ms)
+✔ invalid, oversized, mismatched and executable cover content is rejected (1.988214ms)
+✔ audio validation accepts canonical clips and rejects tampered, oversized or foreign data (2.784659ms)
+✔ archive keeps per-occurrence audio without resetting existing learning identity (70.295962ms)
+✔ public audio accepts only bounded same-origin asset paths without inline payloads (3.290016ms)
+✔ dialogue strips labels and quotes, merges adjacent same roles (4.058505ms)
+✔ native supported labels, inline A/B, escaped newline, machine first (0.52885ms)
+✔ ordinary text and unknown or single speakers stay ordinary (0.117045ms)
+✔ complete learner text passes without reading speaker labels or B lines (0.478777ms)
+✔ scores are coverage based, incomplete dialogue cannot show 100 (0.150969ms)
+✔ download reports real chunk progress and preserves every byte (18.311278ms)
+✔ compressed and unknown lengths never claim an invented percentage (0.509572ms)
+✔ download limits cancel the response instead of buffering oversized data (0.72772ms)
+✔ cancellation cannot publish a completed or stale download (0.33582ms)
+✔ level thresholds exactly match the existing native laboratory (0.940321ms)
+✔ one correctly spelled attempt earns one, reveal earns none; duplicate receipts do not mint credit (0.829327ms)
+✔ sentence credit caps at 3–6 and partial reading only tops up (0.481197ms)
+✔ game spends/rewards share the account, reject overdrafts and duplicate spends (0.478902ms)
+✔ native particle route starts at the glyph, stays finite, and converges to the live meter (1.28361ms)
+✔ captured photos create a real round-trippable deck without adding cover cards (11.604061ms)
+✔ a centered object keeps its context and stays centered (1.103557ms)
+✔ an object at the photo corner keeps that corner in the corner (0.140829ms)
+✔ a tiny object never zooms past the native 3.2 limit (0.113164ms)
+✔ a hidden object shows the whole photo without a box (0.679944ms)
+✔ the desktop card frames the same area as the phone card (0.124263ms)
+✔ degenerate sizes return no layout (0.090673ms)
+✔ sentence portrait stays complete while its object highlight follows the contained photo (0.099519ms)
+✔ sentence landscape stays complete with an aligned highlight and letterboxing (0.096181ms)
+✔ virtual input replaces the active selection and reports the native caret (1.195857ms)
+✔ backspace and delete remove whole Unicode characters without damaging adjacent text (0.121552ms)
+✔ navigation and shortcuts cannot become literal answer text (0.179259ms)
+✔ seven playable characters and eight sourced reward challenges have resolvable references (2.261568ms)
+✔ 5000 picked-up materials records the Multitasker achievement once while the character stays open (0.643432ms)
+✔ only a completed living wave20 awards each original character-clear reward; retries are idempotent (2.773476ms)
+✔ healing unlock uses actual restored HP within one wave, excludes overheal/level growth/settlement, and cannot accumulate two waves (3.8134ms)
+✔ material progression is recorded by pickup, not harvest, spelling rebate or uncollected drops (2.128083ms)
+✔ locked rewards never enter shop/crate pools or direct purchase, then all tiers are eligible after unlock (236.595275ms)
+✔ Multitasker has twelve slots, per-weapon penalty recalculates on buy/combine/recycle, and class bonuses cap at six (0.739484ms)
+✔ every character can start immediately without achievement progress (1.047143ms)
+✔ Mage starts with one Snake and Sausage, 9 HP and sourced stat modifiers (0.717496ms)
+✔ Doctor has +100% net Medical attack speed, halved armor gains and doubled regeneration gains and healing (1.167302ms)
+✔ Engineer starts with a Wrench, gains extra Engineering and halves Damage gains (0.303528ms)
+✔ Medikit adds +10 regen, +2 every5 seconds only within current wave and -10 luck (1.244739ms)
+✔ Wand+one Sausage causes3 ticks of4 burn, highest damage/duration refresh without stacking, burn cannot lifesteal (0.954312ms)
+✔ Snake shares one spread budget across a chain and never ignites warning enemies (0.61849ms)
+✔ Thunder Sword III/IV releases exactly2/4 elemental projectiles, and PowerFist explosion hits nearby enemies (1.125998ms)
+✔ browser local persistence survives a module reload; native injection takes precedence and changes flush immediately (0.283877ms)
+✔ malformed persistent input is ignored and snapshots cannot mutate live state (0.523029ms)
+✔ rows up to 20 cells fit the measured width without scrolling (0.827782ms)
+✔ the 20/21 boundary switches from shrink-to-fit to horizontal scroll (0.10052ms)
+✔ short rows keep large tiles where they fit and shrink as the word grows (0.090172ms)
+✔ a short row never scrolls, even when the width is very tight (0.86008ms)
+✔ the gap tightens as the row grows and never grows again for long words (0.257457ms)
+✔ both rows share the tighter tile and gap without wrapping (0.13023ms)
+✔ fixed separators count toward the row width so nothing overflows (0.087878ms)
+✔ the chosen size never grows when width shrinks, and stays usable when empty (0.083663ms)
+✔ tileFontSize scales with the cell and stays legible (0.428161ms)
+✔ every real content weapon family maps to the intended combat effect and unknown weapons stay silent (0.710195ms)
+✔ combat attack keys play only after gesture unlock, with per-kind rapid cooldowns (6.661692ms)
+✔ combat voices are capped separately so pickup feedback still has a voice (2.592839ms)
+✔ releasing a combat voice on ended frees its slot and clears per-kind bookkeeping (2.740429ms)
+✔ disabling effects and backgrounding stop combat voices and clear bookkeeping (6.285314ms)
+✔ laser starts as a .02 second muzzle pulse and retains sourced projectile physics (3.109755ms)
+✔ Shredder keeps its actual area damage while showing .05 seconds flash and .75 seconds smoke (1.673424ms)
+✔ hits expose actual damage as smooth normal and critical floating numbers (1.086324ms)
+✔ five new monster visuals provide two normal, two elite and one boss role (0.8572ms)
+✔ visual roles retain the imported Brotato PC 1.1.15.4 balance values (0.376879ms)
+✔ shared level math matches native thresholds and wave rewards total 70 per full run (1.040758ms)
+✔ browser ledger is idempotent, earns words and waves, and refuses an unaffordable skip (0.505817ms)
+✔ browser storage failure leaves both the visible balance and transaction pending (0.816057ms)
+✔ native ledger posts validated signed events and applies acknowledged snapshots (0.316333ms)
+✔ selected photo, word, pronunciation and scene focus survive vocabulary filtering (1.330344ms)
+✔ new export ignores old experience, achievements and runs; own progress resumes and other exports start clean (6.132009ms)
+✔ injured fruit inside the existing magnet radius is attracted and heals exactly 3 on pickup (3.376433ms)
+✔ full HP fruit stays completely stationary and uncollected even when touching (1.685775ms)
+✔ injured fruit outside the magnet radius stays stationary (0.56244ms)
+✔ touching fruit clamps at max HP and is removed exactly once (0.473937ms)
+✔ the existing magnet item expansion widens fruit attraction beyond the default radius (0.920333ms)
+✔ crate and legendary drops keep their existing touch-only behavior (0.99515ms)
+✔ repeated letters become separate one-use tiles (1.417303ms)
+✔ the shuffled bank keeps the letter multiset but never starts in answer order (0.379675ms)
+✔ separators are not tiles, letters display lower-case and drafts reinsert fixed punctuation (0.320088ms)
+✔ undo removes the last tile and clear resets the whole selection (0.152345ms)
+✔ a full selection produces the complete draft with automatic separators (0.156894ms)
+✔ incomplete explicit checks never mutate coins, rewards, draft or offer state (1.038546ms)
+✔ explicit wrong full checks charge once, rebate correct positions and cannot retry (0.489542ms)
+✔ a fully wrong draft keeps no rebate and settles as one failed purchase (0.391192ms)
+✔ closing an unsubmitted draft keeps money and a correct check settles exactly once (2.127957ms)
+✔ experience can skip spelling while preserving the item price and quality-scaled cost (0.499599ms)
+✔ an insufficient experience response keeps the spelling purchase open and charges nothing (0.899178ms)
+✔ an unaffordable offer is unavailable: no charge, no rebate and the attempt is cancelled (0.151052ms)
+✔ only complete explicit submissions evaluate and reward (0.365864ms)
+✔ returning a middle letter leaves a hole and the next pick refills that exact position (0.14254ms)
+✔ repeated letters keep their exact physical identity across return and refill (0.19545ms)
+✔ moving a slot stably inserts and shifts the intervening entries in both directions (0.319463ms)
+✔ moving a gap keeps the fixed length, multiset and unique tiles without duplicate consumption (0.192153ms)
+✔ fullness rejects holes, duplicate tiles and unknown IDs (0.149216ms)
+✔ slot drafts keep holes and fixed separators in their word positions (0.08408ms)
+✔ editing a slot draft never mutates the engine or rewards before the final check (0.304358ms)
+✔ materials visibly travel into the player before their value is settled (2.614788ms)
+✔ a nearby material no longer disappears at the old 22px pickup edge (0.635587ms)
+✔ materials stay still outside the magnet, while an attracted material keeps chasing a moving player (0.388813ms)
+✔ the magnet item still expands the material attraction radius (0.338115ms)
+✔ phone arena has room in world units, preserves aspect and fits completely inside the physical canvas (1.556087ms)
+✔ opening wave has a quiet start, 2-3 enemies per batch, spaced waves, and no mutation of imported PC data (5.151505ms)
+✔ population cap counts warnings, delays excess enemies, and keeps existing enemies instead of replacing them (0.5064ms)
+✔ random and fallback births avoid the player and leave gaps between monsters, including pending crosses (1.664912ms)
+✔ boss group retries when full rather than marking a bossless wave complete (0.588144ms)
+✔ fewer opening enemies retain pickup value for shop and XP, while later waves keep imported material value (4.425161ms)
+✔ weapon turns towards a new target before firing; potato keeps its quiet body state (0.947498ms)
+✔ photo identities and normalized focus survive word filtering, with local-only native or paired LAN routes (1.487822ms)
+✔ invalid bounding boxes are omitted; visible:false preserves the full scene (0.118797ms)
+✔ PC 1.1.15.4 data plus four H5 Wrench tiers, 27 reference items and seven preserved extras have valid references (3.405391ms)
+✔ damage follows published pistol and SMG scaling examples and newer knife tier data (0.190818ms)
+✔ stored cooldown distinguishes positive and negative speed and caps at two frames (0.086417ms)
+✔ armor matches documented 15 armor = 50%, negative 15 = 150%, with damage rounded before armor (0.101772ms)
+✔ shop price and rerolls match the published SMG, Cyclops Worm, wave 5 and wave 15 examples (0.227788ms)
+✔ seeded tier statistics match wave 8 thresholds; luck increases rarity within caps (41.855388ms)
+✔ enemy wave 10 and 20 health, drop rates and regeneration match reference examples (0.205857ms)
+✔ fixed seed drop statistics agree with the 1% base and 2% at 100 luck rather than a single lucky roll (9.051957ms)
+✔ early shop guarantees, weapon tiers, stack caps, and locked price/answer/rebate survive refresh and next wave (4.819452ms)
+✔ two equal tiers combine, unequal or legendary tiers cannot; full-slot spelling buys and merges exactly once (1.349337ms)
+✔ set bonuses recalculate after combine/recycle; pistol piercing and slingshot bounce are actual weapon behaviors (2.73084ms)
+✔ healing drops once on death, stays while healthy, heals 3 with clamping; unknown does not affect pickups (1.127751ms)
+✔ death cannot be rescued by a same-frame fruit pickup (0.584361ms)
+✔ materials left on the ground double next pickups; level 1 requires 16 XP and queues four choices (1.873618ms)
+✔ three characters retain their rules; Danger 0 has 20 scripted waves and a boss on wave 20 (3.362765ms)
+✔ spawn positions cover the arena interior and warning freezes its position until birth (1.752039ms)
+✔ seeded standard 20-wave run preserves settlement and eventually wins, with bounded entities (980.020981ms)
+✔ invalid tiers, nonfinite cooldown and missing enemy references are rejected (1.298759ms)
+✔ fatal contact cannot trigger an attack or lifesteal resurrection in the same frame (0.4284ms)
+✔ continuing old photo-less drafts refreshes scene references without changing the puzzle or purchase (9.300683ms)
+✔ refreshed native, LAN and export scenes survive wave retry and another checkpoint (6.940753ms)
+✔ photo refresh never substitutes a different meaning or an untrusted photo URL (1.93691ms)
+✔ battle checkpoint keeps the same wave, elapsed time, health, equipment and cooldowns and resumes paused (1.713905ms)
+✔ piercing hit sets and burn propagation shared budget preserve object identity (1.798935ms)
+✔ shop saves draft holes, insertion order, prices and rewarded positions; settlement cannot charge twice (3.827841ms)
+✔ pending upgrades and loot resume their settlement instead of restarting combat (1.2273ms)
+✔ wave experience survives checkpoints, including the final victory, until acknowledged (2.449926ms)
+✔ corrupt, oversized and unsupported graphs are refused without polluting prototypes (9.818435ms)
+✔ browser checkpoint survives defeat and explicit abandonment clears only run state (2.448716ms)
+✔ native bridge acknowledges ordered snapshots and reports failed saves without using ephemeral storage (1.714281ms)
+✔ storage errors leave the last valid checkpoint intact and report actionable failure (1.376206ms)
+✔ attack sounds only follow actual fire or swing; explosive hits emit the separate impact sound (3.021561ms)
+✔ normal exit waits for native acknowledgement and a failed clear is retried (0.774488ms)
+✔ browser storage recovery permits exit after an earlier failure (0.779703ms)
+✔ requested numbers match PC resources and Wiki details without invented Minigun I/II (1.959857ms)
+✔ SMG/Minigun/Shredder timings use local recoil and match published .17/.09/1.30 seconds (4.332972ms)
+✔ melee Lightning Shiv triggers elemental projectiles and only the real tier bounce amount (3.336814ms)
+✔ one legendary Shredder shell can create four area explosions without centre double damage (0.906247ms)
+✔ Shredder per-impact explosion chance agrees statistically with its tier-I 50% source (8.452493ms)
+✔ tier-IV Minigun pierces twice and loses 25% damage each time (0.593539ms)
+✔ six tier-I sticks each deal published 8 + five extra sticks times4 = 28 damage (1.656579ms)
+✔ ethereal kills are per weapon and per wave; axe damage and flint speed remain after sale (1.066877ms)
+✔ all shop items and real weapon families have bitmap tiles and all field pickup props are mapped (0.744699ms)
+✔ retry rolls a failed attempt back to the wave entry loadout and clears its combat and loot (5.201419ms)
+✔ repeated retries retain permanent achievements and do not mutate the entry checkpoint (2.205934ms)
+✔ retry never resurrects acknowledged shared experience or discards a pending transaction (5.301093ms)
+✔ first and final waves can be retried, but victories and completed shops cannot (1.282247ms)
+✔ battle, pause, dying and defeat checkpoints preserve retry after a new webview (15.562284ms)
+✔ old checkpoints still continue and gain a retry point at the next wave (2.246238ms)
+✔ malformed, mismatched and recursively nested retry states are refused (9.243128ms)
+✔ native death saves and acknowledgements retain the retry point without browser storage (2.963984ms)
+✔ failed abandonment retries on the launch screen and a newer save supersedes it (1.021775ms)
+✔ every reviewed public card advances from its own source and carries prior progress (1.703557ms)
+✔ source rollback and mutable versions stop publication (0.25292ms)
+✔ new public cards join trusted sources but paid cards remain excluded (0.369742ms)
+✔ shared links restore each module and exact sentence part in a clean study (15.160166ms)
+✔ stable word identity wins after photo reordering; missing word falls back to photo (0.640519ms)
+✔ URL navigation preserves drafts, grades, history and does not accept forged progress (1.753291ms)
+✔ a spelling link reopens a completed word without erasing the round or other drafts (1.261887ms)
+✔ legacy links retain saved state; invalid or foreign destinations cannot corrupt cursors (0.342039ms)
+✔ completion URLs preserve locally earned completion without sharing a fabricated grade (0.208068ms)
+✔ shared sentences preserve the active word, focus box and progress independently of prompt identity (0.414719ms)
+✔ one photo retains current sentence and every explicit song occurrence (0.866278ms)
+✔ manual and automatic navigation wrap in both directions in the filtered list (0.148489ms)
+✔ jump selects exact sentence even when multiple sentences share a word (12.32915ms)
+✔ native contraction and punctuation grading preserves negation and repeated words (2.318459ms)
+✔ native phrase partition keeps punctuation, duplicate identity, complete coverage and bounded phrase lengths (2.137677ms)
+✔ dialogue segmentation aligns only matching translations; curated sentence occurrences remain distinct (11.629177ms)
+✔ chunks auto-check on fill, preserve repeated IDs, allow correction and resolve only once (0.665093ms)
+✔ assistance is terminal, independent by mode and never a correct result (0.253462ms)
+✔ free typing auto-completes with native equivalence; guided apostrophe handling does not weaken hard mode (2.321296ms)
+✔ spelling blocks additions after errors, remembers quick slots and rejects delayed actions after navigation (1.06475ms)
+✔ sentence navigation begins at current word, preserves drafts and never grades spelling (0.515102ms)
+✔ refresh validates drafts, preserves bank order and assistance, and clears automatic callbacks (0.916928ms)
+✔ native teaching chunks match the mobile baseline example (0.26043ms)
+✔ programming vocabulary cannot collide with Object prototype properties (0.1061ms)
+✔ quick/full conversion never invents typed letters, and glow counts only the correct prefix (0.128546ms)
+✔ speaking retains earlier matched positions without crediting repeated partials twice (0.922144ms)
+✔ speaking can finish the final sentence and restart in the same module without grading spelling (0.395442ms)
+✔ restarting a finished dictation clears only sentence outcomes and drafts (14.688747ms)
+✔ challenge free dictation resumes the last sentence without clearing chunks (0.508509ms)
+✔ revisiting a finished final photo opens fresh dictation instead of disabled outcomes (0.99282ms)
+✔ freshSentence resets the selected located sentence after a finished round (0.326017ms)
+✔ fresh dictation keeps the displayed chunk order through unrelated state updates (0.447095ms)
+✔ shared in-flight downloads, bounded speculation, retry and cancellation release resources (23.388569ms)
+✔ positions round trip, canonical bytes and immutable name (7.732953ms)
+✔ last navigation wins including moving backwards; ties converge (0.345251ms)
+✔ stable photo and word identity survives reordering; missing words do not jump (0.29702ms)
+✔ deck isolation and portable imported photo identity (1.877706ms)
+✔ invalid position cannot mutate existing progress (0.445718ms)
+✔ XP synced before its answer does not lose practice counters or duplicate credit (11.998127ms)
+✔ an imported completed answer keeps newer local progress, while new answers count (2.30298ms)
+✔ reviewed public snapshot excludes paid entitlements and rejects duplicates or foreign origins (1.906995ms)
+✔ a reviewed mirror is bound to its deck ID, version, hash and asset name (0.602134ms)
+✔ catalog cannot replace local asset paths with external or traversal URLs (0.295977ms)
+✔ a modified public payload is rejected before the practice state is created (6.347026ms)
+✔ wrong input must be corrected; an assisted correct answer is recorded only once (1.193546ms)
+✔ resume preserves unfinished spelling and repeated occurrences remain separate (0.231016ms)
+✔ corrupt, future or mismatched progress cannot break a new deck (0.292681ms)
+✔ SHA-256 matches Node for WebCrypto (4.301806ms)
+✔ SHA-256 matches Node for HTTP without subtle (2.126036ms)
+✔ SHA-256 matches Node for without crypto (0.677026ms)
+✔ HTTP fallback imports valid archives and still rejects tampered photos (61.238166ms)
+✔ available WebCrypto failures are not silently swallowed (0.6144ms)
+✔ speech advances between callbacks, monotonically, without completing early (3.238725ms)
+✔ rate changes the pace and a new playback starts at zero (0.193674ms)
+✔ pause time never advances the clock or causes a jump on resume (0.126669ms)
+✔ sparse, late and out-of-order boundaries adjust smoothly without rewinding (0.370117ms)
+✔ a delayed animation sample catches up gradually rather than jumping (0.416888ms)
+✔ Auto avoids alphabetically first Albert and prefers ordinary US speech (0.823554ms)
+✔ explicit voice survives, including an effect voice and another accent (0.157834ms)
+✔ natural Microsoft and enhanced installed voices precede basic voices (0.125208ms)
+✔ fallback honors ordinary English system default and permits other accents (0.125793ms)
+✔ locale variants work and unrelated languages are excluded (1.321466ms)
+✔ empty or effects-only inventories return no explicit override; input is not sorted in place (0.653244ms)
+✔ caret follows automatic spaces, hyphens, apostrophes, leading numbers and trailing punctuation (1.579643ms)
+✔ middle edits, selected replacement, repeated deletion and rejected additions preserve the caret (0.679279ms)
+✔ spelling updates only its own draft, preserves frozen history, rejects stale events and grades corrections (13.533794ms)
+✔ dictation does not copy spelling history or unrelated sentence drafts (1.267769ms)
+✔ a link revisit keeps reopening every completed word the next action reaches (15.389346ms)
+✔ manual next after reveal reopens the next completed word (0.706481ms)
+✔ a word without a grade keeps the unfinished draft when it is reached again (0.262057ms)
+✔ dictation and speaking navigation never clear a spelling draft or grade (0.489151ms)
+✔ quick still skips mastered words and reopens a reviewed word from its mistakes (0.197346ms)
+✔ next reopens a correct target without mutating saved history (1.093955ms)
+✔ next reopens a reviewed target without mutating saved history (0.18679ms)
+✔ next reopens a revealed target without mutating saved history (0.254338ms)
+✔ fixed punctuation and leading digits match the native input contract (0.576016ms)
+✔ mistakes must be deleted before adding more letters (0.189335ms)
+✔ quick blanks retain their original positions including repeated letters (0.123331ms)
+✔ immediate mismatches map to full spelling and quick-letter positions (0.190044ms)
+✔ examples hide complete targets, including case, hyphens, apostrophes and repeated occurrences (2.011426ms)
+✔ display words keep the spoken word order, punctuation attached and blanks collapsed (1.22805ms)
+✔ QR payloads are the exact existing subscription URLs (0.583693ms)
+✔ arbitrary HTTPS publishers and query strings work without domain binding (0.110647ms)
+✔ reject unsafe sources (0.21466ms)
+✔ manifest covers all shipped button icons, without duplicates (1.939997ms)
+✔ warmup waits for scheduling, runs once, limits concurrency and tolerates failure (21.633276ms)
+✔ five distinct photos roll forward, deduplicate URLs and stop at the end (1.182823ms)
+✔ quick spelling skips mastered photos, speaking retains them (0.151577ms)
+✔ sentence modes follow prompts, playback follows its looping playlist (0.161089ms)
+✔ visible border closes oversized, tall and wide boxes without changing the photo (4.704258ms)
+✔ an ordinary in-bounds box remains aligned, tiny borders expand before clamping (0.123415ms)
+✔ hidden, outside and invalid boxes do not create misleading borders (0.135555ms)
+ℹ tests 297
+ℹ suites 0
+ℹ pass 297
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1676.215197
+
+> piclex-web@0.1.0 test:deploy
+> python3 -B -m unittest discover -s deploy -p "test_*.py"
+
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Activated bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70370050048,
+  "freeBytesAfter": 70370099200,
+  "completedAt": 1794042270.3018715
+}
+.Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Candidate verified: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Activated bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": [
+        "open process reference"
+      ]
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369951744,
+  "freeBytesAfter": 70369951744,
+  "completedAt": 1794042270.3552432
+}
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": "Unexpected file outside web/"
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369894400,
+  "freeBytesAfter": 70369894400,
+  "completedAt": 1794042270.3608532
+}
+.Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369792000,
+  "freeBytesAfter": 70369783808,
+  "completedAt": 1794042270.3958657
+}
+.Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Activated bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [
+    {
+      "name": "cccccccccccc-cccccccccccc",
+      "reason": "recent unrelated candidate; may be uploading"
+    }
+  ],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb",
+    "cccccccccccc-cccccccccccc"
+  ],
+  "freeBytesBefore": 70369722368,
+  "freeBytesAfter": 70369771520,
+  "completedAt": 1794042270.416318
+}
+...Verified 5 files: aaaaaaaaaaaa-bbbbbbbbbbbb
+.Restored previous release and configuration; reloading.
+.Restored previous release and configuration; reloading.
+......Verified 3 files: aaaaaaaaaaaa-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": [
+        "active service configuration"
+      ]
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369734656,
+  "freeBytesAfter": 70369734656,
+  "completedAt": 1794042270.433001
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": "Symlinks and mount points are forbidden inside releases"
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369685504,
+  "freeBytesAfter": 70369652736,
+  "completedAt": 1794042270.4383879
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmpwgdk7crf/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmpwgdk7crf/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmpwgdk7crf/web/releases/aaaaaaaaaaaa-aaaaaaaaaaaa
+Target release: /tmp/tmpwgdk7crf/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+Backup: /tmp/tmpwgdk7crf/nginx/piclex-web-backup-4aagzo6o
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Live HTTPS and health verified; pruning historical releases.
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": [
+        "open process"
+      ]
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369566720,
+  "freeBytesAfter": 70369550336,
+  "completedAt": 1794042270.455437
+}
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369546240,
+  "freeBytesAfter": 70369579008,
+  "completedAt": 1794042270.4622529
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmpuxre6tgl/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmpuxre6tgl/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmpuxre6tgl/web/releases/aaaaaaaaaaaa-aaaaaaaaaaaa
+Target release: /tmp/tmpuxre6tgl/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmpltdbgtbu/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmpltdbgtbu/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmpltdbgtbu/web/releases/aaaaaaaaaaaa-aaaaaaaaaaaa
+Target release: /tmp/tmpltdbgtbu/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+Backup: /tmp/tmpltdbgtbu/nginx/piclex-web-backup-a4o9ldcd
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Restored previous release and configuration; reloading.
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmpr3rtfrz7/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmpr3rtfrz7/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmpr3rtfrz7/web/releases/aaaaaaaaaaaa-aaaaaaaaaaaa
+Target release: /tmp/tmpr3rtfrz7/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+Backup: /tmp/tmpr3rtfrz7/nginx/piclex-web-backup-3ognoodb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Live HTTPS and health verified; pruning historical releases.
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: cccccccccccc-cccccccccccc
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: cccccccccccc-cccccccccccc
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmpto8g_b_d/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmpto8g_b_d/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmpto8g_b_d/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+Target release: /tmp/tmpto8g_b_d/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+.Preview only; add --apply with sudo after reviewing the diff.
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+--- /tmp/tmp7q7ngiu8/nginx/conf.d/site.conf
++++ candidate
+@@ -4,10 +4,36 @@
+     location /v1/ { proxy_pass http://127.0.0.1:18090; }
+     location /decks/ { proxy_pass http://127.0.0.1:18090; }
+     location = / {
+-        limit_except GET HEAD { deny all; }
+-        root /usr/share/nginx/html/piclex.v2fy.com;
+-        try_files /index.html =404;
++        return 302 /piclex-web/$is_args$args;
++        add_header Cache-Control "no-cache" always;
+     }
+     location ^~ /public/ { root /home/hermes/piclex; }
++    # BEGIN PICLEX WEB
++    location = /piclex-web { return 308 /piclex-web/; }
++    location ^~ /piclex-web/ {
++        root /tmp/tmp7q7ngiu8/web/current;
++        index index.html;
++        autoindex off;
++        if ($uri ~ "(^|/)\.") { return 404; }
++        limit_except GET HEAD { deny all; }
++        try_files $uri $uri/ =404;
++        types {
++            text/html html;
++            text/css css;
++            application/javascript js;
++            application/json json;
++            application/octet-stream piclexdeck;
++            image/jpeg jpg jpeg;
++            image/png png;
++            image/svg+xml svg;
++            audio/mpeg mp3;
++            text/plain txt;
++        }
++        default_type application/octet-stream;
++        charset utf-8;
++        add_header Cache-Control "no-cache" always;
++        add_header X-Content-Type-Options "nosniff" always;
++    }
++    # END PICLEX WEB
+     location / { return 404; }
+ }
+Current release: /tmp/tmp7q7ngiu8/web/releases/aaaaaaaaaaaa-aaaaaaaaaaaa
+Target release: /tmp/tmp7q7ngiu8/web/releases/bbbbbbbbbbbb-bbbbbbbbbbbb
+Backup: /tmp/tmp7q7ngiu8/nginx/piclex-web-backup-9jq0syv1
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Live HTTPS and health verified; pruning historical releases.
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369304576,
+  "freeBytesAfter": 70369353728,
+  "completedAt": 1794042270.5193005
+}
+Published and verified: https://piclex.v2fy.com/piclex-web/; only current retained.
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369325056,
+  "freeBytesAfter": 70369374208,
+  "completedAt": 1794042270.5261633
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [
+    {
+      "name": "cccccccccccc-cccccccccccc",
+      "reason": "recent unrelated candidate; may be uploading"
+    }
+  ],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb",
+    "cccccccccccc-cccccccccccc"
+  ],
+  "freeBytesBefore": 70369275904,
+  "freeBytesAfter": 70369325056,
+  "completedAt": 1794042270.5341487
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369325056,
+  "freeBytesAfter": 70369357824,
+  "completedAt": 1794042270.5409656
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: aaaaaaaaaaaa-aaaaaaaaaaaa
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa"
+  ],
+  "skipped": [
+    {
+      "name": "dddddddddddd-dddddddddddd",
+      "reason": "recent unrelated candidate; may be uploading"
+    },
+    {
+      "name": "uploads",
+      "reason": "not a managed release name"
+    }
+  ],
+  "remaining": [
+    "bbbbbbbbbbbb-bbbbbbbbbbbb",
+    "dddddddddddd-dddddddddddd",
+    "uploads"
+  ],
+  "freeBytesBefore": 70369300480,
+  "freeBytesAfter": 70369316864,
+  "completedAt": 1794042270.5480893
+}
+.Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+Verified 6 files: bbbbbbbbbbbb-bbbbbbbbbbbb
+{
+  "current": "bbbbbbbbbbbb-bbbbbbbbbbbb",
+  "deleted": [],
+  "skipped": [
+    {
+      "name": "aaaaaaaaaaaa-aaaaaaaaaaaa",
+      "reason": "Unexpected file outside web/"
+    }
+  ],
+  "remaining": [
+    "aaaaaaaaaaaa-aaaaaaaaaaaa",
+    "bbbbbbbbbbbb-bbbbbbbbbbbb"
+  ],
+  "freeBytesBefore": 70369239040,
+  "freeBytesAfter": 70369239040,
+  "completedAt": 1794042270.5526683
+}
+.........
+----------------------------------------------------------------------
+Ran 45 tests in 0.315s
+
+OK
+
+> piclex-web@0.1.0 content:build
+> node scripts/build-public-content.mjs
+
+Basic English 850 场景卡片: 100 photos / 850 words; lazy image payload 276258 bytes
+程序员工作英语: 80 photos / 320 words; lazy image payload 150010 bytes
+程序员 Vibe Coding: 23 photos / 92 words; lazy image payload 44078 bytes
+下班后，去摄影吧！: 50 photos / 200 words; lazy image payload 91101 bytes
+新概念英语第二册: 241 photos / 1054 words; lazy image payload 440877 bytes
+经典英语歌曲: 53 photos / 342 words; lazy image payload 213538 bytes
+经典电影台词: 100 photos / 100 words; lazy image payload 47125 bytes
+
+> piclex-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v7.3.6 building client environment for production...
+transforming...
+
+/piclex-web/lab/assets/hero.png referenced in /piclex-web/lab/assets/hero.png didn't resolve at build time, it will remain unchanged to be resolved at runtime
+
+/piclex-web/lab/assets/items.png referenced in /piclex-web/lab/assets/items.png didn't resolve at build time, it will remain unchanged to be resolved at runtime
+
+/piclex-web/lab/assets/coin.png referenced in /piclex-web/lab/assets/coin.png didn't resolve at build time, it will remain unchanged to be resolved at runtime
+✓ 294 modules transformed.
+rendering chunks...
+computing gzip size...
+../../dist/subscribe/index.html                           3.24 kB │ gzip:     1.68 kB
+../../dist/lab/index.html                                 6.67 kB │ gzip:     2.81 kB
+../../dist/index.html                                    13.44 kB │ gzip:     3.15 kB
+../../dist/assets/camera-soft-dunes-BP4g9rUR.webp        21.07 kB
+../../dist/assets/subscribe-CgjdP79_.css                  2.16 kB │ gzip:     0.95 kB
+../../dist/assets/lab-r_hvwpDT.css                       58.66 kB │ gzip:    12.38 kB
+../../dist/assets/main-BVKCGbL3.css                     100.67 kB │ gzip:    19.84 kB
+../../dist/assets/modulepreload-polyfill-B5Qt9EMX.js      0.71 kB │ gzip:     0.40 kB
+../../dist/assets/lab-C8Nqr4Kh.js                         2.71 kB │ gzip:     1.39 kB
+../../dist/assets/experience-store-Cf0PUDr3.js            6.76 kB │ gzip:     2.95 kB
+../../dist/assets/subscribe-D3VMIW3x.js                  32.52 kB │ gzip:    13.37 kB
+../../dist/assets/main-BOL6K7JB.js                      699.08 kB │ gzip:   253.62 kB
+../../dist/assets/main-Dd5u6t2U.js                    2,805.64 kB │ gzip: 1,811.17 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 3.86s

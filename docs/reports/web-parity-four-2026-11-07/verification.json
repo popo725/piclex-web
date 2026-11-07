@@ -6,7 +6,7 @@
     "F05",
     "F17"
   ],
-  "status": "verified_pending_user_review",
+  "status": "approved_preflight_passed",
   "published": false,
   "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
   "branch": "codex/web-parity-four-review",
@@ -39,13 +39,13 @@
     "Speech recognition and synthesis callbacks were deterministic browser fixtures; actual microphone accuracy was not measured.",
     "Subscription update failures used an isolated fixture feed; production subscriptions were not modified.",
     "Older imported packages lacking source identity cannot be retroactively associated with an unknown feed.",
-    "No simulator, device install, Git push or deployment performed."
+    "No simulator or phone installation in this Web release."
   ],
   "source_sha256": {
     "apps/public/src/DeckDownload.tsx": "e054b59168ececf844d536cb2baa8e0196ef68add6ca9dc8ff81a0cf8fb7e872",
-    "apps/public/src/NativePractice.tsx": "0a6fcd88df2451b37601a56eb66e573406db0fb20155b3e79f41fd63b0485261",
+    "apps/public/src/NativePractice.tsx": "3afa957e2471ac639225f60e1ae93e9b7b65e808536f554b06aa3159c340949d",
     "apps/public/src/Settings.tsx": "735ec58ad80bd5e6844ec2c61363100ab53648fdb1a9c185cece58d068ef16fe",
-    "apps/public/src/Reading.tsx": "a2ab8d72a664659f414794f14ec089182d37f5ae43dd26d3474c187d2e847405",
+    "apps/public/src/Reading.tsx": "9a4daf6446f3fed16125eab5ba11c404df25517ac7cd68803f0061122d686af6",
     "apps/public/src/SubscriptionSettings.tsx": "1b0bc3b77b020bc3645f0f807574ff30b096e9baafdeb0ebb37b30cc65159eb6",
     "apps/public/src/deck-source.ts": "173114b929c82782452c09e7937d0778c00529936235976cf2bec4d3adf45dae",
     "apps/public/src/deck-subscriptions.ts": "3409a55e8591534c65d3a0bc86ec2e62cf895ff0b35721b2f65feb2cd661d985",
@@ -54,7 +54,7 @@
     "apps/public/src/reading.css": "300cfdec5b72309ff1795919f4b4e5a6645437b1aef363a7e8dded594282dd00",
     "packages/practice/src/study.mjs": "8d69ffec69e5dfc617909d73b981aeef7ef6f719a3770d0e42e37db5644252b8",
     "packages/practice/src/dialogue.mjs": "920cd8581897ebff9230ae727dcc69cffd28ee9b79d29847340bc7d5c93a6ce0",
-    "apps/public/src/practice.css": "7d9fc2d8319a7a07cf4e41dcb71648fa43beead1c33d1dcb2d94a55b830f1cec",
+    "apps/public/src/practice.css": "64e60f90f8faada5e960afb097ba00c0c93477ffa26af705ee894b0e35c62871",
     "apps/public/src/responsive.css": "c5384d5fb9a2dd19c884666c87f2d4e0cb0b3f6d0c4a2dba77dbec84fcec51d5",
     "apps/public/src/WordPeek.tsx": "672c5062279e943c62ffdce812d5ce02ac8aea1d647c4c1fe2d9372fa7c6c91c",
     "apps/public/src/word-definitions.ts": "c25234df684431e3db4ec28450a3a40c1654795c3d9db11c7a98fc775c015a8a"
@@ -104,5 +104,46 @@
     "apps/public/public/dictionary/x.json": "12034b26aa9bbad6c6cfeac0dbcd084c1f5ac827bc6f9deb539b255d2115993c",
     "apps/public/public/dictionary/y.json": "a6100bdc8b46cf789834b5063371442c031374213af3ddebc94704bc150d34bf",
     "apps/public/public/dictionary/z.json": "3c17a4539933a8c2a9dcb153c8c24caf4f4d56cd0570be26aab2ed8c3bdc6b57"
+  },
+  "release": {
+    "scope": [
+      "F01",
+      "F02",
+      "F05",
+      "F17",
+      "guided-eye-removal"
+    ],
+    "authorization": "User explicitly approved publication of these five changes; other 18 remain paused",
+    "integratedProductionSource": "5a761ca4beae6dc83515e41c520be9fccbdc1fd9",
+    "integratedRecords": "520d3b75f781be1196711356ceb938d79f05f95d",
+    "unitPassed": 297,
+    "deploymentTestsPassed": 45,
+    "linuxBrowserShards": [
+      {
+        "shard": 1,
+        "firstRunPassed": 171,
+        "environmentRecheckPassed": 6,
+        "passed": 177,
+        "skipped": 1
+      },
+      {
+        "shard": 2,
+        "firstRunPassed": 171,
+        "environmentRecheckPassed": 6,
+        "passed": 177,
+        "skipped": 2
+      },
+      {
+        "shard": 3,
+        "firstRunPassed": 168,
+        "environmentRecheckPassed": 6,
+        "passed": 174,
+        "skipped": 1
+      }
+    ],
+    "linuxPlatform": "Linux ARM64, locked Playwright Chromium 153 and WebKit. Chrome-channel persistent helper maps to the same installed Chromium; formal CI validates branded Chrome on Ubuntu AMD64.",
+    "environmentCorrection": "First parallel full run: 510 passed, 18 failed, 4 pre-existing skipped. Three failures were a missing docs/native-keyboard-sounds.json reference; remaining failures were clustered timeouts during high CPU pressure. Copied the tracked reference and reran all 18 at standard two-worker load with unchanged code/limits/assertions; all passed. Combined final coverage: 528 passed, 4 pre-existing skipped.",
+    "adjacentRegression": "Fixed delayed manual microphone start and effect cleanup stopping fresh demonstrations; original assertions pass in 30 Linux and 20 Mac Chrome/WebKit scenarios.",
+    "visual": "Four complete 390x844 screenshots reviewed, with visible pictures/avatar/icons loaded; final live screenshots pending."
   }
 }

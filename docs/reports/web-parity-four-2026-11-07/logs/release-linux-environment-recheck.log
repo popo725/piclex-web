@@ -1,0 +1,22 @@
+
+Running 18 tests using 2 workers
+
+[1/18] [desktop] › tests/browser/learning.spec.ts:32:1 › local archives survive refresh; duplicate and invalid imports preserve previous progress
+[2/18] [desktop] › tests/browser/learning.spec.ts:10:1 › a visitor can complete a scene, resume after refresh, and restart without a phone
+[3/18] [desktop] › tests/browser/learning.spec.ts:47:1 › direct links, reveal, dark theme and unknown decks have usable states
+[4/18] [desktop] › tests/browser/learning.spec.ts:57:1 › public catalog reuses existing content and practice never downloads a whole archive
+[5/18] [desktop] › tests/browser/learning.spec.ts:77:1 › native modules preserve independent sentence drafts, shuffle order and photo navigation
+[6/18] [desktop] › tests/browser/settings-parity.spec.ts:45:1 › keyboard settings use the native samples and eight voices; preview, mute and route cleanup work
+[7/18] [mobile] › tests/browser/learning-parity.spec.ts:75:1 › avatar level sheet enters the real game with the current deck and returns to the same listening draft
+[8/18] [mobile] › tests/browser/learning-parity.spec.ts:110:1 › rewards have real details, learning and settings routes, and saved milestones remain visible after spending
+[9/18] [mobile] › tests/browser/learning-parity.spec.ts:125:37 › light listening answer trays remain distinct from the page and selected chips have a visible outline
+[10/18] [mobile] › tests/browser/learning-parity.spec.ts:125:37 › dark listening answer trays remain distinct from the page and selected chips have a visible outline
+[11/18] [mobile] › tests/browser/learning-url.spec.ts:7:1 › share restores module, photo and sentence in a fresh browser without sender progress
+[12/18] [mobile] › tests/browser/settings-parity.spec.ts:45:1 › keyboard settings use the native samples and eight voices; preview, mute and route cleanup work
+[13/18] [mobile-webkit] › tests/browser/input-performance.spec.ts:16:1 › phrase separators keep touch and hardware insertion after the last entered letter
+[14/18] [mobile-webkit] › tests/browser/input-performance.spec.ts:46:1 › rapid typing preserves the active particle frame instead of resetting the full-screen canvas
+[15/18] [mobile-webkit] › tests/browser/input-performance.spec.ts:75:1 › an immediate page exit and leaving learning flush the last burst without waiting for autosave
+[16/18] [mobile-webkit] › tests/browser/input-performance.spec.ts:88:1 › typing preserves restored progress and unrelated stored decks when the page hides
+[17/18] [mobile-webkit] › tests/browser/input-performance.spec.ts:116:39 › full Emoji effects reuse prepared glyphs with idle callbacks deferred
+[18/18] [mobile-webkit] › tests/browser/settings-parity.spec.ts:45:1 › keyboard settings use the native samples and eight voices; preview, mute and route cleanup work
+  18 passed (27.2s)

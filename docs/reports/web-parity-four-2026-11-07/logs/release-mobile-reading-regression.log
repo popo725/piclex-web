@@ -1,0 +1,26 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test tests/browser/interaction-audit.spec.ts tests/browser/parity-speaking.spec.ts --config four.playwright.config.ts --project mobile --project mobile-webkit --output /private/tmp/piclex-four-reading-regression --reporter=line
+
+Running 20 tests using 2 workers
+
+[1/20] [mobile] › tests/browser/interaction-audit.spec.ts:13:1 › dictation assistance speaks its answer; replay of a correct answer holds the current sentence
+[2/20] [mobile] › tests/browser/interaction-audit.spec.ts:6:1 › reveal speaks the word, next speaks the next prompt, and tapping the selected tab leaves playback intact
+[3/20] [mobile] › tests/browser/interaction-audit.spec.ts:23:1 › demonstration releases the microphone before playing and restarting reading stops the example
+[4/20] [mobile] › tests/browser/interaction-audit.spec.ts:32:1 › classic key sound works at LV0 for physical and touch input, dictation and backspace
+[5/20] [mobile] › tests/browser/interaction-audit.spec.ts:42:1 › keyboard sound mute survives settings navigation and a full reload
+[6/20] [mobile] › tests/browser/interaction-audit.spec.ts:51:1 › reading keeps partial matches, closes its microphone on completion and continues in speaking
+[7/20] [mobile] › tests/browser/parity-speaking.spec.ts:10:1 › F02 dialogue alternates learner A and machine B without grading labels or machine lines
+[8/20] [mobile] › tests/browser/parity-speaking.spec.ts:16:1 › F02 skipping learner A never grants its words
+[9/20] [mobile] › tests/browser/parity-speaking.spec.ts:18:1 › ordinary speaking still advances and continues through consecutive sentences
+[10/20] [mobile] › tests/browser/parity-speaking.spec.ts:24:1 › F02 bundled programmer dialogue advances without speaking labels and fits the existing page
+[11/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:6:1 › reveal speaks the word, next speaks the next prompt, and tapping the selected tab leaves playback intact
+[12/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:13:1 › dictation assistance speaks its answer; replay of a correct answer holds the current sentence
+[13/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:23:1 › demonstration releases the microphone before playing and restarting reading stops the example
+[14/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:32:1 › classic key sound works at LV0 for physical and touch input, dictation and backspace
+[15/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:42:1 › keyboard sound mute survives settings navigation and a full reload
+[16/20] [mobile-webkit] › tests/browser/interaction-audit.spec.ts:51:1 › reading keeps partial matches, closes its microphone on completion and continues in speaking
+[17/20] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:10:1 › F02 dialogue alternates learner A and machine B without grading labels or machine lines
+[18/20] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:16:1 › F02 skipping learner A never grants its words
+[19/20] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:18:1 › ordinary speaking still advances and continues through consecutive sentences
+[20/20] [mobile-webkit] › tests/browser/parity-speaking.spec.ts:24:1 › F02 bundled programmer dialogue advances without speaking labels and fits the existing page
+  20 passed (45.0s)

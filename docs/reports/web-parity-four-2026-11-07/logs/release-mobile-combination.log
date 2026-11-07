@@ -1,0 +1,29 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test tests/browser/parity-state.spec.ts tests/browser/parity-speaking.spec.ts tests/browser/parity-subscriptions.spec.ts tests/browser/guided-no-eyes.spec.ts tests/browser/word-peek.spec.ts --config four.playwright.config.ts --project mobile --output /private/tmp/piclex-four-merged-mobile --reporter=line
+
+Running 23 tests using 2 workers
+
+[1/23] [mobile] › tests/browser/guided-no-eyes.spec.ts:5:43 › medium has no eye controls or reserved row; word hold preserves bilingual help and input
+[2/23] [mobile] › tests/browser/guided-no-eyes.spec.ts:5:43 › easy has no eye controls or reserved row; word hold preserves bilingual help and input
+[3/23] [mobile] › tests/browser/parity-speaking.spec.ts:10:1 › F02 dialogue alternates learner A and machine B without grading labels or machine lines
+[4/23] [mobile] › tests/browser/parity-speaking.spec.ts:16:1 › F02 skipping learner A never grants its words
+[5/23] [mobile] › tests/browser/parity-speaking.spec.ts:18:1 › ordinary speaking still advances and continues through consecutive sentences
+[6/23] [mobile] › tests/browser/parity-speaking.spec.ts:24:1 › F02 bundled programmer dialogue advances without speaking labels and fits the existing page
+[7/23] [mobile] › tests/browser/parity-state.spec.ts:33:1 › a warm Learning entry is one-shot and never overrides an explicit listening link
+[8/23] [mobile] › tests/browser/parity-state.spec.ts:65:1 › finished dictation offers challenge, another round and word learning without losing spelling drafts
+[9/23] [mobile] › tests/browser/parity-state.spec.ts:101:1 › another dictation round preserves reward dedupe identity and spelling history
+[10/23] [mobile] › tests/browser/parity-state.spec.ts:125:1 › F05 selecting the completed photo opens an editable fresh dictation
+[11/23] [mobile] › tests/browser/parity-subscriptions.spec.ts:8:1 › F17 stable version updates preserve card IDs and draft; cancelled subscription keeps content
+[12/23] [mobile] › tests/browser/word-peek.spec.ts:31:1 › guided actual-word hold shows English and Chinese, then releases without changing focus or draft
+[13/23] [mobile] › tests/browser/word-peek.spec.ts:62:1 › hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it
+[14/23] [mobile] › tests/browser/word-peek.spec.ts:80:1 › successful chunks hide Next and the challenge row while auto-advance runs once
+[15/23] [mobile] › tests/browser/word-peek.spec.ts:96:1 › paused automatic advance and assisted answers keep a manual Next fallback
+[16/23] [mobile] › tests/browser/word-peek.spec.ts:110:1 › hard hold targets the pointed word instead of the old caret and ignores blank space
+[17/23] [mobile] › tests/browser/word-peek.spec.ts:131:1 › a pending hold is cancelled by difficulty changes and scrolling before it can reveal
+[18/23] [mobile] › tests/browser/word-peek.spec.ts:142:1 › failed dictionary loads can retry on a later hold
+[19/23] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free easy success preserves button dimensions without a success row or transient Next
+[20/23] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free medium success preserves button dimensions without a success row or transient Next
+[21/23] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard success preserves button dimensions without a success row or transient Next
+[22/23] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard 390x667 success preserves button dimensions without a success row or transient Next
+[23/23] [mobile] › tests/browser/word-peek.spec.ts:149:191 › free hard 844x390 success preserves button dimensions without a success row or transient Next
+  23 passed (52.2s)
