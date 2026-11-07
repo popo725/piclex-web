@@ -114,3 +114,7 @@ docker pull zhaoolee/piclex-web:latest && (if docker container inspect piclex-we
 [使用与开发说明](docs/web-guide.md) · [发布自己的卡组](docs/publishing-decks.md) · [部署说明](deploy/README.md) · [二维码分享封面](docs/subscription-qr/README.md)
 
 代码使用 [MIT](LICENSE)；卡组内容按原来源授权，详见[素材说明](ASSET_LICENSES.md)。
+
+## 社区
+
+感谢 [LINUX DO 社区](https://linux.do/) 对开源项目的支持。
