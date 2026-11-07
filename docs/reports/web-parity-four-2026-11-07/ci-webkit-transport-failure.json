@@ -1,0 +1,36 @@
+{
+  "run": 42361205441,
+  "failures": [
+    {
+      "url": "https://127.0.0.1:33051/dav/PicLex/progress/",
+      "time": "2026-11-07T09:58:40.264Z",
+      "failure": "Load request cancelled"
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/icons/forward.png",
+      "time": "2026-11-07T09:58:42.469Z",
+      "failure": "Load request cancelled"
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/assets/main-HRZt8ohW.js",
+      "time": "2026-11-07T09:58:46.389Z",
+      "failure": "WebKit encountered an internal error"
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/icons/tab-learn-frames.png",
+      "time": "2026-11-07T09:58:46.385Z",
+      "failure": "WebKit encountered an internal error"
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/icons/tab-capture-frames.png",
+      "time": "2026-11-07T09:58:42.495Z",
+      "failure": "WebKit encountered an internal error"
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/icons/tab-settings-frames.png",
+      "time": "2026-11-07T09:58:46.386Z",
+      "failure": "WebKit encountered an internal error"
+    }
+  ],
+  "pageState": "boot-loader, before React started"
+}

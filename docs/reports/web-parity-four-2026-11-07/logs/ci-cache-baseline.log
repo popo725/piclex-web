@@ -1,0 +1,12 @@
+
+Running 8 tests using 2 workers
+
+[1/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[2/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[3/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[4/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[5/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[6/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[7/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+[8/8] [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+  8 passed (36.7s)

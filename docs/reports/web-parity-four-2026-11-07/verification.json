@@ -6,7 +6,7 @@
     "F05",
     "F17"
   ],
-  "status": "approved_preflight_passed",
+  "status": "ci_transport_corrected_pending_release",
   "published": false,
   "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
   "branch": "codex/web-parity-four-review",
@@ -144,6 +144,20 @@
     "linuxPlatform": "Linux ARM64, locked Playwright Chromium 153 and WebKit. Chrome-channel persistent helper maps to the same installed Chromium; formal CI validates branded Chrome on Ubuntu AMD64.",
     "environmentCorrection": "First parallel full run: 510 passed, 18 failed, 4 pre-existing skipped. Three failures were a missing docs/native-keyboard-sounds.json reference; remaining failures were clustered timeouts during high CPU pressure. Copied the tracked reference and reran all 18 at standard two-worker load with unchanged code/limits/assertions; all passed. Combined final coverage: 528 passed, 4 pre-existing skipped.",
     "adjacentRegression": "Fixed delayed manual microphone start and effect cleanup stopping fresh demonstrations; original assertions pass in 30 Linux and 20 Mac Chrome/WebKit scenarios.",
-    "visual": "Four complete 390x844 screenshots reviewed, with visible pictures/avatar/icons loaded; final live screenshots pending."
+    "visual": "Four complete 390x844 screenshots reviewed, with visible pictures/avatar/icons loaded; final live screenshots pending.",
+    "firstCI": {
+      "run": 42361205441,
+      "sourceRevision": "11fc1ce82579f20b97bc4e1515c62f9f07fd70f1",
+      "passed": 527,
+      "skipped": 4,
+      "failed": 1,
+      "failure": "Persistent WebKit failed its cached entry module before React started after backup reload; original trace retained."
+    },
+    "ciCorrection": {
+      "scope": "WebDAV persistent WebKit fixture only: pass-through JS route disables HTTP cache while keeping OPFS, real HTTPS traffic and all original assertions. Product code unchanged.",
+      "originalLocalRepetition": "8 passed; intermittent engine failure only observed in the captured Ubuntu CI run",
+      "fixedLinux": "16 WebDAV cases passed, 1 existing redirect-platform skip; original case passed separately with four entry-script HTTP 200 responses and zero internal resource errors.",
+      "dispatch": "Skip duplicate automatic tooling-only run and use existing workflow_dispatch for one complete Check and publish, including Pages and Docker."
+    }
   }
 }

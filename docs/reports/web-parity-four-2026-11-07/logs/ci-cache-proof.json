@@ -1,0 +1,21 @@
+{
+  "entryScriptLoads": [
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/assets/main-HRZt8ohW.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/assets/main-HRZt8ohW.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/assets/main-HRZt8ohW.js",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:18120/piclex-web/assets/main-HRZt8ohW.js",
+      "status": 200
+    }
+  ],
+  "internalResourceErrors": []
+}

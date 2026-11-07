@@ -1,0 +1,37 @@
+  1) [mobile-webkit] › tests/browser/webdav-backup.spec.ts:30:1 › App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.photo-data-page')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('.photo-data-page') with timeout 5000ms
+      - waiting for locator('.photo-data-page')
+
+
+      26 | }
+      27 | async function connect(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/connection');await page.getByLabel('服务器地址',{exact:true}).fill(origin+base);await page.getByLabel('账号',{exact:true}).fill('test-account');await page.getByLabel('密码',{exact:true}).fill('test-secret');await page.getByRole('button',{name:'保存并连接',exact:true}).click();await expect(page.getByText('连接成功',{exact:true})).toBeVisible();}
+    > 28 | async function restore(page:Page){await page.goto('/piclex-web/#/settings/data/webdav/restore');await page.getByRole('button',{name:'刷新备份列表',exact:true}).click();await page.getByRole('button',{name:nativeName,exact:true}).click();await expect(page.getByRole('dialog',{name:'恢复完整备份？'})).toBeVisible();await Promise.all([page.waitForEvent('domcontentloaded'),page.getByRole('button',{name:'恢复照片和学习进度',exact:true}).click()]);await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.locator('.photo-data-page')).toBeVisible();}
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+      29 | async function xp(page:Page){await page.goto('/piclex-web/#/settings/level');await expect(page.locator('.level-page')).toContainText('共 5 经验');}
+      30 | test('App backup restores into Web, duplicate restore is idempotent, and Web publishes App-compatible progress',async({page},info)=>{
+      31 |  const remote=await server(page);await connect(page);await page.reload();await expect(page.getByLabel('密码',{exact:true})).toHaveValue('test-secret');expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('piclex-web.webdav.connection')!).password)).toBe('');
+        at restore (/home/runner/work/piclex-web/piclex-web/tests/browser/webdav-backup.spec.ts:28:524)
+        at /home/runner/work/piclex-web/piclex-web/tests/browser/webdav-backup.spec.ts:32:2
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/webdav-backup-App-backup-r-e9313-hes-App-compatible-progress-mobile-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/webdav-backup-App-backup-r-e9313-hes-App-compatible-progress-mobile-webkit/test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/webdav-backup-App-backup-r-e9313-hes-App-compatible-progress-mobile-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/webdav-backup-App-backup-r-e9313-hes-App-compatible-progress-mobile-webkit/trace.zip
+    Usage:
