@@ -1,0 +1,26 @@
+Name:      docker.io/zhaoolee/piclex-web:sha-5a761ca
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:999d2e1b7efd0c0bc476a27f47bfc2bb270d4031f078895158394934b36053a6
+           
+Manifests: 
+  Name:        docker.io/zhaoolee/piclex-web:sha-5a761ca@sha256:ac219510b48a1c1fbe5f7874b96bd75b4c9a29e296778d69618d81d71b7be260
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+               
+  Name:        docker.io/zhaoolee/piclex-web:sha-5a761ca@sha256:cfcb6a26fd2acbd09daa3e1ef6ec7022d45ccadf9b23b7ed411d6cf7e3e3456d
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64
+               
+  Name:        docker.io/zhaoolee/piclex-web:sha-5a761ca@sha256:884756bbc1300180db48933496fcf629042f5cef7dde0a728ecbb083b2e2b624
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:ac219510b48a1c1fbe5f7874b96bd75b4c9a29e296778d69618d81d71b7be260
+    vnd.docker.reference.type:   attestation-manifest
+               
+  Name:        docker.io/zhaoolee/piclex-web:sha-5a761ca@sha256:daa64a9c2b963210bf7c6f4fe1f6332a2ce91166780050fb0da0965526294164
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:cfcb6a26fd2acbd09daa3e1ef6ec7022d45ccadf9b23b7ed411d6cf7e3e3456d
+    vnd.docker.reference.type:   attestation-manifest

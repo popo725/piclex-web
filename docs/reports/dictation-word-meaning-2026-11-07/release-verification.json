@@ -9,11 +9,11 @@
     "failed": 2,
     "cause": "Initial native-body scroll occurs 52–213ms after keyboard hold begins; intended scroll cancellation correctly dismisses it. Tests now wait for actual stable target/panel geometry before keyboard hold. Original assertions unchanged."
   },
-  "phone": "Release 1.0.22 (370) installed and independently verified",
-  "status": "Final focused verification passed; full publication CI and two-site delivery pending",
-  "sourceRevision": "fddb981d3b773fb3a29d196c1b2ba993c5422010",
+  "phone": "Release 1.0.22 (373) in-place installed; actual device bundle version and successful launch independently verified",
+  "status": "Published and verified on Pages and domestic site; phone373 installed and launched",
+  "sourceRevision": "5a761ca4beae6dc83515e41c520be9fccbdc1fd9",
   "macSupplementPassed": 6,
-  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/42353974942",
+  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/42356732435",
   "finalSourceHashes": {
     "apps/public/src/NativePractice.tsx": "4f3787a613ac420af68f32d1683a6b03f182fb6cd448a45240069701ed674f72",
     "apps/public/src/WordPeek.tsx": "3473a77b0e68f92b50f09e08e4415326c28a950e50601117c5d07af1fa47a790",
@@ -40,5 +40,21 @@
     "skipped": 4,
     "failure": "Sentence feedback locator matched both result and existing unavailable-speech toast on Linux Chromium; reproduced twice locally before scoping locator to sentence-feedback."
   },
-  "linuxFinalFocusedPassed": 45
+  "linuxFinalFocusedPassed": 45,
+  "finalCI": {
+    "id": 42356732435,
+    "sourceRevision": "5a761ca4beae6dc83515e41c520be9fccbdc1fd9",
+    "conclusion": "success",
+    "browserPassed": 495,
+    "browserSkipped": 4,
+    "browserFailed": 0,
+    "pages": "success",
+    "docker": "success",
+    "dockerDigest": "sha256:999d2e1b7efd0c0bc476a27f47bfc2bb270d4031f078895158394934b36053a6"
+  },
+  "liveBrowserPassed": 4,
+  "liveResourcesPerSite": 39,
+  "completeManifestFiles": 1170,
+  "releaseID": "5a761ca4beae-8d452963c40d",
+  "cleanup": "Superseded native372, partial asset cache and Linux container removed; release worktree and remaining own temporary logs scheduled for removal after record push; combined373 archive/symbols retained by speaking/performance work"
 }

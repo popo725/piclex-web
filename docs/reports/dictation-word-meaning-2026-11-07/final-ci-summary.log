@@ -1,0 +1,14 @@
+build	Run npm test	2026-11-07T08:44:26.9654859Z ℹ tests 287
+build	Run npm test	2026-11-07T08:44:26.9655308Z ℹ pass 287
+build	Run npm test	2026-11-07T08:44:26.9655537Z ℹ fail 0
+build	Run npm run test:deploy	2026-11-07T08:44:27.6955655Z Ran 45 tests in 0.481s
+Browser shard 3/3	UNKNOWN STEP	2026-11-07T08:55:01.8939623Z   1 skipped
+Browser shard 3/3	UNKNOWN STEP	2026-11-07T08:55:01.8939969Z   163 passed (8.4m)
+Browser shard 1/3	UNKNOWN STEP	2026-11-07T08:52:20.4619023Z   1 skipped
+Browser shard 1/3	UNKNOWN STEP	2026-11-07T08:52:20.4619558Z   166 passed (5.6m)
+Browser shard 2/3	UNKNOWN STEP	2026-11-07T08:52:34.1111916Z   2 skipped
+Browser shard 2/3	UNKNOWN STEP	2026-11-07T08:52:34.1112364Z   166 passed (5.9m)
+docker / publish	UNKNOWN STEP	2026-11-07T08:57:01.3785886Z   "containerimage.digest": "sha256:a47765a6d85f6ed8bba80019d757c4ae5849549215ec5990b20632b31ffe0198",
+docker / publish	UNKNOWN STEP	2026-11-07T08:57:38.9277294Z #15 pushing manifest for docker.io/***/piclex-web:latest@sha256:999d2e1b7efd0c0bc476a27f47bfc2bb270d4031f078895158394934b36053a6 3.3s done
+docker / publish	UNKNOWN STEP	2026-11-07T08:57:40.9909227Z #15 pushing manifest for docker.io/***/piclex-web:sha-5a761ca@sha256:999d2e1b7efd0c0bc476a27f47bfc2bb270d4031f078895158394934b36053a6 1.8s done
+docker / publish	UNKNOWN STEP	2026-11-07T08:58:06.2333561Z   "containerimage.digest": "sha256:999d2e1b7efd0c0bc476a27f47bfc2bb270d4031f078895158394934b36053a6",
