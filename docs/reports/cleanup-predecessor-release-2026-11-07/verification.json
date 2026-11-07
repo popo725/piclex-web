@@ -1,0 +1,96 @@
+{
+  "sourceRevision": "b54a07acb974081c3b34ab6207a39f526d9487ef",
+  "outcome": "Cleanup tooling installed and verified; additional static publication blocked by GitHub Pages timeouts",
+  "tests": {
+    "macDeployment": 45,
+    "linuxDeployment": 45,
+    "ciDeployment": 45,
+    "node": 281,
+    "browser": {
+      "passed": 441,
+      "existingSkipped": 4,
+      "failed": 0
+    }
+  },
+  "realLinuxRecovery": {
+    "realProcDockerAndConfigScan": true,
+    "activeProcessProtected": true,
+    "recentUnrelatedUploadProtected": true,
+    "userDataUnchanged": true,
+    "predecessorRemovedImmediatelyAfterProcessExit": true,
+    "elapsedSeconds": 0.48
+  },
+  "recoveryTests": {
+    "abruptChildProcessExitAfterCutover": true,
+    "cleanupPermissionErrorRetry": true,
+    "rollbackPreservesActiveReceipt": true,
+    "invalidReceiptFailsClosed": true
+  },
+  "production": {
+    "toolsSourceRevision": "b54a07acb974081c3b34ab6207a39f526d9487ef",
+    "installedTools": {
+      "activate.py": "5e2eec21f35e16d30d5a970aa559a5cfb90cd17b3425dc16a593f3fa00ae5190",
+      "auto-update-public.py": "20aab6769cfc206c999a8adcd3b4bf028429026d280b3d93ebd39da54648bb41",
+      "release_state.py": "8ee468fb5aa47a5d93a59de1e7346cbd8e88b7d50904bf047be0db7e4eaa5633",
+      "release_lifecycle.py": "7fec3272cdadc23d625e50dedebba644b955e5ec3f86aebad9661630bb572062",
+      "check-mirror.py": "1faef9aabc91185c5bb4adff68c470193d1f94f2dc60f801ed556e149601808d"
+    },
+    "staticReleaseUnchanged": "39457f509451-f0008c475e03",
+    "onlyCurrentRetained": true,
+    "originAndPublicHealth": "ok",
+    "nginxConfigUnchanged": true,
+    "cleanupReport": {
+      "current": "39457f509451-f0008c475e03",
+      "deleted": [],
+      "skipped": [],
+      "remaining": [
+        "39457f509451-f0008c475e03"
+      ],
+      "freeBytesBefore": 32850063360,
+      "freeBytesAfter": 32850059264,
+      "completedAt": 1794030470.4866245
+    }
+  },
+  "ci": {
+    "url": "https://github.com/zhaoolee/piclex-web/actions/runs/42344107909",
+    "conclusion": "failure",
+    "successfulStages": [
+      "build",
+      "Browser shard 1/3",
+      "Browser shard 2/3",
+      "Browser shard 3/3",
+      "docker / publish"
+    ],
+    "failedStage": "Pages deploy",
+    "attempts": [
+      {
+        "attempt": 1,
+        "job": 128320733713,
+        "reason": "syncing_files persisted until the existing 600000 ms timeout; deployment cancelled"
+      },
+      {
+        "attempt": 2,
+        "job": 128323278440,
+        "reason": "Deployment status remained empty until the existing 600000 ms timeout; deployment cancelled"
+      }
+    ],
+    "recoveryScope": "Only the failed Pages deployment; successful checks and the exact artifact were reused",
+    "artifact": {
+      "id": 13562544435,
+      "sizeBytes": 588536184,
+      "sha256": "d1185f7a814e68c95118e1d09cf89c7834ae967da6fa7e61d23d4cdbe1ce8f21"
+    }
+  },
+  "docker": {
+    "tags": [
+      "sha-b54a07a",
+      "latest"
+    ],
+    "digest": "sha256:aa18bb7c641f956c77841d7c283b2bab5850c84d32af4068e7f9f7abc160ed55",
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
+  },
+  "remaining": "GitHub Pages static redeployment and a real new-package cutover remain pending. Existing spelling-fix static release remains online. No live predecessor record was backfilled and no guard timestamp was modified."
+}
