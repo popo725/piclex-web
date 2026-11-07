@@ -1,3 +1,4 @@
+import {studyEventScope,studySentenceKey} from '../../../packages/practice/src/capture-group.mjs';
 import usePositionSync from './usePositionSync';
 import {PhotoCache} from '../../../packages/learning-ui/src/photo-cache';
 import {upcomingPhotos} from '../../../packages/practice/src/upcoming-photos.mjs';
@@ -35,7 +36,7 @@ import EnglishInput from './EnglishInput';
 import {flushSync} from 'react-dom';
 export type AudioClip={mediaType:string;sha256:string;byteCount:number;durationSeconds:number;dataBase64?:string;path?:string};
 export type Word={audio?:AudioClip;id:string;english:string;chinese:string;imageIndex:number;focus:Focus;example:string;exampleChinese:string;phonetic:string;partOfSpeech:string;occurrenceID?:string};
-export type PracticeDeck={id:string;title:string;fingerprint:string;legacyFingerprints?:string[];words:Word[];images:string[]};
+export type PracticeDeck={id:string;title:string;fingerprint:string;legacyFingerprints?:string[];studySources?:any[];words:Word[];images:string[]};
 type Action={type:string;[key:string]:unknown};
 const StablePhotoFocus=memo(PhotoFocus);
 const modes=[['listening','随身听'],['chunks','词块拼句'],['free','自由听写']];
@@ -207,8 +208,8 @@ export default function NativePractice({deck,openGame,gameBusy,deckChoices,selec
  useEffect(()=>{if(!active||state.module!=='listening'||!sentence||sentence.outcomes[state.mode]!=='correct')return;const stamp=`${key}:${state.mode}`;if(sentenceEffects.current.has(stamp))return;sentenceEffects.current.add(stamp);if(sentence.pending!==state.mode)return;const sources=[...document.querySelectorAll('.selected-chunk,.free-dictation,.guided-input')].map(n=>n.getBoundingClientRect());emitExperience(sources,true,true,particleEffect);},[key,state.mode,sentence?.outcomes,state.module,active]);
  useEffect(()=>{if(!active)clearExperienceEffects();},[active]);
  useEffect(()=>{
-  for(const w of deck.words){const d=state.words[w.id];if(d?.result==='correct'||d?.result==='reviewed')award({id:`spell:${deck.fingerprint}:${state.round}:${w.id}`,kind:'spelling',result:d.result,wordKey:w.occurrenceID?.trim()?'occurrence:'+w.occurrenceID.trim():w.english.toLowerCase().trim()});}
-  for(const p of prompts){const d=state.sentences[p.key];for(const mode of ['chunks','free'])if(d?.outcomes[mode]==='correct')award({id:`dictation:${deck.fingerprint}:${state.round}:${p.key}:${mode}`,kind:'dictation',mode,correct:true,wordCount:writtenWords(p.sentence).length});}
+  for(const w of deck.words){const d=state.words[w.id];if(d?.result==='correct'||d?.result==='reviewed')award({id:`spell:${studyEventScope(deck,state,w)}:${w.id}`,kind:'spelling',result:d.result,wordKey:w.occurrenceID?.trim()?'occurrence:'+w.occurrenceID.trim():w.english.toLowerCase().trim()});}
+  for(const p of prompts){const d=state.sentences[p.key];for(const mode of ['chunks','free'])if(d?.outcomes[mode]==='correct')award({id:`dictation:${studyEventScope(deck,state,deck.words[p.wordIndex])}:${studySentenceKey(deck,p)}:${mode}`,kind:'dictation',mode,correct:true,wordCount:writtenWords(p.sentence).length});}
  },[key,draft.result,sentence?.outcomes,state.round]);
  const act=(action:Action)=>{if(action.type==='retry')audio.stop();dispatch({type:'sentence',action});if(action.type==='giveUp'&&prompt)audio.play([prompt.sentence],state.rate,undefined,0,promptAudio);};
  const revealWord=()=>{if(!active||!word||draft.result)return;revealAudio.current=word.id;dispatch({type:'reveal'});};
@@ -352,7 +353,7 @@ export default function NativePractice({deck,openGame,gameBusy,deckChoices,selec
      {sentenceResult==='assisted'?<p className="sentence-feedback" role="status">参考答案</p>:check&&<div className="sentence-feedback" role="status"><strong>{check.isCorrect?'听写正确！':'再听一次，试着修改答案'}</strong>{!check.isCorrect&&(state.mode==='chunks'?<p>词块顺序还需要调整。</p>:<><div className="sentence-diff">{check.edits.map((edit:any,i:number)=><span key={i} className={edit.kind==='match'?'matched':'needs-work'}>{edit.kind==='match'?edit.actual:edit.kind==='omission'?revealed?`遗漏：${edit.expected}`:'遗漏一词':edit.kind==='addition'?`多余：${edit.actual}`:revealed?`${edit.actual} → ${edit.expected}`:`替换：${edit.actual}`}</span>)}</div><button className="text-button" onClick={()=>act({type:revealed?'retry':'reveal'})}>{revealed?'重新拼写':'显示答案'}</button></>)}</div>}
      {revealed&&<div className="standard-answer"><p>{prompt.sentence}</p><p className="muted">{prompt.translation}</p></div>}
     </section>)}
-    {state.module==='speaking'&&(word.example?<Reading key={word.id} continuation={readingContinuation} word={word} active={active} audio={audio} rate={state.rate} notify={notify} saved={readingSaved.current} reward={(matched,count)=>award({id:`reading:${deck.fingerprint}:${state.round}:${word.id}`,kind:"reading",matched,wordCount:count})} next={()=>dispatch({type:'speakingNext'})}/>:<div><p className="native-unavailable">这张卡片没有可跟读的例句。</p><button className="native-button" onClick={()=>dispatch({type:'speakingNext'})}>下一句</button></div>)}
+    {state.module==='speaking'&&(word.example?<Reading key={word.id} continuation={readingContinuation} word={word} active={active} audio={audio} rate={state.rate} notify={notify} saved={readingSaved.current} reward={(matched,count)=>award({id:`reading:${studyEventScope(deck,state,word)}:${word.id}`,kind:"reading",matched,wordCount:count})} next={()=>dispatch({type:'speakingNext'})}/>:<div><p className="native-unavailable">这张卡片没有可跟读的例句。</p><button className="native-button" onClick={()=>dispatch({type:'speakingNext'})}>下一句</button></div>)}
    </div>
    {state.module==='spelling'?<div className="native-answer-footer"><p className="answer-feedback" role="status">{draft.result==='revealed'?`正确答案：${word.english}`:draft.result?`✓ ${draft.hadMistake?'已纠正':'答对了'}，${word.english}`:''}</p>
     <div className={`native-answer ${wrong>=0?'wrong':''}`} onClick={()=>input.current?.focus({preventScroll:true})}><AnswerSlots expected={word.english} entered={draft.input} revealed={draft.result==='revealed'} quickIndices={draft.quickIndices} scope={key} active={active} effect={particleEffect} completed={draft.result==='correct'||draft.result==='reviewed'} perfect={draft.result==='correct'}/><SpellingGlow progress={progress} complete={draft.result==='correct'||draft.result==='reviewed'} revealed={draft.result==='revealed'} error={wrong>=0} active={active} scope={`${deck.fingerprint}:${state.round}`}/><EnglishInput key={key} ref={input} label="输入英文" className="spelling-input" onVirtualKey={virtualPress} value={draft.input} readOnly={!!draft.result} onWarning={setImeWarning} onComposing={setComposing} onValue={value=>dispatch({type:'input',value})}/></div>

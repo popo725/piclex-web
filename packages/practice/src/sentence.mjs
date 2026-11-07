@@ -88,7 +88,7 @@ export function promptsFor(deck){
   const seen=new Set(),prompts=[];
   deck.words.forEach((word,wordIndex)=>{
     if(!tokens(word.example||'').length)return;
-    const identity=word.occurrenceID?`occurrence:${word.occurrenceID}`:`${word.imageIndex}:${tokens(word.example).join(' ')}`;
+    const identity=word.occurrenceID?`occurrence:${word.occurrenceID}`:`${deck.studySources?word.id.split(':')[0]:word.imageIndex}:${tokens(word.example).join(' ')}`;
     if(seen.has(identity))return;seen.add(identity);
     for(const [part,value] of sentenceParts(word.example,word.exampleChinese,word.occurrenceID).entries())prompts.push({...value,key:`${identity}:${part}`,wordIndex,imageIndex:word.imageIndex});
   });promptCache.set(deck,prompts);return prompts;

@@ -1,3 +1,4 @@
+import {studyEventScope} from '../../../packages/practice/src/capture-group.mjs';
 import {resolveImage,fileReference,commitFiles} from '../../../packages/backup/src/streaming.mjs';
 import {database,iterateStoredDecks} from './storage';
 import {emptyProgress,mergeProgress,practiceWordKey,spellingEvent,stableID,applyPortableAnswer} from '../../../packages/backup/src/progress.mjs';
@@ -39,7 +40,7 @@ export async function mergeBackup(photos:BackupPhoto[],remote:any){
  commitFiles(committedImages);window.dispatchEvent(new Event('piclex-backup-changed'));return {added,kept:photos.length-added,unplayable};
 }
 export async function recordPortableStudy(deck:any,state:any){
- const completed=await Promise.all(deck.words.filter((w:any)=>state.words[w.id]?.result).map(async(w:any)=>{const receipt=`spell:${deck.fingerprint}:${state.round}:${w.id}`;return {w,d:state.words[w.id],h:state.history[w.id],receipt,id:await stableID(receipt)};}));if(!completed.length)return;
+ const completed=await Promise.all(deck.words.filter((w:any)=>state.words[w.id]?.result).map(async(w:any)=>{const receipt=`spell:${studyEventScope(deck,state,w)}:${w.id}`;return {w,d:state.words[w.id],h:state.history[w.id],receipt,id:await stableID(receipt)};}));if(!completed.length)return;
  const db=await database();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('backupMeta','readwrite'),store=t.objectStore('backupMeta'),c=store.get('progress'),r=store.get('receipts');r.onsuccess=()=>{try{let content=c.result||emptyProgress();const receipts=r.result||{},progress=new Map<string,any>(content.progress.map((v:any)=>[v.wordKey,v])),events=new Map<string,any>(content.events.map((v:any)=>[v.id,v]));let changed=false;
  for(const {w,d,h,receipt,id} of completed){if(receipts[receipt])continue;receipts[receipt]=true;changed=true;applyPortableAnswer(progress,events,{wordKey:practiceWordKey(w),result:d.result,mistakes:h?.mistakes||[],id,at:Date.now()});}
  if(changed){content={...content,progress:[...progress.values()],events:[...events.values()]};store.put(content,'progress');store.put(receipts,'receipts');}

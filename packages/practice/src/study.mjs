@@ -1,3 +1,4 @@
+import {restoreCaptureStudy} from './capture-group.mjs';
 import {resolve,mismatch,convertPrompt,fixed} from '../../learning-ui/src/spelling.mjs';
 import {promptsFor,promptIndex,newSentence,reduceSentence,checkSentence} from './sentence.mjs';
 export function newStudy(deck){return {version:2,fingerprint:deck.fingerprint,index:0,round:0,presentation:0,module:'spelling',mode:'chunks',rate:1,difficulty:'hard',quick:false,hiddenChinese:false,words:{},history:{},sentences:{},sentenceIndex:0,sentenceFinished:false,pending:null};}
@@ -15,6 +16,7 @@ function pause(s){s.pending=null;for(const value of Object.values(s.sentences))v
 // A reopened word starts a writable attempt; quick mode still blanks its known mistakes.
 function reopen(s,word){const mistakes=s.quick?s.history[word.id]?.mistakes:null;s.words[word.id]={input:'',hadMistake:false,result:null,quickIndices:mistakes?.length?mistakes:null};}
 export function restoreStudyFromStorage(deck, read) {
+ if(deck.studySources)return restoreCaptureStudy(deck,read);
  const keys = [deck.fingerprint, ...(deck.legacyFingerprints || [])];
  for (const fingerprint of keys) {
   const saved = read(`piclex-web.study.v2.${fingerprint}`), legacy = read(`piclex-web.progress.v1.${fingerprint}`);
@@ -98,7 +100,7 @@ export function reduceStudy(deck,s,action,preparedPrompts){
   if(action.name==='quick'&&current&&!draft.result&&draft.input.toLowerCase()===expectedInput(current,draft).toLowerCase())return reduceStudy(deck,next,{type:'input',value:draft.input,question:studyKey(next)});
   return next;
  }
- if(action.type==='restart') {const n=newStudy(deck);if(next.quick)while(deck.words[n.index]&&next.history[deck.words[n.index].id]?.mastered)n.index++;return {...n,module:s.module,history:next.history,quick:next.quick,hiddenChinese:next.hiddenChinese,rate:next.rate,difficulty:next.difficulty,mode:next.mode,round:s.round+1};}
+ if(action.type==='restart') {const n=newStudy(deck);if(next.quick)while(deck.words[n.index]&&next.history[deck.words[n.index].id]?.mastered)n.index++;return {...n,...(s.captureScopes?{captureScopes:s.captureScopes,captureWordOrder:s.captureWordOrder,capturePromptOrder:s.capturePromptOrder}:{}),module:s.module,history:next.history,quick:next.quick,hiddenChinese:next.hiddenChinese,rate:next.rate,difficulty:next.difficulty,mode:next.mode,round:s.round+1};}
  if(action.type==='selectWord'&&Number.isInteger(action.index)&&deck.words[action.index]){
   if(action.index===s.index){if(s.sentenceFinished){next.sentenceFinished=false;pause(next);return next;}return s;}navigate(action.index);
   const at=promptIndex(prompts,deck,action.index);if(at>=0){next.sentenceIndex=at;next.sentenceFinished=false;}return next;
