@@ -1,3 +1,4 @@
+import SubscriptionSettings from './SubscriptionSettings';
 import PhotoDataSettings from './PhotoDataSettings';
 import AppearanceSettings from './AppearanceSettings';
 import {ShutterSettings,SpeechSettings} from './SoundSettings';
@@ -76,7 +77,7 @@ export default function Settings(props:Props){const {cards,ready,error,theme,set
   {own.length>0&&<section className="settings-deck-section" aria-label="我的卡组">{subscribed.length>0&&<h2>我的卡组</h2>}{deckList(own)}</section>}
   {subscribed.length>0&&<section className="settings-deck-section" aria-labelledby="subscribed-decks-heading"><h2 id="subscribed-decks-heading">订阅的卡组</h2>{deckList(subscribed)}</section>}
   {ready&&personal.length===0&&<p className="settings-footnote">还没有个人卡组</p>}
- </>}<button className="settings-row" onClick={importFile}>导入卡组文件 <Icon name="upload"/></button></>}
+ <SubscriptionSettings notify={notify}/></>}<button className="settings-row" onClick={importFile}>导入卡组文件 <Icon name="upload"/></button></>}
 
  {(path==='appearance'||path==='themes')&&<AppearanceSettings mode={theme} setMode={setTheme} showPicker={path==='themes'}/>}
  {path==='personalization'&&<><Row title="键盘声音" value={xp.level<3?'更多音色 · LV3 解锁':undefined} action={()=>open('keyboard')}/><Row title="快门声音" value={xp.level<4?'更多音色 · LV4 解锁':undefined} action={()=>open('shutter')}/><Row title="朗读声音" action={()=>open('speech')}/><Row title="粒子效果" value={effect==='judgmentLight'&&xp.level>=7?'裁决之光':'社交暗号'} action={()=>open('particles')}/><label className="settings-row"><span>快拼{xp.level<6?' · LV6 解锁':''}</span><input aria-label="快拼" type="checkbox" role="switch" disabled={xp.level<6&&!quick} checked={quick} onChange={e=>{setQuick(e.target.checked);writePreference('piclex-web.quick',String(e.target.checked));}}/></label><p className="settings-footnote">只填写曾经拼错的字符，其余自动显示。完全拼对且没有字符错误记录的词直接跳过，新词仍需完整拼写。</p><label className="settings-row"><span>单卡单句模式</span><input aria-label="单卡单句模式" type="checkbox" role="switch" checked={onePhoto} onChange={e=>{setOnePhoto(e.target.checked);writePreference('piclex-web.listening.single-photo',String(e.target.checked));}}/></label><p className="settings-footnote">随身听每张照片只播放一句，并显示完整照片。关闭后保留全部句子。</p><Row title="实验室" action={()=>open('laboratory')}/><label className="settings-row"><span>导入图片拍立得动画</span><input aria-label="导入图片拍立得动画" type="checkbox" role="switch" checked={importAnimation} onChange={e=>{setImportAnimation(e.target.checked);writePreference('piclex-web.import-animation',String(e.target.checked));}}/></label><p className="settings-footnote">从相册导入图片时播放拍立得出片动画。关闭后直接显示识别页面。</p></>}

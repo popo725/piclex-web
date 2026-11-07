@@ -13,6 +13,9 @@ function prepare(deck,s){
  if(!draft.result){const indices=s.quick?s.history[word.id]?.mistakes:null;draft.quickIndices=indices?.length?indices:null;}
 }
 function pause(s){s.pending=null;for(const value of Object.values(s.sentences))value.pending=null;s.presentation++;}
+// A revisited finished dictation starts a writable attempt instead of restoring
+// terminal controls. Only that sentence's dictation state is discarded.
+function forgetSentence(s,prompts,index){const prompt=prompts[index];if(!prompt)return false;s.sentences={...s.sentences,[prompt.key]:newSentence(prompt)};s.sentenceFinished=false;return true;}
 // A reopened word starts a writable attempt; quick mode still blanks its known mistakes.
 function reopen(s,word){const mistakes=s.quick?s.history[word.id]?.mistakes:null;s.words[word.id]={input:'',hadMistake:false,result:null,quickIndices:mistakes?.length?mistakes:null};}
 export function restoreStudyFromStorage(deck, read) {
@@ -80,6 +83,21 @@ export function reduceStudy(deck,s,action,preparedPrompts){
  const next=structuredClone(s),word=deck.words[s.index];
  const navigate=(index)=>{next.index=index;pause(next);prepare(deck,next);};
  if(action.type==='pause'){pause(next);return next;}
+ if(action.type==='dictationRestart'){
+  if(s.module!=='listening'||!s.sentenceFinished)return s;
+  const at=promptIndex(prompts,deck,s.index);next.sentenceIndex=at>=0?at:0;const prompt=prompts[next.sentenceIndex];next.sentences=prompt?{[prompt.key]:newSentence(prompt)}:{};next.sentenceFinished=false;pause(next);return next;
+ }
+ if(action.type==='dictationChallenge'){
+  if(s.module!=='listening'||!s.sentenceFinished||s.mode!=='chunks')return s;
+  const last=prompts[s.sentenceIndex],draft=last&&s.sentences[last.key];
+  if(!last||draft?.outcomes.free)return s;
+  next.mode='free';next.sentenceFinished=false;pause(next);return next;
+ }
+ if(action.type==='freshSentence'){
+  if(s.module!=='listening')return s;
+  if(!forgetSentence(next,prompts,Number.isInteger(action.index)?action.index:s.sentenceIndex))return s;
+  pause(next);return next;
+ }
  if(action.type==='module'){
   if(!['spelling','listening','speaking'].includes(action.value)||action.value===s.module)return s;
   if(action.value==='listening'){const at=promptIndex(prompts,deck,s.index);if(at>=0&&(!prompts[s.sentenceIndex]||prompts[s.sentenceIndex].wordIndex!==s.index)){next.sentenceIndex=at;next.sentenceFinished=false;if(!deck.words[s.index]?.example)next.index=prompts[at].wordIndex;}}
@@ -102,8 +120,14 @@ export function reduceStudy(deck,s,action,preparedPrompts){
  }
  if(action.type==='restart') {const n=newStudy(deck);if(next.quick)while(deck.words[n.index]&&next.history[deck.words[n.index].id]?.mastered)n.index++;return {...n,...(s.captureScopes?{captureScopes:s.captureScopes,captureWordOrder:s.captureWordOrder,capturePromptOrder:s.capturePromptOrder}:{}),module:s.module,history:next.history,quick:next.quick,hiddenChinese:next.hiddenChinese,rate:next.rate,difficulty:next.difficulty,mode:next.mode,round:s.round+1};}
  if(action.type==='selectWord'&&Number.isInteger(action.index)&&deck.words[action.index]){
-  if(action.index===s.index){if(s.sentenceFinished){next.sentenceFinished=false;pause(next);return next;}return s;}navigate(action.index);
-  const at=promptIndex(prompts,deck,action.index);if(at>=0){next.sentenceIndex=at;next.sentenceFinished=false;}return next;
+  const listeningFinished=s.sentenceFinished&&s.module==='listening';
+  if(action.index===s.index){
+   if(!s.sentenceFinished)return s;
+   if(listeningFinished){const at=promptIndex(prompts,deck,action.index),target=at>=0?at:s.sentenceIndex;if(forgetSentence(next,prompts,target)){if(at>=0)next.sentenceIndex=at;pause(next);return next;}}
+   next.sentenceFinished=false;pause(next);return next;
+  }
+  navigate(action.index);
+  const at=promptIndex(prompts,deck,action.index);if(at>=0){next.sentenceIndex=at;next.sentenceFinished=false;if(listeningFinished)forgetSentence(next,prompts,at);}return next;
  }
  if(action.type==='retryWord'&&word&&s.module==='spelling'&&s.words[word.id]?.result){reopen(next,word);pause(next);return next;}
  if(action.type==='listeningJump'&&s.module==='listening'&&s.mode==='listening'&&Number.isInteger(action.index)&&prompts[action.index]){next.sentenceIndex=action.index;next.sentenceFinished=false;navigate(prompts[action.index].wordIndex);return next;}

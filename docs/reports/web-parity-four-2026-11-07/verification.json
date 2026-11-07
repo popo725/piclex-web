@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-07",
+  "scope": [
+    "F01",
+    "F02",
+    "F05",
+    "F17"
+  ],
+  "status": "verified_pending_user_review",
+  "published": false,
+  "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
+  "branch": "codex/web-parity-four-review",
+  "worktree": "/private/tmp/piclex-parity-four-20261107",
+  "preview": "http://127.0.0.1:18204/piclex-web/",
+  "other_18": "Paused; not included in this candidate",
+  "checks": {
+    "unit": "297 passed",
+    "linux_relevant_baseline": "69 passed; Chromium desktop/mobile and WebKit",
+    "linux_final_speaking": "12 speaking cases passed, including real bundled dialogue and ordinary continuous speaking",
+    "linux_final_state": "36 passed: 4 state cases x 3 projects x 3 repetitions, after stable fresh chunk initialization",
+    "mobile_final_state": "4 passed",
+    "mobile_subscription": "1 passed; download/update/corrupt package/storage rollback/progress/cancel/resume",
+    "build": "Linux production build and TypeScript passed",
+    "visual": "390x844 before/after capture and settings screenshots reviewed; measured main layouts identical; no screenshot pixel-identity claim"
+  },
+  "screenshots": {
+    "F01": "evidence/01-listening-link.png",
+    "F02": "evidence/02-dialogue.png",
+    "F05": "evidence/05-dictation-restart.png",
+    "F17": "evidence/17-subscription-update.png"
+  },
+  "verification_notes": [
+    "F01: repeated Learning entry is consumed once; explicit listening route and saved draft win.",
+    "F02: learner A and synthesized machine B alternate; labels and machine words excluded; skipping A earns no credit; plain-text continuous speaking retained.",
+    "F05: challenge/restart/word learning preserve spelling/history and reward identity; reselected final photo accepts first chunk; fresh banks initialized once.",
+    "F17: source origin + publisher deck/card IDs remain stable across v1/v2/v3; corrupt package and injected quota failure preserve v2; cancellation retains content and progress."
+  ],
+  "limits": [
+    "Speech recognition and synthesis callbacks were deterministic browser fixtures; actual microphone accuracy was not measured.",
+    "Subscription update failures used an isolated fixture feed; production subscriptions were not modified.",
+    "Older imported packages lacking source identity cannot be retroactively associated with an unknown feed.",
+    "No simulator, device install, Git push or deployment performed."
+  ],
+  "source_sha256": {
+    "apps/public/src/DeckDownload.tsx": "e054b59168ececf844d536cb2baa8e0196ef68add6ca9dc8ff81a0cf8fb7e872",
+    "apps/public/src/NativePractice.tsx": "da22f04106aea003d906595af1b2b37983a51d69af9a98a5339005dc89278afa",
+    "apps/public/src/Settings.tsx": "735ec58ad80bd5e6844ec2c61363100ab53648fdb1a9c185cece58d068ef16fe",
+    "apps/public/src/Reading.tsx": "a2ab8d72a664659f414794f14ec089182d37f5ae43dd26d3474c187d2e847405",
+    "apps/public/src/SubscriptionSettings.tsx": "1b0bc3b77b020bc3645f0f807574ff30b096e9baafdeb0ebb37b30cc65159eb6",
+    "apps/public/src/deck-source.ts": "173114b929c82782452c09e7937d0778c00529936235976cf2bec4d3adf45dae",
+    "apps/public/src/deck-subscriptions.ts": "3409a55e8591534c65d3a0bc86ec2e62cf895ff0b35721b2f65feb2cd661d985",
+    "apps/public/src/storage.ts": "41c066d7f4c727b9adf9d8b25276084adbe75c372741cdb6db5be6d3e891b32a",
+    "apps/public/src/main.tsx": "a2c793bb26d87aa598045882ba3077d9f0014f29045081593c621c043aaf7309",
+    "apps/public/src/reading.css": "300cfdec5b72309ff1795919f4b4e5a6645437b1aef363a7e8dded594282dd00",
+    "packages/practice/src/study.mjs": "8d69ffec69e5dfc617909d73b981aeef7ef6f719a3770d0e42e37db5644252b8",
+    "packages/practice/src/dialogue.mjs": "920cd8581897ebff9230ae727dcc69cffd28ee9b79d29847340bc7d5c93a6ce0"
+  }
+}

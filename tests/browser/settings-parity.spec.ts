@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8'));
 const packageBytes=fs.readFileSync('tests/fixtures/demo/decks/cafe.piclexdeck');
-const fixture={deckID:'11111111-1111-4111-8111-111111111111',title:'测试照片卡组',packageURL:'https://decks.example.test/deck.piclexdeck',packageBytes:packageBytes.length,packageSHA256:createHash('sha256').update(packageBytes).digest('hex'),access:'public'};
+const fixture={deckID:'11111111-1111-4111-8111-111111111111',title:'测试照片卡组',author:'Fixture publisher',version:1,photoCount:1,wordCount:6,packageURL:'https://decks.example.test/deck.piclexdeck',packageBytes:packageBytes.length,packageSHA256:createHash('sha256').update(packageBytes).digest('hex'),access:'public'};
 async function mockQuota(page:any){await page.route('**/v1/web/quota',route=>route.fulfill({json:{quota:{remaining:7,daily_limit:10,used:3,resets_at:0}}}));}
 
 test('settings matches native hierarchy, pins the level card and retains theme and native subpages',async({page},info)=>{

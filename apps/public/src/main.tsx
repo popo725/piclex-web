@@ -1,3 +1,5 @@
+import {installSubscription,onSubscriptionChange} from './deck-subscriptions';
+import type {SourceDeck} from './deck-source';
 import {defaultCaptureID,defaultCaptureTitle,isDefaultCapture,groupCapturedDecks} from '../../../packages/practice/src/capture-group.mjs';
 import {readPhotos} from '../../../packages/backup/src/photos.mjs';
 import {startProgressSync} from './progress-sync';
@@ -106,7 +108,9 @@ function App() {
   },[]);
   useEffect(()=>{scheduleUIAssetWarmup();},[]);
   const [showLibrary,setShowLibrary]=useState(()=>location.hash==='#/decks');
-  const [spellingEntry,setSpellingEntry]=useState({id:'',sequence:0});
+  const [spellingEntry,setSpellingEntry]=useState({id:'',sequence:0}),entrySequence=useRef(0);
+  const [subscriptionRevision,setSubscriptionRevision]=useState(0);
+  useEffect(()=>onSubscriptionChange(change=>{if(!['installed','updated'].includes(change.type))return;const cached=cache.get(change.id);if(cached?.bytes)cached.images.forEach(URL.revokeObjectURL);cache.delete(change.id);setSubscriptionRevision(n=>n+1);}),[]);
   const [page,setPage]=useState(screen),[labDeck,setLabDeck]=useState<Deck|null>(null),[gameBusy,setGameBusy]=useState(false);
   const gameOrigin=useRef('/settings/laboratory'),gameOpening=useRef(false);
   const [gameDeckID,setGameDeckID]=useState(()=>readPreference('piclex-web.last-deck')||'');
@@ -151,13 +155,14 @@ function App() {
         if (!cancelled) { setCards(current=>[...builtin,...imported,...current.filter(card=>card.local&&!imported.some(item=>item.id===card.id))]); setReady(true); setLoading(false); }
       } catch (e) { if (!cancelled) { setError((e as Error).message); setLoading(false); } }
     })(); return () => { cancelled = true; };
-  }, []);
+  }, [subscriptionRevision]);
   useEffect(() => {
     if (!ready || !selected) { setDeck(null); return; }
     const target=captureTarget(selected);if(target.id!==selected){const params=new URLSearchParams(location.hash.split('?')[1]||'');if(!params.has('word'))params.set('word',target.word);params.delete('photo');location.replace(`#/deck/${target.id}?${params}`);return;}
     writePreference('piclex-web.last-deck',selected);setGameDeckID(selected);
     const card = cards.find(c => c.id === selected);
     if (!card) { setDeck(null); setError('没有找到这份卡组。本地导入的卡组只在当前浏览器可用。'); return; }
+    setError('');
     if (cache.has(selected)) { setDeck(cache.get(selected)!); setLoading(false); return; }
     const controller = new AbortController(); setLoading(true); setDeck(null);setDeckProgress(null);
     (async () => {
@@ -175,7 +180,7 @@ function App() {
     const target=captureTarget(id||readPreference('piclex-web.last-deck')||'');const last=target.id;
     const chosen=cards.find(card=>card.id===last)||cards.find(card=>!card.local&&card.count>0)||cards.find(card=>card.count>0);
     if(!chosen){navigate('/learn');return;}
-    setSpellingEntry(current=>({id:chosen.id,sequence:current.sequence+1}));
+    setSpellingEntry({id:chosen.id,sequence:++entrySequence.current});
     const hash=`/deck/${encodeURIComponent(chosen.id)}${target.word&&chosen.id===target.id?'?word='+encodeURIComponent(target.word):''}`;
     if(replace)location.replace(`#${hash}`);else navigate(hash);
   }
@@ -241,7 +246,8 @@ function App() {
     finally{gameOpening.current=false;setGameBusy(false);}
   }
   useEffect(()=>{if(page==='lab'&&ready&&!labDeck)void openGame();},[page,ready]);
-  async function saveDownloaded(bytes:Uint8Array,signal:AbortSignal){
+  async function saveDownloaded(bytes:Uint8Array,signal:AbortSignal,source?:{url:string;feed:SourceDeck}){
+    if(source){const result=await installSubscription({bytes,source:source.url,feed:source.feed,signal});const value=await localDeck(result.id);setCards(current=>[...current.filter(c=>c.id!==result.id),{id:result.id,title:value.title,count:value.words.length,photoCount:value.images.length,description:'我的照片与词汇',cover:value.images[0],covers:value.covers,local:true,subscribed:true}]);if(!signal.aborted)setNotice(result.status==='unchanged'?'已是最新版本':`卡组已保存，v${result.version}`);return;}
     const parsed=await parseArchive(bytes);signal.throwIfAborted();
     if([...cache.values()].some(d=>d.fingerprint===parsed.learningFingerprint)||cards.some(c=>c.fingerprint===parsed.fingerprint)){setNotice('卡组已下载。');return;}
     const id=`local-${parsed.learningFingerprint}`;
@@ -256,7 +262,7 @@ function App() {
   return <><a className="skip-link" href="#main-content">跳到内容</a>
     <div id="main-content" tabIndex={-1}>
     <div hidden={page!=='capture'}><Capture active={page==='capture'} save={saveCaptured} learn={startLearning} notify={setNotice}/></div>
-    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage openGame={()=>void openGame()} gameBusy={gameBusy} gameReady={ready} learn={()=>{location.hash='/learn';}}/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} returnLabel={gameOrigin.current.startsWith('/settings/level')?'返回我的等级':gameOrigin.current.startsWith('/settings')?'返回实验室':'返回学习'} exit={(hash?:string)=>{location.hash=hash||gameOrigin.current;}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state load-screen"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={`${deck.fingerprint}:${deck.revision||0}`} deck={deck} openGame={()=>void openGame(deck)} gameBusy={gameBusy} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => void downloadDeck(deck).catch(e=>setNotice(e.message))} share={async () => {
+    {page==='capture'?null:page==='settings'?settings:page==='level'?<main className="settings-page"><button className="text-button" onClick={()=>{location.hash='/settings';}}>‹ 设置</button><LevelPage openGame={()=>void openGame()} gameBusy={gameBusy} gameReady={ready} learn={()=>{location.hash='/learn';}}/></main>:page==='lab'?labDeck?<Laboratory deck={labDeck} returnLabel={gameOrigin.current.startsWith('/settings/level')?'返回我的等级':gameOrigin.current.startsWith('/settings')?'返回实验室':'返回学习'} exit={(hash?:string)=>{location.hash=hash||gameOrigin.current;}}/>:<main className="empty-state">正在准备游戏…</main>:error ? <main className="empty-state"><h1>暂时无法打开</h1><p>{error}</p><button className="primary" onClick={() => selected ? browseDecks() : location.reload()}>{selected ? '返回全部卡组' : '重新加载'}</button></main> : selected ? loading || !deck || deck.id !== selected ? <main className="empty-state load-screen"><LoadProgress label="正在加载卡组" progress={deckProgress}/></main> : <NativePractice key={`${deck.fingerprint}:${deck.revision||0}`} deck={deck} openGame={()=>void openGame(deck)} gameBusy={gameBusy} deckChoices={cards.map(c=>({id:c.id,title:c.title,cover:cover(c,'portrait'),photoCount:c.photoCount??cache.get(c.id)?.images.length}))} selectDeck={id=>{if(cards.some(card=>card.id===id))go(id);}} spellingRequest={spellingEntry.id===deck.id?spellingEntry.sequence:0} consumeSpellingRequest={sequence=>setSpellingEntry(current=>current.sequence===sequence?{id:'',sequence:0}:current)} notify={setNotice} installedDecks={cards} saveDownloaded={saveDownloaded} exit={browseDecks} download={() => void downloadDeck(deck).catch(e=>setNotice(e.message))} share={async () => {
           if (selected.startsWith('local-')) { await downloadDeck(deck); setNotice('卡组已导出，可将文件发给朋友。'); return; }
           try { await navigator.clipboard.writeText(location.href); setNotice('练习链接已复制。'); } catch { setNotice('请复制浏览器地址栏中的练习链接。'); }
         }}/> : !showLibrary ? <main className={!ready?"empty-state load-screen":"empty-state"}>{!ready?<LoadProgress label="正在准备学习" progress={null}/>:<><h1>还没有可用卡组</h1><button className="primary" onClick={()=>file.current?.click()}>导入卡组文件</button></>}</main> : <main className="home">
