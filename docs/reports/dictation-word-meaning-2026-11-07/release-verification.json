@@ -1,0 +1,44 @@
+{
+  "base": "47ef1e30e8d99d13a0d870e31eec051f8a95a5a7",
+  "nodePassed": 287,
+  "deployPassed": 45,
+  "build": "passed",
+  "linuxWebKitPassed": 15,
+  "linuxInitial": {
+    "passed": 13,
+    "failed": 2,
+    "cause": "Initial native-body scroll occurs 52–213ms after keyboard hold begins; intended scroll cancellation correctly dismisses it. Tests now wait for actual stable target/panel geometry before keyboard hold. Original assertions unchanged."
+  },
+  "phone": "Release 1.0.22 (370) installed and independently verified",
+  "status": "Final focused verification passed; full publication CI and two-site delivery pending",
+  "sourceRevision": "fddb981d3b773fb3a29d196c1b2ba993c5422010",
+  "macSupplementPassed": 6,
+  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/42353974942",
+  "finalSourceHashes": {
+    "apps/public/src/NativePractice.tsx": "4f3787a613ac420af68f32d1683a6b03f182fb6cd448a45240069701ed674f72",
+    "apps/public/src/WordPeek.tsx": "3473a77b0e68f92b50f09e08e4415326c28a950e50601117c5d07af1fa47a790",
+    "apps/public/src/word-definitions.ts": "c25234df684431e3db4ec28450a3a40c1654795c3d9db11c7a98fc775c015a8a",
+    "apps/public/src/env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+    "apps/public/src/practice.css": "c0369274c367f346d1b048b7dcf24a6c74859b0f38355ee2f704166a1161b633",
+    "tests/browser/word-peek.spec.ts": "3e7f07cb76ba2f7a33369c25064eff2b788314414143f647df15a51cd26d4125",
+    "tests/browser/listening-layout.spec.ts": "70607feff18f3538092d42f391208fd9675e174149b9834465fee2a5c6bf68d0",
+    "tests/browser/learning-parity.spec.ts": "94d3b52434c7b5acd122c2cb9c4b6cb26018b2530ec89c770210fdd6565171f0",
+    "tests/browser/learning.spec.ts": "8c1500ed00e810a1152832ab221a41c368d2d384a0ba2b11354725b922ed0687",
+    "playwright.config.ts": "1be2f9d3944825190bcc19603fcb6d7ab9acb586b2224b33659920381ae4c972"
+  },
+  "deploymentScriptsMatchServer": true,
+  "localBuildScope": "Exact changed sources, 287 logic/45 deployment checks, focused browser tests. Local public-asset subset is not the full release manifest; production CI builds the complete public snapshot.",
+  "newRequirements": [
+    "remove complete success feedback row on both platforms",
+    "keep replay/rate/action dimensions stable through sentence completion and advance"
+  ],
+  "stableControlsMacPassed": 20,
+  "firstCIRun": {
+    "id": 42353974942,
+    "passed": 479,
+    "failed": 4,
+    "skipped": 4,
+    "failure": "Sentence feedback locator matched both result and existing unavailable-speech toast on Linux Chromium; reproduced twice locally before scoping locator to sentence-feedback."
+  },
+  "linuxFinalFocusedPassed": 45
+}

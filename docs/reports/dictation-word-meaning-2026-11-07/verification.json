@@ -1,0 +1,219 @@
+{
+  "date": "2026-11-07",
+  "scope": "App + standalone Web sentence dictation",
+  "browser": {
+    "uniqueScenarios": 36,
+    "passed": 36,
+    "failedFinal": []
+  },
+  "native": {
+    "wordDefinitionLookup": "passed",
+    "actionsAndAdvance": "passed",
+    "sessionLifecycle": "passed",
+    "macCatalystNativeInputs": "passed",
+    "releaseGenericIOSBuild": "passed (Release, generic/platform=iOS, CODE_SIGNING_ALLOWED=NO; isolated source snapshot)",
+    "packagedDictionaryMatchesSource": true
+  },
+  "dictionary": {
+    "entries": 398911,
+    "nativeBytes": 15528225,
+    "webBytes": 17124264,
+    "nativeSHA256": "d01d7c12a26c78ed5d759b7e5df252eb1ff317dbe99bb7bc7dce2c49aa7a75da",
+    "sourceSHA256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+    "license": "MIT"
+  },
+  "verificationNotes": [
+    "Initial isolated preview started before public resources were linked; first two browser cases failed on JSON loading, then passed after fixture setup was corrected.",
+    "Legacy layout test classified mobile-webkit as desktop by project name; device classification now uses hasTouch with unchanged desktop/mobile size limits; both WebKit cases pass.",
+    "Existing native fixture drift was updated to current audio types and bilingual labels without weakening behavioral checks.",
+    "No iOS simulator, device installation, release, user data modification or CI run.",
+    "Concurrent AppStorage/shared-preference edits arrived in PracticeView and SentenceDictationView after the build snapshot. They were preserved in the live checkout and were not included in this frozen build; this task’s word-meaning/completion code is unchanged."
+  ],
+  "browserScenarios": [
+    {
+      "browser": "desktop",
+      "test": "guided actual-word hold shows English and Chinese, then releases without changing focus or draft",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "guided actual-word hold shows English and Chinese, then releases without changing focus or draft",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "successful chunks hide Next and the challenge row while auto-advance runs once",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "successful chunks hide Next and the challenge row while auto-advance runs once",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "paused automatic advance and assisted answers keep a manual Next fallback",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "paused automatic advance and assisted answers keep a manual Next fallback",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "hard hold targets the pointed word instead of the old caret and ignores blank space",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "hard hold targets the pointed word instead of the old caret and ignores blank space",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "a pending hold is cancelled by difficulty changes and scrolling before it can reveal",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "a pending hold is cancelled by difficulty changes and scrolling before it can reveal",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "failed dictionary loads can retry on a later hold",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "failed dictionary loads can retry on a later hold",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "guided actual-word hold shows English and Chinese, then releases without changing focus or draft",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "hard-input hold peeks an existing written word and a late dictionary reply cannot resurrect it",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "successful chunks hide Next and the challenge row while auto-advance runs once",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "paused automatic advance and assisted answers keep a manual Next fallback",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "hard hold targets the pointed word instead of the old caret and ignores blank space",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "a pending hold is cancelled by difficulty changes and scrolling before it can reveal",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "failed dictionary loads can retry on a later hold",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "guided word blanks show readable underlines and preserve typing, reveal and difficulty changes",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "sentence fill checks automatically; failed order can be corrected and assistance does not claim success",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "listening preserves the full portrait scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "listening preserves the full landscape scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "desktop",
+      "test": "free sentence success never inserts a transient Next button",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "guided word blanks show readable underlines and preserve typing, reveal and difficulty changes",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "sentence fill checks automatically; failed order can be corrected and assistance does not claim success",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "listening preserves the full portrait scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "listening preserves the full landscape scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "mobile",
+      "test": "free sentence success never inserts a transient Next button",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "guided word blanks show readable underlines and preserve typing, reveal and difficulty changes",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "listening preserves the full portrait scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "sentence fill checks automatically; failed order can be corrected and assistance does not claim success",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "listening preserves the full landscape scene above the keyboard across layouts",
+      "passed": true
+    },
+    {
+      "browser": "mobile-webkit",
+      "test": "free sentence success never inserts a transient Next button",
+      "passed": true
+    }
+  ],
+  "cleanup": {
+    "isolatedWorkDirectoryRemoved": true,
+    "previewPort18331Stopped": true,
+    "sharedDependenciesAndOtherTasksPreserved": true
+  }
+}

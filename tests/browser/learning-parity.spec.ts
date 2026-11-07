@@ -35,9 +35,9 @@ test('guided word blanks show readable underlines and preserve typing, reveal an
  // Difficulty changes can still be scrolling the panel into view; a real
  // scroll cancels a hold, so start only after the word's geometry settles.
  await peek.scrollIntoViewIfNeeded();await peek.evaluate(node=>new Promise<void>(resolve=>{let previous='',since=performance.now();const frame=()=>{const b=node.getBoundingClientRect(),next=JSON.stringify([b.x,b.y,b.width,b.height,node.closest('.native-body')?.scrollTop]);if(next!==previous){previous=next;since=performance.now();}if(performance.now()-since>=250)resolve();else requestAnimationFrame(frame);};requestAnimationFrame(frame);}));
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');await expect(page.locator('.word-peek-meaning')).not.toHaveText('查询中…');
  await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');await expect(page.locator('.word-peek-meaning')).not.toHaveText('查询中…');
  await page.mouse.move(5,5);await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
  await expect(fields.first()).toHaveValue('');
  await page.getByLabel('听写难度',{exact:true}).selectOption('hard');

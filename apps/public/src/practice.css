@@ -261,3 +261,13 @@ html[data-practice-compact=true] .sentence-footer .sentence-actions{gap:4px}
 html[data-practice-compact=true] .sentence-footer .sentence-actions>button{font-size:13px;padding-inline:7px}
 html[data-practice-compact=true] .sentence-footer:has(.listening-status){display:flex}
 body[data-practice=true] .learning-dialog{position:fixed;inset:auto;top:calc(var(--page-vtop,0px) + var(--page-vh,100dvh)/2);left:calc(var(--page-vleft,0px) + var(--page-vwidth,100vw)/2);transform:translate(-50%,-50%);margin:0;max-height:calc(var(--page-vh,100dvh) - 24px)}
+
+.guided-word,.hard-dictation-peek textarea{-webkit-touch-callout:none}
+
+/* Preserve the existing action slots during automatic sentence advancement. */
+.sentence-actions-pending{visibility:hidden;pointer-events:none}
+.sentence-footer .native-playback{min-width:0}
+.sentence-footer .playback-button{min-width:0;height:44px;min-height:44px;white-space:nowrap}
+.sentence-footer .playback-label{white-space:nowrap}
+
+.hard-dictation-peek{display:block}

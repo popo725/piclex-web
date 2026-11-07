@@ -18,7 +18,7 @@ for(const kind of ['portrait','landscape'])test(`listening preserves the full ${
    const a=img.getBoundingClientRect(),b=img.parentElement!.getBoundingClientRect();
    return img.naturalWidth>0&&Math.abs(a.width/a.height-img.naturalWidth/img.naturalHeight)<.01&&a.left>=b.left-1&&a.top>=b.top-1&&a.right<=b.right+1&&a.bottom<=b.bottom+1;
   })).toBe(true);
-  expect((await page.locator('.photo-browse').boundingBox())!.height).toBeGreaterThanOrEqual(info.project.name==='mobile'?139:219);
+  expect((await page.locator('.photo-browse').boundingBox())!.height).toBeGreaterThanOrEqual(info.project.use.hasTouch?139:219);
  };
  for(const size of [{width:1280,height:720},{width:1440,height:1000},{width:390,height:844}]){
   await page.setViewportSize(size);await mode.selectOption('free');

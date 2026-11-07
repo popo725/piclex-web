@@ -109,13 +109,17 @@ test('sentence fill checks automatically; failed order can be corrected and assi
  await page.goto('/piclex-web/#/deck/'+publicCard.id);await page.getByRole('tab',{name:'练听力'}).click();
  const bank=page.getByLabel('待选词块'),selected=page.getByLabel('已选词块');
  for(const text of ['am','I','still','in','bed.'])await bank.getByRole('button',{name:text,exact:true}).click();
- await expect(page.getByRole('status')).toContainText('顺序还需要调整');
+ await expect(page.locator('.sentence-feedback[role=status]')).toContainText('顺序还需要调整');
  await selected.getByRole('button',{name:'I',exact:true}).press('Alt+ArrowLeft');
- await expect(page.getByRole('status')).toContainText('听写正确');
- // Switching immediately cancels this successful chunk attempt's delayed advance.
+ await expect(page.getByLabel('已选词块').getByRole('button').first()).toBeDisabled();
+ await expect(page.locator('.sentence-feedback')).toHaveCount(0);
+ // Replay pauses the successful chunk attempt's delayed advance, restoring the
+ // manual challenge action for this still-visible sentence.
+ await page.getByRole('button',{name:'播放句子',exact:true}).click();
+ await expect(page.getByRole('button',{name:'挑战自由听写'})).toBeVisible();
  await page.getByRole('button',{name:'挑战自由听写'}).click();
  await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'I wrong');await page.getByRole('button',{name:'检查答案'}).click();
- await expect(page.getByRole('status')).toContainText('再听一次');
+ await expect(page.locator('.sentence-feedback[role=status]')).toContainText('再听一次');
  await page.getByRole('button',{name:'显示答案',exact:true}).click();await expect(page.locator('.standard-answer')).toContainText('I am still in bed.');
  await page.getByRole('button',{name:'重新拼写',exact:true}).click();await expect(page.getByRole('textbox',{name:'听写句子'})).toHaveValue('');
  await fillEnglish(page.getByRole('textbox',{name:'听写句子'}),'i am still in bed');

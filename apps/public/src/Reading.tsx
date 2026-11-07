@@ -48,8 +48,10 @@ export default function Reading({word,active,audio,rate,notify,saved,next,reward
   let timer:ReturnType<typeof setTimeout>|undefined;
   if(machine)audio.play([target],rate,()=>move(turn+1));
   else if(turnPassed){if(dialogue)timer=setTimeout(()=>move(turn+1),500);}
-  else timer=setTimeout(begin,120);
-  return()=>{clearTimeout(timer);stop();audio.stop();};
+  else if(!recognition.current)timer=setTimeout(begin,120);
+  // Explicit pause/move owns microphone and audio cleanup. Effect cleanup must
+  // not stop a demonstration just started by the same click that paused reading.
+  return()=>{clearTimeout(timer);};
  },[active,turn,running,turnPassed]);
  useEffect(()=>{const hide=()=>{if(document.hidden)pause();};document.addEventListener('visibilitychange',hide);window.addEventListener('pagehide',pause);return()=>{stop();audio.stop();document.removeEventListener('visibilitychange',hide);window.removeEventListener('pagehide',pause);};},[]);
  useEffect(()=>{if(active&&passed&&running){const timer=setTimeout(()=>nextRef.current(),1000);return()=>clearTimeout(timer);}},[active,passed,running]);
@@ -64,6 +66,6 @@ export default function Reading({word,active,audio,rate,notify,saved,next,reward
   {supported?<p className="muted small">浏览器可能将语音发送给其识别服务；点击后授权麦克风。</p>:<p className="muted small">当前浏览器未提供语音识别，可听示范并跟读。</p>}
   {(transcript||turn===turns.length)&&<div className="reading-transcript"><p>识别结果：{transcript}</p><button className="text-button" onClick={restart}>{dialogue?'再练一轮':'重新跟读'}</button></div>}
  </div><div className="reading-controls"><div className="reading-state" role="status"><Icon name="microphone"/><span>{machine&&audio.playing?'机器朗读中':listening?'正在收音':passed?'朗读完成':'麦克风已关闭'}</span><span>已读对 {count}/{total} 个词</span></div>
- <div className="reading-actions"><button className="native-button" disabled={!current} onClick={()=>{pause();audio.play([target],rate,undefined,0,dialogue?undefined:word.audio);}}><Icon name="sound"/>听示范</button>{supported&&<button className="native-button" disabled={passed||!current} onClick={()=>{if(running||listening)pause();else{continuation.current=true;setRunning(true);}}}><Icon name="microphone"/>{running?'结束跟读':dialogue?'继续对话':'开始跟读'}</button>}</div>
+ <div className="reading-actions"><button className="native-button" disabled={!current} onClick={()=>{pause();audio.play([target],rate,undefined,0,dialogue?undefined:word.audio);}}><Icon name="sound"/>听示范</button>{supported&&<button className="native-button" disabled={passed||!current} onClick={()=>{if(running||listening)pause();else{continuation.current=true;setRunning(true);if(!machine)begin();}}}><Icon name="microphone"/>{running?'结束跟读':dialogue?'继续对话':'开始跟读'}</button>}</div>
  <button className="native-button reading-next" onClick={()=>{pause();next();}}>下一句</button></div></section>;
 }
