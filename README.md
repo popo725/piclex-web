@@ -52,30 +52,30 @@
 入口在「设置 → 我的等级」，学习页的头像等级入口也能打开同一份等级内容。
 
 <p align="center">
-  <img src="docs/readme/game-start.png" width="800" alt="薯薯求生开始界面：全能者角色、生命、移速与收获属性说明、开始冒险按钮">
+  <img src="docs/readme/game-start.png" width="800" alt="薯薯求生开始界面：选择全能者角色，显示生命 +5、移速 +5%、收获 +8，右侧有开始冒险按钮">
 </p>
 
 选择角色，开始冒险。
 
 <p align="center">
-  <img src="docs/readme/game-combat.png" width="800" alt="第 1 波战斗：小土豆被怪物逼近，豌豆发射器自动攻击并出现伤害数字">
+  <img src="docs/readme/game-combat.png" width="800" alt="第 1 波战斗：小土豆在花园中央，几只小外星人从四周逼近，豌豆发射器自动攻击并打出伤害数字 12">
 </p>
 
 第 1 波战斗：移动小土豆，武器自动攻击。
 
 <p align="center">
-  <img src="docs/readme/game-shop.png" width="800" alt="路边小店：豌豆发射器、扳手、头盔、肥料四件商品，显示金币、随身武器与下一波按钮">
+  <img src="docs/readme/game-shop.png" width="800" alt="路边小店：拳套、种子霰弹、迷路的鸭子、伤疤四件商品，顶部显示 32 金币，底部是随身武器与下一波按钮">
 </p>
 
 每波结束的「路边小店」：用金币从四件商品里挑一件，拼词购买；底部是随身武器栏与下一波入口。
 
 <p align="center">
-  <img src="docs/readme/game-purchase.png" width="800" alt="拼词购买弹弓：brother 的七个字母已正确填入 b、r、o 三个，左侧是提示照片、音标与例句">
+  <img src="docs/readme/game-purchase.png" width="800" alt="拼词购买拳套：节奏 rhythm 的六个字母已填入前三个 r、h、y，左侧是歌手照片、音标与例句">
 </p>
 
 购买前先拼词：字母可逐个放入，拼对才能带走装备，拼错则这次购买结束。
 
-入口与游戏截图来自 2026-11-07 的本地 Web 实际界面，游戏画面采用横屏视口；示例卡组为内置公开演示卡组「Basic English 850 场景卡片」。
+入口与游戏截图来自 2026-11-07 的本地 Web 实际界面，游戏横图采用约 1.618:1 的黄金比例；示例卡组为内置公开卡组「Basic English 850 场景卡片」。
 
 ## 一张照片，就是一页英语
 
