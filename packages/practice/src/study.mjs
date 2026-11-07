@@ -12,6 +12,8 @@ function prepare(deck,s){
  if(!draft.result){const indices=s.quick?s.history[word.id]?.mistakes:null;draft.quickIndices=indices?.length?indices:null;}
 }
 function pause(s){s.pending=null;for(const value of Object.values(s.sentences))value.pending=null;s.presentation++;}
+// A reopened word starts a writable attempt; quick mode still blanks its known mistakes.
+function reopen(s,word){const mistakes=s.quick?s.history[word.id]?.mistakes:null;s.words[word.id]={input:'',hadMistake:false,result:null,quickIndices:mistakes?.length?mistakes:null};}
 export function restoreStudyFromStorage(deck, read) {
  const keys = [deck.fingerprint, ...(deck.legacyFingerprints || [])];
  for (const fingerprint of keys) {
@@ -101,11 +103,7 @@ export function reduceStudy(deck,s,action,preparedPrompts){
   if(action.index===s.index){if(s.sentenceFinished){next.sentenceFinished=false;pause(next);return next;}return s;}navigate(action.index);
   const at=promptIndex(prompts,deck,action.index);if(at>=0){next.sentenceIndex=at;next.sentenceFinished=false;}return next;
  }
- if(action.type==='retryWord'&&word&&s.module==='spelling'&&s.words[word.id]?.result){
-  const mistakes=next.quick?next.history[word.id]?.mistakes:null;
-  next.words[word.id]={input:'',hadMistake:false,result:null,quickIndices:mistakes?.length?mistakes:null};
-  pause(next);return next;
- }
+ if(action.type==='retryWord'&&word&&s.module==='spelling'&&s.words[word.id]?.result){reopen(next,word);pause(next);return next;}
  if(action.type==='listeningJump'&&s.module==='listening'&&s.mode==='listening'&&Number.isInteger(action.index)&&prompts[action.index]){next.sentenceIndex=action.index;next.sentenceFinished=false;navigate(prompts[action.index].wordIndex);return next;}
  if(action.type==='sentenceNext'){
   const p=prompts[s.sentenceIndex],draft=p&&s.sentences[p.key];if(!p||(s.mode!=='listening'&&!draft?.outcomes[s.mode]))return s;
@@ -117,7 +115,12 @@ export function reduceStudy(deck,s,action,preparedPrompts){
  }
  if(!word||s.module!=='spelling')return s;
  prepare(deck,next);const draft=next.words[word.id],expected=expectedInput(word,draft);
- if(action.type==='next'&&draft.result){let index=s.index+1;while(next.quick&&deck.words[index]&&next.history[deck.words[index].id]?.mastered)index++;navigate(index);return next;}
+ if(action.type==='next'&&draft.result){
+  let index=s.index+1;while(next.quick&&deck.words[index]&&next.history[deck.words[index].id]?.mastered)index++;
+  // Stepping into a word answered earlier in the round must open a fresh attempt, not a read-only answer.
+  const target=deck.words[index];if(target&&next.words[target.id]?.result)reopen(next,target);
+  navigate(index);return next;
+ }
  if(draft.result)return s;
  if(action.type==='reveal'){draft.input=expected;draft.result='revealed';next.history[word.id]={mastered:false,mistakes:[...word.english].flatMap((c,i)=>fixed(c)?[]:[i])};pause(next);return next;}
  return s;
