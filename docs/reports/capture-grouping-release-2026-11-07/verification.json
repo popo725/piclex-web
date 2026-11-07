@@ -1,0 +1,180 @@
+{
+  "date": "2026-11-07",
+  "status": "deployed and verified on both live sites",
+  "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+  "ciRun": "https://github.com/zhaoolee/piclex-web/actions/runs/42349277654",
+  "local": {
+    "nodePassed": 287,
+    "deployPassed": 45,
+    "linuxRelatedNodePassed": 63,
+    "linuxWebKitPassed": 4,
+    "typeScript": "passed",
+    "vite": "passed",
+    "originalMacFocusedBrowserPassed": 18
+  },
+  "sourceSHA256": {
+    "apps/public/src/main.tsx": "7b28a86b3cc3798bf373be447d45ec7f3ee427acf72db5a081d54e6410a2c813",
+    "apps/public/src/NativePractice.tsx": "16efa657c3f57954053e41492d13d0f97793fb3a524baa5d502e5649eff123fd",
+    "apps/public/src/backup-store.ts": "bc5910bb6f83c2a52ada4bf037dd493db6a28ab1feef111353ef48b31c32161c",
+    "packages/practice/src/capture-group.mjs": "fcf9c646fb8302a6ded589ac58b0a8a7625d07e34f5663b725eb60c2a7469f8b",
+    "packages/practice/src/study.mjs": "b206984f78faa22a5e9a9c2b1ecf620dacafa29fad97d9310b49012f89390549",
+    "packages/practice/src/sentence.mjs": "a69f5ad1531ee0e26bde3d2f4ae19981ca3b2a2a5751ace2c1fd38bad37a72df",
+    "playwright.config.ts": "ef2b614e76587ac039132d6af718385ac7ab013fba0b871a83c805b8d86b998d",
+    "tests/capture-group.test.mjs": "3f6c49f4555addbfc1416e3d261c055df68bd9b79536b7d0aac2f9db46b9245a",
+    "tests/browser/capture-grouping.spec.ts": "99cf560df84caf67e7ff408f5dc7c8e385e049ad8c1dc78387de2a8ca0d5a970"
+  },
+  "limits": [
+    "Browser tests use isolated synthetic/public fixtures; no user browser data or physical iPhone used."
+  ],
+  "ciBuild": {
+    "nodePassed": 287,
+    "deployPassed": 45,
+    "typeScript": "passed",
+    "vite": "passed",
+    "releaseID": "028b7e5ba46a-b0e066f5d221",
+    "manifestFiles": 1142
+  },
+  "integration": {
+    "base": "ff078be",
+    "preserved": [
+      "boot-loader completion",
+      "128 MiB import support",
+      "current official public decks",
+      "guided dictation underline and reveal fix"
+    ],
+    "sourceCommitFiles": 10
+  },
+  "ciBrowser": {
+    "passed": 459,
+    "skippedExisting": 4,
+    "failed": 0,
+    "shards": [
+      {
+        "shard": 1,
+        "passed": 154,
+        "skipped": 1
+      },
+      {
+        "shard": 2,
+        "passed": 166,
+        "skipped": 2
+      },
+      {
+        "shard": 3,
+        "passed": 139,
+        "skipped": 1
+      }
+    ]
+  },
+  "ciConclusion": "success",
+  "ciJobs": [
+    {
+      "name": "build",
+      "conclusion": "success"
+    },
+    {
+      "name": "Browser shard 3/3",
+      "conclusion": "success"
+    },
+    {
+      "name": "Browser shard 2/3",
+      "conclusion": "success"
+    },
+    {
+      "name": "Browser shard 1/3",
+      "conclusion": "success"
+    },
+    {
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "name": "docker / publish",
+      "conclusion": "success"
+    }
+  ],
+  "pages": {
+    "site": "https://zhaoolee.com",
+    "releaseID": "028b7e5ba46a-b0e066f5d221",
+    "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+    "manifestFiles": 1142,
+    "verifiedAssets": [
+      "piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "piclex-web/assets/lab-C8Nqr4Kh.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-BcDaruv5.js",
+      "piclex-web/assets/main-CwPpeDqU.css",
+      "piclex-web/assets/main-Dd5u6t2U.js",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-D3VMIW3x.js",
+      "piclex-web/credits.html",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/subscribe/index.html"
+    ],
+    "browser": {
+      "startTime": "2026-11-07T07:15:18.305Z",
+      "duration": 27428.345,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "docker": {
+    "tags": [
+      "latest",
+      "sha-028b7e5"
+    ],
+    "digest": "sha256:0b08e58b877d8f543d55b345311aba2a1d9ca5d2dc7874176410d33d357b15f3",
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ]
+  },
+  "domestic": {
+    "site": "https://piclex.v2fy.com",
+    "releaseID": "028b7e5ba46a-b0e066f5d221",
+    "sourceRevision": "028b7e5ba46a70d17529337c9a80ed4d37c0c6f3",
+    "manifestFiles": 1142,
+    "verifiedAssets": [
+      "piclex-web/assets/experience-store-Cf0PUDr3.js",
+      "piclex-web/assets/lab-C8Nqr4Kh.js",
+      "piclex-web/assets/lab-r_hvwpDT.css",
+      "piclex-web/assets/main-BcDaruv5.js",
+      "piclex-web/assets/main-CwPpeDqU.css",
+      "piclex-web/assets/main-Dd5u6t2U.js",
+      "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+      "piclex-web/assets/subscribe-CgjdP79_.css",
+      "piclex-web/assets/subscribe-D3VMIW3x.js",
+      "piclex-web/credits.html",
+      "piclex-web/index.html",
+      "piclex-web/lab/index.html",
+      "piclex-web/subscribe/index.html"
+    ],
+    "browser": {
+      "startTime": "2026-11-07T07:19:58.976Z",
+      "duration": 26580.314,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cleanup": {
+      "current": "028b7e5ba46a-b0e066f5d221",
+      "deleted": [
+        "29ec2c7a1bd1-92686544210f"
+      ],
+      "skipped": [],
+      "remaining": [
+        "028b7e5ba46a-b0e066f5d221"
+      ],
+      "freeBytesBefore": 32801968128,
+      "freeBytesAfter": 32803168256,
+      "completedAt": 1794035944.0226824
+    },
+    "manifestSource": "Authenticated read of current/release.json on the server; the domestic mirror does not expose the Pages metadata URL."
+  },
+  "localCleanup": "Linux test container and staging copy removed. Release checkout and temporary assets retained only through final evidence push verification."
+}
