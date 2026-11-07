@@ -21,7 +21,129 @@
     "routeFixLinuxWebKit": 19,
     "routeFixMacChrome": 18,
     "raceRegression": "old production build fails; fixed build passes",
-    "initialCIFailure": "https://github.com/zhaoolee/piclex-web/actions/runs/42336165851"
+    "initialCIFailure": "https://github.com/zhaoolee/piclex-web/actions/runs/42336165851",
+    "ciTraceFinding": "After Back, the URL changed to spelling but the page remained in listening; register hashchange at layout commit so fast navigation is not missed. A separate deterministic pending-render case reproduced URL overwrite; guard prevents writes until incoming hash is consumed.",
+    "finalCI": "https://github.com/zhaoolee/piclex-web/actions/runs/42337809078",
+    "pagesLive": {
+      "uniqueScenarios": 18,
+      "browsers": [
+        "mobile Chrome",
+        "mobile WebKit"
+      ],
+      "initialPassed": 15,
+      "initialNetworkTimeouts": 3,
+      "targetedRecheckPassed": 4,
+      "explanation": "Trace showed lab HTML / initial deck requests had not completed within the temporary 15s online expectation. Rechecked affected cases serially with 45s online network budget; all functional assertions unchanged. Product and CI timeouts unchanged."
+    }
   },
-  "release": "pending"
+  "release": {
+    "status": "Pages and Docker published; domestic candidate verified, activation requires server sudo password",
+    "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+    "releaseID": "e273c2cfba11-9912bd6e261e",
+    "ci": {
+      "runId": 42337809078,
+      "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+      "passed": 438,
+      "skipped": 4,
+      "jobs": [
+        {
+          "id": 128298600074,
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 128298828537,
+          "name": "Browser shard 2/3",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 128298828580,
+          "name": "Browser shard 1/3",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 128298828612,
+          "name": "Browser shard 3/3",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 128301251821,
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 128301251943,
+          "name": "docker / publish",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "pages": {
+      "origin": "https://zhaoolee.com",
+      "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+      "releaseID": "e273c2cfba11-9912bd6e261e",
+      "checkedPublicBuildFiles": [
+        "piclex-web/assets/camera-soft-dunes-BP4g9rUR.webp",
+        "piclex-web/assets/experience-store-Cf0PUDr3.js",
+        "piclex-web/assets/lab-C8Nqr4Kh.js",
+        "piclex-web/assets/lab-r_hvwpDT.css",
+        "piclex-web/assets/main-C-Kg6bWO.css",
+        "piclex-web/assets/main-Dd5u6t2U.js",
+        "piclex-web/assets/main-uI5Kw53w.js",
+        "piclex-web/assets/modulepreload-polyfill-B5Qt9EMX.js",
+        "piclex-web/assets/subscribe-CgjdP79_.css",
+        "piclex-web/assets/subscribe-D3VMIW3x.js",
+        "piclex-web/credits.html",
+        "piclex-web/index.html",
+        "piclex-web/lab/index.html",
+        "piclex-web/subscribe/index.html"
+      ],
+      "manifestSHA256": "89a8467e819444fc2b710d626edfa3d34367355accf3a22f0175a842ce1b5404"
+    },
+    "docker": {
+      "tags": [
+        "latest",
+        "sha-e273c2c"
+      ],
+      "digest": "sha256:f83d7376cab75179c71177ff776a797e91e283b64c145acd1f427127f2167e09",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    },
+    "domesticCandidate": {
+      "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+      "previous": "5b9eb2cc05fb-4a7063a2147d",
+      "releaseID": "e273c2cfba11-9912bd6e261e",
+      "files": 1142,
+      "changed": [
+        "piclex-web/assets/main-C-Kg6bWO.css",
+        "piclex-web/assets/main-uI5Kw53w.js",
+        "piclex-web/index.html"
+      ],
+      "removed": [
+        "piclex-web/assets/main-QQfaDO7S.css",
+        "piclex-web/assets/main-VS2eDFIR.js"
+      ],
+      "preservedPublicFiles": 1128,
+      "downloadBytes": 777052
+    },
+    "domesticPreview": "1142 files verified; isolated Nginx, content, MIME, guard and routes checks passed; activation preview no config diff",
+    "domesticActivation": "not activated: sudo requires interactive password"
+  },
+  "sourceRevision": "e273c2cfba11501b0e7e89327d615a9c53c3c437",
+  "cleanup": {
+    "removed": [
+      "temporary Linux container",
+      "Linux dependency/build copy",
+      "downloaded CI artifacts"
+    ],
+    "retained": "Isolated source/verification files pending domestic activation; shared Colima VM retained because other services are running. No simulator, app installation or user data changes."
+  }
 }
