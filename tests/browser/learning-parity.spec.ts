@@ -30,10 +30,14 @@ test('guided word blanks show readable underlines and preserve typing, reveal an
  const equalWidths=await words.evaluateAll(nodes=>nodes.map(n=>n.getBoundingClientRect().width));
  expect(new Set(equalWidths).size).toBe(1);
  await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
- const peek=words.first().getByRole('button',{name:'按住查看第 1 个单词',exact:true});
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await expect(page.locator('.peek-letter')).toHaveCount(0);
+ const peek=words.first();
+ // Difficulty changes can still be scrolling the panel into view; a real
+ // scroll cancels a hold, so start only after the word's geometry settles.
+ await peek.scrollIntoViewIfNeeded();await peek.evaluate(node=>new Promise<void>(resolve=>{let previous='',since=performance.now();const frame=()=>{const b=node.getBoundingClientRect(),next=JSON.stringify([b.x,b.y,b.width,b.height,node.closest('.native-body')?.scrollTop]);if(next!==previous){previous=next;since=performance.now();}if(performance.now()-since>=250)resolve();else requestAnimationFrame(frame);};requestAnimationFrame(frame);}));
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');
  await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
- await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek')).toHaveText('Hi');
+ await peek.hover();await page.mouse.down();await expect(page.locator('.word-peek-english')).toHaveText('Hi');
  await page.mouse.move(5,5);await page.mouse.up();await expect(page.locator('.word-peek')).toHaveCount(0);
  await expect(fields.first()).toHaveValue('');
  await page.getByLabel('听写难度',{exact:true}).selectOption('hard');
@@ -42,7 +46,7 @@ test('guided word blanks show readable underlines and preserve typing, reveal an
  await expect(fields.nth(1)).toHaveValue("i'");
  await page.screenshot({path:info.outputPath('guided-typed.png')});
 });
-test('long guided words wrap without covering the next word or reveal control',async({page},info)=>{
+test('long guided words wrap without covering the next word or reserving an icon row',async({page},info)=>{
  const card=catalog[0],deck=JSON.parse(fs.readFileSync('apps/public/public/'+card.payload,'utf8'));
  deck.words[0].example='A pneumonoultramicroscopicsilicovolcanoconiosis appears.';
  const body=JSON.stringify(deck),sha=createHash('sha256').update(body).digest('hex');
@@ -55,10 +59,10 @@ test('long guided words wrap without covering the next word or reveal control',a
  await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
  const words=page.locator('.guided-word');await expect(words).toHaveCount(3);
  const geometry=await words.nth(1).evaluate(el=>{
-  const rect=el.getBoundingClientRect(),letters=[...el.querySelectorAll('.guided-letters i')].map(n=>n.getBoundingClientRect()),peek=el.querySelector('.peek-letter')!.getBoundingClientRect();
-  return {bottom:Math.max(...letters.map(r=>r.bottom)),right:Math.max(...letters.map(r=>r.right)),left:Math.min(...letters.map(r=>r.left)),wordRight:rect.right,wordLeft:rect.left,peekTop:peek.top,rows:new Set(letters.map(r=>r.top)).size};
+  const rect=el.getBoundingClientRect(),letters=[...el.querySelectorAll('.guided-letters i')].map(n=>n.getBoundingClientRect());
+  return {bottom:Math.max(...letters.map(r=>r.bottom)),right:Math.max(...letters.map(r=>r.right)),left:Math.min(...letters.map(r=>r.left)),wordRight:rect.right,wordLeft:rect.left,wordBottom:rect.bottom,padding:getComputedStyle(el).paddingBottom,rows:new Set(letters.map(r=>r.top)).size};
  });
- expect(geometry.rows).toBeGreaterThan(1);expect(geometry.bottom).toBeLessThanOrEqual(geometry.peekTop);
+ expect(geometry.rows).toBeGreaterThan(1);expect(geometry.bottom).toBeLessThanOrEqual(geometry.wordBottom);expect(geometry.padding).toBe('0px');await expect(page.locator('.peek-letter')).toHaveCount(0);
  expect(geometry.right).toBeLessThanOrEqual(geometry.wordRight);expect(geometry.left).toBeGreaterThanOrEqual(geometry.wordLeft);
  expect((await words.nth(2).boundingBox())!.y).toBeGreaterThan(geometry.bottom);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

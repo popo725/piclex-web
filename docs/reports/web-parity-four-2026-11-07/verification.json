@@ -43,7 +43,7 @@
   ],
   "source_sha256": {
     "apps/public/src/DeckDownload.tsx": "e054b59168ececf844d536cb2baa8e0196ef68add6ca9dc8ff81a0cf8fb7e872",
-    "apps/public/src/NativePractice.tsx": "da22f04106aea003d906595af1b2b37983a51d69af9a98a5339005dc89278afa",
+    "apps/public/src/NativePractice.tsx": "0a6fcd88df2451b37601a56eb66e573406db0fb20155b3e79f41fd63b0485261",
     "apps/public/src/Settings.tsx": "735ec58ad80bd5e6844ec2c61363100ab53648fdb1a9c185cece58d068ef16fe",
     "apps/public/src/Reading.tsx": "a2ab8d72a664659f414794f14ec089182d37f5ae43dd26d3474c187d2e847405",
     "apps/public/src/SubscriptionSettings.tsx": "1b0bc3b77b020bc3645f0f807574ff30b096e9baafdeb0ebb37b30cc65159eb6",
@@ -53,6 +53,56 @@
     "apps/public/src/main.tsx": "a2c793bb26d87aa598045882ba3077d9f0014f29045081593c621c043aaf7309",
     "apps/public/src/reading.css": "300cfdec5b72309ff1795919f4b4e5a6645437b1aef363a7e8dded594282dd00",
     "packages/practice/src/study.mjs": "8d69ffec69e5dfc617909d73b981aeef7ef6f719a3770d0e42e37db5644252b8",
-    "packages/practice/src/dialogue.mjs": "920cd8581897ebff9230ae727dcc69cffd28ee9b79d29847340bc7d5c93a6ce0"
+    "packages/practice/src/dialogue.mjs": "920cd8581897ebff9230ae727dcc69cffd28ee9b79d29847340bc7d5c93a6ce0",
+    "apps/public/src/practice.css": "7d9fc2d8319a7a07cf4e41dcb71648fa43beead1c33d1dcb2d94a55b830f1cec",
+    "apps/public/src/responsive.css": "c5384d5fb9a2dd19c884666c87f2d4e0cb0b3f6d0c4a2dba77dbec84fcec51d5",
+    "apps/public/src/WordPeek.tsx": "672c5062279e943c62ffdce812d5ce02ac8aea1d647c4c1fe2d9372fa7c6c91c",
+    "apps/public/src/word-definitions.ts": "c25234df684431e3db4ec28450a3a40c1654795c3d9db11c7a98fc775c015a8a"
+  },
+  "followups": [
+    {
+      "id": "guided-eye-removal",
+      "authorization": "Explicit user screenshot correction through coordination chat; original other 18 items remain paused",
+      "status": "verified_pending_user_review",
+      "change": "Remove guided-word eye buttons and their 20px reserved row in easy/medium modes; reuse existing bilingual direct word hold from shared code only in guided mode",
+      "validation": "15 targeted Chrome desktop/mobile and WebKit cases passed on Mac; final TypeScript and production build passed",
+      "boundaries": "Input component, hard-mode branch and keyboard unchanged; no eye DOM, hit targets or CSS remain",
+      "webkit_fix": "Guided input caret scrolling no longer cancels hold; page scroll, pointer release and movement still dismiss it",
+      "screenshots": [
+        "evidence/01-listening-link.png",
+        "evidence/eye-removal-medium.png",
+        "evidence/eye-removal-hold.png"
+      ]
+    }
+  ],
+  "dictionary_sha256": {
+    "apps/public/public/dictionary/LICENSE.txt": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
+    "apps/public/public/dictionary/SOURCE.txt": "834607010cb36994a66cd1c81227b27f85a09710700df2554214431580a9f1da",
+    "apps/public/public/dictionary/a.json": "038edcf9c25e976481a2331e058b4921445300f070ce28cf1afb977e7ffc5da2",
+    "apps/public/public/dictionary/b.json": "3d51ff21a597cdfd535b4b9360bd4f1d61d92fe1bdb6e2b4691ab61d7933546e",
+    "apps/public/public/dictionary/c.json": "f42de4e9728804bf39fca83b629ca6369b685149e202a60c45b0e20ad8d7b87d",
+    "apps/public/public/dictionary/d.json": "894db058ab20e9b64984a61afbd5128b182fc2eb43da476322c241b80b91ee8a",
+    "apps/public/public/dictionary/e.json": "ffc840af79e0cf720756c654d208a77167eff2c845e283e137b0ebc6659d082c",
+    "apps/public/public/dictionary/f.json": "4e2d535a1bcab0daa6fca5c8a036f0aa7893e7c452ad0fc768100a5d0910a5df",
+    "apps/public/public/dictionary/g.json": "87a39b9184f40ab51300e72853b5206abb728a75ea06b412ebc9b9ccc67e2b33",
+    "apps/public/public/dictionary/h.json": "df0c3989053cba08d5bce177aaffed7e3b09bf6e4b9da9c1b6743d2aea5ba1af",
+    "apps/public/public/dictionary/i.json": "7234de3bc2ffeee17ebe2fcd9be3379ead35ab0b02395d8bf136894a3d95bc2d",
+    "apps/public/public/dictionary/j.json": "d89f53111bb5eabf1b8a03a8480af012f5db1e849469727856055a7d97a63b6d",
+    "apps/public/public/dictionary/k.json": "708bb1b3132f43e1c66daec81b1afb3404f6389888f9724b774889826b0eb9e6",
+    "apps/public/public/dictionary/l.json": "f0627d11448092c8e02d7ceb124c73bbaa00615df7e645fe2fbfa66c6edccb3b",
+    "apps/public/public/dictionary/m.json": "08b9b9c71cfae1f39d9ef4a8200807e54f58d04037f4031521c71f253e327d56",
+    "apps/public/public/dictionary/n.json": "11495599710dbb4780be7b0786af45fbec3451316271e0c7a4e5463cdd50e7e4",
+    "apps/public/public/dictionary/o.json": "78dfa0f4be352d36e4f7b6ca9faf5458752303cca7c98b57f091ae33649e3849",
+    "apps/public/public/dictionary/p.json": "e67229a33e130882b8a92accc8f79b1d12f80e283d2a4678b0d683c655da6aaa",
+    "apps/public/public/dictionary/q.json": "d29477809613664bb696dcb0b273a93e31cf7556e09fcfbe79d02ef14b3c2e1e",
+    "apps/public/public/dictionary/r.json": "3eeb1ed62069393658a9f21ee551693b6f6ee829e2d2e9c531df4b81db9fe6dd",
+    "apps/public/public/dictionary/s.json": "69be4761f21aa52fc0304f5952b1111eec777a1dcc90a1c34b4bc93291290f93",
+    "apps/public/public/dictionary/t.json": "6663650cd72eb954da83332545f2eac44d7b9907ea6e2cd6ddce1ceb371591dc",
+    "apps/public/public/dictionary/u.json": "947560608866c62087d09c4d389e2e3f74252ef03dd3a8a7b61f3536b2717dce",
+    "apps/public/public/dictionary/v.json": "9a67f4fe8a9e0189931489d59c510701cc6247206058fc695a7c149fa1db9389",
+    "apps/public/public/dictionary/w.json": "37b6795b507deffa1da2eaf5a03eed3a79a5299fb32d1ec2e89317bfe8ddc35f",
+    "apps/public/public/dictionary/x.json": "12034b26aa9bbad6c6cfeac0dbcd084c1f5ac827bc6f9deb539b255d2115993c",
+    "apps/public/public/dictionary/y.json": "a6100bdc8b46cf789834b5063371442c031374213af3ddebc94704bc150d34bf",
+    "apps/public/public/dictionary/z.json": "3c17a4539933a8c2a9dcb153c8c24caf4f4d56cd0570be26aab2ed8c3bdc6b57"
   }
 }
