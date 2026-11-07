@@ -14,6 +14,7 @@ import tempfile
 import stat
 import time
 from release_lifecycle import file_sha256, verify_live_release, prune_old_releases
+from release_state import record_activation, read_activation
 
 ROOT = Path('/home/hermes/piclex-web')
 SITE = Path('/etc/nginx/conf.d/piclex.v2fy.com.conf')
@@ -193,6 +194,10 @@ def apply_change(target, previous, candidate, original, metadata):
 
 def previous_for_cleanup(current):
     """Recover the last predecessor for immediate cleanup retries after activation."""
+    state = read_activation(ROOT, SITE, current)
+    if state is not None:
+        return Path(state['previousRelease']) if state['previousRelease'] else None
+    # Compatibility with releases made before durable cutover receipts existed.
     matches = []
     for state_path in SITE.parent.parent.glob('piclex-web-backup-*/state.json'):
         if state_path.is_symlink() or state_path.parent.is_symlink():
@@ -292,10 +297,12 @@ def main():
             'activatedConfigSHA256': hashlib.sha256(candidate).hexdigest()
         }, indent=2) + '\n')
         print(f'Backup: {backup}', flush=True)
+        predecessor = current.resolve() if current.is_symlink() else None
+        record_activation(ROOT, Path(target), predecessor, hashlib.sha256(candidate).hexdigest())
         apply_change(target, previous, candidate, original, metadata)
         print('Live HTTPS and health verified; pruning historical releases.', flush=True)
         # Outside apply_change: a cleanup failure cannot restore a deleted old package.
-        prune_old_releases(ROOT, SITE, Path(target), Path(previous) if previous else None,
+        prune_old_releases(ROOT, SITE, Path(target), predecessor,
                            started, verify_release)
         print('Published and verified: https://piclex.v2fy.com/piclex-web/; only current retained.', flush=True)
     finally:

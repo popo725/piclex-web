@@ -26,7 +26,7 @@ python3 -B /home/hermes/piclex-web/deploy/activate.py --release /home/hermes/pic
 
 ## 发布、验证与自动清理
 
-服务器统一使用 `/home/hermes/piclex-web/deploy/activate.py`。同步本目录的 `activate.py`、`release_lifecycle.py` 和 `check-mirror.py`，不再复制旧版脚本另行切换 `current`。
+服务器统一使用 `/home/hermes/piclex-web/deploy/activate.py`。同步本目录的 `activate.py`、`release_lifecycle.py`、`release_state.py` 和 `check-mirror.py`，不再复制旧版脚本另行切换 `current`。
 
 ```sh
 sudo python3 -B /home/hermes/piclex-web/deploy/activate.py --release /home/hermes/piclex-web/releases/<releaseID> --apply
@@ -46,6 +46,10 @@ sudo python3 -B /home/hermes/piclex-web/deploy/activate.py --finalize-current --
 
 不带 `--apply` 只预览，不联网验证、不切换、不删除。上传前仍需检查磁盘余量；候选包先放 `incoming/` 或任务独有的暂存目录，完成上传后再移入 `releases/`，避免把尚在写入的目录当作正式候选。不要用保留大量历史包代替 GitHub，也不要原地改写被硬链接复用的文件；替换候选文件须先断开候选链接。
 
+两个发布入口都会在切换前、发布锁内将真实的前任、目标目录身份与目标配置 SHA256 原子写入 `reports/activation-<releaseID>.json`，并同步到磁盘。即使切换后进程退出或清理报错，`--finalize-current --apply` 也能识别刚被替换的前任，无需等待一小时上传保护期。每个目标独立记录；失败回退和重新激活当前版本不会覆盖当前版本的记录。旧版仍兼容原 Nginx 配置备份记录。
+
+记录仅用于识别前任，不替代源站／公网验证、完整文件清单、进程／容器／服务配置引用、符号链接／挂载点与目录身份检查；最近上传的其他候选仍受一小时保护。记录损坏、配置变化或同名目录被替换会停止重试，不手工补造记录或改时间来跳过保护。
+
 浏览器行为回归仍在发布前完成；脚本的 HTTPS 检查验证实际资源和后端健康，不冒充真机人工验收。各域名浏览器存储互相独立，原 Pages 学习进度不会自动迁移。
 
 ## 本轮状态
@@ -59,3 +63,10 @@ sudo python3 -B /home/hermes/piclex-web/deploy/activate.py --finalize-current --
 Pages 的完整检查成功后才发布 `/piclex-web/release.json`，其中列出本次公开文件的大小、SHA256 与源码提交。服务器上的 `deploy/auto-update-public.py` 在发布流程中读取这份清单；若版本未变就退出。版本有变时，仅从 Pages 下载新文件，复用逐字节核验过的旧文件，再按已有 `check-mirror.py` 验证独立 Nginx。它在同一发布锁内原子切换 `current`，检查源站和公网 HTTPS；失败恢复前一版本，成功后使用已有安全清理器处理旧版。现有 Nginx 配置必须与标准 Web 路由完全一致，脚本不会编辑配置或重载服务。
 
 每次内容发布时，使用 `--check` 只校验候选包；正式运行前确认 Pages 该提交已经通过完整检查。不能以 Docker 发布成功替代 Pages 检查；若 Pages 暂时不可达或哈希不符，本次更新失败并保留当前站点。
+
+```sh
+python3 -B /home/hermes/piclex-web/deploy/auto-update-public.py --check
+sudo python3 -B /home/hermes/piclex-web/deploy/auto-update-public.py
+```
+
+正式自动更新须使用管理员身份，以读取全部进程和容器占用；权限不足会在下载／切换前拒绝，不能跳过安全扫描。`--check` 可由普通用户执行且不写交接记录。若清理失败，使用上面的标准 finalizer 重试；重复运行自动更新器遇到相同版本仍只退出，不冒充清理完成。

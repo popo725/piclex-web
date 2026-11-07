@@ -1,10 +1,16 @@
 import hashlib
 import importlib.util
 import json
+import os
 import pathlib
 import tempfile
 import unittest
 from unittest.mock import patch
+from contextlib import ExitStack
+import activate
+import release_lifecycle as lifecycle
+import release_state
+from test_release_lifecycle import ReleaseFixture
 
 MODULE=pathlib.Path(__file__).with_name('auto-update-public.py')
 spec=importlib.util.spec_from_file_location('auto_update_public',MODULE)
@@ -55,6 +61,127 @@ class AutoUpdatePublicTests(unittest.TestCase):
             with patch.object(auto,'ROOT',root):auto.switch(second)
             self.assertEqual((root/'current').resolve(),second)
             self.assertTrue(first.exists())
+
+
+class AutoUpdateLifecycleTests(ReleaseFixture):
+    def setUp(self):
+        super().setUp()
+        (self.root/'incoming').mkdir()
+        (self.root/'current').unlink()
+        (self.root/'current').symlink_to(self.old)
+        self.site.write_text(activate.patch_site(self.site.read_text()))
+        os.utime(self.old,None)  # The predecessor is still inside the upload grace period.
+        self.manifest=json.loads((self.new/'release.json').read_text())
+        self.lock=self.base/'deployment.lock'
+        self.lock.touch()
+        self.context=ExitStack()
+        self.addCleanup(self.context.close)
+        for name,value in [('ROOT',self.root),('SITE',self.site),('LOCK_PATH',self.lock)]:
+            self.context.enter_context(patch.object(auto,name,value))
+        self.context.enter_context(patch.object(auto.os,'geteuid',return_value=0))
+        self.context.enter_context(patch.object(auto,'patch_site',side_effect=lambda text:text))
+        self.context.enter_context(patch.object(auto,'manifest_from_pages',return_value=self.manifest))
+        # Download from a fixture; retain real checksums, manifests, pointer and cleanup.
+        def fetch(url,output=None,limit=None):
+            output.write_bytes((self.new/'piclex-web'/url.removeprefix(auto.PAGES)).read_bytes())
+        self.context.enter_context(patch.object(auto,'fetch',side_effect=fetch))
+        self.context.enter_context(patch.object(auto.subprocess,'run'))
+        self.context.enter_context(patch('sys.argv',['auto-update-public.py']))
+        self.live=self.context.enter_context(patch.object(auto,'verify_live_release'))
+
+    def finalize(self):
+        self.main_context(['--finalize-current','--apply'])
+        with patch.object(activate,'verify_live_release'):
+            activate.main()
+
+    def test_cleanup_failure_records_previous_and_can_retry_immediately(self):
+        with patch.object(lifecycle,'release_references',side_effect=PermissionError('process scan denied')):
+            with self.assertRaisesRegex(PermissionError,'process scan denied'):
+                auto.main()
+        self.live.assert_called_once()
+        self.assertEqual((self.root/'current').resolve(),self.new)
+        self.assertTrue(self.old.exists())
+        state=release_state.read_activation(self.root,self.site,self.new)
+        self.assertEqual(state['previousRelease'],str(self.old))
+        # No timestamp edits or grace-period wait between failure and finalizer.
+        self.finalize()
+        self.assertFalse(self.old.exists())
+        self.assertEqual(list((self.root/'releases').iterdir()),[self.new])
+
+    def test_recent_unrelated_upload_remains_protected_during_retry(self):
+        pending=self.release('c');os.utime(pending,None)
+        with patch.object(auto,'prune_old_releases',side_effect=RuntimeError('interrupted cleanup')):
+            with self.assertRaisesRegex(RuntimeError,'interrupted cleanup'):auto.main()
+        with self.assertRaisesRegex(RuntimeError,'cleanup is incomplete'):self.finalize()
+        self.assertFalse(self.old.exists())
+        self.assertTrue(pending.exists())
+        report=json.loads((self.root/'reports/last-release-cleanup.json').read_text())
+        self.assertIn('recent unrelated candidate',report['skipped'][0]['reason'])
+
+    def test_predecessor_record_does_not_override_active_references_or_extra_files(self):
+        with patch.object(auto,'prune_old_releases',side_effect=RuntimeError('interrupted cleanup')):
+            with self.assertRaises(RuntimeError):auto.main()
+        with patch.object(lifecycle,'release_references',return_value={self.old:{'open process reference'}}):
+            with self.assertRaisesRegex(RuntimeError,'cleanup is incomplete'):self.finalize()
+        self.assertTrue(self.old.exists())
+        private=self.old/'private-photo.jpg';private.write_bytes(b'private')
+        with self.assertRaisesRegex(RuntimeError,'cleanup is incomplete'):self.finalize()
+        self.assertEqual(private.read_bytes(),b'private')
+
+    def test_receipt_failure_prevents_cutover(self):
+        with patch.object(release_state.os,'fsync',side_effect=OSError('disk failure')):
+            with self.assertRaisesRegex(OSError,'disk failure'):auto.main()
+        self.live.assert_not_called()
+        self.assertEqual((self.root/'current').resolve(),self.old)
+        self.assertTrue(self.old.exists())
+        self.assertFalse(list((self.root/'reports').glob('.activation-*')))
+
+    def test_receipt_is_durable_before_switch_and_survives_crash_after_switch(self):
+        switch=auto.switch
+        def interrupted(target):
+            state=release_state.read_activation(self.root,self.site,target)
+            self.assertEqual(state['previousRelease'],str(self.old))
+            switch(target)
+            os._exit(75)  # Abrupt exit: no Python cleanup/rollback handlers run.
+        pid=os.fork()
+        if pid==0:
+            try:
+                with patch.object(auto,'switch',side_effect=interrupted):auto.main()
+            finally:os._exit(76)
+        _,status=os.waitpid(pid,0)
+        self.assertEqual(os.waitstatus_to_exitcode(status),75)
+        self.assertEqual((self.root/'current').resolve(),self.new)
+        self.finalize()
+        self.assertFalse(self.old.exists())
+
+    def test_failed_live_verification_rolls_back_and_preserves_active_receipt(self):
+        third=self.release('c')
+        (self.root/'current').unlink();(self.root/'current').symlink_to(third)
+        release_state.record_activation(self.root,self.old,third,lifecycle.file_sha256(self.site))
+        auto.switch(self.old)
+        before=release_state.receipt_path(self.root,self.old).read_bytes()
+        self.live.side_effect=RuntimeError('HTTPS failed')
+        with self.assertRaisesRegex(RuntimeError,'HTTPS failed'):auto.main()
+        self.assertEqual((self.root/'current').resolve(),self.old)
+        self.assertEqual(release_state.receipt_path(self.root,self.old).read_bytes(),before)
+        self.assertTrue(self.old.exists())
+        self.assertTrue(self.new.exists())
+
+    def test_first_release_failure_removes_pointer(self):
+        (self.root/'current').unlink()
+        self.live.side_effect=RuntimeError('HTTPS failed')
+        with self.assertRaisesRegex(RuntimeError,'HTTPS failed'):auto.main()
+        self.assertFalse((self.root/'current').is_symlink())
+
+    def test_nonroot_apply_fails_before_download_or_cutover_but_check_is_allowed(self):
+        with patch.object(auto.os,'geteuid',return_value=1000):
+            with patch.object(auto,'manifest_from_pages') as fetch:
+                with self.assertRaisesRegex(SystemExit,'Run activation as root'):auto.main()
+                fetch.assert_not_called()
+            with patch('sys.argv',['auto-update-public.py','--check']):auto.main()
+        self.assertEqual((self.root/'current').resolve(),self.old)
+        self.assertFalse((self.root/'reports').exists())
+        self.live.assert_not_called()
 
 
 if __name__=='__main__':unittest.main()

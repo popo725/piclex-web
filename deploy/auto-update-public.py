@@ -14,6 +14,7 @@ import time
 
 from activate import ROOT, SITE, LOCK_PATH, patch_site, verify_release
 from release_lifecycle import verify_live_release, prune_old_releases
+from release_state import record_activation
 
 PAGES='https://zhaoolee.com/piclex-web/'
 HASH=re.compile(r'[0-9a-f]{64}')
@@ -84,6 +85,9 @@ def populate(stage,manifest,previous):
 
 
 def switch(target):
+    if target is None:
+        (ROOT/'current').unlink(missing_ok=True)
+        return
     temporary=ROOT/f'.current-auto-{os.getpid()}'
     try:
         temporary.symlink_to(target)
@@ -95,14 +99,17 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check',action='store_true',help='Verify the candidate without activating it')
     args=parser.parse_args()
-    if not ROOT.is_dir() or ROOT.is_symlink() or SITE.is_symlink():raise RuntimeError('Unexpected deployment paths')
-    config=SITE.read_text()
-    if patch_site(config)!=config:raise RuntimeError('Nginx configuration needs privileged review')
+    if not ROOT.is_dir() or ROOT.resolve()!=ROOT or SITE.is_symlink():raise RuntimeError('Unexpected deployment paths')
+    if not args.check and os.geteuid()!=0:
+        raise SystemExit('Run activation as root so all process/container cleanup checks can complete; use --check for validation only')
+    config=SITE.read_bytes()
+    if patch_site(config.decode())!=config.decode():raise RuntimeError('Nginx configuration needs privileged review')
     with LOCK_PATH.open('r') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX)
         started=time.time()
         manifest=manifest_from_pages()
         current=ROOT/'current'
+        if current.exists() and not current.is_symlink():raise RuntimeError('current must be a symlink')
         previous=current.resolve() if current.is_symlink() else None
         if previous and previous.name==manifest['releaseID']:
             return print('Public Web release unchanged; no deployment')
@@ -115,16 +122,19 @@ def main():
             verify_release(stage)
             subprocess.run(['/usr/bin/python3','-B',str(ROOT/'deploy/check-mirror.py'),'--release',str(stage)],check=True)
             if args.check:return print(f'Candidate verified: {manifest["releaseID"]}')
-            if SITE.read_text()!=config:raise RuntimeError('Nginx configuration changed during preparation')
+            if SITE.read_bytes()!=config:raise RuntimeError('Nginx configuration changed during preparation')
+            if (current.resolve() if current.is_symlink() else None)!=previous or (current.exists() and not current.is_symlink()):
+                raise RuntimeError('Current changed during preparation')
             release=ROOT/'releases'/manifest['releaseID']
             if release.exists():
                 if verify_release(release)!=manifest:raise RuntimeError('Release ID collision')
             else:stage.rename(release)
+            record_activation(ROOT,release,previous,hashlib.sha256(config).hexdigest())
             try:
                 switch(release)
                 verify_live_release(release,manifest)
             except BaseException:
-                if previous:switch(previous)
+                switch(previous)
                 raise
             print(f'Activated {manifest["releaseID"]}')
             prune_old_releases(ROOT,SITE,release,previous,started,verify_release)

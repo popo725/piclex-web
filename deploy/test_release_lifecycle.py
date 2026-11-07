@@ -12,7 +12,7 @@ import release_lifecycle as lifecycle
 from test_deploy import SITE
 
 
-class ReleaseLifecycleTests(unittest.TestCase):
+class ReleaseFixture(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -65,6 +65,8 @@ class ReleaseLifecycleTests(unittest.TestCase):
         stack.enter_context(patch('sys.argv', ['activate.py', *args]))
         return stack
 
+
+class ReleaseLifecycleTests(ReleaseFixture):
     def test_success_keeps_only_current_and_preserves_hard_links_and_user_data(self):
         old_file = self.old / 'piclex-web/library/catalog.json'
         new_file = self.new / 'piclex-web/library/catalog.json'
