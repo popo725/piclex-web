@@ -1,0 +1,44 @@
+import {test,expect} from '@playwright/test';
+import fs from 'node:fs';
+import {fillEnglish} from '../tests/browser/helpers/spelling';
+const catalog=JSON.parse(fs.readFileSync('apps/public/public/library/catalog.json','utf8'));
+const deck=catalog.find((d:any)=>d.title==='程序员工作英语');
+const dictionary=JSON.parse(fs.readFileSync('apps/public/public/dictionary/h.json','utf8'));
+for(const [name,origin] of [['pages','https://zhaoolee.com'],['domestic','https://piclex.v2fy.com']]){
+ test(`${name}: live bilingual hold and completion without transient Next`,async({page},info)=>{
+  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(`${origin}/piclex-web/#/deck/${deck.id}`,{timeout:60000});
+  await expect(page.getByRole('tab',{name:'练听力',exact:true})).toBeVisible({timeout:60000});
+  await page.getByRole('tab',{name:'练听力',exact:true}).click();
+  await page.getByLabel('句子练习模式',{exact:true}).selectOption('free');
+  await page.getByLabel('听写难度',{exact:true}).selectOption('easy');
+  const first=page.locator('.guided-word').first();
+  await expect(first).toBeVisible();await first.hover();
+  const box=await first.boundingBox();
+  await page.mouse.move(box!.x+8,box!.y+14);await page.mouse.down();
+  const popup=page.getByRole('tooltip');
+  await expect(popup.locator('.word-peek-english')).toHaveText('Hi');
+  await expect(popup.locator('.word-peek-meaning')).toHaveText(dictionary.hi,{timeout:30000});
+  await page.screenshot({path:info.outputPath(`${name}-bilingual.png`)});
+  await page.mouse.up();await expect(popup).toHaveCount(0);
+  await expect(first.locator('input')).toHaveValue('');
+  await page.getByLabel('听写难度',{exact:true}).selectOption('hard');
+  await page.evaluate(()=>{
+   (window as any).__flashes=0;
+   new MutationObserver(()=>{if([...document.querySelectorAll('button')].some(b=>b.textContent?.trim()==='下一个'))(window as any).__flashes++;}).observe(document.querySelector('.native-practice')!,{childList:true,subtree:true});
+  });
+  const dimensions=()=>page.locator('.sentence-footer').evaluate(node=>{const size=(selector:string)=>{const r=node.querySelector(selector)!.getBoundingClientRect();return [r.width,r.height];};return {replay:size('.playback-button'),rate:size('.playback-rate'),actions:size('.sentence-actions'),height:node.getBoundingClientRect().height};});
+  const before=page.url(),sizes=await dimensions();
+  await page.screenshot({path:info.outputPath(`${name}-before.png`)});
+  await fillEnglish(page.getByRole('textbox',{name:'听写句子',exact:true}),"Hi I'm Alex");
+  await expect(page.locator('.sentence-actions-pending')).toHaveCount(1);
+  await expect(page.locator('.sentence-feedback')).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'下一个',exact:true})).toHaveCount(0);
+  expect(await dimensions()).toEqual(sizes);
+  await page.screenshot({path:info.outputPath(`${name}-complete.png`)});
+  await expect.poll(()=>page.url(),{timeout:4000}).not.toBe(before);
+  expect(await dimensions()).toEqual(sizes);
+  expect(await page.evaluate(()=>(window as any).__flashes)).toBe(0);
+  expect(errors).toEqual([]);
+ });
+}

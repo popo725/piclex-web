@@ -1,0 +1,59 @@
+{
+  "status": "installed_and_launched",
+  "installedAtLocal": "2026-11-07 17:02:38 +08:00",
+  "installedApp": {
+    "bundleIdentifier": "com.zhaoolee.piclex",
+    "bundleVersion": "373",
+    "version": "1.0.22"
+  },
+  "installOutcome": "success",
+  "launchOutcome": "success",
+  "configuration": "Release",
+  "identity": {
+    "build": "373",
+    "uuid": "80110875-28DD-3032-96DF-1015EBCE7373",
+    "version": "1.0.22"
+  },
+  "archiveAppSHA256": "f05de19ec13190a5a43ccd85c77a75ce286e6d56e6bfffa0666f45fb89abd2e5",
+  "bundles": [
+    {
+      "bundle": "com.zhaoolee.piclex",
+      "build": "373",
+      "fullEntitlementsMatch368": true,
+      "signatureValid": true,
+      "deviceProvisioned": true
+    },
+    {
+      "bundle": "com.zhaoolee.piclex.share",
+      "build": "373",
+      "fullEntitlementsMatch368": true,
+      "signatureValid": true,
+      "deviceProvisioned": true
+    },
+    {
+      "bundle": "com.zhaoolee.piclex.widget",
+      "build": "373",
+      "fullEntitlementsMatch368": true,
+      "signatureValid": true,
+      "deviceProvisioned": true
+    },
+    {
+      "bundle": "com.zhaoolee.piclex.appleassets",
+      "build": "373",
+      "fullEntitlementsMatch368": true,
+      "signatureValid": true,
+      "deviceProvisioned": true
+    }
+  ],
+  "sourceHashes": {
+    "PicLex/Features/Practice/ReadingMatchAccumulator.swift": "72ca541076161d48a84d07d0dd38b3cc9b67d13741a497aaf2a0357db036048e",
+    "PicLex/Features/Practice/ReadingPracticeViewModel.swift": "1a48fb34f1e47d0ae9c9d576168f58690fc0c4e0d046dc8ec16bd0687b80267c",
+    "PicLex/Features/Practice/ReadingSpeechContract.swift": "5b3ac53892b45186b8106697e982f506fc8e0b1277562b2e73ed27280e4263b0",
+    "PicLex/Features/Practice/SpeechRecognitionService.swift": "a17218ca211ad52fca2cc82312680f01a94a6c114f87a667f15d93332ee70e43",
+    "PicLex/Features/Practice/WordAlignmentEngine.swift": "cdb0122292acea99fc0ddf29e18731c55f1780d1666ae8ee55f9cc5b22e59713",
+    "PicLex/Features/Practice/SentenceDictationView.swift": "2db36664cd954e7887250a950582d267df28ea32afccd89c7a6b63286fd24b22"
+  },
+  "productionBaselineMatchedBeforeInstall": true,
+  "operation": "devicectl device install app; in-place same bundle/team/App Group; no uninstall/reset/container writes",
+  "validationBoundary": "Physical installed version and launch verified; full iPhone dictation UI/performance acceptance not claimed"
+}

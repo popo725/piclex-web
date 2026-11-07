@@ -1,0 +1,23 @@
+Verified 1142 files: 028b7e5ba46a-b0e066f5d221
+Verified 1170 files: 5a761ca4beae-8d452963c40d
+Verified 1170 files: 5a761ca4beae-8d452963c40d
+PASS: homepage, JS/CSS MIME, catalog, public same-origin packages/hashes/covers, credits, HEAD, write/hidden/listing guards; existing routes preserved.
+Isolated Nginx stopped and temporary files removed.
+Activated 5a761ca4beae-8d452963c40d
+Verified 1170 files: 5a761ca4beae-8d452963c40d
+Verified 1142 files: 028b7e5ba46a-b0e066f5d221
+Verified 1142 files: 028b7e5ba46a-b0e066f5d221
+Verified 1170 files: 5a761ca4beae-8d452963c40d
+{
+  "current": "5a761ca4beae-8d452963c40d",
+  "deleted": [
+    "028b7e5ba46a-b0e066f5d221"
+  ],
+  "skipped": [],
+  "remaining": [
+    "5a761ca4beae-8d452963c40d"
+  ],
+  "freeBytesBefore": 32696389632,
+  "freeBytesAfter": 32697692160,
+  "completedAt": 1794042185.810343
+}

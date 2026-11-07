@@ -1,0 +1,8 @@
+npm notice run piclex-web@0.1.0 npx
+npm notice run 'playwright' test --config playwright.live.config.ts --grep domestic:
+
+Running 2 tests using 2 workers
+
+[1/2] [chrome-touch] › live-check/dictation.spec.ts:8:2 › domestic: live bilingual hold and completion without transient Next
+[2/2] [webkit-touch] › live-check/dictation.spec.ts:8:2 › domestic: live bilingual hold and completion without transient Next
+  2 passed (16.4s)
