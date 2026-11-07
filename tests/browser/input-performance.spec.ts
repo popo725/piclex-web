@@ -111,3 +111,33 @@ test('typing preserves restored progress and unrelated stored decks when the pag
  expect(await page.evaluate(()=>localStorage.getItem('piclex-web.study.v2.unrelated-deck'))).toBe(baseline.untouched);
  await page.reload();await expect(input).toHaveValue('glass p');
 });
+
+
+for(const starvedIdle of [false,true])test(`full Emoji effects reuse prepared glyphs with idle callbacks ${starvedIdle?'deferred':'available'}`,async({page})=>{
+ await page.addInitScript(starvedIdle=>{
+  if(starvedIdle){window.requestIdleCallback=()=>1;window.cancelIdleCallback=()=>{};}
+  const w=window as any;w.__emojiWork={prepared:[],liveText:0,images:0};
+  const symbols=new Set(['😀','😎','🥳','🐶','🐱','🐼','🦊','🐸','🍎','🍓','🍉','🍇','🌈','🚀','🎈','⚽']);
+  const fill=CanvasRenderingContext2D.prototype.fillText;
+  CanvasRenderingContext2D.prototype.fillText=function(...args:any[]){
+   if(symbols.has(args[0])){if(this.canvas.classList.contains('experience-particles'))w.__emojiWork.liveText++;else w.__emojiWork.prepared.push(args[0]);}
+   return (fill as any).apply(this,args);
+  };
+  const draw=CanvasRenderingContext2D.prototype.drawImage;
+  CanvasRenderingContext2D.prototype.drawImage=function(...args:any[]){if(this.canvas.classList.contains('experience-particles'))w.__emojiWork.images++;return (draw as any).apply(this,args);};
+ },starvedIdle);
+ await open(page,'croissant');
+ await expect.poll(()=>page.evaluate(()=>new Set((window as any).__emojiWork.prepared).size)).toBe(16);
+ await page.evaluate(()=>{for(const letter of 'croissan')document.querySelector<HTMLButtonElement>(`.virtual-key[data-key="${letter}"]`)!.click();});
+ await expect.poll(()=>page.evaluate(()=>(window as any).__emojiWork.images)).toBeGreaterThan(0);
+ const before=await page.evaluate(()=>(window as any).__emojiWork.images);
+ await page.locator('.virtual-key[data-key="t"]').click();
+ await expect.poll(()=>page.evaluate(()=>(window as any).__emojiWork.images)).toBeGreaterThan(before);
+ const result=await page.evaluate(()=>(window as any).__emojiWork);
+ expect(result.liveText).toBe(0);expect(result.prepared).toHaveLength(16);
+ // The cached images must contain visible color, not just empty draw calls.
+ await expect.poll(()=>page.evaluate(()=>{
+  const canvas=document.querySelector<HTMLCanvasElement>('.experience-particles');if(!canvas)return false;
+  return canvas.getContext('2d')!.getImageData(0,0,canvas.width,canvas.height).data.some((value,index)=>index%4===3&&value>0);
+ })).toBe(true);
+});

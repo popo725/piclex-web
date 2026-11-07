@@ -19,7 +19,7 @@ import {editSpellingText} from '../../../packages/learning-ui/src/spelling-edit.
 import useStudyPersistence from './useStudyPersistence';
 import {editKeyboardText} from '../../../packages/learning-ui/src/keyboard-edit.mjs';
 import {transactExperience} from '../../../packages/practice/src/experience-store.mjs';
-import {clearExperienceEffects,emitExperience} from '../../../packages/learning-ui/src/experience-effects';
+import {clearExperienceEffects,emitExperience,prepareExperienceEffects} from '../../../packages/learning-ui/src/experience-effects';
 import {memo,useEffect,useLayoutEffect,useMemo,useRef,useState,useSyncExternalStore,type CSSProperties,type ReactNode} from 'react';
 import {PhotoFocus,type Focus} from '../../../packages/learning-ui/src/PhotoFocus';
 import {AnswerSlots} from '../../../packages/learning-ui/src/AnswerSlots';
@@ -189,7 +189,7 @@ export default function NativePractice({deck,deckChoices,selectDeck,spellingRequ
  },[deck]);
  const credited=useRef(new Set<string>());
  const award=(event:any)=>{const stamp=event.id+':'+(event.matched||'');if(credited.current.has(stamp))return;credited.current.add(stamp);void transactExperience(event).catch(e=>{credited.current.delete(stamp);notify(e.message);});};
- useEffect(()=>()=>{clearExperienceEffects();stopTypingSound();},[]);
+ useEffect(()=>{prepareExperienceEffects();return()=>{clearExperienceEffects();stopTypingSound();};},[]);
  useEffect(()=>{if(!active||!typingSound)stopTypingSound();else prepareTypingSound();},[active,typingSound]);
  useEffect(()=>{if(!active||!typingSound)return;const sound=(e:Event)=>{const node=e.target as HTMLElement;if(node.closest('.native-practice')&&node.matches('input,textarea')&&!(e as InputEvent).isComposing)playTypingSound();};document.addEventListener('input',sound);return()=>document.removeEventListener('input',sound);},[active,typingSound]);
  // Only a fresh answer transition earns the cue; restored/revealed answers are silent.

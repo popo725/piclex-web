@@ -1,0 +1,148 @@
+{
+  "date": "2026-11-07",
+  "status": "Candidate checks passed; exact-commit CI and live publication pending",
+  "base": "c8d731f",
+  "requirement": "Preserve complete effects; optimize repeated Emoji rasterization only",
+  "invariants": {
+    "perAcceptedLetter": 5,
+    "completionBurst": 32,
+    "particleCap": 96,
+    "flightDurationMs": [
+      1250,
+      1850
+    ],
+    "autoAdvanceMs": 300,
+    "fixedSeedDrawCallsBefore": 6349,
+    "fixedSeedDrawCallsAfter": 6349,
+    "unchangedFiles": [
+      "packages/learning-ui/src/experience-flight.mjs",
+      "packages/learning-ui/src/CharacterRipples.tsx",
+      "packages/learning-ui/src/SpellingGlow.tsx",
+      "packages/learning-ui/src/typing-sound.ts",
+      "packages/learning-ui/src/VirtualKeyboard.tsx",
+      "apps/public/src/useStudyPersistence.ts",
+      "packages/practice/src/study.mjs"
+    ]
+  },
+  "renderer": [
+    {
+      "engine": "chrome",
+      "variant": "before",
+      "rate": 6,
+      "frameP50": 0.599999999627471,
+      "frameP95": 10.599999999627471,
+      "frameTotal": 258.29999999981374,
+      "emitP95": 3.2999999998137355,
+      "emits": [
+        3.2999999998137355,
+        0.10000000009313226,
+        1.6000000000931323,
+        1,
+        1.3000000002793968,
+        1.099999999627471,
+        0,
+        0.39999999990686774,
+        0.10000000009313226
+      ],
+      "calls": {
+        "fillText": 6349,
+        "drawImage": 0
+      }
+    },
+    {
+      "engine": "chrome",
+      "variant": "after",
+      "rate": 6,
+      "frameP50": 0.10000000009313226,
+      "frameP95": 1.2999999998137355,
+      "frameTotal": 57.10000000009313,
+      "emitP95": 3.3999999999068677,
+      "emits": [
+        3.3999999999068677,
+        0.20000000018626451,
+        1.2000000001862645,
+        0,
+        2.1000000000931323,
+        0.5,
+        0,
+        0,
+        1.2999999998137355
+      ],
+      "calls": {
+        "fillText": 0,
+        "drawImage": 6349
+      }
+    },
+    {
+      "engine": "webkit",
+      "variant": "before",
+      "rate": 1,
+      "frameP50": 0,
+      "frameP95": 6,
+      "frameTotal": 122,
+      "emitP95": 1,
+      "emits": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "calls": {
+        "fillText": 6349,
+        "drawImage": 0
+      }
+    },
+    {
+      "engine": "webkit",
+      "variant": "after",
+      "rate": 1,
+      "frameP50": 0,
+      "frameP95": 1,
+      "frameTotal": 9,
+      "emitP95": 1,
+      "emits": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "calls": {
+        "fillText": 0,
+        "drawImage": 6349
+      }
+    }
+  ],
+  "priorFullPageFrameP95Ms": {
+    "before": [
+      33.3,
+      33.4
+    ],
+    "after": [
+      16.7,
+      16.8
+    ]
+  },
+  "previousLocalBrowserPassed": 42,
+  "candidateUnitPassed": 273,
+  "candidateDeploymentChecksPassed": 30,
+  "sourceSHA256": {
+    "packages/learning-ui/src/experience-effects.ts": "0d9005314a3395bbd72d1c855ef1df0bc5454f0ba2b022bd5300771d10a590dc",
+    "packages/learning-ui/src/emoji-sprites.ts": "d6866a0ca05009a40891993d986ef1bae0f52415036adce64466eb2066f82316",
+    "apps/public/src/NativePractice.tsx": "7f5db1b76419be788d873f3686171b67da6d41488485ba81ac1f175a328c3b8c",
+    "tests/browser/input-performance.spec.ts": "7611db58799aafdeb2a40bc631219ed7411c21f64e70d00559f252705c9b24aa"
+  },
+  "limitations": [
+    "Mac WebKit and throttled Chrome do not replace actual iPhone Chrome acceptance."
+  ],
+  "candidateMacBrowserPassed": 42
+}
