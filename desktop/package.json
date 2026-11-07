@@ -1,0 +1,41 @@
+{
+  "name": "piclex-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PicLex offline-capable desktop app",
+  "main": "main.cjs",
+  "author": "PicLex community build",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "37.2.0",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.piclex.portable",
+    "productName": "PicLex 摄影学英语",
+    "asar": true,
+    "directories": { "output": "release" },
+    "files": ["main.cjs", "package.json"],
+    "extraResources": [
+      { "from": "../dist", "to": "www", "filter": ["**/*"] }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "PicLex-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "PicLex-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}

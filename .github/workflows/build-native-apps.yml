@@ -1,0 +1,100 @@
+name: Build PicLex desktop and Android
+on:
+  push:
+    branches: [feature/windows-android-packaging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Build original Web assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: .cache/piclex-content
+          key: native-content-${{ hashFiles('content/snapshot.json') }}
+          restore-keys: native-content-
+      - run: npm ci
+      - run: npm test
+      - run: npm run content:build
+        env:
+          PICLEX_CONTENT_CACHE: .cache/piclex-content
+      - run: npm run build
+      - name: Verify Web assets
+        run: |
+          test -f dist/index.html
+          test -f dist/lab/index.html
+          test -f dist/brand/app-icon.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: piclex-web-dist
+          path: dist/
+          retention-days: 14
+          if-no-files-found: error
+
+  windows:
+    name: Windows installer and portable EXE
+    needs: web
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: piclex-web-dist
+          path: dist/
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install Electron packaging dependencies
+        working-directory: desktop
+        run: npm install --no-audit --no-fund
+      - name: Build EXE
+        working-directory: desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+        run: npm run build:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PicLex-Windows
+          path: desktop/release/*.exe
+          retention-days: 30
+          if-no-files-found: error
+
+  android:
+    name: Android test APK
+    needs: web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: piclex-web-dist
+          path: dist/
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Copy Web assets into native Android APK
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp -a dist/. android/app/src/main/assets/
+      - name: Build installable debug APK
+        run: gradle -p android :app:assembleDebug --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PicLex-Android-test
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 30
+          if-no-files-found: error
